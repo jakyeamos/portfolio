@@ -1,0 +1,1845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jakye Amos | Software Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=VT323&family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ========================================
+           RETRO THEME (Default)
+           ======================================== */
+        
+        body.retro {
+            background-color: #000033;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px),
+                radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 3px);
+            background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+            background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+            min-height: 100vh;
+            font-family: 'Comic Neue', cursive;
+            color: #00ff00;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext y='24' font-size='24'%3E👆%3C/text%3E%3C/svg%3E"), auto;
+            transition: all 0.3s ease;
+        }
+
+        /* Main container */
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Theme toggle button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px 15px;
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .retro .theme-toggle {
+            background: linear-gradient(to bottom, #e0e0e0, #a0a0a0);
+            border: 3px outset #c0c0c0;
+            color: #000080;
+        }
+
+        .retro .theme-toggle:hover {
+            background: linear-gradient(to bottom, #a0a0a0, #e0e0e0);
+            border-style: inset;
+        }
+
+        /* Header banner - Retro */
+        .retro .header-banner {
+            background: linear-gradient(180deg, #ff6600 0%, #ffcc00 50%, #ff6600 100%);
+            border: 4px ridge gold;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 10px;
+            box-shadow: 5px 5px 0px #000;
+        }
+
+        .retro .header-banner h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 24px;
+            color: #000080;
+            text-shadow: 2px 2px #fff, -1px -1px #ff0000;
+        }
+
+        .retro .header-subtitle {
+            font-family: 'Comic Neue', cursive;
+            color: #000;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        /* Marquee styling */
+        .marquee-container {
+            background: #000;
+            border: 3px inset #808080;
+            padding: 8px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .marquee-text {
+            display: inline-block;
+            animation: marquee 15s linear infinite;
+            white-space: nowrap;
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            color: #00ff00;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Navigation buttons - Retro */
+        .retro .nav-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 10px;
+            background: linear-gradient(to bottom, #c0c0c0, #808080);
+            border: 3px outset #c0c0c0;
+        }
+
+        .retro .nav-btn {
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+            padding: 8px 20px;
+            background: linear-gradient(to bottom, #e0e0e0, #a0a0a0);
+            border: 3px outset #c0c0c0;
+            cursor: pointer;
+            color: #000080;
+            text-decoration: none;
+            transition: all 0.1s;
+        }
+
+        .retro .nav-btn:hover {
+            background: linear-gradient(to bottom, #a0a0a0, #e0e0e0);
+            border-style: inset;
+        }
+
+        /* Content sections - Retro */
+        .retro .content-section {
+            background: #ffffcc;
+            border: 3px ridge #808080;
+            margin: 15px 0;
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.5);
+        }
+
+        .retro .section-header {
+            background: linear-gradient(to right, #000080, #0000ff, #000080);
+            color: #ffffff;
+            padding: 10px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .retro .section-content {
+            padding: 15px;
+            color: #000;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Horizontal rule - classic style */
+        .retro .fancy-hr {
+            border: none;
+            height: 10px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                #ff0000 10%, 
+                #ffff00 25%, 
+                #00ff00 40%, 
+                #00ffff 55%, 
+                #0000ff 70%, 
+                #ff00ff 85%, 
+                transparent 100%
+            );
+            margin: 10px 0;
+        }
+
+        /* Blinking text */
+        .blink {
+            animation: blink 1s step-start infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Under construction banner */
+        .retro .under-construction {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: #ffff00;
+            border: 3px dashed #ff0000;
+            padding: 10px;
+            margin: 15px 0;
+        }
+
+        .construction-icon {
+            font-size: 40px;
+            animation: bounce 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        .construction-text {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: #ff0000;
+        }
+
+        /* Skills list with icons */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .retro .skill-item {
+            background: linear-gradient(to bottom, #e0e0ff, #c0c0ff);
+            border: 2px outset #8080ff;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-icon {
+            font-size: 20px;
+        }
+
+        /* Experience cards - Retro */
+        .retro .exp-card {
+            background: #fff;
+            border: 2px solid #000080;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .retro .exp-card::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border: 2px dashed #ff6600;
+            pointer-events: none;
+        }
+
+        .retro .exp-header {
+            background: linear-gradient(to right, #ff6600, #ffcc00);
+            padding: 10px;
+            font-weight: bold;
+            border-bottom: 2px solid #000;
+        }
+
+        .exp-body {
+            padding: 10px;
+        }
+
+        .exp-body ul {
+            margin-left: 20px;
+        }
+
+        .exp-body li {
+            margin: 8px 0;
+        }
+
+        /* Visitor counter */
+        .retro .visitor-counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #000;
+            border: 3px inset #808080;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .counter-display {
+            background: #001100;
+            border: 2px inset #00ff00;
+            padding: 5px 15px;
+            font-family: 'VT323', monospace;
+            font-size: 28px;
+            color: #00ff00;
+            letter-spacing: 3px;
+        }
+
+        .counter-label {
+            color: #ffff00;
+            font-family: 'Comic Neue', cursive;
+            font-size: 14px;
+        }
+
+        /* Guestbook button */
+        .retro .guestbook-section {
+            text-align: center;
+            background: linear-gradient(45deg, #ff69b4, #ff1493, #ff69b4);
+            border: 4px ridge #ff69b4;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .retro .guestbook-btn {
+            display: inline-block;
+            background: linear-gradient(to bottom, #ffff00, #ff9900);
+            border: 4px outset #ffcc00;
+            padding: 15px 30px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Contact section - Retro */
+        .retro .contact-section {
+            background: linear-gradient(135deg, #00ffff, #00cccc);
+            border: 4px double #008888;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .email-icon {
+            font-size: 50px;
+            animation: spin 2s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        .retro .contact-link {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background: #000080;
+            color: #ffff00;
+            text-decoration: none;
+            border: 3px outset #0000ff;
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+        }
+
+        .retro .contact-link:hover {
+            background: #0000ff;
+            border-style: inset;
+        }
+
+        /* Web ring section */
+        .retro .webring {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            background: #800080;
+            border: 3px groove #ff00ff;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .webring-logo {
+            font-size: 30px;
+        }
+
+        .webring-text {
+            color: #ffff00;
+            font-family: 'Comic Neue', cursive;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .webring-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .webring-nav a {
+            color: #00ffff;
+            text-decoration: none;
+        }
+
+        /* Browser badge */
+        .retro .browser-badge {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .retro .badge {
+            display: inline-block;
+            background: #000;
+            border: 2px solid #808080;
+            padding: 8px 15px;
+            color: #c0c0c0;
+            font-family: 'VT323', monospace;
+            font-size: 14px;
+            margin: 5px;
+        }
+
+        /* Footer - Retro */
+        .retro .footer {
+            text-align: center;
+            padding: 20px;
+            color: #ffff00;
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .retro .footer a {
+            color: #00ffff;
+        }
+
+        /* Animated fire */
+        .fire {
+            display: inline-block;
+            animation: flicker 0.2s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Profile image container */
+        .retro .profile-img-container {
+            float: left;
+            margin: 0 15px 15px 0;
+            border: 4px ridge #c0c0c0;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            padding: 5px;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* New badge */
+        .new-badge {
+            display: inline-block;
+            background: #ff0000;
+            color: #ffff00;
+            padding: 2px 6px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 8px;
+            animation: blink 0.5s step-start infinite;
+            margin-left: 5px;
+        }
+
+        /* Sparkle decorations */
+        .sparkle {
+            position: relative;
+        }
+
+        .retro .sparkle::before,
+        .retro .sparkle::after {
+            content: '✨';
+            position: absolute;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        .retro .sparkle::before {
+            left: -25px;
+        }
+
+        .retro .sparkle::after {
+            right: -25px;
+            animation-delay: 0.75s;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Gradient text */
+        .retro .gradient-text {
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #8b00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+
+        /* Clearfix */
+        .clearfix::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        /* Education section - Retro */
+        .retro .education-section {
+            background: linear-gradient(135deg, #4a0080, #800080);
+            color: #fff;
+            padding: 15px;
+            border: 3px ridge #ff00ff;
+        }
+
+        .retro .school-name {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 11px;
+            color: #ffff00;
+            margin-bottom: 10px;
+        }
+
+        .degree-info {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        /* Projects Section - Retro */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .retro .project-card {
+            background: #fff;
+            border: 3px ridge #808080;
+            overflow: hidden;
+        }
+
+        .retro .project-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #000080, #0000ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            border-bottom: 3px solid #000080;
+        }
+
+        .retro .project-info {
+            padding: 15px;
+        }
+
+        .retro .project-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: #000080;
+            margin-bottom: 10px;
+        }
+
+        .retro .project-description {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .retro .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .retro .tech-tag {
+            background: linear-gradient(to bottom, #e0e0e0, #c0c0c0);
+            border: 2px outset #a0a0a0;
+            padding: 3px 8px;
+            font-family: 'VT323', monospace;
+            font-size: 14px;
+            color: #000;
+        }
+
+        .retro .project-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .retro .project-link {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            background: linear-gradient(to bottom, #e0e0e0, #a0a0a0);
+            border: 3px outset #c0c0c0;
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            color: #000080;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .retro .project-link:hover {
+            background: linear-gradient(to bottom, #a0a0a0, #e0e0e0);
+            border-style: inset;
+        }
+
+        .retro .project-link.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Custom scrollbar - Retro */
+        .retro::-webkit-scrollbar {
+            width: 20px;
+        }
+
+        .retro::-webkit-scrollbar-track {
+            background: #c0c0c0;
+            border: 2px inset #808080;
+        }
+
+        .retro::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #e0e0e0, #a0a0a0);
+            border: 2px outset #c0c0c0;
+        }
+
+        /* ========================================
+           CLEAN/PROFESSIONAL THEME
+           ======================================== */
+
+        body.clean {
+            background-color: #0a0a0f;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            color: #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .clean .theme-toggle {
+            background: #1a1a2e;
+            border: 1px solid #333;
+            color: #00d4ff;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .clean .theme-toggle:hover {
+            background: #252540;
+            border-color: #00d4ff;
+        }
+
+        /* Hide retro-only elements in clean mode */
+        .clean .marquee-container,
+        .clean .under-construction,
+        .clean .visitor-counter,
+        .clean .guestbook-section,
+        .clean .webring,
+        .clean .browser-badge,
+        .clean .new-badge,
+        .clean .fire,
+        .clean .construction-icon,
+        .clean .email-icon {
+            display: none !important;
+        }
+
+        .clean .header-banner {
+            background: transparent;
+            border: none;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: none;
+        }
+
+        .clean .header-banner h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: none;
+            letter-spacing: -1px;
+        }
+
+        .clean .header-subtitle {
+            font-family: 'Inter', sans-serif;
+            color: #00d4ff;
+            font-size: 20px;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        .clean .nav-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+            padding: 0;
+            background: transparent;
+            border: none;
+        }
+
+        .clean .nav-btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 12px 24px;
+            background: transparent;
+            border: 1px solid #333;
+            cursor: pointer;
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+        }
+
+        .clean .nav-btn:hover {
+            background: #1a1a2e;
+            border-color: #00d4ff;
+            color: #00d4ff;
+        }
+
+        .clean .content-section {
+            background: #12121a;
+            border: 1px solid #1a1a2e;
+            border-radius: 12px;
+            margin: 25px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .clean .section-header {
+            background: #1a1a2e;
+            color: #ffffff;
+            padding: 20px 25px;
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-radius: 12px 12px 0 0;
+            border-bottom: 1px solid #252540;
+        }
+
+        .clean .section-content {
+            padding: 25px;
+            color: #c0c0c0;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .clean .fancy-hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #333, transparent);
+            margin: 30px 0;
+        }
+
+        .clean .skill-item {
+            background: #1a1a2e;
+            border: 1px solid #252540;
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #e0e0e0;
+            transition: all 0.2s ease;
+        }
+
+        .clean .skill-item:hover {
+            border-color: #00d4ff;
+            transform: translateY(-2px);
+        }
+
+        .clean .exp-card {
+            background: #1a1a2e;
+            border: 1px solid #252540;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .clean .exp-card::before {
+            display: none;
+        }
+
+        .clean .exp-header {
+            background: linear-gradient(135deg, #252540, #1a1a2e);
+            padding: 15px 20px;
+            font-weight: 600;
+            border-bottom: 1px solid #333;
+            color: #ffffff;
+        }
+
+        .clean .exp-body {
+            padding: 20px;
+            color: #c0c0c0;
+        }
+
+        .clean .exp-body li {
+            margin: 12px 0;
+        }
+
+        .clean .contact-section {
+            background: #1a1a2e;
+            border: 1px solid #252540;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .clean .contact-link {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 24px;
+            background: transparent;
+            color: #00d4ff;
+            text-decoration: none;
+            border: 1px solid #00d4ff;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .clean .contact-link:hover {
+            background: #00d4ff;
+            color: #0a0a0f;
+        }
+
+        .clean .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+
+        .clean .footer a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+
+        .clean .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .clean .profile-img-container {
+            float: left;
+            margin: 0 20px 20px 0;
+            border: none;
+            background: linear-gradient(135deg, #00d4ff, #0066ff);
+            padding: 3px;
+            border-radius: 12px;
+        }
+
+        .clean .profile-img {
+            border-radius: 10px;
+        }
+
+        .clean .gradient-text {
+            background: linear-gradient(90deg, #00d4ff, #0066ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .clean .sparkle::before,
+        .clean .sparkle::after {
+            display: none;
+        }
+
+        .clean .education-section {
+            background: linear-gradient(135deg, #1a1a2e, #252540);
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
+        .clean .school-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+
+        /* Projects Section - Clean */
+        .clean .project-card {
+            background: #1a1a2e;
+            border: 1px solid #252540;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .clean .project-card:hover {
+            border-color: #00d4ff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.1);
+        }
+
+        .clean .project-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #252540, #1a1a2e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            border-bottom: 1px solid #333;
+        }
+
+        .clean .project-info {
+            padding: 20px;
+        }
+
+        .clean .project-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .clean .project-description {
+            font-size: 14px;
+            color: #a0a0a0;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .clean .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .clean .tech-tag {
+            background: #252540;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: #00d4ff;
+        }
+
+        .clean .project-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .clean .project-link {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background: transparent;
+            border: 1px solid #333;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #e0e0e0;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .clean .project-link:hover {
+            background: #252540;
+            border-color: #00d4ff;
+            color: #00d4ff;
+        }
+
+        .clean .project-link.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .clean .project-link.disabled:hover {
+            background: transparent;
+            border-color: #333;
+            color: #e0e0e0;
+        }
+
+        /* Coming soon overlay */
+        .coming-soon-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .coming-soon-overlay {
+            opacity: 1;
+        }
+
+        .coming-soon-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #fff;
+            background: #00d4ff;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+
+        .retro .coming-soon-text {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            background: #ff0000;
+        }
+
+        .project-card {
+            position: relative;
+        }
+
+        /* ========================================
+           GUESTBOOK MODAL STYLES
+           ======================================== */
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .retro .modal-content {
+            background: #ffffcc;
+            border: 4px ridge #808080;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+            animation: modalBounce 0.3s ease-out;
+        }
+
+        @keyframes modalBounce {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .retro .modal-header {
+            background: linear-gradient(to right, #000080, #0000ff, #000080);
+            color: #ffffff;
+            padding: 10px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .retro .modal-close {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(to bottom, #e0e0e0, #a0a0a0);
+            border: 2px outset #c0c0c0;
+            color: #000;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .retro .modal-close:hover {
+            background: linear-gradient(to bottom, #ff6666, #cc0000);
+            color: #fff;
+        }
+
+        .retro .modal-body {
+            padding: 20px;
+        }
+
+        .retro .form-group {
+            margin-bottom: 15px;
+        }
+
+        .retro .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: bold;
+            color: #000080;
+        }
+
+        .retro .form-group input,
+        .retro .form-group textarea,
+        .retro .form-group select {
+            width: 100%;
+            padding: 8px;
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            border: 2px inset #808080;
+            background: #fff;
+        }
+
+        .retro .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .retro .form-submit {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to bottom, #ffff00, #ff9900);
+            border: 4px outset #ffcc00;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: #000;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .retro .form-submit:hover {
+            background: linear-gradient(to bottom, #ff9900, #ffff00);
+            border-style: inset;
+        }
+
+        .retro .success-message {
+            text-align: center;
+            padding: 20px;
+            font-family: 'Comic Neue', cursive;
+            color: #000;
+        }
+
+        .retro .success-message p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        /* Clean theme modal styles */
+        .clean .modal-content {
+            background: #12121a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: modalFade 0.3s ease-out;
+        }
+
+        @keyframes modalFade {
+            0% { transform: translateY(-20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .clean .modal-header {
+            background: #1a1a2e;
+            color: #ffffff;
+            padding: 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #333;
+            border-radius: 12px 12px 0 0;
+            position: relative;
+        }
+
+        .clean .modal-close {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 1px solid #333;
+            color: #888;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .clean .modal-close:hover {
+            background: #ff4444;
+            border-color: #ff4444;
+            color: #fff;
+        }
+
+        .clean .modal-body {
+            padding: 25px;
+        }
+
+        .clean .form-group {
+            margin-bottom: 20px;
+        }
+
+        .clean .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            color: #e0e0e0;
+            font-size: 14px;
+        }
+
+        .clean .form-group input,
+        .clean .form-group textarea,
+        .clean .form-group select {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #1a1a2e;
+            color: #e0e0e0;
+            transition: border-color 0.2s;
+        }
+
+        .clean .form-group input:focus,
+        .clean .form-group textarea:focus,
+        .clean .form-group select:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+
+        .clean .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .clean .form-submit {
+            width: 100%;
+            padding: 14px;
+            background: #00d4ff;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0a0a0f;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.2s;
+        }
+
+        .clean .form-submit:hover {
+            background: #00b8e6;
+            transform: translateY(-2px);
+        }
+
+        .clean .success-message {
+            text-align: center;
+            padding: 20px;
+            font-family: 'Inter', sans-serif;
+            color: #e0e0e0;
+        }
+
+        .clean .success-message p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body class="retro">
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <span class="toggle-text">🎨 Switch to Clean Mode</span>
+    </button>
+
+    <div class="main-container">
+        <!-- Header -->
+        <div class="header-banner">
+            <h1><span class="retro-only">~*~ </span>JAKYE AMOS<span class="retro-only"> ~*~</span></h1>
+            <p class="header-subtitle">
+                <span class="fire">🔥</span> Software Engineer <span class="fire">🔥</span>
+            </p>
+        </div>
+
+        <!-- Marquee -->
+        <div class="marquee-container">
+            <span class="marquee-text">
+                ★★★ Welcome to my AWESOME homepage! ★★★ Python | JavaScript | Go | AWS | Microservices | Docker | Kubernetes ★★★ Currently @ Case Western Reserve University ★★★ Amazon SDE Intern ★★★ Building cool stuff since forever! ★★★
+            </span>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="#about" class="nav-btn">📋 About Me</a>
+            <a href="#projects" class="nav-btn">🚀 Projects</a>
+            <a href="#skills" class="nav-btn">💻 Skills</a>
+            <a href="#experience" class="nav-btn">💼 Experience</a>
+            <a href="#education" class="nav-btn">🎓 Education</a>
+            <a href="#contact" class="nav-btn">📧 Contact</a>
+        </div>
+
+        <!-- Under Construction Banner -->
+        <div class="under-construction">
+            <span class="construction-icon">🚧</span>
+            <span class="construction-text">THIS PAGE IS ALWAYS UNDER CONSTRUCTION!</span>
+            <span class="construction-icon">👷</span>
+        </div>
+
+        <!-- About Section -->
+        <div class="content-section" id="about">
+            <div class="section-header">
+                <span>👤</span> ABOUT ME <span class="new-badge">NEW!</span>
+            </div>
+            <div class="section-content clearfix">
+                <div class="profile-img-container">
+                    <div class="profile-img" style="background: linear-gradient(45deg, #000080, #0000ff); display: flex; align-items: center; justify-content: center; font-size: 60px;">
+                        👨‍💻
+                    </div>
+                </div>
+                <p>
+                    <strong class="gradient-text">Hey there!</strong> 👋
+                </p>
+                <p style="margin-top: 10px;">
+                    I'm <strong>Jakye Amos</strong>, a Software Engineer from <strong>Buffalo, NY</strong> with extensive experience designing and implementing scalable, microservices-based solutions at major organizations.
+                </p>
+                <p style="margin-top: 10px;">
+                    I specialize in <strong>Python, JavaScript, Go</strong>, and cloud platforms like <strong>AWS Lambda, S3, EC2</strong>. I deliver enterprise-scale applications using <strong>Agile/Scrum methodologies</strong> and <strong>DevOps practices</strong>.
+                </p>
+                <p style="margin-top: 10px;">
+                    When I'm not coding, I'm running the <strong>CWRU Flea Market</strong> (the largest monthly campus event!) or leading the <strong>App Developers Club</strong> as VP.
+                </p>
+            </div>
+        </div>
+
+        <hr class="fancy-hr">
+
+        <!-- Projects Section -->
+        <div class="content-section" id="projects">
+            <div class="section-header">
+                <span>🚀</span> PROJECTS
+            </div>
+            <div class="section-content">
+                <div class="projects-grid">
+                    <!-- Project 1 - Placeholder -->
+                    <div class="project-card">
+                        <div class="project-image">🤖</div>
+                        <div class="project-info">
+                            <h3 class="project-title">AI Interview Coach</h3>
+                            <p class="project-description">
+                                RAG-powered interview preparation tool with real-time feedback, session tracking, and personalized question generation.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Next.js</span>
+                                <span class="tech-tag">FastAPI</span>
+                                <span class="tech-tag">OpenAI</span>
+                                <span class="tech-tag">pgvector</span>
+                                <span class="tech-tag">AWS</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link disabled">Live Demo</a>
+                                <a href="#" class="project-link disabled">GitHub</a>
+                            </div>
+                        </div>
+                        <div class="coming-soon-overlay">
+                            <span class="coming-soon-text">COMING SOON</span>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 - Placeholder -->
+                    <div class="project-card">
+                        <div class="project-image">📊</div>
+                        <div class="project-info">
+                            <h3 class="project-title">Real-Time Analytics Dashboard</h3>
+                            <p class="project-description">
+                                Customizable dashboard with drag-and-drop widgets, WebSocket live updates, and data visualization.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">D3.js</span>
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Redis</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link disabled">Live Demo</a>
+                                <a href="#" class="project-link disabled">GitHub</a>
+                            </div>
+                        </div>
+                        <div class="coming-soon-overlay">
+                            <span class="coming-soon-text">COMING SOON</span>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 - Placeholder -->
+                    <div class="project-card">
+                        <div class="project-image">🛠️</div>
+                        <div class="project-info">
+                            <h3 class="project-title">Coverage Reporter CLI</h3>
+                            <p class="project-description">
+                                Developer tool for real-time test coverage awareness during code reviews with Git integration.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Go</span>
+                                <span class="tech-tag">Git API</span>
+                                <span class="tech-tag">CLI</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link disabled">npm</a>
+                                <a href="#" class="project-link disabled">GitHub</a>
+                            </div>
+                        </div>
+                        <div class="coming-soon-overlay">
+                            <span class="coming-soon-text">COMING SOON</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="fancy-hr">
+
+        <!-- Skills Section -->
+        <div class="content-section" id="skills">
+            <div class="section-header">
+                <span>🛠️</span> SKILLS <span class="blink retro-only">!!!</span>
+            </div>
+            <div class="section-content">
+                <h3 style="margin-bottom: 10px;">
+                    <span class="sparkle">💎 Languages 💎</span>
+                </h3>
+                <div class="skills-grid">
+                    <div class="skill-item"><span class="skill-icon">🐍</span> Python</div>
+                    <div class="skill-item"><span class="skill-icon">📜</span> JavaScript</div>
+                    <div class="skill-item"><span class="skill-icon">☕</span> Java</div>
+                    <div class="skill-item"><span class="skill-icon">📘</span> TypeScript</div>
+                    <div class="skill-item"><span class="skill-icon">🐹</span> Go</div>
+                </div>
+
+                <h3 style="margin: 15px 0 10px 0;">
+                    <span class="sparkle">☁️ Cloud & DevOps ☁️</span>
+                </h3>
+                <div class="skills-grid">
+                    <div class="skill-item"><span class="skill-icon">⚡</span> AWS Lambda</div>
+                    <div class="skill-item"><span class="skill-icon">🪣</span> AWS S3</div>
+                    <div class="skill-item"><span class="skill-icon">🖥️</span> AWS EC2</div>
+                    <div class="skill-item"><span class="skill-icon">🐳</span> Docker</div>
+                    <div class="skill-item"><span class="skill-icon">☸️</span> Kubernetes</div>
+                    <div class="skill-item"><span class="skill-icon">🏗️</span> Terraform</div>
+                    <div class="skill-item"><span class="skill-icon">🔧</span> Jenkins</div>
+                    <div class="skill-item"><span class="skill-icon">🔄</span> CI/CD</div>
+                </div>
+
+                <h3 style="margin: 15px 0 10px 0;">
+                    <span class="sparkle">🧰 Frameworks & Tools 🧰</span>
+                </h3>
+                <div class="skills-grid">
+                    <div class="skill-item"><span class="skill-icon">💚</span> Node.js</div>
+                    <div class="skill-item"><span class="skill-icon">⚛️</span> React</div>
+                    <div class="skill-item"><span class="skill-icon">🔌</span> REST APIs</div>
+                    <div class="skill-item"><span class="skill-icon">🐘</span> PostgreSQL</div>
+                    <div class="skill-item"><span class="skill-icon">📊</span> NoSQL</div>
+                    <div class="skill-item"><span class="skill-icon">🌿</span> Git</div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="fancy-hr">
+
+        <!-- Experience Section -->
+        <div class="content-section" id="experience">
+            <div class="section-header">
+                <span>💼</span> EXPERIENCE
+            </div>
+            <div class="section-content">
+                
+                <!-- Forward Automations -->
+                <div class="exp-card">
+                    <div class="exp-header">
+                        🚀 FORWARD AUTOMATIONS | Lead Engineer | 2023 - Present
+                    </div>
+                    <div class="exp-body">
+                        <ul>
+                            <li>Led design and delivery of <strong>Cleveland Clinic clinical coaching MVP</strong> in 2 weeks using microservices architecture with HIPAA-compliant healthcare deployment</li>
+                            <li>Architected scalable productivity software using Python, JavaScript, and AWS serverless stack for a Cleveland architecture firm</li>
+                            <li>Directed legacy system refactor for STEM Playbook using Agile methodologies, launching stable application with 99.9% uptime for major live event</li>
+                            <li>Engineered AI marketing automation tools utilizing Go and cloud-native technologies with multi-region deployment</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Deepr -->
+                <div class="exp-card">
+                    <div class="exp-header">
+                        🦄 DEEPR (A16z Portfolio Company) | Technical Consultant | 2025
+                    </div>
+                    <div class="exp-body">
+                        <ul>
+                            <li>Implemented AI-powered photo carousel system using RESTful API design and microservices architecture with Docker containerization</li>
+                            <li>Developed in-line coverage vector tool for real-time testing coverage awareness during code reviews, integrating with Git workflows</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Amazon -->
+                <div class="exp-card">
+                    <div class="exp-header">
+                        📦 AMAZON | Software Development Engineer Intern | 2023 - 2025
+                    </div>
+                    <div class="exp-body">
+                        <ul>
+                            <li><strong>UCM-WFE Team:</strong> Optimized customer process efficiency within Ads department using Java and AWS services, implementing Terraform for infrastructure as code</li>
+                            <li><strong>Jersey City Fintech Team:</strong> Engineered data analytics project providing actionable hiring insights using PostgreSQL with advanced query optimization</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Web Ring -->
+        <div class="webring">
+            <span class="webring-logo">🌐</span>
+            <div class="webring-text">
+                <strong>~ Software Engineers Web Ring ~</strong><br>
+                <div class="webring-nav">
+                    <a href="#">[&lt;&lt; Prev]</a>
+                    <a href="#">[Random]</a>
+                    <a href="#">[Next &gt;&gt;]</a>
+                </div>
+            </div>
+            <span class="webring-logo">🌐</span>
+        </div>
+
+        <!-- Education Section -->
+        <div class="content-section" id="education">
+            <div class="section-header">
+                <span>🎓</span> EDUCATION & LEADERSHIP
+            </div>
+            <div class="section-content">
+                <div class="education-section">
+                    <div class="school-name">🏛️ CASE WESTERN RESERVE UNIVERSITY</div>
+                    <div class="degree-info">
+                        <strong>B.S. Computer Science & Data Science</strong><br>
+                        Minors: AI, Statistics<br>
+                        <em>Expected: May 2026</em>
+                    </div>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <h4>🌟 Leadership Roles:</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li style="margin: 10px 0;">
+                            <strong>CWRU Flea Market Founder:</strong> Built the largest monthly campus event with 600+ attendees
+                        </li>
+                        <li style="margin: 10px 0;">
+                            <strong>App Developers Club VP:</strong> Leading technical development opportunities for 200+ students
+                        </li>
+                        <li style="margin: 10px 0;">
+                            <strong>Elevated Aperture Founder:</strong> Aerial photography company serving construction and arts industries
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <hr class="fancy-hr">
+
+        <!-- Visitor Counter -->
+        <div class="visitor-counter">
+            <span class="counter-label">You are visitor #</span>
+            <div class="counter-display" id="visitorCount">001337</div>
+            <span class="counter-label">since 1999!</span>
+        </div>
+
+        <!-- Guestbook -->
+        <div class="guestbook-section">
+            <p style="color: #fff; font-size: 18px; margin-bottom: 15px; text-shadow: 2px 2px #000;">
+                ✨ Did you enjoy my page? Sign my guestbook! ✨
+            </p>
+            <button onclick="openGuestbook()" class="guestbook-btn">📝 SIGN GUESTBOOK 📝</button>
+        </div>
+
+        <!-- Guestbook Modal -->
+        <div id="guestbookModal" class="modal-overlay" onclick="closeGuestbookOutside(event)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>📝</span> SIGN MY GUESTBOOK!
+                    <button class="modal-close" onclick="closeGuestbook()">✕</button>
+                </div>
+                <div class="modal-body">
+                    <form id="guestbookForm" action="https://formspree.io/f/xeejjnwe" method="POST">
+                        <div class="form-group">
+                            <label for="guestName">Your Name:</label>
+                            <input type="text" id="guestName" name="name" required placeholder="Cyber Surfer 2000">
+                        </div>
+                        <div class="form-group">
+                            <label for="guestEmail">Your Email (optional):</label>
+                            <input type="email" id="guestEmail" name="email" placeholder="visitor@aol.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="guestMessage">Your Message:</label>
+                            <textarea id="guestMessage" name="message" required placeholder="Cool site! Keep up the great work! 🔥" rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="guestRating">Rate My Page:</label>
+                            <select id="guestRating" name="rating">
+                                <option value="5">⭐⭐⭐⭐⭐ Totally Rad!</option>
+                                <option value="4">⭐⭐⭐⭐ Pretty Cool</option>
+                                <option value="3">⭐⭐⭐ It's Okay</option>
+                                <option value="2">⭐⭐ Needs Work</option>
+                                <option value="1">⭐ Not My Vibe</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="_subject" value="New Guestbook Entry! 📝">
+                        <button type="submit" class="form-submit">📮 SUBMIT ENTRY 📮</button>
+                    </form>
+                    <div id="guestbookSuccess" class="success-message" style="display: none;">
+                        <p>🎉 Thanks for signing my guestbook! 🎉</p>
+                        <p>Your message has been received!</p>
+                        <button onclick="closeGuestbook()" class="form-submit">CLOSE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="content-section" id="contact">
+            <div class="section-header">
+                <span>📬</span> GET IN TOUCH
+            </div>
+            <div class="contact-section">
+                <div class="email-icon">📧</div>
+                <h3 style="margin: 15px 0;">Want to chat? Let's connect!</h3>
+                <div>
+                    <a href="mailto:jakyejobs@gmail.com" class="contact-link">📧 jakyejobs@gmail.com</a>
+                </div>
+                <div>
+                    <a href="https://linkedin.com/in/jakyeamos" target="_blank" class="contact-link">💼 LinkedIn</a>
+                </div>
+                <div>
+                    <a href="https://github.com/jakyeamos" target="_blank" class="contact-link">🐙 GitHub</a>
+                </div>
+                <div>
+                    <a href="tel:716-578-8221" class="contact-link">📞 716-578-8221</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Browser Badges -->
+        <div class="browser-badge">
+            <div class="badge">📺 Best viewed in 800x600</div>
+            <div class="badge">🌐 Netscape Navigator 4.0+</div>
+            <div class="badge">💻 Made with Notepad</div>
+            <div class="badge">🎨 CSS is my passion</div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>
+                <span class="blink retro-only">★</span> 
+                Thanks for visiting! 
+                <span class="blink retro-only">★</span>
+            </p>
+            <p style="margin-top: 10px; font-size: 12px;">
+                © 2025 Jakye Amos | Buffalo, NY<br>
+                <a href="#" onclick="scrollToTop(); return false;">Back to Top</a>
+            </p>
+            <p style="margin-top: 15px; font-size: 20px;" class="retro-only">
+                <span class="fire">🔥</span>
+                <span class="sparkle">Keep it real!</span>
+                <span class="fire">🔥</span>
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const toggleBtn = document.querySelector('.toggle-text');
+            
+            if (body.classList.contains('retro')) {
+                body.classList.remove('retro');
+                body.classList.add('clean');
+                toggleBtn.textContent = '🕹️ Switch to Retro Mode';
+            } else {
+                body.classList.remove('clean');
+                body.classList.add('retro');
+                toggleBtn.textContent = '🎨 Switch to Clean Mode';
+            }
+            
+            // Save preference
+            localStorage.setItem('theme', body.classList.contains('clean') ? 'clean' : 'retro');
+        }
+
+        // Load saved theme preference
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const toggleBtn = document.querySelector('.toggle-text');
+            
+            if (savedTheme === 'clean') {
+                document.body.classList.remove('retro');
+                document.body.classList.add('clean');
+                toggleBtn.textContent = '🕹️ Switch to Retro Mode';
+            }
+            
+            // Visitor counter (retro mode only)
+            const counter = document.getElementById('visitorCount');
+            let count = 1337 + Math.floor(Math.random() * 100);
+            counter.textContent = String(count).padStart(6, '0');
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Guestbook modal functions
+        function openGuestbook() {
+            const modal = document.getElementById('guestbookModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeGuestbook() {
+            const modal = document.getElementById('guestbookModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            // Reset form
+            document.getElementById('guestbookForm').reset();
+            document.getElementById('guestbookForm').style.display = 'block';
+            document.getElementById('guestbookSuccess').style.display = 'none';
+        }
+
+        function closeGuestbookOutside(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                closeGuestbook();
+            }
+        }
+
+        // Handle guestbook form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('guestbookForm');
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const submitBtn = form.querySelector('.form-submit');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = '📮 SENDING... 📮';
+                submitBtn.disabled = true;
+
+                try {
+                    const formData = new FormData(form);
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        // Show success message
+                        form.style.display = 'none';
+                        document.getElementById('guestbookSuccess').style.display = 'block';
+                    } else {
+                        throw new Error('Form submission failed');
+                    }
+                } catch (error) {
+                    alert('Oops! Something went wrong. Please try again or email me directly!');
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeGuestbook();
+            }
+        });
+    </script>
+</body>
+</html>
