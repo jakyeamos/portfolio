@@ -1,12 +1,12 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site rebuilt as a React/Vite/Tailwind SPA with an ESPN-style design language — substantial content and structure exist on a feature branch, not yet merged to main.
+summary: Personal portfolio site rebuilt as a React/Vite/Tailwind SPA with an ESPN-style design language; GSD planning is now initialized, the current-project list no longer includes GitNexus, and the repo is back to a passing type/build baseline.
 healthScore: 55
 statusLabel: needs_attention
-nextStep: Merge codex/espn-portfolio-refresh to main after resolving the large untracked files and verifying the build.
+nextStep: Merge the SPA work to main from a clean branch, then close the remaining release and deployment cleanup around loose binary assets and draft directories.
 blockers: []
-lastUpdated: 2026-04-09
+lastUpdated: 2026-04-10
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, player-comps, impact-report]
 goals:
@@ -18,8 +18,8 @@ primaryLanguage: TypeScript
 activeBranch: codex/espn-portfolio-refresh
 lastCommitDate: "2026-04-07"
 quality:
-  lint: unknown
-  types: unknown
+  lint: pass
+  types: pass
   tests: unknown
   deadCode: unknown
   structure: pass
@@ -37,7 +37,7 @@ agentExpectationsVersion: 1
 
 The portfolio has been substantially redesigned on `codex/espn-portfolio-refresh`. The original `index.html` (legacy static site) still exists but is modified with content updates. In parallel, a full React/Vite/Tailwind/React Router SPA has been built in `src/` with five pages: Home, ScoutingReport, FilmRoom, PlayerComps, ImpactReport. Content is driven from `src/content/portfolioContent.ts` and `portfolioAssets.ts`. A built `dist/` is present. The site uses an ESPN-style sports-journalism design metaphor.
 
-The branch has never been merged to main. The README is a boilerplate AI Studio template — not project-specific. Large untracked binary files (CV .docx, resume .pdf) and a `Draft_Refresh/` directory are sitting loose in the working tree.
+This session initialized `.planning/` for the repo and removed GitNexus from the active-project list so the portfolio no longer advertises a project that was moved out of the owned working set. The branch has never been merged to main. The README is a boilerplate AI Studio template — not project-specific. Large untracked binary files (CV .docx, resume .pdf) and a `Draft_Refresh/` directory are sitting loose in the working tree.
 
 The `eslint-plugin-anti-slop` is referenced as a dev dependency via file path (`../eslint-plugin-anti-slop`) — same fragile sibling dependency as Terrace.
 
@@ -49,6 +49,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 - April 7: Replaced placeholder projects, rewrote bio — content now reflects real work
 - April 8 (untracked): Added full React SPA scaffold with ESPN design language, routing, Tailwind, Motion animations
+- April 10: Initialized `.planning/`, cleaned the current-project list, and restored a passing TypeScript/build baseline
 - Content architecture is complete: structured data objects drive all five pages
 - Build (`dist/`) present, implying at least one successful Vite build
 
@@ -67,9 +68,8 @@ This is the primary public-facing artifact for career opportunities. It needs to
 1. Gitignore or remove binary files (CV .docx, resume PDF) and `Draft_Refresh/`
 2. Decide fate of root `index.html` — remove if SPA supersedes it
 3. Update README to reflect the actual project
-4. Run `tsc --noEmit` and fix any type errors
-5. Commit all SPA files and merge branch to main
-6. Confirm deployment target and verify `dist/` is deploying correctly
+4. Commit all SPA and planning files, then merge the branch to main
+5. Confirm deployment target and verify `dist/` is deploying correctly
 
 ## Risks / Blockers
 
@@ -79,8 +79,9 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 ## Quality Ladder Notes
 
-- **Lint:** script maps to `tsc --noEmit` — not run, result unknown
-- **Types:** same as lint (`tsc --noEmit`) — not run, result unknown
+- **Lint:** `npm run lint` (`tsc --noEmit`) — PASS on 2026-04-10
+- **Types:** `npm run lint` (`tsc --noEmit`) — PASS on 2026-04-10
+- **Build:** `npm run build` — PASS on 2026-04-10
 - **Tests:** no test script or test files found — unknown
 - **Dead code:** not configured
 - **Structure:** SPA structure is clean (pages, components, content, hooks separation) — PASS
@@ -89,5 +90,5 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 - The `src/` SPA is the authoritative future state; the root `index.html` is legacy and should be treated as dead once the branch merges
 - `package.json` name is `front-office-amos` — consistent with ESPN-style sports-front-office metaphor
-- No `.planning/` directory; this is a content/design project, not a GSD-tracked one
+- `.planning/` now exists and can drive future content/release phase work
 - Global CLAUDE.md lists canonical lint as `pnpm lint` — this project uses `npm run lint` which resolves to `tsc --noEmit`
