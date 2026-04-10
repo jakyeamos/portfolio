@@ -247,38 +247,6 @@ export default function Home(): ReactElement {
                 startup pace, and a tape full of connective winning plays."
               </p>
             </div>
-
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              {BROADCAST_ASSETS.slice(0, 3).map((asset) => (
-                <div
-                  key={asset.label}
-                  className="border border-[color:var(--color-line)] bg-white p-4"
-                >
-                  <div className="flex items-center gap-3 text-[color:var(--color-primary)]">
-                    {asset.label.includes('Headshot') ? <PlayCircle size={16} /> : null}
-                    {asset.label.includes('Voice') ? <Mic size={16} /> : null}
-                    {asset.label.includes('video') || asset.label.includes('video clip') ? (
-                      <PlayCircle size={16} />
-                    ) : null}
-                    {!asset.label.includes('Headshot') &&
-                    !asset.label.includes('Voice') &&
-                    !asset.label.includes('video') &&
-                    !asset.label.includes('video clip') ? (
-                      <FileText size={16} />
-                    ) : null}
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.18em]">
-                      {asset.status}
-                    </span>
-                  </div>
-                  <h3 className="mt-3 text-sm font-black uppercase leading-tight text-[color:var(--color-ink)]">
-                    {asset.label}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
-                    {asset.note}
-                  </p>
-                </div>
-              ))}
-            </div>
           </article>
         </div>
       </section>
