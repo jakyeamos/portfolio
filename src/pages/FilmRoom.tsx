@@ -180,35 +180,6 @@ export default function FilmRoom(): ReactElement {
               ))}
             </div>
           </article>
-
-          <aside className="editorial-card p-6">
-            <div className="flex items-center gap-3">
-              <RadioTower size={18} className="text-[color:var(--color-primary)]" />
-              <div className="section-kicker">Need More Tape</div>
-            </div>
-            <div className="mt-5 grid gap-4">
-              {MISSING_PROJECT_PACKETS.map((packet) => (
-                <article
-                  key={packet.title}
-                  className="border border-dashed border-[color:var(--color-line-strong)] bg-[color:var(--color-surface-muted)] p-4"
-                >
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-primary)]">
-                    TODO source packet
-                  </div>
-                  <h3 className="mt-2 text-lg font-black uppercase leading-tight text-[color:var(--color-ink)]">
-                    {packet.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
-                    {packet.copy}
-                  </p>
-                </article>
-              ))}
-            </div>
-            <Link className="report-link mt-6" to="/player-comps">
-              Open player comps
-              <ArrowRight size={16} />
-            </Link>
-          </aside>
         </section>
       </main>
     </div>
