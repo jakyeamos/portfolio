@@ -1,12 +1,12 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site rebuilt as a React/Vite/Tailwind SPA with an ESPN-style design language; GSD planning is now initialized, the current-project list no longer includes GitNexus, and the repo is back to a passing type/build baseline.
-healthScore: 55
+summary: Personal portfolio site is now merged on `main` as a React/Vite/Tailwind SPA with a clean working tree, passing type/build baseline, and a small remaining cleanup queue around docs and release polish.
+healthScore: 66
 statusLabel: needs_attention
-nextStep: Merge the SPA work to main from a clean branch, then close the remaining release and deployment cleanup around loose binary assets and draft directories.
+nextStep: Replace the empty README with project-specific documentation, then verify deployment polish and whether the ignored draft/binary assets still need to live alongside the repo.
 blockers: []
-lastUpdated: 2026-04-10
+lastUpdated: 2026-04-12
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, player-comps, impact-report]
 goals:
@@ -15,8 +15,8 @@ goals:
 repoType: app
 sourceOfTruth: inferred
 primaryLanguage: TypeScript
-activeBranch: codex/espn-portfolio-refresh
-lastCommitDate: "2026-04-07"
+activeBranch: main
+lastCommitDate: "2026-04-10"
 quality:
   lint: pass
   types: pass
@@ -35,47 +35,40 @@ agentExpectationsVersion: 1
 
 ## Current State
 
-The portfolio has been substantially redesigned on `codex/espn-portfolio-refresh`. The original `index.html` (legacy static site) still exists but is modified with content updates. In parallel, a full React/Vite/Tailwind/React Router SPA has been built in `src/` with five pages: Home, ScoutingReport, FilmRoom, PlayerComps, ImpactReport. Content is driven from `src/content/portfolioContent.ts` and `portfolioAssets.ts`. A built `dist/` is present. The site uses an ESPN-style sports-journalism design metaphor.
+The portfolio is on `main` and the working tree is clean. The React/Vite/Tailwind SPA is the live repo state: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
 
-This session initialized `.planning/` for the repo and removed GitNexus from the active-project list so the portfolio no longer advertises a project that was moved out of the owned working set. The branch has never been merged to main. The README is a boilerplate AI Studio template — not project-specific. Large untracked binary files (CV .docx, resume .pdf) and a `Draft_Refresh/` directory are sitting loose in the working tree.
-
-The `eslint-plugin-anti-slop` is referenced as a dev dependency via file path (`../eslint-plugin-anti-slop`) — same fragile sibling dependency as Terrace.
+This repo is in materially better shape than the prior truth snapshot described. The merge back to `main` already happened on 2026-04-10, there are no outstanding tracked working-tree changes, and the previously noted draft/binary assets are ignored rather than loose untracked clutter. The main documentation gap now is that `README.md` is effectively empty.
 
 ## Why This Matters / Intended Outcome
 
-This is the primary public-facing artifact for career opportunities. It needs to be live, accurate, and merged to a deployable main branch.
+This is the primary public-facing artifact for career opportunities. It needs to stay live, accurate, and easy to maintain from `main`.
 
 ## Recent Progress
 
-- April 7: Replaced placeholder projects, rewrote bio — content now reflects real work
-- April 8 (untracked): Added full React SPA scaffold with ESPN design language, routing, Tailwind, Motion animations
-- April 10: Initialized `.planning/`, cleaned the current-project list, and restored a passing TypeScript/build baseline
-- Content architecture is complete: structured data objects drive all five pages
-- Build (`dist/`) present, implying at least one successful Vite build
+- April 7: Replaced placeholder projects and rewrote bio content to reflect current work
+- April 8-10: Landed the React SPA, planning scaffolding, and cleanup needed to merge the refresh branch back to `main`
+- April 10: Restored a passing TypeScript/build baseline and removed GitNexus from the active-project list
+- Deployment config (`netlify.toml`) and ignored artifact handling are in place
 
 ## Open Problems
 
-- Active branch is not main — the SPA is not deployable from main
-- `index.html` at root is the old static site with diverged content from the new SPA — two parallel portfolios exist
-- README is AI Studio boilerplate, not meaningful project documentation
-- Large binary files (CV, resume PDF) are untracked — should be gitignored or moved out of repo
-- `Draft_Refresh/` directory is untracked — unclear if needed
-- No deployment config visible (Netlify/Vercel toml, etc.) outside `public/_redirects`
-- Canonical `pnpm lint` from CLAUDE.md doesn't match; this project uses `npm`
+- `README.md` is empty, so the repo still lacks project-specific onboarding and maintenance notes
+- Ignored draft and binary assets still live beside the source tree; repo hygiene is acceptable, but long-term placement should be clarified
+- No automated test suite is configured, so regression confidence still depends on type/build checks and manual verification
+- Global canonical command references still assume `pnpm` in places, while this project uses `npm`
 
 ## Next Concrete Steps
 
-1. Gitignore or remove binary files (CV .docx, resume PDF) and `Draft_Refresh/`
-2. Decide fate of root `index.html` — remove if SPA supersedes it
-3. Update README to reflect the actual project
-4. Commit all SPA and planning files, then merge the branch to main
-5. Confirm deployment target and verify `dist/` is deploying correctly
+1. Replace the empty README with a short project-specific overview and maintenance commands
+2. Decide whether the ignored draft/binary assets should stay colocated with the repo or move to a non-repo archive location
+3. Verify the deployed site still matches the current `main` build
+4. Add lightweight smoke coverage or a documented manual verification checklist if the site is changing frequently
 
 ## Risks / Blockers
 
-- Two portfolios exist simultaneously (old static HTML + new SPA) — confusing and risky if wrong one deploys
-- Binary files in repo inflate clone size and muddy git history
-- Sibling `eslint-plugin-anti-slop` dependency creates environment coupling
+- No active blockers
+- Lack of tests means regressions can still slip through despite a clean type/build baseline
+- Keeping ignored draft/binary artifacts next to the repo can still create maintenance ambiguity even though they are no longer polluting git status
 
 ## Quality Ladder Notes
 
@@ -88,7 +81,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 ## Agent Notes
 
-- The `src/` SPA is the authoritative future state; the root `index.html` is legacy and should be treated as dead once the branch merges
-- `package.json` name is `front-office-amos` — consistent with ESPN-style sports-front-office metaphor
-- `.planning/` now exists and can drive future content/release phase work
-- Global CLAUDE.md lists canonical lint as `pnpm lint` — this project uses `npm run lint` which resolves to `tsc --noEmit`
+- The `src/` SPA is the authoritative application state; the root `index.html` is the Vite entrypoint, not a leftover static site
+- `package.json` name is `front-office-amos` — consistent with the sports-front-office portfolio metaphor
+- `.planning/` exists and can drive future content/release phase work
+- Global canonical command references should be translated to this repo's actual scripts: `npm run lint` and `npm run build`
