@@ -187,6 +187,22 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
       'A technically complete blogging platform with real architecture behind it. Not flashy but it ships — and the crosspost layer adds reach.',
   },
   {
+    slug: 'github-issue-resolution-modeling',
+    title: 'GitHub Issue Resolution Modeling',
+    shortCode: 'GI',
+    summary:
+      'Survival-analysis pipeline and Next.js triage dashboard for predicting issue resolution time across major open-source repos, with reproducible stages, fixture-backed UI tests, and CI covering both the pipeline and dashboard.',
+    trackerComment:
+      'Hardening the end-to-end pipeline-to-dashboard story so the modeling output and public-facing triage interface stay in sync.',
+    trackerStatus: 'on_track',
+    trackerScore: 74,
+    lastUpdated: '2026-04-18',
+    tags: ['Python', 'Next.js', 'survival-analysis', 'GitHub', 'dashboard'],
+    grades: { impact: 8, difficulty: 8, ambition: 7, creativity: 7 },
+    scoutTake:
+      'Strong evidence of real data-science depth paired with product instincts. The value is not just the model — it is the full loop from ingestion and feature work to a usable decision surface.',
+  },
+  {
     slug: 'signal-lab',
     title: 'Signal Lab',
     shortCode: 'SL',

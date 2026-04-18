@@ -360,10 +360,6 @@ export const MISSING_PROJECT_PACKETS = [
     title: 'Career Dashboard',
     copy: 'Still needs a local project brief, screenshots, or source notes before it should get real minutes on the live site.',
   },
-  {
-    title: 'GitHub Issue Resolution Modeling',
-    copy: 'The structure is ready for it, but the current folder still does not have enough source material to publish the story honestly.',
-  },
 ] as const;
 
 export const PLAYER_COMPS: readonly PlayerComp[] = [
