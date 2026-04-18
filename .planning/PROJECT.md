@@ -30,7 +30,7 @@ The live portfolio should accurately represent current owned work and stay deplo
 
 - The repo still contains legacy static-site residue alongside the SPA.
 - There are loose binary artifacts and draft directories that muddy the release baseline.
-- The current-projects list needed cleanup after moving some repos out of the active set.
+- The current-projects list needs to stay aligned with the real owned project set, including `Dsci-proj` as the published `GitHub Issue Resolution Modeling` entry.
 
 ## Constraints
 
@@ -44,4 +44,4 @@ The live portfolio should accurately represent current owned work and stay deplo
 | Bootstrap GSD planning in an existing brownfield repo | The repo needed planning state before phase work could be managed coherently | - Pending |
 
 ---
-*Last updated: 2026-04-10 after initial GSD bootstrap*
+*Last updated: 2026-04-18 after re-adding GitHub Issue Resolution Modeling to the live project board*
