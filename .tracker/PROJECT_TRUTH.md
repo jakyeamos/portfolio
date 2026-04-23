@@ -1,12 +1,12 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site is now merged on `main` as a React/Vite/Tailwind SPA with a clean working tree, passing type/build baseline, and a small remaining cleanup queue around docs and release polish.
-healthScore: 66
-statusLabel: needs_attention
-nextStep: Replace the empty README with project-specific documentation, then verify deployment polish and whether the ignored draft/binary assets still need to live alongside the repo.
+summary: Personal portfolio site is merged on `main` as a React/Vite/Tailwind SPA, with tracker-sync now wired for automatic project truth migration during normal workflows and a remaining cleanup queue around docs and release polish.
+healthScore: 72
+statusLabel: on_track
+nextStep: Populate .tracker/truth-map.json with any slug-to-project overrides that auto-discovery cannot infer, then replace the empty README with project-specific documentation.
 blockers: []
-lastUpdated: 2026-04-12
+lastUpdated: 2026-04-23
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, player-comps, impact-report]
 goals:
@@ -49,20 +49,22 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - April 8-10: Landed the React SPA, planning scaffolding, and cleanup needed to merge the refresh branch back to `main`
 - April 10: Restored a passing TypeScript/build baseline and removed GitNexus from the active-project list
 - Deployment config (`netlify.toml`) and ignored artifact handling are in place
+- April 23: Replaced stale tracker sync logic with auto-discovery + override mapping and wired sync to run automatically before `dev`, `build`, and `lint`
 
 ## Open Problems
 
+- Some project names may need explicit slug-to-path overrides in `.tracker/truth-map.json` when repo naming does not match portfolio slugs
 - `README.md` is empty, so the repo still lacks project-specific onboarding and maintenance notes
 - Ignored draft and binary assets still live beside the source tree; repo hygiene is acceptable, but long-term placement should be clarified
 - No automated test suite is configured, so regression confidence still depends on type/build checks and manual verification
-- Global canonical command references still assume `pnpm` in places, while this project uses `npm`
 
 ## Next Concrete Steps
 
-1. Replace the empty README with a short project-specific overview and maintenance commands
-2. Decide whether the ignored draft/binary assets should stay colocated with the repo or move to a non-repo archive location
-3. Verify the deployed site still matches the current `main` build
-4. Add lightweight smoke coverage or a documented manual verification checklist if the site is changing frequently
+1. Populate `.tracker/truth-map.json` for any projects that do not auto-match by slug/title
+2. Replace the empty README with a short project-specific overview and maintenance commands
+3. Decide whether the ignored draft/binary assets should stay colocated with the repo or move to a non-repo archive location
+4. Verify the deployed site still matches the current `main` build
+5. Add lightweight smoke coverage or a documented manual verification checklist if the site is changing frequently
 
 ## Risks / Blockers
 

@@ -80,10 +80,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Spec-driven AI development framework that governs structured, test-validated builds — designed to bring discipline and repeatability to AI-assisted engineering workflows.',
     trackerComment:
-      'Proving the governance loop end-to-end on real repos to unlock the framework\'s core value proposition.',
+      'Add explicit lint and typecheck commands so Terrace meets the full quality ladder, then execute Phase 0 plans on the four fixture repos.',
     trackerStatus: 'needs_attention',
-    trackerScore: 62,
-    lastUpdated: '2026-04-09',
+    trackerScore: 65,
+    lastUpdated: '2026-04-12',
     tags: ['framework', 'governance', 'AI-tooling', 'validation'],
     grades: { impact: 8, difficulty: 8, ambition: 9, creativity: 8 },
     scoutTake:
@@ -96,10 +96,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Government-contracting SaaS platform with v1.0 shipped — full-stack Next.js app built on Supabase and Stripe with active work toward v1.1 feature expansion.',
     trackerComment:
-      'Building out in-app notification infrastructure as the next milestone toward a feature-complete v1.1.',
+      'Fix the current ESLint error baseline so the repo returns to a hard-gate-clean state, then plan and execute Phase 11 (In-App Notifications).',
     trackerStatus: 'needs_attention',
-    trackerScore: 62,
-    lastUpdated: '2026-04-09',
+    trackerScore: 59,
+    lastUpdated: '2026-04-12',
     tags: ['SaaS', 'Next.js', 'Supabase', 'Stripe', 'government'],
     grades: { impact: 8, difficulty: 7, ambition: 8, creativity: 7 },
     scoutTake:
