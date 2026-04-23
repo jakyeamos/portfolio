@@ -11,6 +11,8 @@ Draft_Refresh/
 Redesign Basketball Project Dashboard/
 *.docx
 *.pdf
+!public/docs/*.docx
+!public/docs/*.pdf
 
 # Vite
 .vite/
