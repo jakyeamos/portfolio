@@ -5,6 +5,7 @@ export interface QuickLink {
   href: string;
   detail: string;
   download?: boolean;
+  downloadFileName?: string;
 }
 
 export interface Headline {
@@ -38,6 +39,13 @@ export interface HeroAction {
   kind: 'route' | 'external';
   variant: 'primary' | 'secondary' | 'ghost';
   download?: boolean;
+  downloadFileName?: string;
+}
+
+export interface HeroProof {
+  value: string;
+  label: string;
+  detail: string;
 }
 
 export interface PlayerComp {
@@ -73,10 +81,11 @@ export const PAGE_LINKS = [
 
 export const QUICK_LINKS: readonly QuickLink[] = [
   {
-    label: 'Resume',
+    label: 'Download Resume',
     href: '/docs/Jakye_Amos_Comprehensive_CV.docx',
     detail: 'DOCX',
     download: true,
+    downloadFileName: 'Jakye_Amos_Resume.docx',
   },
   {
     label: 'GitHub',
@@ -97,22 +106,48 @@ export const QUICK_LINKS: readonly QuickLink[] = [
 
 export const HERO_ACTIONS: readonly HeroAction[] = [
   {
+    label: 'Download resume',
+    href: '/docs/Jakye_Amos_Comprehensive_CV.docx',
+    kind: 'external',
+    variant: 'primary',
+    download: true,
+    downloadFileName: 'Jakye_Amos_Resume.docx',
+  },
+  {
     label: 'Read scouting report',
     href: '/scouting-report',
     kind: 'route',
-    variant: 'primary',
+    variant: 'secondary',
   },
   {
     label: 'Open projects',
     href: '/projects',
     kind: 'route',
-    variant: 'secondary',
+    variant: 'ghost',
   },
   {
-    label: 'Check player comps',
-    href: '/player-comps',
-    kind: 'route',
+    label: 'Email',
+    href: 'mailto:Jakyejobs@gmail.com',
+    kind: 'external',
     variant: 'ghost',
+  },
+] as const;
+
+export const HERO_PROOF: readonly HeroProof[] = [
+  {
+    value: 'Amazon',
+    label: 'Enterprise reps',
+    detail: 'Internship work across Ads and FinTech from 2023 through 2025.',
+  },
+  {
+    value: '400%',
+    label: 'Output gain',
+    detail: 'Architecture-firm productivity software lifted team output in under 5 weeks.',
+  },
+  {
+    value: '2 weeks',
+    label: 'Fast ship',
+    detail: 'Cleveland Clinic coaching MVP moved from build to delivery on a compressed clock.',
   },
 ] as const;
 

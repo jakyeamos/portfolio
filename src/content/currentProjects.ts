@@ -80,10 +80,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Spec-driven AI development framework that governs structured, test-validated builds — designed to bring discipline and repeatability to AI-assisted engineering workflows.',
     trackerComment:
-      'Add explicit lint and typecheck commands so Terrace meets the full quality ladder, then execute Phase 0 plans on the four fixture repos.',
-    trackerStatus: 'needs_attention',
-    trackerScore: 65,
-    lastUpdated: '2026-04-12',
+      'Run a fresh corpus sample after the interrogate behavior change, then decide whether dead-code scanning belongs in the release gate.',
+    trackerStatus: 'on_track',
+    trackerScore: 100,
+    lastUpdated: '2026-05-13',
     tags: ['framework', 'governance', 'AI-tooling', 'validation'],
     grades: { impact: 8, difficulty: 8, ambition: 9, creativity: 8 },
     scoutTake:
@@ -185,6 +185,22 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     grades: { impact: 5, difficulty: 6, ambition: 6, creativity: 7 },
     scoutTake:
       'A technically complete blogging platform with real architecture behind it. Not flashy but it ships — and the crosspost layer adds reach.',
+  },
+  {
+    slug: 'book',
+    title: 'Book',
+    shortCode: 'BK',
+    summary:
+      'Interactive digital book reader with chapter-specific visuals, music, ambient effects, particles, and a growing admin CMS layer for nontechnical chapter editing and soundtrack cue management.',
+    trackerComment:
+      'Deploy the Render blueprint with production `ADMIN_EMAIL` and `ADMIN_PASSWORD`, point the live domain at the Node service, and run live editor verification.',
+    trackerStatus: 'on_track',
+    trackerScore: 86,
+    lastUpdated: '2026-05-01',
+    tags: ['interactive-book', 'admin-CMS', 'audio', 'TypeScript', 'publishing'],
+    grades: { impact: 6, difficulty: 7, ambition: 7, creativity: 9 },
+    scoutTake:
+      'A creative product with real atmosphere. The current leap is turning a hand-tuned reading experience into something an editor can run without touching code.',
   },
   {
     slug: 'github-issue-resolution-modeling',

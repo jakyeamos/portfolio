@@ -28,7 +28,7 @@ export default function Footer(): ReactElement {
               <a
                 key={link.label}
                 href={link.href}
-                download={link.download}
+                download={link.download ? (link.downloadFileName ?? true) : undefined}
                 target={link.href.startsWith('http') ? '_blank' : undefined}
                 rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
                 className="flex items-center justify-between border border-[color:var(--color-line)] bg-white px-4 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-[color:var(--color-ink)] transition hover:border-[color:var(--color-primary)] hover:text-[color:var(--color-primary)]"

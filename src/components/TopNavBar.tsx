@@ -7,15 +7,17 @@ function QuickActionLink({
   href,
   label,
   download = false,
+  downloadFileName,
 }: {
   href: string;
   label: string;
   download?: boolean;
+  downloadFileName?: string;
 }): ReactElement {
   return (
     <a
       href={href}
-      download={download}
+      download={download ? (downloadFileName ?? true) : undefined}
       target={href.startsWith('http') ? '_blank' : undefined}
       rel={href.startsWith('http') ? 'noreferrer' : undefined}
       className="hidden items-center gap-2 border border-[color:var(--color-line-strong)] bg-white px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)] transition hover:-translate-y-0.5 hover:border-[color:var(--color-primary)] hover:text-[color:var(--color-primary)] lg:inline-flex"
@@ -64,6 +66,7 @@ export default function TopNavBar(): ReactElement {
             href={QUICK_LINKS[0].href}
             label={QUICK_LINKS[0].label}
             download={QUICK_LINKS[0].download}
+            downloadFileName={QUICK_LINKS[0].downloadFileName}
           />
           <QuickActionLink href={QUICK_LINKS[3].href} label={QUICK_LINKS[3].label} />
           <button
@@ -96,7 +99,7 @@ export default function TopNavBar(): ReactElement {
               <a
                 key={link.label}
                 href={link.href}
-                download={link.download}
+                download={link.download ? (link.downloadFileName ?? true) : undefined}
                 target={link.href.startsWith('http') ? '_blank' : undefined}
                 rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
                 className="flex items-center justify-between border border-[color:var(--color-line)] bg-white px-4 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-[color:var(--color-ink)]"

@@ -8,6 +8,7 @@ import {
   BREAKING_TICKER,
   FEATURE_REPORTS,
   HERO_ACTIONS,
+  HERO_PROOF,
   HOME_FRONT_OFFICE_NOTES,
   IMPACT_METRICS,
   QUICK_LINKS,
@@ -21,12 +22,14 @@ function HomeAction({
   kind,
   variant,
   download = false,
+  downloadFileName,
 }: {
   href: string;
   label: string;
   kind: 'route' | 'external';
   variant: 'primary' | 'secondary' | 'ghost';
   download?: boolean;
+  downloadFileName?: string;
 }): ReactElement {
   const className =
     variant === 'primary'
@@ -44,7 +47,7 @@ function HomeAction({
   }
 
   return (
-    <a className={className} href={href} download={download}>
+    <a className={className} href={href} download={download ? (downloadFileName ?? true) : undefined}>
       {label}
     </a>
   );
@@ -75,12 +78,13 @@ export default function Home(): ReactElement {
                 Full-stack | Data + AI | Early Career | Open to opportunities
               </p>
               <h1 className="mt-4 max-w-4xl text-5xl font-black uppercase leading-[0.88] tracking-tight text-[color:var(--color-ink)] md:text-7xl">
-                A high-feel engineering prospect built for pace, reads, and winning plays.
+                Full-stack engineer with Amazon reps, startup pace, and source-backed results.
               </h1>
               <p className="mt-5 max-w-3xl text-lg leading-relaxed text-[color:var(--color-ink-soft)] md:text-xl">
-                {SITE_META.name} brings Amazon systems reps, startup-speed execution, and a
-                connective full-stack game across product builds, workflow tooling, analytics, and
-                AI-powered operations.
+                {SITE_META.name} builds across product, backend, data, and AI workflow systems, with
+                a track record that reads quickly: Amazon from 2023 through 2025, a Cleveland Clinic
+                MVP shipped in 2 weeks, and an architecture-firm productivity build that drove 400%
+                output growth.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
@@ -99,7 +103,27 @@ export default function Home(): ReactElement {
                     label={action.label}
                     variant={action.variant}
                     download={action.download}
+                    downloadFileName={action.downloadFileName}
                   />
+                ))}
+              </div>
+
+              <div className="mt-8 grid gap-4 md:grid-cols-3">
+                {HERO_PROOF.map((proof) => (
+                  <article
+                    key={proof.label}
+                    className="border border-[color:var(--color-line)] bg-white px-5 py-5"
+                  >
+                    <div className="text-3xl font-black uppercase leading-none text-[color:var(--color-primary)] md:text-4xl">
+                      {proof.value}
+                    </div>
+                    <div className="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-secondary)]">
+                      {proof.label}
+                    </div>
+                    <p className="mt-3 text-sm leading-relaxed text-[color:var(--color-ink)]">
+                      {proof.detail}
+                    </p>
+                  </article>
                 ))}
               </div>
 
