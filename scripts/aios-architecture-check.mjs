@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
 
 const root = process.cwd();
 const roots = ['src', 'app', 'pages', 'packages'].map((entry) => path.join(root, entry)).filter((entry) => fs.existsSync(entry));

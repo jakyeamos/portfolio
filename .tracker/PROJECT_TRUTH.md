@@ -1,7 +1,7 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site has tracker-sync wired against 14 local project truth sources and pnpm used consistently for local, CI, and deploy workflows.
+summary: Personal portfolio site has tracker-sync wired against 14 local project truth sources, weekly Codex ingestion scheduled, and pnpm used consistently for local, CI, and deploy workflows.
 healthScore: 82
 statusLabel: on_track
 nextStep: Add a RemodelVision tracker truth file or explicit mapping if that project should join the automated current-project ingestion.
@@ -39,6 +39,8 @@ The portfolio is on branch `codex/truth-sync-migration` with tracker-sync infras
 
 The current-project tracker now resolves 14 local project truth sources through `.tracker/truth-map.json` plus discovery, including AIOS, Soundscape, Terrace, Amos SaaS, Taski, Fantasy, Bballedu, Dispatches, Book, the GitHub issue-resolution modeling repo, Signal Lab, Cap-Fit Builder, CLFE, and RTE. `remodelvision` is the only current-project card still without a discoverable local truth source, so sync leaves its existing tracker fields intact. The sync script is scoped to `CURRENT_PROJECTS` so `CLOSED_PROJECTS` entries do not get overwritten by active repo truth snapshots.
 
+A Codex cron automation named `Weekly portfolio tracker ingestion` runs Mondays at 9:00 AM local time against `/Users/jakyeamos/projects/portfolio`. It runs `pnpm sync`, `pnpm lint`, and `pnpm build`, then reports changed tracker fields, skipped projects, and verification results.
+
 The repo uses pnpm as the single package-manager workflow: `package.json` declares `pnpm@10.26.0`, lifecycle hooks call `pnpm sync`, CI installs with `pnpm install --frozen-lockfile`, Netlify builds with `pnpm build`, and `pnpm-lock.yaml` is the lockfile.
 
 ## Why This Matters / Intended Outcome
@@ -55,6 +57,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - May 1: Added Book to the current-project catalog and mapped `book` to the Book repo's project truth file
 - May 24: Replaced remaining npm workflow references with pnpm across package scripts, CI, Netlify, README, lockfile, and project truth metadata
 - May 24: Expanded the current-project truth map to 14 local sources, synced current health/status/next-step/date fields, and scoped sync to current projects only
+- May 24: Updated the AIOS architecture check script to run as ESM under the repo's module configuration
 
 ## Open Problems
 
@@ -80,6 +83,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Lint:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-05-24
 - **Types:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-05-24
 - **Build:** `pnpm build` — PASS on 2026-05-24
+- **Architecture check:** `node scripts/aios-architecture-check.mjs` — PASS on 2026-05-24
 - **Tests:** no test script or test files found — unknown
 - **Dead code:** not configured
 - **Structure:** SPA structure is clean (pages, components, content, hooks separation) — PASS
