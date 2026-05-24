@@ -47,7 +47,7 @@ The package is marked private in `package.json`, so it is intended for local wor
 Key runtime dependencies include `lucide-react`, `motion`, `react`, `react-dom`, `react-router-dom`.
 Use `pnpm` from this directory or the containing workspace to install dependencies and run scripts.
 
-`pnpm sync` reads `.tracker/truth-map.json` and local sibling `.tracker/PROJECT_TRUTH.md` files to refresh current-project health scores, statuses, next steps, and dates in `src/content/currentProjects.ts`. A Codex cron automation named `Weekly portfolio tracker ingestion` runs the sync, lint, and build path every Monday at 9:00 AM local time.
+`pnpm sync` reads `.tracker/truth-map.json` and local sibling `.tracker/PROJECT_TRUTH.md` files to refresh current-project health scores, statuses, next steps, and dates in `src/content/currentProjects.ts`.
 
 ## Verification
 
