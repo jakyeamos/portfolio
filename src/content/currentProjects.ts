@@ -48,10 +48,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Full-stack music social platform in active development — covering discovery, ratings, feeds, market surfaces, clubs, and a shared web/mobile codebase in a TypeScript monorepo.',
     trackerComment:
-      'Finalizing TypeScript quality standards across the monorepo ahead of public beta.',
-    trackerStatus: 'on_track',
-    trackerScore: 75,
-    lastUpdated: '2026-04-09',
+      'Close the polymorphic `ExternalId` persistence gap exposed by catalog hydration, then decide whether duplicate MusicBrainz title variants should remain a read-layer collapse only or be normalized deeper in the canonical catalog model, fix the remaining `@soundscape/platform-web` coverage test drift in `src/trpc/__tests__/webClient.test.ts`, and rerun the repo-level quality ladder.',
+    trackerStatus: 'needs_attention',
+    trackerScore: 79,
+    lastUpdated: '2026-04-18',
     tags: ['music', 'social', 'monorepo', 'tRPC', 'Prisma'],
     grades: { impact: 9, difficulty: 9, ambition: 10, creativity: 8 },
     scoutTake:
@@ -64,10 +64,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Personal AI operating system built around session hooks, workflow orchestration, pattern extraction, and layered knowledge retrieval — actively used as the backbone of daily engineering operations.',
     trackerComment:
-      'Expanding pattern extraction and memory systems to deepen cross-session context retention.',
+      'Execute Phase 7 (delta scoring and health backfill) plans 07-01, 07-02, 07-03 in wave order; resume BasedPyright remediation in parallel.',
     trackerStatus: 'on_track',
-    trackerScore: 78,
-    lastUpdated: '2026-04-09',
+    trackerScore: 72,
+    lastUpdated: '2026-05-20',
     tags: ['Python', 'shell', 'SQLite', 'automation', 'AI-tooling'],
     grades: { impact: 8, difficulty: 7, ambition: 9, creativity: 9 },
     scoutTake:
@@ -80,10 +80,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Spec-driven AI development framework that governs structured, test-validated builds — designed to bring discipline and repeatability to AI-assisted engineering workflows.',
     trackerComment:
-      'Run a fresh corpus sample after the interrogate behavior change, then decide whether dead-code scanning belongs in the release gate.',
+      'Run a fresh corpus sample after the planning refresh command, then decide whether dead-code scanning belongs in the release gate.',
     trackerStatus: 'on_track',
     trackerScore: 100,
-    lastUpdated: '2026-05-13',
+    lastUpdated: '2026-05-19',
     tags: ['framework', 'governance', 'AI-tooling', 'validation'],
     grades: { impact: 8, difficulty: 8, ambition: 9, creativity: 8 },
     scoutTake:
@@ -112,10 +112,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Electron + React + SQLite local-first task tracker with a full service layer and data architecture in place, currently being wired up for its first development run.',
     trackerComment:
-      'Wiring the Electron entry point and validating the service layer to get the app running in dev mode.',
-    trackerStatus: 'stalled',
-    trackerScore: 48,
-    lastUpdated: '2026-04-09',
+      'Launch the desktop app in dev mode and verify the responsive project board and detail pane behave correctly at half-width and full-width window sizes.',
+    trackerStatus: 'needs_attention',
+    trackerScore: 74,
+    lastUpdated: '2026-04-19',
     tags: ['Electron', 'React', 'SQLite', 'local-first', 'tracker'],
     grades: { impact: 7, difficulty: 8, ambition: 8, creativity: 8 },
     scoutTake:
@@ -129,10 +129,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Local-first dynasty fantasy football intelligence app featuring a working trade engine, FastAPI backend, React/Vite frontend, and DuckDB persistence — with multi-team scoring in active development.',
     trackerComment:
-      'Extending the trade engine with multi-team scoring and counterparty player selection.',
+      'Plan the next trade-engine phase around multi-team trade scoring and counterparty player selection while keeping the Phase 21 opportunity feed stable.',
     trackerStatus: 'on_track',
     trackerScore: 78,
-    lastUpdated: '2026-04-09',
+    lastUpdated: '2026-05-18',
     tags: ['fantasy-football', 'FastAPI', 'React', 'DuckDB', 'dynasty'],
     grades: { impact: 6, difficulty: 7, ambition: 7, creativity: 8 },
     scoutTake:
@@ -161,10 +161,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Court Vision — a web-first basketball IQ training platform featuring real-time multiplayer draft simulation, Monte Carlo modeling, and an Express/Socket.io backend.',
     trackerComment:
-      'Closing out recent feature work and preparing the next wave of platform development.',
+      'Continue the front-office transaction graph work after the live Court Vision shell refresh for draft and offseason entry paths.',
     trackerStatus: 'on_track',
-    trackerScore: 72,
-    lastUpdated: '2026-04-09',
+    trackerScore: 82,
+    lastUpdated: '2026-05-19',
     tags: ['basketball', 'education', 'React', 'Express', 'Socket.io'],
     grades: { impact: 7, difficulty: 7, ambition: 8, creativity: 8 },
     scoutTake:
@@ -177,10 +177,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Full-stack blog platform with API routes, Postgres and Clerk integration, content-management flows, and cross-posting features — actively developed across a monorepo package structure.',
     trackerComment:
-      'Planning the next content-management features as active development continues.',
+      'Sync `.planning/STATE.md` with the newer comment and crosspost work, then plan the next phase after content-management core.',
     trackerStatus: 'on_track',
     trackerScore: 72,
-    lastUpdated: '2026-04-09',
+    lastUpdated: '2026-05-18',
     tags: ['blog', 'Vite', 'Postgres', 'Clerk', 'monorepo'],
     grades: { impact: 5, difficulty: 6, ambition: 6, creativity: 7 },
     scoutTake:
@@ -209,10 +209,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Survival-analysis pipeline and Next.js triage dashboard for predicting issue resolution time across major open-source repos, with reproducible stages, fixture-backed UI tests, and CI covering both the pipeline and dashboard.',
     trackerComment:
-      'Hardening the end-to-end pipeline-to-dashboard story so the modeling output and public-facing triage interface stay in sync.',
+      'Run `make ingest` through `make export` with a real GITHUB_TOKEN, then start Phase 10 academic writeup work.',
     trackerStatus: 'on_track',
     trackerScore: 74,
-    lastUpdated: '2026-04-18',
+    lastUpdated: '2026-05-18',
     tags: ['Python', 'Next.js', 'survival-analysis', 'GitHub', 'dashboard'],
     grades: { impact: 8, difficulty: 8, ambition: 7, creativity: 7 },
     scoutTake:
@@ -225,10 +225,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Basketball analytics platform built to separate real signal from noise — identifying which stats stabilize quickly, which remain unreliable, and how sample requirements shift by role and competition level.',
     trackerComment:
-      'Building out the next analytical layer on top of the imported baseline and dashboard code.',
-    trackerStatus: 'needs_attention',
-    trackerScore: 64,
-    lastUpdated: '2026-04-10',
+      'Downstream projects may consume the current Signal Lab report contracts for research MVP work; keep publishable claims framed as diagnostics because validation still has known caveats.',
+    trackerStatus: 'on_track',
+    trackerScore: 88,
+    lastUpdated: '2026-05-20',
     tags: ['basketball', 'analytics', 'Python', 'Streamlit'],
     grades: { impact: 7, difficulty: 6, ambition: 6, creativity: 7 },
     scoutTake:
@@ -241,10 +241,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Contextual roster-fit analysis tool that identifies which players solve a specific team\'s real problems — accounting for cap constraints, role fit, playoff durability, and developmental upside.',
     trackerComment:
-      'Locking MVP scope around the team-context wedge before beginning implementation.',
-    trackerStatus: 'stalled',
-    trackerScore: 34,
-    lastUpdated: '2026-04-10',
+      'Populate salary/acquisition data and replace neutral CLFE portability once CLFE has stint-level outputs.',
+    trackerStatus: 'needs_attention',
+    trackerScore: 52,
+    lastUpdated: '2026-05-20',
     tags: ['basketball', 'analytics', 'Python'],
     grades: { impact: 7, difficulty: 7, ambition: 8, creativity: 8 },
     scoutTake:
@@ -257,10 +257,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Contextual Lineup Fit Engine — models why a player elevates some lineups and drags down others, moving beyond raw on/off to explain conditional impact by roster context.',
     trackerComment:
-      'Planning the first narrow analytical slice around conditional lineup impact.',
+      'Build or source a true lineup-stint table before starting archetype clustering or conditional impact modeling.',
     trackerStatus: 'stalled',
-    trackerScore: 34,
-    lastUpdated: '2026-04-10',
+    trackerScore: 46,
+    lastUpdated: '2026-05-20',
     tags: ['basketball', 'analytics', 'Python'],
     grades: { impact: 7, difficulty: 8, ambition: 8, creativity: 8 },
     scoutTake:
@@ -273,10 +273,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Role Translation Engine — projects which NBA roles prospects can realistically succeed in by modeling context dependence, competition inflation, and role downshifting rather than ranking raw talent.',
     trackerComment:
-      'Building the wings-first MVP to prove the role-translation model before expanding to other player families.',
-    trackerStatus: 'stalled',
-    trackerScore: 34,
-    lastUpdated: '2026-04-10',
+      'Plan and implement RTE Phase 5: draft-slot-relative transferable-signal modeling and a 2026 translation-adjusted big board.',
+    trackerStatus: 'on_track',
+    trackerScore: 72,
+    lastUpdated: '2026-05-20',
     tags: ['basketball', 'analytics', 'Python'],
     grades: { impact: 7, difficulty: 8, ambition: 8, creativity: 7 },
     scoutTake:

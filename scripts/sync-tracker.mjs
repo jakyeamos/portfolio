@@ -153,10 +153,16 @@ function findObjectBlock(source, needle) {
 }
 
 function readProjectCatalog(source) {
+  const currentProjectsStart = source.indexOf('export const CURRENT_PROJECTS');
+  const closedProjectsStart = source.indexOf('export const CLOSED_PROJECTS');
+  const catalogSource =
+    currentProjectsStart >= 0 && closedProjectsStart > currentProjectsStart
+      ? source.slice(currentProjectsStart, closedProjectsStart)
+      : source;
   const projects = [];
   const seen = new Set();
 
-  for (const match of source.matchAll(/slug:\s*'([^']+)'/g)) {
+  for (const match of catalogSource.matchAll(/slug:\s*'([^']+)'/g)) {
     const slug = match[1];
     if (seen.has(slug)) continue;
     seen.add(slug);

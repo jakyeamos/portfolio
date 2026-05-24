@@ -1,12 +1,12 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site has tracker-sync wired and now includes Book as a current project backed by an explicit project truth mapping.
-healthScore: 74
+summary: Personal portfolio site has tracker-sync wired against 14 local project truth sources and pnpm used consistently for local, CI, and deploy workflows.
+healthScore: 82
 statusLabel: on_track
-nextStep: Review the remaining current-project entries without discoverable truth files and add explicit mappings where those repos should sync into the portfolio.
+nextStep: Add a RemodelVision tracker truth file or explicit mapping if that project should join the automated current-project ingestion.
 blockers: []
-lastUpdated: 2026-05-01
+lastUpdated: 2026-05-24
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, player-comps, impact-report]
 goals:
@@ -16,7 +16,7 @@ repoType: app
 sourceOfTruth: inferred
 primaryLanguage: TypeScript
 activeBranch: codex/truth-sync-migration
-lastCommitDate: "2026-04-29"
+lastCommitDate: "2026-05-24"
 quality:
   lint: pass
   types: pass
@@ -24,10 +24,10 @@ quality:
   deadCode: unknown
   structure: pass
 canonicalCommands:
-  install: npm install
-  dev: vite --port=3000 --host=0.0.0.0
-  lint: tsc --noEmit
-  typecheck: tsc --noEmit
+  install: pnpm install
+  dev: pnpm dev
+  lint: pnpm lint
+  typecheck: pnpm lint
   test: unknown
   deadcode: unknown
 agentExpectationsVersion: 1
@@ -37,7 +37,9 @@ agentExpectationsVersion: 1
 
 The portfolio is on branch `codex/truth-sync-migration` with tracker-sync infrastructure in place. The React/Vite/Tailwind SPA is the live app shape: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
 
-The current-project tracker now includes `Book` with an explicit `.tracker/truth-map.json` entry pointing at `/Users/jakyeamos/projects/Book/.tracker/PROJECT_TRUTH.md`. The sync script resolves Book and reports it up to date. There are pre-existing untracked files in `.github/`, `docs/`, and `scripts/` that were not part of the Book tracking change.
+The current-project tracker now resolves 14 local project truth sources through `.tracker/truth-map.json` plus discovery, including AIOS, Soundscape, Terrace, Amos SaaS, Taski, Fantasy, Bballedu, Dispatches, Book, the GitHub issue-resolution modeling repo, Signal Lab, Cap-Fit Builder, CLFE, and RTE. `remodelvision` is the only current-project card still without a discoverable local truth source, so sync leaves its existing tracker fields intact. The sync script is scoped to `CURRENT_PROJECTS` so `CLOSED_PROJECTS` entries do not get overwritten by active repo truth snapshots.
+
+The repo uses pnpm as the single package-manager workflow: `package.json` declares `pnpm@10.26.0`, lifecycle hooks call `pnpm sync`, CI installs with `pnpm install --frozen-lockfile`, Netlify builds with `pnpm build`, and `pnpm-lock.yaml` is the lockfile.
 
 ## Why This Matters / Intended Outcome
 
@@ -51,21 +53,21 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - Deployment config (`netlify.toml`) and ignored artifact handling are in place
 - April 23: Replaced stale tracker sync logic with auto-discovery + override mapping and wired sync to run automatically before `dev`, `build`, and `lint`
 - May 1: Added Book to the current-project catalog and mapped `book` to the Book repo's project truth file
+- May 24: Replaced remaining npm workflow references with pnpm across package scripts, CI, Netlify, README, lockfile, and project truth metadata
+- May 24: Expanded the current-project truth map to 14 local sources, synced current health/status/next-step/date fields, and scoped sync to current projects only
 
 ## Open Problems
 
-- Most project entries still do not have discoverable `PROJECT_TRUTH.md` sources, so `npm run sync` skips them
-- `README.md` is empty, so the repo still lacks project-specific onboarding and maintenance notes
+- `remodelvision` still does not have a discoverable `PROJECT_TRUTH.md` source, so `pnpm sync` skips that one current-project entry
 - Ignored draft and binary assets still live beside the source tree; repo hygiene is acceptable, but long-term placement should be clarified
 - No automated test suite is configured, so regression confidence still depends on type/build checks and manual verification
 
 ## Next Concrete Steps
 
-1. Add explicit tracker mappings for remaining current-project entries that should sync from external repos
-2. Replace the empty README with a short project-specific overview and maintenance commands
-3. Decide whether the ignored draft/binary assets should stay colocated with the repo or move to a non-repo archive location
-4. Verify the deployed site still matches the current `main` build
-5. Add lightweight smoke coverage or a documented manual verification checklist if the site is changing frequently
+1. Add a RemodelVision tracker truth file or explicit mapping if that project should sync automatically
+2. Decide whether the ignored draft/binary assets should stay colocated with the repo or move to a non-repo archive location
+3. Verify the deployed site still matches the current `main` build
+4. Add lightweight smoke coverage or a documented manual verification checklist if the site is changing frequently
 
 ## Risks / Blockers
 
@@ -75,9 +77,9 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 ## Quality Ladder Notes
 
-- **Lint:** `npm run lint` (`tsc --noEmit`) — PASS on 2026-05-01
-- **Types:** `npm run lint` (`tsc --noEmit`) — PASS on 2026-05-01
-- **Build:** `npm run build` — PASS on 2026-04-10
+- **Lint:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-05-24
+- **Types:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-05-24
+- **Build:** `pnpm build` — PASS on 2026-05-24
 - **Tests:** no test script or test files found — unknown
 - **Dead code:** not configured
 - **Structure:** SPA structure is clean (pages, components, content, hooks separation) — PASS
@@ -87,4 +89,4 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - The `src/` SPA is the authoritative application state; the root `index.html` is the Vite entrypoint, not a leftover static site
 - `package.json` name is `front-office-amos` — consistent with the sports-front-office portfolio metaphor
 - `.planning/` exists and can drive future content/release phase work
-- Global canonical command references should be translated to this repo's actual scripts: `npm run lint` and `npm run build`
+- Global canonical command references should be translated to this repo's actual scripts: `pnpm lint` and `pnpm build`

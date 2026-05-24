@@ -1,3 +1,16 @@
 {
-  "book": "../Book/.tracker/PROJECT_TRUTH.md"
+  "aios": "../../AIOS/.tracker/PROJECT_TRUTH.md",
+  "amos-saas": "../amos-saas/.tracker/PROJECT_TRUTH.md",
+  "bballedu": "../Bballedu/.tracker/PROJECT_TRUTH.md",
+  "book": "../Book/.tracker/PROJECT_TRUTH.md",
+  "cap-fit-builder": "../BBDSE/Cap-Fit Builder/.tracker/PROJECT_TRUTH.md",
+  "clfe": "../BBDSE/CLFE/.tracker/PROJECT_TRUTH.md",
+  "dispatches": "../dispatches-from-cyberspace/.tracker/PROJECT_TRUTH.md",
+  "fantasy": "../Fantasy/.tracker/PROJECT_TRUTH.md",
+  "github-issue-resolution-modeling": "../Dsci-proj/.tracker/PROJECT_TRUTH.md",
+  "rte": "../BBDSE/RTE/.tracker/PROJECT_TRUTH.md",
+  "signal-lab": "../BBDSE/Signal Lab/.tracker/PROJECT_TRUTH.md",
+  "soundscape": "../soundscape-app/.tracker/PROJECT_TRUTH.md",
+  "taski": "../tm/.tracker/PROJECT_TRUTH.md",
+  "terrace": "../Terrace/.tracker/PROJECT_TRUTH.md"
 }

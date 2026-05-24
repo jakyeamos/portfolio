@@ -37,15 +37,17 @@ The package is marked private in `package.json`, so it is intended for local wor
 - `pnpm build` - `vite build`
 - `pnpm preview` - `vite preview`
 - `pnpm lint` - `tsc --noEmit`
-- `pnpm predev` - `npm run sync`
-- `pnpm prebuild` - `npm run sync`
-- `pnpm prelint` - `npm run sync`
+- `pnpm predev` - `pnpm sync`
+- `pnpm prebuild` - `pnpm sync`
+- `pnpm prelint` - `pnpm sync`
 - `pnpm sync` - `node scripts/sync-tracker.mjs`
 
 ## Development Notes
 
 Key runtime dependencies include `lucide-react`, `motion`, `react`, `react-dom`, `react-router-dom`.
 Use `pnpm` from this directory or the containing workspace to install dependencies and run scripts.
+
+`pnpm sync` reads `.tracker/truth-map.json` and local sibling `.tracker/PROJECT_TRUTH.md` files to refresh current-project health scores, statuses, next steps, and dates in `src/content/currentProjects.ts`.
 
 ## Verification
 
