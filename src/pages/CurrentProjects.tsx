@@ -5,6 +5,7 @@ import {
   CircleDot,
   HelpCircle,
   MapPin,
+  Play,
   Sparkles,
   Sun,
   Target,
@@ -32,6 +33,13 @@ type ProjectCourtLayout = {
   project: CurrentProject;
   markerSize: number;
   position: CSSProperties;
+};
+
+type HistoricShot = {
+  player: string;
+  moment: string;
+  zone: string;
+  note: string;
 };
 
 function toStatusLabel(status: CurrentProject['trackerStatus']): string {
@@ -76,6 +84,60 @@ function getShotCoordinates(project: CurrentProject, axis: ProjectAxis): CourtPo
 
 function markerSizeForProject(project: CurrentProject): number {
   return 14 + project.grades.ambition;
+}
+
+function getHistoricShot(point: CourtPoint): HistoricShot {
+  if (point.top <= 30 && point.left < 46) {
+    return {
+      player: 'Damian Lillard',
+      moment: '2019 series clincher vs OKC',
+      zone: 'Deep left wing',
+      note: 'A long-range confidence shot from the same high-upside territory.',
+    };
+  }
+
+  if (point.top <= 30) {
+    return {
+      player: 'Stephen Curry',
+      moment: '2016 overtime winner at OKC',
+      zone: 'Deep top wing',
+      note: 'A pull-up from range: early, confident, and hard to guard.',
+    };
+  }
+
+  if (point.top <= 54 && point.left >= 72) {
+    return {
+      player: 'Ray Allen',
+      moment: '2013 Finals Game 6 corner three',
+      zone: 'Right corner',
+      note: 'A precision reset shot: footwork, timing, and a clean release.',
+    };
+  }
+
+  if (point.top <= 54 && point.left <= 28) {
+    return {
+      player: 'Kawhi Leonard',
+      moment: '2019 Game 7 winner vs Philadelphia',
+      zone: 'Left baseline wing',
+      note: 'A high-arc shot from a tight angle with real consequence.',
+    };
+  }
+
+  if (point.top <= 64) {
+    return {
+      player: 'Michael Jordan',
+      moment: '1998 Finals Game 6 title clincher',
+      zone: 'Midrange wing',
+      note: 'A controlled separation shot from the part of the floor where craft matters.',
+    };
+  }
+
+  return {
+    player: 'LeBron James',
+    moment: '2018 Game 5 winner vs Indiana',
+    zone: 'Above-the-break three',
+    note: 'A late-clock launch: direct, decisive, and built on pressure.',
+  };
 }
 
 function buildCourtLayout(projects: readonly CurrentProject[], axis: ProjectAxis): ProjectCourtLayout[] {
@@ -257,6 +319,86 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
   );
 }
 
+function HistoricShotPlayer({
+  point,
+  shot,
+}: {
+  point: CourtPoint;
+  shot: HistoricShot;
+}): ReactElement {
+  const playerLeft = clamp(point.left, 8, 92);
+  const playerTop = clamp(point.top * 0.57, 7, 50);
+  const rimX = 50;
+  const rimY = 54;
+  const controlX = clamp((playerLeft + rimX) / 2, 14, 86);
+  const controlY = clamp(Math.min(playerTop, rimY) - 18, 8, 82);
+  const arcPath = `M ${playerLeft} ${playerTop} Q ${controlX} ${controlY} ${rimX} ${rimY}`;
+
+  return (
+    <section className="border border-[color:var(--color-line)] bg-white p-4">
+      <div className="flex items-center justify-between gap-3">
+        <div className="section-kicker">Historic Shot Echo</div>
+        <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-ink-soft)]">
+          Nearby zone
+        </span>
+      </div>
+
+      <div className="mt-3 overflow-hidden border border-[color:var(--color-line)] bg-[color:var(--color-surface-muted)]">
+        <div className="relative aspect-video">
+          <svg viewBox="0 0 100 60" className="absolute inset-0 h-full w-full" aria-hidden="true">
+            <rect x="1" y="1" width="98" height="58" fill="none" stroke="rgba(21,24,32,0.18)" strokeWidth="0.8" />
+            <path
+              d="M 7 58 L 7 43 A 43 27 0 0 1 93 43 L 93 58"
+              fill="none"
+              stroke="rgba(21,24,32,0.22)"
+              strokeWidth="0.8"
+            />
+            <rect x="38" y="37" width="24" height="18" fill="none" stroke="rgba(21,24,32,0.18)" strokeWidth="0.8" />
+            <line x1="42" y1="56" x2="58" y2="56" stroke="rgba(181,13,13,0.65)" strokeWidth="1.2" />
+            <circle cx="50" cy="54" r="2.3" fill="rgba(181,13,13,0.12)" stroke="rgba(181,13,13,0.75)" strokeWidth="0.9" />
+            <motion.path
+              d={arcPath}
+              fill="none"
+              stroke="rgba(181,13,13,0.58)"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeDasharray="3 3"
+              initial={{ pathLength: 0, opacity: 0.25 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 1.2, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+            />
+            <g transform={`translate(${playerLeft} ${playerTop})`}>
+              <circle cx="0" cy="-4.5" r="3" fill="rgba(21,24,32,0.86)" />
+              <path d="M -4 1 Q 0 -1 4 1 L 3 9 L -3 9 Z" fill="rgba(21,24,32,0.86)" />
+              <circle cx="5.5" cy="-8.5" r="2.3" fill="rgba(181,13,13,0.72)" />
+              <line x1="2.5" y1="-2" x2="5.2" y2="-6.5" stroke="rgba(21,24,32,0.86)" strokeWidth="1.5" strokeLinecap="round" />
+              <line x1="-2.5" y1="-2" x2="-6" y2="2.5" stroke="rgba(21,24,32,0.86)" strokeWidth="1.5" strokeLinecap="round" />
+            </g>
+          </svg>
+          <div className="absolute bottom-2 left-2 flex items-center gap-2 bg-[rgba(252,248,241,0.92)] px-2 py-1">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[color:var(--color-primary)] text-[7px] font-black text-white">
+              <Play size={9} fill="currentColor" />
+            </span>
+            <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-ink)]">
+              {shot.zone}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-3 text-sm font-black uppercase leading-tight text-[color:var(--color-ink)]">
+        {shot.player}
+      </div>
+      <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-primary)]">
+        {shot.moment}
+      </div>
+      <p className="mt-2 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
+        {shot.note}
+      </p>
+    </section>
+  );
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function CurrentProjects(): ReactElement {
   const [activeAxis, setActiveAxis] = useState<ProjectAxis>('impact');
@@ -287,6 +429,14 @@ export default function CurrentProjects(): ReactElement {
   const courtLayout = useMemo(
     () => buildCourtLayout(orderedProjects, activeAxis),
     [orderedProjects, activeAxis],
+  );
+  const selectedCourtPoint = useMemo(
+    () => (selectedProject ? getShotCoordinates(selectedProject, activeAxis) : null),
+    [selectedProject, activeAxis],
+  );
+  const selectedHistoricShot = useMemo(
+    () => (selectedCourtPoint ? getHistoricShot(selectedCourtPoint) : null),
+    [selectedCourtPoint],
   );
 
   useEffect(() => { setShowAllRoster(false); }, [activeAxis]);
@@ -769,6 +919,10 @@ export default function CurrentProjects(): ReactElement {
                     mirrors completion and current state.
                   </p>
                 </section>
+
+                {selectedCourtPoint && selectedHistoricShot ? (
+                  <HistoricShotPlayer point={selectedCourtPoint} shot={selectedHistoricShot} />
+                ) : null}
 
                 {/* Tags */}
                 <section className="border border-[color:var(--color-line)] bg-white p-5">
