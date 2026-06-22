@@ -69,6 +69,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 22: Simplified the project court styling by removing the radial wash, colored quadrant fills, dashed guide lines, and tinted paint while preserving the meaningful coordinates, labels, and marker behavior
 - June 22: Added a compact Historic Shot Echo module to the project detail modal so selected court dots show a nearby famous NBA shot reference from the same general floor zone
 - June 22: Upgraded the Historic Shot module to attempt official YouTube embeds, keep a 200px-tall side-rail player, and let closed-project cards open the same detail modal so current and shipped projects share the feature
+- June 22: Synced the AIOS tracker comment from local truth, updating the full-suite Python failure count from 10 to 15 in the portfolio UI data
 
 ## Open Problems
 
