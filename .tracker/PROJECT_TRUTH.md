@@ -43,7 +43,7 @@ The repo uses pnpm as the single package-manager workflow: `package.json` declar
 
 The weekly portfolio tracker ingestion automation now commits verified generated tracker updates and pushes the current branch after `pnpm sync`, `pnpm lint`, and `pnpm build` pass. This makes the portfolio-progress loop publishable, but the public UI only updates automatically when the pushed branch is the Netlify production deploy branch or is merged into it.
 
-The current-project court UI now uses a meaningful matrix rather than a decorative half-arc: x-position represents tracker health/readiness, y-position represents the selected scout axis, marker size reflects ambition, marker color reflects status, and a deterministic spacing pass prevents dense project clusters from overlapping on desktop and mobile.
+The current-project court UI now uses a meaningful matrix rather than a decorative half-arc: x-position represents tracker health/readiness, y-position represents the selected scout axis on a tough elite-threshold curve, marker size reflects ambition, marker color reflects status, and a deterministic spacing pass prevents dense project clusters from overlapping on desktop and mobile. Clearing the three-point arc is intentionally selective rather than the default for every strong project.
 
 ## Why This Matters / Intended Outcome
 
@@ -65,6 +65,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 22: Added repo-local Pre-CR configuration so source commits satisfy the global commit quality gate while continuing to use `pnpm lint` as the enforced local check
 - June 22: Added a portfolio-local RemodelVision project truth file, mapped it in `.tracker/truth-map.json`, and synced its tracker fields into the current-project UI data
 - June 22: Reworked the current-project court from arbitrary half-arc placement into a tracker-health × scout-axis matrix with quadrant labels, status colors, ambition-sized markers, and Browser-verified overlap prevention
+- June 22: Recalibrated the court Y-axis so the three-point arc is an elite threshold; Browser QA confirmed Ambition desktop minimum marker gap 25.46px and mobile minimum marker gap 3.31px with no overlaps
 
 ## Open Problems
 
@@ -90,7 +91,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Lint:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-22
 - **Types:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-22
 - **Build:** `pnpm build` — PASS on 2026-06-22
-- **Browser QA:** `/projects` in the in-app Browser — PASS on 2026-06-22; Ambition desktop minimum marker gap 25.11px, mobile minimum marker gap 3.69px, no marker overlaps, no console warnings/errors, Soundscape marker opened the detail modal
+- **Browser QA:** `/projects` in the in-app Browser — PASS on 2026-06-22; recalibrated Ambition desktop minimum marker gap 25.46px, mobile minimum marker gap 3.31px, no marker overlaps, no horizontal overflow, no console warnings/errors, Soundscape marker opened the detail modal
 - **Architecture check:** `node scripts/aios-architecture-check.mjs` — PASS on 2026-05-24
 - **Tests:** no test script or test files found — unknown
 - **Dead code:** not configured
