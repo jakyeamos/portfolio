@@ -64,7 +64,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Personal AI operating system built around session hooks, workflow orchestration, pattern extraction, and layered knowledge retrieval — actively used as the backbone of daily engineering operations.',
     trackerComment:
-      'Triage the 10 full-suite Python test failures and stale repo-wide Ruff/BasedPyright baselines before claiming repo-level quality green.',
+      'Triage the 15 full-suite Python test failures and stale repo-wide Ruff/BasedPyright baselines before claiming repo-level quality green.',
     trackerStatus: 'needs_attention',
     trackerScore: 66,
     lastUpdated: '2026-06-22',
