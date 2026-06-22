@@ -48,10 +48,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Full-stack music social platform in active development — covering discovery, ratings, feeds, market surfaces, clubs, and a shared web/mobile codebase in a TypeScript monorepo.',
     trackerComment:
-      'Close the polymorphic `ExternalId` persistence gap exposed by catalog hydration, then decide whether duplicate MusicBrainz title variants should remain a read-layer collapse only or be normalized deeper in the canonical catalog model, fix the remaining `@soundscape/platform-web` coverage test drift in `src/trpc/__tests__/webClient.test.ts`, and rerun the repo-level quality ladder.',
+      'Run `pnpm clerk:doctor` again after `clerk auth login` and `clerk link`, then close the polymorphic `ExternalId` persistence gap and rerun the repo-level quality ladder.',
     trackerStatus: 'needs_attention',
     trackerScore: 79,
-    lastUpdated: '2026-04-18',
+    lastUpdated: '2026-06-12',
     tags: ['music', 'social', 'monorepo', 'tRPC', 'Prisma'],
     grades: { impact: 9, difficulty: 9, ambition: 10, creativity: 8 },
     scoutTake:
@@ -64,10 +64,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Personal AI operating system built around session hooks, workflow orchestration, pattern extraction, and layered knowledge retrieval — actively used as the backbone of daily engineering operations.',
     trackerComment:
-      'Execute Phase 7 (delta scoring and health backfill) plans 07-01, 07-02, 07-03 in wave order; resume BasedPyright remediation in parallel.',
-    trackerStatus: 'on_track',
-    trackerScore: 72,
-    lastUpdated: '2026-05-20',
+      'Triage the 10 full-suite Python test failures and stale repo-wide Ruff/BasedPyright baselines before claiming repo-level quality green.',
+    trackerStatus: 'needs_attention',
+    trackerScore: 66,
+    lastUpdated: '2026-06-22',
     tags: ['Python', 'shell', 'SQLite', 'automation', 'AI-tooling'],
     grades: { impact: 8, difficulty: 7, ambition: 9, creativity: 9 },
     scoutTake:
@@ -129,10 +129,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Local-first dynasty fantasy football intelligence app featuring a working trade engine, FastAPI backend, React/Vite frontend, and DuckDB persistence — with multi-team scoring in active development.',
     trackerComment:
-      'Plan the next trade-engine phase around multi-team trade scoring and counterparty player selection while keeping the Phase 21 opportunity feed stable.',
+      'Plan the next trade-engine phase around multi-team trade scoring while keeping the Phase 21 opportunity feed and restored counterparty player picker stable.',
     trackerStatus: 'on_track',
     trackerScore: 78,
-    lastUpdated: '2026-05-18',
+    lastUpdated: '2026-06-13',
     tags: ['fantasy-football', 'FastAPI', 'React', 'DuckDB', 'dynasty'],
     grades: { impact: 6, difficulty: 7, ambition: 7, creativity: 8 },
     scoutTake:
@@ -161,10 +161,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Court Vision — a web-first basketball IQ training platform featuring real-time multiplayer draft simulation, Monte Carlo modeling, and an Express/Socket.io backend.',
     trackerComment:
-      'Continue the front-office transaction graph work after the live Court Vision shell refresh for draft and offseason entry paths.',
+      'Add sign-and-trade/base-year/minimum-salary special cases, generated/consumed trade exception accounting, swap conveyance validation, and rollback-safe execution.',
     trackerStatus: 'on_track',
-    trackerScore: 82,
-    lastUpdated: '2026-05-19',
+    trackerScore: 84,
+    lastUpdated: '2026-06-12',
     tags: ['basketball', 'education', 'React', 'Express', 'Socket.io'],
     grades: { impact: 7, difficulty: 7, ambition: 8, creativity: 8 },
     scoutTake:
@@ -177,10 +177,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Full-stack blog platform with API routes, Postgres and Clerk integration, content-management flows, and cross-posting features — actively developed across a monorepo package structure.',
     trackerComment:
-      'Sync `.planning/STATE.md` with the newer comment and crosspost work, then plan the next phase after content-management core.',
+      'Run `pnpm clerk:doctor` again after `clerk auth login` and `clerk link`, then sync `.planning/STATE.md` with the newer comment and crosspost work.',
     trackerStatus: 'on_track',
     trackerScore: 72,
-    lastUpdated: '2026-05-18',
+    lastUpdated: '2026-06-12',
     tags: ['blog', 'Vite', 'Postgres', 'Clerk', 'monorepo'],
     grades: { impact: 5, difficulty: 6, ambition: 6, creativity: 7 },
     scoutTake:
@@ -193,10 +193,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Interactive digital book reader with chapter-specific visuals, music, ambient effects, particles, and a growing admin CMS layer for nontechnical chapter editing and soundtrack cue management.',
     trackerComment:
-      'Deploy the Render blueprint with production `ADMIN_EMAIL` and `ADMIN_PASSWORD`, point the live domain at the Node service, and run live editor verification.',
+      'Deploy the Render blueprint with production `ADMIN_EMAIL` and `ADMIN_PASSWORD`, point the live domain at the Node service, and run `BOOK_SMOKE_BASE_URL=... pnpm run platform:fullstack-smoke` against the deployed service.',
     trackerStatus: 'on_track',
-    trackerScore: 86,
-    lastUpdated: '2026-05-01',
+    trackerScore: 88,
+    lastUpdated: '2026-06-13',
     tags: ['interactive-book', 'admin-CMS', 'audio', 'TypeScript', 'publishing'],
     grades: { impact: 6, difficulty: 7, ambition: 7, creativity: 9 },
     scoutTake:
@@ -257,10 +257,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Contextual Lineup Fit Engine — models why a player elevates some lineups and drags down others, moving beyond raw on/off to explain conditional impact by roster context.',
     trackerComment:
-      'Build or source a true lineup-stint table before starting archetype clustering or conditional impact modeling.',
-    trackerStatus: 'stalled',
-    trackerScore: 46,
-    lastUpdated: '2026-05-20',
+      'Execute CLFE Phase 1 audit-first plans: publish the direct-stint readiness audit, reconcile the schema contract, and define model-entry gates before archetype work.',
+    trackerStatus: 'needs_attention',
+    trackerScore: 57,
+    lastUpdated: '2026-05-26',
     tags: ['basketball', 'analytics', 'Python'],
     grades: { impact: 7, difficulty: 8, ambition: 8, creativity: 8 },
     scoutTake:
@@ -276,7 +276,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
       'Plan and implement RTE Phase 5: draft-slot-relative transferable-signal modeling and a 2026 translation-adjusted big board.',
     trackerStatus: 'on_track',
     trackerScore: 72,
-    lastUpdated: '2026-05-20',
+    lastUpdated: '2026-06-05',
     tags: ['basketball', 'analytics', 'Python'],
     grades: { impact: 7, difficulty: 8, ambition: 8, creativity: 7 },
     scoutTake:

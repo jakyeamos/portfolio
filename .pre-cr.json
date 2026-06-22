@@ -1,0 +1,16 @@
+{
+  "testCommand": "pnpm lint",
+  "coveragePaths": [
+    "coverage/pre-cr.lcov"
+  ],
+  "coverageFormat": "auto",
+  "coverageAdapters": [
+    {
+      "name": "portfolio-checks",
+      "command": "node scripts/pre-cr-coverage.mjs",
+      "coveragePath": "coverage/pre-cr.lcov",
+      "coverageFormat": "lcov"
+    }
+  ],
+  "threshold": 0
+}
