@@ -145,10 +145,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'AI-powered remodeling cost platform where homeowners upload a room photo and receive a generated renovation visualization alongside a line-item cost estimate. Core implementation complete and in final launch hardening.',
     trackerComment:
-      'Finalizing observability, test coverage, and user acceptance checks before release.',
-    trackerStatus: 'on_track',
-    trackerScore: 79,
-    lastUpdated: '2026-04-09',
+      'Finish launch hardening: production room workflow UX, persisted session history, itemized estimate display, external-service retry states, and demo/UAT smoke coverage.',
+    trackerStatus: 'needs_attention',
+    trackerScore: 73,
+    lastUpdated: '2026-06-22',
     tags: ['Next.js', 'AI', 'Supabase', 'Clerk', 'remodeling'],
     grades: { impact: 8, difficulty: 7, ambition: 8, creativity: 8 },
     scoutTake:
