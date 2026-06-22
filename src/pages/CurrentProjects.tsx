@@ -23,6 +23,7 @@ import {
 } from '@/content/currentProjects';
 
 const AXES: readonly ProjectAxis[] = ['impact', 'difficulty', 'ambition', 'creativity'] as const;
+const ALL_PROJECTS: readonly CurrentProject[] = [...CURRENT_PROJECTS, ...CLOSED_PROJECTS] as const;
 
 type CourtPoint = {
   left: number;
@@ -36,11 +37,12 @@ type ProjectCourtLayout = {
 };
 
 type HistoricShot = {
+  id: string;
   player: string;
   moment: string;
   zone: string;
   note: string;
-  youtubeId: string;
+  youtubeId?: string;
   start: number;
   end?: number;
   source: string;
@@ -54,61 +56,430 @@ type HistoricShotZone =
   | 'aboveBreak'
   | 'midrange';
 
-const HISTORIC_SHOTS: Record<HistoricShotZone, HistoricShot> = {
-  deepLeft: {
-    player: 'Damian Lillard',
-    moment: '2019 series clincher vs OKC',
-    zone: 'Deep left wing',
-    note: 'A long-range confidence shot from the same high-upside territory.',
-    youtubeId: 'a-M3x-eZpV8',
-    start: 0,
-    source: 'NBA on YouTube',
-  },
-  deepTop: {
-    player: 'Stephen Curry',
-    moment: '2016 overtime winner at OKC',
-    zone: 'Deep top wing',
-    note: 'A pull-up from range: early, confident, and hard to guard.',
-    youtubeId: 'GEMVGHoenXM',
-    start: 0,
-    source: 'NBA on YouTube',
-  },
-  rightCorner: {
-    player: 'Ray Allen',
-    moment: '2013 Finals Game 6 corner three',
-    zone: 'Right corner',
-    note: 'A precision reset shot: footwork, timing, and a clean release.',
-    youtubeId: 'ua_w5RxpFIQ',
-    start: 780,
-    source: 'NBA on YouTube',
-  },
-  leftBaselineWing: {
-    player: 'Kawhi Leonard',
-    moment: '2019 Game 7 winner vs Philadelphia',
-    zone: 'Left baseline wing',
-    note: 'A high-arc shot from a tight angle with real consequence.',
-    youtubeId: 'ChT3ewZXTfM',
-    start: 0,
-    source: 'NBA on YouTube',
-  },
-  aboveBreak: {
-    player: 'LeBron James',
-    moment: '2018 Game 5 winner vs Indiana',
-    zone: 'Above-the-break three',
-    note: 'A late-clock launch: direct, decisive, and built on pressure.',
-    youtubeId: '2XWgRpfkxhY',
-    start: 0,
-    source: 'NBA on YouTube',
-  },
-  midrange: {
-    player: 'Michael Jordan',
-    moment: '1998 Finals Game 6 title clincher',
-    zone: 'Midrange wing',
-    note: 'A controlled separation shot from the part of the floor where craft matters.',
-    youtubeId: '92fLApYaCGI',
-    start: 0,
-    source: 'NBA on YouTube',
-  },
+const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
+  deepLeft: [
+    {
+      id: 'lillard-okc-2019',
+      player: 'Damian Lillard',
+      moment: '2019 series clincher vs OKC',
+      zone: 'Deep left wing',
+      note: 'A long-range confidence shot from the same high-upside territory.',
+      youtubeId: 'a-M3x-eZpV8',
+      start: 0,
+      source: 'NBA on YouTube',
+    },
+    {
+      id: 'lillard-rockets-2014',
+      player: 'Damian Lillard',
+      moment: '2014 series clincher vs Houston',
+      zone: 'Left wing three',
+      note: 'A clean catch-and-fire ending from the left side of the floor.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'luka-clippers-2020',
+      player: 'Luka Doncic',
+      moment: '2020 bubble winner vs LA Clippers',
+      zone: 'Left wing stepback',
+      note: 'A left-wing creation shot under playoff pressure.',
+      start: 0,
+      source: 'Shot reference',
+    },
+  ],
+  deepTop: [
+    {
+      id: 'curry-okc-2016',
+      player: 'Stephen Curry',
+      moment: '2016 overtime winner at OKC',
+      zone: 'Deep top wing',
+      note: 'A pull-up from range: early, confident, and hard to guard.',
+      youtubeId: 'GEMVGHoenXM',
+      start: 0,
+      source: 'NBA on YouTube',
+    },
+    {
+      id: 'trae-knicks-2021',
+      player: 'Trae Young',
+      moment: '2021 playoff silencer at Madison Square Garden',
+      zone: 'High slot floater',
+      note: 'A high-floor pressure shot with the whole arena leaning on it.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'curry-france-2024',
+      player: 'Stephen Curry',
+      moment: '2024 gold-medal dagger vs France',
+      zone: 'Deep top pull-up',
+      note: 'A late-clock distance shot that turned difficulty into separation.',
+      start: 0,
+      source: 'Shot reference',
+    },
+  ],
+  rightCorner: [
+    {
+      id: 'allen-spurs-2013',
+      player: 'Ray Allen',
+      moment: '2013 Finals Game 6 corner three',
+      zone: 'Right corner',
+      note: 'A precision reset shot: footwork, timing, and a clean release.',
+      youtubeId: 'ua_w5RxpFIQ',
+      start: 780,
+      source: 'NBA on YouTube',
+    },
+    {
+      id: 'kerr-jazz-1997',
+      player: 'Steve Kerr',
+      moment: '1997 Finals Game 6 winner',
+      zone: 'Right slot release',
+      note: 'A trust-the-system shot: small window, huge consequence.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'horry-kings-2002',
+      player: 'Robert Horry',
+      moment: '2002 Western Finals Game 4 winner',
+      zone: 'Right-side three',
+      note: 'A scramble-possession three where spacing and readiness mattered.',
+      start: 0,
+      source: 'Shot reference',
+    },
+  ],
+  leftBaselineWing: [
+    {
+      id: 'kawhi-sixers-2019',
+      player: 'Kawhi Leonard',
+      moment: '2019 Game 7 winner vs Philadelphia',
+      zone: 'Left baseline wing',
+      note: 'A high-arc shot from a tight angle with real consequence.',
+      youtubeId: 'ChT3ewZXTfM',
+      start: 0,
+      source: 'NBA on YouTube',
+    },
+    {
+      id: 'fisher-spurs-2004',
+      player: 'Derek Fisher',
+      moment: '2004 0.4-second winner vs San Antonio',
+      zone: 'Left baseline catch',
+      note: 'A near-impossible release from the baseline side.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'booker-clippers-2020',
+      player: 'Devin Booker',
+      moment: '2020 bubble winner vs LA Clippers',
+      zone: 'Left baseline fade',
+      note: 'A contested baseline touch shot with no clean landing space.',
+      start: 0,
+      source: 'Shot reference',
+    },
+  ],
+  aboveBreak: [
+    {
+      id: 'lebron-pacers-2018',
+      player: 'LeBron James',
+      moment: '2018 Game 5 winner vs Indiana',
+      zone: 'Above-the-break three',
+      note: 'A late-clock launch: direct, decisive, and built on pressure.',
+      youtubeId: '2XWgRpfkxhY',
+      start: 0,
+      source: 'NBA on YouTube',
+    },
+    {
+      id: 'kyrie-warriors-2016',
+      player: 'Kyrie Irving',
+      moment: '2016 Finals Game 7 go-ahead three',
+      zone: 'Right wing above the break',
+      note: 'A high-skill isolation three with the title hanging on the possession.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'durant-cavs-2017',
+      player: 'Kevin Durant',
+      moment: '2017 Finals Game 3 pull-up',
+      zone: 'Left slot above the break',
+      note: 'A transition pull-up that rewarded full-court ambition.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'tatum-sixers-2023',
+      player: 'Jayson Tatum',
+      moment: '2023 Game 6 late three vs Philadelphia',
+      zone: 'Left wing above the break',
+      note: 'A cold-stretch breaker that kept the whole series alive.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'murray-lakers-2024',
+      player: 'Jamal Murray',
+      moment: '2024 playoff winner vs Lakers',
+      zone: 'Right wing pull-up',
+      note: 'A rhythm pull-up from the wing after a full-game pressure build.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'haliburton-knicks-2025',
+      player: 'Tyrese Haliburton',
+      moment: '2025 playoff four-point play vs New York',
+      zone: 'Top-side pull-up',
+      note: 'A modern shot-profile swing: space, nerve, and instant leverage.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'wade-warriors-2019',
+      player: 'Dwyane Wade',
+      moment: '2019 one-legged bank winner vs Golden State',
+      zone: 'High right wing',
+      note: 'A broken-play heave that turned improvisation into a highlight.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'morant-wolves-2022',
+      player: 'Ja Morant',
+      moment: '2022 Game 5 winner vs Minnesota',
+      zone: 'High lane attack',
+      note: 'A downhill late-clock finish from above the break into the paint.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'reggie-knicks-1995',
+      player: 'Reggie Miller',
+      moment: '1995 eight-points-in-nine-seconds three',
+      zone: 'Above-the-break three',
+      note: 'A pressure swing shot where momentum flipped instantly.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'paul-spurs-2015',
+      player: 'Chris Paul',
+      moment: '2015 Game 7 winner vs San Antonio',
+      zone: 'High right lane',
+      note: 'A one-legged high-angle shot over elite defense.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'luka-celtics-2025',
+      player: 'Luka Doncic',
+      moment: 'Late-clock stepback from the high slot',
+      zone: 'High slot stepback',
+      note: 'A shot profile built on size, patience, and impossible timing.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'fox-warriors-2023',
+      player: 'De Aaron Fox',
+      moment: '2023 playoff pull-up pressure three',
+      zone: 'High right slot',
+      note: 'A pace-changing guard shot from the modern playoff map.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'mitchell-nuggets-2020',
+      player: 'Donovan Mitchell',
+      moment: '2020 bubble scoring-run pull-up',
+      zone: 'Top wing pull-up',
+      note: 'A shot from the zone where scoring bursts start to feel inevitable.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'booker-suns-2021',
+      player: 'Devin Booker',
+      moment: '2021 playoff pull-up dagger',
+      zone: 'Above-the-break pull-up',
+      note: 'A clean scorer shot from the first layer above the arc.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'butler-bucks-2023',
+      player: 'Jimmy Butler',
+      moment: '2023 playoff late-game bailout vs Milwaukee',
+      zone: 'High slot creation',
+      note: 'A possession-saving shot built more on nerve than comfort.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'edwards-nuggets-2024',
+      player: 'Anthony Edwards',
+      moment: '2024 playoff pull-up pressure shot vs Denver',
+      zone: 'Above-the-break pull-up',
+      note: 'A modern power-guard shot from the part of the floor where confidence shows first.',
+      start: 0,
+      source: 'Shot reference',
+    },
+  ],
+  midrange: [
+    {
+      id: 'jordan-jazz-1998',
+      player: 'Michael Jordan',
+      moment: '1998 Finals Game 6 title clincher',
+      zone: 'Midrange wing',
+      note: 'A controlled separation shot from the part of the floor where craft matters.',
+      youtubeId: '92fLApYaCGI',
+      start: 0,
+      source: 'NBA on YouTube',
+    },
+    {
+      id: 'jordan-cavs-1989',
+      player: 'Michael Jordan',
+      moment: '1989 series winner vs Cleveland',
+      zone: 'Left elbow pull-up',
+      note: 'The classic rise-and-hang playoff midrange shot.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'kobe-suns-2006',
+      player: 'Kobe Bryant',
+      moment: '2006 playoff winner vs Phoenix',
+      zone: 'Right elbow pull-up',
+      note: 'A two-dribble midrange shot from the league’s hardest comfort zone.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'dirk-heat-2011',
+      player: 'Dirk Nowitzki',
+      moment: '2011 Finals lefty finish vs Miami',
+      zone: 'Left lane touch',
+      note: 'A high-leverage touch shot from a creator who lived between zones.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'pierce-hawks-2015',
+      player: 'Paul Pierce',
+      moment: '2015 banked winner vs Atlanta',
+      zone: 'Left elbow bank',
+      note: 'A veteran midrange bank that turned timing into theater.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'garnett-kings-2004',
+      player: 'Kevin Garnett',
+      moment: '2004 Game 7 turnaround vs Sacramento',
+      zone: 'High-post fade',
+      note: 'A big-wing shot from the high post under elimination pressure.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'durant-bucks-2021',
+      player: 'Kevin Durant',
+      moment: '2021 Game 7 toe-on-line jumper vs Milwaukee',
+      zone: 'Left wing long two',
+      note: 'A long two so close to three that the geometry became the story.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'derozan-raptors-2018',
+      player: 'DeMar DeRozan',
+      moment: 'Late-game footwork jumper from the elbow',
+      zone: 'Elbow midrange',
+      note: 'A footwork-and-balance shot from a pure midrange specialist.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'anthony-knicks-2012',
+      player: 'Carmelo Anthony',
+      moment: 'Easter double-overtime jumper vs Chicago',
+      zone: 'Left wing midrange',
+      note: 'A jab-step scorer shot from a wing who made this area dangerous.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'booker-clippers-2021',
+      player: 'Devin Booker',
+      moment: '2021 playoff midrange heater vs LA Clippers',
+      zone: 'Right elbow pull-up',
+      note: 'A polished scorer shot from the pocket between math and craft.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'paul-bucks-2021',
+      player: 'Chris Paul',
+      moment: '2021 Finals snake-dribble jumper',
+      zone: 'Free-throw-line pull-up',
+      note: 'A controlled point-guard shot from the center of the floor.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'shai-nuggets-2025',
+      player: 'Shai Gilgeous-Alexander',
+      moment: 'Playoff stop-and-rise midrange jumper',
+      zone: 'Right lane pull-up',
+      note: 'A modern pressure midrange shot built on pace and balance.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'brunson-sixers-2024',
+      player: 'Jalen Brunson',
+      moment: '2024 playoff pull-up run vs Philadelphia',
+      zone: 'Left elbow pull-up',
+      note: 'A compact guard shot from a playoff series built on counters.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'leonard-mavs-2021',
+      player: 'Kawhi Leonard',
+      moment: '2021 elimination-game midrange run vs Dallas',
+      zone: 'Right wing long two',
+      note: 'A strength-and-balance shot from one of the best wing creators.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'wade-mavericks-2006',
+      player: 'Dwyane Wade',
+      moment: '2006 Finals pressure pull-up vs Dallas',
+      zone: 'Right lane pull-up',
+      note: 'A downhill guard shot from the boundary between paint and midrange.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'parker-heat-2013',
+      player: 'Tony Parker',
+      moment: '2013 Finals Game 1 falling jumper',
+      zone: 'High lane floater',
+      note: 'A balance-breaking shot that used time, angle, and touch.',
+      start: 0,
+      source: 'Shot reference',
+    },
+    {
+      id: 'rose-cavs-2015',
+      player: 'Derrick Rose',
+      moment: '2015 banked winner vs Cleveland',
+      zone: 'Left wing bank',
+      note: 'A sudden midrange-window shot that turned a broken possession into a roar.',
+      start: 0,
+      source: 'Shot reference',
+    },
+  ],
 };
 
 function toStatusLabel(status: CurrentProject['trackerStatus']): string {
@@ -168,8 +539,15 @@ function getHistoricShotZone(point: CourtPoint): HistoricShotZone {
   return 'midrange';
 }
 
-function getHistoricShot(point: CourtPoint): HistoricShot {
-  return HISTORIC_SHOTS[getHistoricShotZone(point)];
+function getHistoricShot(project: CurrentProject, axis: ProjectAxis, point: CourtPoint): HistoricShot {
+  const zone = getHistoricShotZone(point);
+  const pool = HISTORIC_SHOT_POOLS[zone];
+  const zoneRank = ALL_PROJECTS.filter(
+    (candidate) => getHistoricShotZone(getShotCoordinates(candidate, axis)) === zone,
+  ).findIndex((candidate) => candidate.slug === project.slug);
+  const instanceIndex = Math.max(0, zoneRank);
+
+  return pool[instanceIndex % pool.length];
 }
 
 function buildCourtLayout(projects: readonly CurrentProject[], axis: ProjectAxis): ProjectCourtLayout[] {
@@ -385,15 +763,17 @@ function HistoricShotPlayer({
 
       <div className="mt-3 overflow-hidden border border-[color:var(--color-line)] bg-[color:var(--color-surface-muted)]">
         <div className="relative h-[200px]">
-          <iframe
-            title={`${shot.player} ${shot.moment}`}
-            src={`https://www.youtube.com/embed/${shot.youtubeId}?${embedParams.toString()}`}
-            className="absolute inset-0 z-10 h-full w-full border-0"
-            loading="lazy"
-            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            referrerPolicy="strict-origin-when-cross-origin"
-          />
+          {shot.youtubeId ? (
+            <iframe
+              title={`${shot.player} ${shot.moment}`}
+              src={`https://www.youtube.com/embed/${shot.youtubeId}?${embedParams.toString()}`}
+              className="absolute inset-0 z-10 h-full w-full border-0"
+              loading="lazy"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
+          ) : null}
           <svg viewBox="0 0 100 60" className="absolute inset-0 h-full w-full" aria-hidden="true">
             <rect x="1" y="1" width="98" height="58" fill="none" stroke="rgba(21,24,32,0.18)" strokeWidth="0.8" />
             <path
@@ -484,8 +864,8 @@ export default function CurrentProjects(): ReactElement {
     [selectedProject, activeAxis],
   );
   const selectedHistoricShot = useMemo(
-    () => (selectedCourtPoint ? getHistoricShot(selectedCourtPoint) : null),
-    [selectedCourtPoint],
+    () => (selectedProject && selectedCourtPoint ? getHistoricShot(selectedProject, activeAxis, selectedCourtPoint) : null),
+    [activeAxis, selectedCourtPoint, selectedProject],
   );
 
   useEffect(() => { setShowAllRoster(false); }, [activeAxis]);
