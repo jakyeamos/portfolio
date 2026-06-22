@@ -233,7 +233,7 @@ export const FEATURE_REPORTS = [
   {
     kicker: 'Projects',
     title: 'Live shot chart',
-    copy: 'Tracker-backed project health on a half-court board, with scout grades for impact, difficulty, ambition, and creativity.',
+    copy: 'Tracker-backed project health on a court matrix, with scout grades for impact, difficulty, ambition, and creativity.',
     href: '/projects',
     cta: 'Open the board',
   },

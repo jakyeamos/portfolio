@@ -23,6 +23,17 @@ import {
 
 const AXES: readonly ProjectAxis[] = ['impact', 'difficulty', 'ambition', 'creativity'] as const;
 
+type CourtPoint = {
+  left: number;
+  top: number;
+};
+
+type ProjectCourtLayout = {
+  project: CurrentProject;
+  markerSize: number;
+  position: CSSProperties;
+};
+
 function toStatusLabel(status: CurrentProject['trackerStatus']): string {
   if (status === 'on_track') return 'Active';
   if (status === 'needs_attention') return 'In Development';
@@ -36,22 +47,74 @@ function getStatusTone(status: CurrentProject['trackerStatus']): string {
   return 'text-[color:var(--color-primary)]';
 }
 
-// Each project gets a stable random angle seeded from its slug (±38°).
-// Distance (radius) is relative: min score → layup, max score → deep three.
-function slugAngle(slug: string): number {
-  let h = 0;
-  for (const c of slug) { h = Math.imul(h, 31) + c.charCodeAt(0) | 0; }
-  return -38 + ((Math.abs(h) % 1000) / 1000) * 76;
+function getStatusRgb(status: CurrentProject['trackerStatus']): string {
+  if (status === 'on_track') return '20,77,184';
+  if (status === 'needs_attention') return '186,139,25';
+  return '181,13,13';
 }
 
-function getShotPosition(slug: string, normalizedScore: number): CSSProperties {
-  const angle = slugAngle(slug);
-  const radians = (angle * Math.PI) / 180;
-  // 12 (layup) → 68 (deep three)
-  const radius = 12 + normalizedScore * 56;
-  const left = 50 + Math.sin(radians) * radius;
-  const bottom = 8 + Math.cos(radians) * radius;
-  return { left: `${left}%`, bottom: `${bottom}%`, transform: 'translate(-50%, 50%)' };
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
+}
+
+function getShotCoordinates(project: CurrentProject, axis: ProjectAxis): CourtPoint {
+  const health = project.trackerScore / 100;
+  const axisGrade = project.grades[axis] / 10;
+  const difficultyPressure = (project.grades.difficulty - 5.5) / 10;
+  const creativeSpread = (project.grades.creativity - project.grades.impact) / 10;
+  const statusDrag =
+    project.trackerStatus === 'on_track' ? 0.03 : project.trackerStatus === 'stalled' ? -0.06 : -0.02;
+
+  const left = clamp(14 + health * 72 + creativeSpread * 7 + statusDrag * 100, 8, 92);
+  const top = clamp(86 - axisGrade * 74 + difficultyPressure * 7, 8, 90);
+
+  return { left, top };
+}
+
+function markerSizeForProject(project: CurrentProject): number {
+  return 14 + project.grades.ambition;
+}
+
+function buildCourtLayout(projects: readonly CurrentProject[], axis: ProjectAxis): ProjectCourtLayout[] {
+  const points = projects.map((project) => ({
+    project,
+    markerSize: markerSizeForProject(project),
+    ...getShotCoordinates(project, axis),
+  }));
+
+  for (let pass = 0; pass < 24; pass += 1) {
+    for (let i = 0; i < points.length; i += 1) {
+      for (let j = i + 1; j < points.length; j += 1) {
+        const a = points[i];
+        const b = points[j];
+        const dx = b.left - a.left;
+        const dy = b.top - a.top;
+        const distance = Math.hypot(dx, dy) || 0.01;
+        const minDistance = 8 + (a.markerSize + b.markerSize) / 32;
+
+        if (distance >= minDistance) continue;
+
+        const push = (minDistance - distance) / 2;
+        const nx = dx / distance;
+        const ny = dy / distance;
+
+        a.left = clamp(a.left - nx * push, 7, 93);
+        a.top = clamp(a.top - ny * push, 7, 91);
+        b.left = clamp(b.left + nx * push, 7, 93);
+        b.top = clamp(b.top + ny * push, 7, 91);
+      }
+    }
+  }
+
+  return points.map(({ project, markerSize, left, top }) => ({
+    project,
+    markerSize,
+    position: {
+      left: `${left}%`,
+      top: `${top}%`,
+      transform: 'translate(-50%, -50%)',
+    },
+  }));
 }
 
 // ─── Court SVG ───────────────────────────────────────────────────────────────
@@ -82,6 +145,14 @@ function CourtSVG(): ReactElement {
 
       {/* Zone wash */}
       <rect x="1" y="1" width="98" height="103" fill="url(#courtZones)" />
+
+      {/* Meaningful chart grid: x = current health, y = selected scout grade */}
+      <rect x="1" y="1" width="49" height="51" fill="rgba(186,139,25,0.055)" />
+      <rect x="50" y="1" width="49" height="51" fill="rgba(20,77,184,0.055)" />
+      <rect x="1" y="52" width="49" height="51" fill="rgba(21,24,32,0.025)" />
+      <rect x="50" y="52" width="49" height="51" fill="rgba(181,13,13,0.035)" />
+      <line x1="50" y1="5" x2="50" y2="101" stroke={COURT_STROKE_MED} strokeWidth="0.45" strokeDasharray="2,3" />
+      <line x1="5" y1="52" x2="95" y2="52" stroke={COURT_STROKE_MED} strokeWidth="0.45" strokeDasharray="2,3" />
 
       {/* Outer boundary */}
       <rect x="1" y="1" width="98" height="103" fill="none" stroke={COURT_STROKE} strokeWidth="0.5" />
@@ -173,7 +244,7 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">Position</div>
             <p className="mt-1 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-              Distance from the rim follows the active scouting axis score (1–10). Higher score = deeper shot.
+              Left-to-right is tracker health. Bottom-to-top is the selected scouting axis grade.
             </p>
           </div>
         </div>
@@ -198,9 +269,9 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
         <div className="flex gap-3">
           <CircleDot size={15} className="mt-0.5 shrink-0 text-[color:var(--color-ink-soft)]" />
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">Shot zones</div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">Court zones</div>
             <p className="mt-1 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-              Paint = safe bet · Mid = balanced risk · Three = high ceiling · Deep = moonshot.
+              Top-right = strong and healthy. Top-left = high-upside work that needs attention.
             </p>
           </div>
         </div>
@@ -236,17 +307,12 @@ export default function CurrentProjects(): ReactElement {
     [activeAxis],
   );
 
-  useEffect(() => { setShowAllRoster(false); }, [activeAxis]);
-
-  // Normalize grades so the lowest scorer is always at the rim and the highest is deep three.
-  const axisScores = useMemo(
-    () => orderedProjects.map((p) => p.grades[activeAxis]),
+  const courtLayout = useMemo(
+    () => buildCourtLayout(orderedProjects, activeAxis),
     [orderedProjects, activeAxis],
   );
-  const minAxisScore = Math.min(...axisScores);
-  const maxAxisScore = Math.max(...axisScores);
-  const normalizeScore = (s: number): number =>
-    maxAxisScore === minAxisScore ? 0.5 : (s - minAxisScore) / (maxAxisScore - minAxisScore);
+
+  useEffect(() => { setShowAllRoster(false); }, [activeAxis]);
 
   // ── Summary stats ──
   const totalProjects = CURRENT_PROJECTS.length;
@@ -368,7 +434,7 @@ export default function CurrentProjects(): ReactElement {
                     Live tracker feed × scout-grade shot chart
                   </div>
                   <div className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-soft)] opacity-60">
-                    Axis: {axisMeta.label}
+                    X: tracker health · Y: {axisMeta.label}
                   </div>
                 </div>
 
@@ -376,11 +442,23 @@ export default function CurrentProjects(): ReactElement {
                 <div className="relative mx-auto aspect-[1/1.05] w-full">
                   <CourtSVG />
 
+                  <div className="pointer-events-none absolute left-4 top-4 border border-[color:var(--color-line)] bg-white/80 px-2.5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-primary)]">
+                    High {axisMeta.label}
+                  </div>
+                  <div className="pointer-events-none absolute right-4 top-4 border border-[color:var(--color-line)] bg-white/80 px-2.5 py-1.5 text-right text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-secondary)]">
+                    Healthy ceiling
+                  </div>
+                  <div className="pointer-events-none absolute bottom-4 left-4 border border-[color:var(--color-line)] bg-white/80 px-2.5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-ink-soft)]">
+                    Rebuild lane
+                  </div>
+                  <div className="pointer-events-none absolute bottom-4 right-4 border border-[color:var(--color-line)] bg-white/80 px-2.5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-secondary)]">
+                    Higher health
+                  </div>
+
                   {/* Shot markers */}
-                  {orderedProjects.map((project) => {
-                    const norm = normalizeScore(project.grades[activeAxis]);
+                  {courtLayout.map(({ project, markerSize, position }) => {
                     const alpha = 0.38 + (project.trackerScore / 100) * 0.52;
-                    const pos = getShotPosition(project.slug, norm);
+                    const markerRgb = getStatusRgb(project.trackerStatus);
                     const isSelected = selectedProject?.slug === project.slug;
                     const isHovered = hoveredSlug === project.slug;
 
@@ -388,7 +466,7 @@ export default function CurrentProjects(): ReactElement {
                       <div
                         key={`${project.slug}-${activeAxis}`}
                         className="absolute"
-                        style={{ ...pos, zIndex: isSelected ? 20 : isHovered ? 15 : undefined }}
+                        style={{ ...position, zIndex: isSelected ? 20 : isHovered ? 15 : undefined }}
                       >
 
                         {/* Pulse ring — selected only */}
@@ -415,6 +493,10 @@ export default function CurrentProjects(): ReactElement {
                                 {toStatusLabel(project.trackerStatus)}
                               </span>
                               <span className="text-[9px] text-white/50">·</span>
+                              <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/70">
+                                Health {project.trackerScore}
+                              </span>
+                              <span className="text-[9px] text-white/50">·</span>
                               <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-gold)]">
                                 {axisMeta.label} {project.grades[activeAxis]}/10
                               </span>
@@ -426,11 +508,13 @@ export default function CurrentProjects(): ReactElement {
                         <motion.button
                           type="button"
                           aria-label={`${project.title} — click for details`}
-                          className="h-4 w-4 rounded-full border border-white/80"
+                          className="flex items-center justify-center rounded-full border border-white/80 text-[7px] font-black uppercase leading-none text-white"
                           style={{
-                            backgroundColor: `rgba(181,13,13,${alpha})`,
+                            height: `${markerSize}px`,
+                            width: `${markerSize}px`,
+                            backgroundColor: `rgba(${markerRgb},${alpha})`,
                             boxShadow: isSelected
-                              ? '0 0 0 2px rgba(181,13,13,0.5), 0 4px 12px rgba(16,28,44,0.22)'
+                              ? `0 0 0 2px rgba(${markerRgb},0.55), 0 4px 12px rgba(16,28,44,0.22)`
                               : '0 2px 8px rgba(16,28,44,0.18)',
                           }}
                           animate={{ scale: isSelected ? 1.25 : 1 }}
@@ -439,7 +523,9 @@ export default function CurrentProjects(): ReactElement {
                           onClick={() => setSelectedProject(project)}
                           onMouseEnter={() => setHoveredSlug(project.slug)}
                           onMouseLeave={() => setHoveredSlug(null)}
-                        />
+                        >
+                          {project.shortCode}
+                        </motion.button>
                       </div>
                     );
                   })}
@@ -462,6 +548,7 @@ export default function CurrentProjects(): ReactElement {
                 <div className="mt-4 grid gap-2">
                   {(showAllRoster ? orderedProjects : orderedProjects.slice(0, 5)).map((project) => {
                     const alpha = 0.34 + (project.trackerScore / 100) * 0.56;
+                    const markerRgb = getStatusRgb(project.trackerStatus);
                     const isSelected = selectedProject?.slug === project.slug;
                     return (
                       <button
@@ -477,7 +564,7 @@ export default function CurrentProjects(): ReactElement {
                         <div className="flex items-center gap-3">
                           <span
                             className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[9px] font-black uppercase text-white"
-                            style={{ backgroundColor: `rgba(181,13,13,${alpha})` }}
+                            style={{ backgroundColor: `rgba(${markerRgb},${alpha})` }}
                           >
                             {project.shortCode}
                           </span>
@@ -584,7 +671,7 @@ export default function CurrentProjects(): ReactElement {
                 <span
                   className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[11px] font-black uppercase text-white"
                   style={{
-                    backgroundColor: `rgba(181,13,13,${0.34 + (selectedProject.trackerScore / 100) * 0.56})`,
+                    backgroundColor: `rgba(${getStatusRgb(selectedProject.trackerStatus)},${0.34 + (selectedProject.trackerScore / 100) * 0.56})`,
                   }}
                 >
                   {selectedProject.shortCode}

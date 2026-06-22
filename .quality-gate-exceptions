@@ -1,0 +1,2 @@
+oversized-source src/content/portfolioContent.ts — central portfolio copy catalog; split when the next content-family edit needs broader restructuring.
+oversized-source src/pages/CurrentProjects.tsx — current-projects page still owns modal, roster, and court chart; split after the court redesign stabilizes.

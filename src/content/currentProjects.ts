@@ -20,22 +20,22 @@ export const PROJECT_AXIS_META: Record<
 > = {
   impact: {
     label: 'Impact',
-    deck: 'Distance from the rim tracks how much real-world swing the project can create if it ships clean.',
+    deck: 'Vertical position tracks how much real-world swing the project can create if it ships clean.',
     tone: 'text-[color:var(--color-primary)]',
   },
   difficulty: {
     label: 'Difficulty',
-    deck: 'Distance from the rim tracks technical complexity, moving parts, and operational drag.',
+    deck: 'Vertical position tracks technical complexity, moving parts, and operational drag.',
     tone: 'text-[color:var(--color-secondary)]',
   },
   ambition: {
     label: 'Ambition',
-    deck: 'Distance from the rim tracks scope, ceiling, and how much court the project is trying to cover.',
+    deck: 'Vertical position tracks scope, ceiling, and how much court the project is trying to cover.',
     tone: 'text-[color:var(--color-gold)]',
   },
   creativity: {
     label: 'Creativity',
-    deck: 'Distance from the rim tracks originality of the concept, framing, or product wedge.',
+    deck: 'Vertical position tracks originality of the concept, framing, or product wedge.',
     tone: 'text-[color:var(--color-primary)]',
   },
 } as const;
