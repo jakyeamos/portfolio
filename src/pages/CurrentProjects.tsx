@@ -59,14 +59,17 @@ function clamp(value: number, min: number, max: number): number {
 
 function getShotCoordinates(project: CurrentProject, axis: ProjectAxis): CourtPoint {
   const health = project.trackerScore / 100;
-  const axisGrade = project.grades[axis] / 10;
+  const axisGrade = project.grades[axis];
+  const eliteLift = Math.max(0, axisGrade - 8) ** 1.35;
+  const baselineGrade = Math.min(axisGrade, 8);
+  const verticalScore = (baselineGrade - 5) * 7.2 + eliteLift * 13;
   const difficultyPressure = (project.grades.difficulty - 5.5) / 10;
   const creativeSpread = (project.grades.creativity - project.grades.impact) / 10;
   const statusDrag =
     project.trackerStatus === 'on_track' ? 0.03 : project.trackerStatus === 'stalled' ? -0.06 : -0.02;
 
   const left = clamp(14 + health * 72 + creativeSpread * 7 + statusDrag * 100, 8, 92);
-  const top = clamp(86 - axisGrade * 74 + difficultyPressure * 7, 8, 90);
+  const top = clamp(72 - verticalScore + difficultyPressure * 4, 8, 90);
 
   return { left, top };
 }

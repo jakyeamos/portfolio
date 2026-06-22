@@ -20,22 +20,22 @@ export const PROJECT_AXIS_META: Record<
 > = {
   impact: {
     label: 'Impact',
-    deck: 'Vertical position tracks how much real-world swing the project can create if it ships clean.',
+    deck: 'Vertical position uses a tougher curve: only elite real-world swing clears the three-point arc.',
     tone: 'text-[color:var(--color-primary)]',
   },
   difficulty: {
     label: 'Difficulty',
-    deck: 'Vertical position tracks technical complexity, moving parts, and operational drag.',
+    deck: 'Vertical position uses a tougher curve: only unusually complex builds clear the three-point arc.',
     tone: 'text-[color:var(--color-secondary)]',
   },
   ambition: {
     label: 'Ambition',
-    deck: 'Vertical position tracks scope, ceiling, and how much court the project is trying to cover.',
+    deck: 'Vertical position uses a tougher curve: only true ceiling bets clear the three-point arc.',
     tone: 'text-[color:var(--color-gold)]',
   },
   creativity: {
     label: 'Creativity',
-    deck: 'Vertical position tracks originality of the concept, framing, or product wedge.',
+    deck: 'Vertical position uses a tougher curve: only the most original project wedges clear the three-point arc.',
     tone: 'text-[color:var(--color-primary)]',
   },
 } as const;
