@@ -41,7 +41,7 @@ The current-project tracker now resolves 15 local project truth sources through 
 
 The repo uses pnpm as the single package-manager workflow: `package.json` declares `pnpm@10.26.0`, lifecycle hooks call `pnpm sync`, CI installs with `pnpm install --frozen-lockfile`, Netlify builds with `pnpm build`, and `pnpm-lock.yaml` is the lockfile.
 
-The weekly portfolio tracker ingestion automation now commits verified generated tracker updates and pushes the current branch after `pnpm sync`, `pnpm lint`, and `pnpm build` pass. This makes the portfolio-progress loop publishable, but the public UI only updates automatically when the pushed branch is the Netlify production deploy branch or is merged into it.
+The weekly portfolio tracker ingestion automation now commits verified generated tracker updates and pushes the current branch after `pnpm sync`, `pnpm lint`, and `pnpm build` pass. This makes the portfolio-progress loop publishable, but the public UI only updates automatically when the pushed branch is the Netlify production deploy branch or is merged into it. Deploy status checks now avoid the unstable global Netlify CLI by using a pinned repo-local `netlify-cli`, a temp-config wrapper, and a direct Netlify API script.
 
 The current-project court UI now uses a meaningful matrix rather than a decorative half-arc: x-position represents tracker health/readiness, y-position represents the selected scout axis on a tough elite-threshold curve, marker size reflects ambition, marker color reflects status, and a deterministic spacing pass prevents dense project clusters from overlapping on desktop and mobile. The court itself stays visually neutral so the project dots and labels carry the meaning. Clearing the three-point arc is intentionally selective rather than the default for every strong project. Clicking a current-project dot or shipped-project card opens the detail modal with a compact "Historic Shot Clip" module that maps the selected court location to a nearby famous NBA shot and attempts to load an official YouTube embed without changing the modal width.
 
@@ -70,6 +70,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 22: Added a compact Historic Shot Echo module to the project detail modal so selected court dots show a nearby famous NBA shot reference from the same general floor zone
 - June 22: Upgraded the Historic Shot module to attempt official YouTube embeds, keep a 200px-tall side-rail player, and let closed-project cards open the same detail modal so current and shipped projects share the feature
 - June 22: Synced the AIOS tracker comment from local truth, updating the full-suite Python failure count from 10 to 15 in the portfolio UI data
+- June 22: Stabilized Netlify deploy checks by pinning `netlify-cli@26.1.0`, adding a temp-config `pnpm netlify:cli` wrapper, and adding `pnpm deploy:status` for Netlify API checks via `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`
 
 ## Open Problems
 
@@ -95,6 +96,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Lint:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-22
 - **Types:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-22
 - **Build:** `pnpm build` — PASS on 2026-06-22
+- **Deploy tooling:** `pnpm netlify:cli -- --version`, `pnpm netlify:status`, and `pnpm deploy:status` missing-env behavior — PASS on 2026-06-22; live deploy lookup still requires `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`
 - **Browser QA:** `/projects` in the in-app Browser — PASS on 2026-06-22 before the neutral-court styling cleanup; recalibrated Ambition desktop minimum marker gap 25.46px, mobile minimum marker gap 3.31px, no marker overlaps, no horizontal overflow, no console warnings/errors, Soundscape marker opened the detail modal. Browser verification for the neutral-court cleanup and Historic Shot modal work was blocked by the local in-app Browser policy for `127.0.0.1:3000`; shell network access also could not resolve `youtube.com`, so embed IDs still need live browser/deploy validation. `pnpm lint` and `pnpm build` passed after both changes.
 - **Architecture check:** `node scripts/aios-architecture-check.mjs` — PASS on 2026-05-24
 - **Tests:** no test script or test files found — unknown
