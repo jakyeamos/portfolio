@@ -1,10 +1,10 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site has tracker-sync wired against 14 local project truth sources, weekly ingestion now commits verified tracker changes, and pnpm is used consistently for local, CI, and deploy workflows.
-healthScore: 84
+summary: Personal portfolio site has tracker-sync wired against all 15 current-project truth sources, weekly ingestion commits verified tracker changes, and pnpm is used consistently for local, CI, and deploy workflows.
+healthScore: 86
 statusLabel: on_track
-nextStep: Merge or run the weekly tracker ingestion from the production deploy branch so pushed weekly tracker commits rebuild the public portfolio UI.
+nextStep: Keep the weekly tracker ingestion running from main so current-project progress rebuilds the public portfolio UI after each verified sync.
 blockers: []
 lastUpdated: 2026-06-22
 tags: [portfolio, personal-site, react, vite, tailwind]
@@ -37,7 +37,7 @@ agentExpectationsVersion: 1
 
 The portfolio is on branch `codex/truth-sync-migration` with tracker-sync infrastructure in place. The React/Vite/Tailwind SPA is the live app shape: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
 
-The current-project tracker now resolves 14 local project truth sources through `.tracker/truth-map.json` plus discovery, including AIOS, Soundscape, Terrace, Amos SaaS, Taski, Fantasy, Bballedu, Dispatches, Book, the GitHub issue-resolution modeling repo, Signal Lab, Cap-Fit Builder, CLFE, and RTE. `remodelvision` is the only current-project card still without a discoverable local truth source, so sync leaves its existing tracker fields intact. The sync script is scoped to `CURRENT_PROJECTS` so `CLOSED_PROJECTS` entries do not get overwritten by active repo truth snapshots.
+The current-project tracker now resolves 15 local project truth sources through `.tracker/truth-map.json` plus discovery, including AIOS, Soundscape, Terrace, Amos SaaS, Taski, Fantasy, RemodelVision, Bballedu, Dispatches, Book, the GitHub issue-resolution modeling repo, Signal Lab, Cap-Fit Builder, CLFE, and RTE. RemodelVision uses a portfolio-local truth source at `.tracker/remodelvision/PROJECT_TRUTH.md` because this automation sandbox cannot write into the sibling RemodelVision checkout. The sync script is scoped to `CURRENT_PROJECTS` so `CLOSED_PROJECTS` entries do not get overwritten by active repo truth snapshots.
 
 The repo uses pnpm as the single package-manager workflow: `package.json` declares `pnpm@10.26.0`, lifecycle hooks call `pnpm sync`, CI installs with `pnpm install --frozen-lockfile`, Netlify builds with `pnpm build`, and `pnpm-lock.yaml` is the lockfile.
 
@@ -61,17 +61,18 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 22: Updated the weekly portfolio tracker ingestion automation so successful runs commit generated tracker changes, update project truth, and push the current branch for Netlify rebuild eligibility
 - June 22: Committed the weekly tracker refresh, including Soundscape, AIOS, Fantasy, Bballedu, Dispatches, Book, CLFE, and RTE tracker fields; RemodelVision remains skipped with no truth source
 - June 22: Added repo-local Pre-CR configuration so source commits satisfy the global commit quality gate while continuing to use `pnpm lint` as the enforced local check
+- June 22: Added a portfolio-local RemodelVision project truth file, mapped it in `.tracker/truth-map.json`, and synced its tracker fields into the current-project UI data
 
 ## Open Problems
 
-- `remodelvision` still does not have a discoverable `PROJECT_TRUTH.md` source, so `pnpm sync` skips that one current-project entry
+- RemodelVision's tracker truth source is portfolio-local rather than stored in the sibling RemodelVision repo because this automation environment can only write inside the portfolio workspace
 - Ignored draft and binary assets still live beside the source tree; repo hygiene is acceptable, but long-term placement should be clarified
 - No automated test suite is configured, so regression confidence still depends on type/build checks and manual verification
 
 ## Next Concrete Steps
 
-1. Merge or run the weekly tracker ingestion from the production deploy branch so weekly commits rebuild the public portfolio UI
-2. Add a RemodelVision tracker truth file or explicit mapping if that project should sync automatically
+1. Keep the weekly tracker ingestion running from main so weekly commits rebuild the public portfolio UI
+2. Decide whether RemodelVision should eventually move its truth source into `/Users/jakyeamos/projects/remodelvision/.tracker/PROJECT_TRUTH.md`
 3. Decide whether the ignored draft/binary assets should stay colocated with the repo or move to a non-repo archive location
 4. Add lightweight smoke coverage or a documented manual verification checklist if the site is changing frequently
 
