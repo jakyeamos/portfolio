@@ -40,6 +40,10 @@ type HistoricShot = {
   moment: string;
   zone: string;
   note: string;
+  youtubeId: string;
+  start: number;
+  end?: number;
+  source: string;
 };
 
 function toStatusLabel(status: CurrentProject['trackerStatus']): string {
@@ -93,6 +97,9 @@ function getHistoricShot(point: CourtPoint): HistoricShot {
       moment: '2019 series clincher vs OKC',
       zone: 'Deep left wing',
       note: 'A long-range confidence shot from the same high-upside territory.',
+      youtubeId: 'a-M3x-eZpV8',
+      start: 0,
+      source: 'NBA on YouTube',
     };
   }
 
@@ -102,6 +109,9 @@ function getHistoricShot(point: CourtPoint): HistoricShot {
       moment: '2016 overtime winner at OKC',
       zone: 'Deep top wing',
       note: 'A pull-up from range: early, confident, and hard to guard.',
+      youtubeId: 'GEMVGHoenXM',
+      start: 0,
+      source: 'NBA on YouTube',
     };
   }
 
@@ -111,6 +121,9 @@ function getHistoricShot(point: CourtPoint): HistoricShot {
       moment: '2013 Finals Game 6 corner three',
       zone: 'Right corner',
       note: 'A precision reset shot: footwork, timing, and a clean release.',
+      youtubeId: 'ua_w5RxpFIQ',
+      start: 780,
+      source: 'NBA on YouTube',
     };
   }
 
@@ -120,6 +133,9 @@ function getHistoricShot(point: CourtPoint): HistoricShot {
       moment: '2019 Game 7 winner vs Philadelphia',
       zone: 'Left baseline wing',
       note: 'A high-arc shot from a tight angle with real consequence.',
+      youtubeId: 'ChT3ewZXTfM',
+      start: 0,
+      source: 'NBA on YouTube',
     };
   }
 
@@ -129,6 +145,9 @@ function getHistoricShot(point: CourtPoint): HistoricShot {
       moment: '1998 Finals Game 6 title clincher',
       zone: 'Midrange wing',
       note: 'A controlled separation shot from the part of the floor where craft matters.',
+      youtubeId: '92fLApYaCGI',
+      start: 0,
+      source: 'NBA on YouTube',
     };
   }
 
@@ -137,6 +156,9 @@ function getHistoricShot(point: CourtPoint): HistoricShot {
     moment: '2018 Game 5 winner vs Indiana',
     zone: 'Above-the-break three',
     note: 'A late-clock launch: direct, decisive, and built on pressure.',
+    youtubeId: '2XWgRpfkxhY',
+    start: 0,
+    source: 'NBA on YouTube',
   };
 }
 
@@ -333,18 +355,35 @@ function HistoricShotPlayer({
   const controlX = clamp((playerLeft + rimX) / 2, 14, 86);
   const controlY = clamp(Math.min(playerTop, rimY) - 18, 8, 82);
   const arcPath = `M ${playerLeft} ${playerTop} Q ${controlX} ${controlY} ${rimX} ${rimY}`;
+  const embedParams = new URLSearchParams({
+    start: String(shot.start),
+    rel: '0',
+    modestbranding: '1',
+    playsinline: '1',
+  });
+
+  if (shot.end) embedParams.set('end', String(shot.end));
 
   return (
     <section className="border border-[color:var(--color-line)] bg-white p-4">
       <div className="flex items-center justify-between gap-3">
-        <div className="section-kicker">Historic Shot Echo</div>
+        <div className="section-kicker">Historic Shot Clip</div>
         <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-ink-soft)]">
-          Nearby zone
+          {shot.source}
         </span>
       </div>
 
       <div className="mt-3 overflow-hidden border border-[color:var(--color-line)] bg-[color:var(--color-surface-muted)]">
-        <div className="relative aspect-video">
+        <div className="relative h-[200px]">
+          <iframe
+            title={`${shot.player} ${shot.moment}`}
+            src={`https://www.youtube.com/embed/${shot.youtubeId}?${embedParams.toString()}`}
+            className="absolute inset-0 z-10 h-full w-full border-0"
+            loading="lazy"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
+          />
           <svg viewBox="0 0 100 60" className="absolute inset-0 h-full w-full" aria-hidden="true">
             <rect x="1" y="1" width="98" height="58" fill="none" stroke="rgba(21,24,32,0.18)" strokeWidth="0.8" />
             <path
@@ -751,9 +790,11 @@ export default function CurrentProjects(): ReactElement {
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {CLOSED_PROJECTS.map((project) => (
-              <div
+              <button
+                type="button"
                 key={project.slug}
-                className="border border-[color:var(--color-line)] bg-white p-5"
+                className="border border-[color:var(--color-line)] bg-white p-5 text-left transition hover:border-[color:var(--color-primary)] hover:shadow-[0_8px_24px_rgba(16,28,44,0.10)]"
+                onClick={() => setSelectedProject(project)}
               >
                 <div className="flex items-center justify-between">
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[color:var(--color-secondary)] text-[9px] font-black uppercase text-white">
@@ -772,7 +813,7 @@ export default function CurrentProjects(): ReactElement {
                     <span key={tag} className="stat-chip">{tag}</span>
                   ))}
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         </section>
