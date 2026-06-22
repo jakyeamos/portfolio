@@ -121,12 +121,8 @@ function buildCourtLayout(projects: readonly CurrentProject[], axis: ProjectAxis
 }
 
 // ─── Court SVG ───────────────────────────────────────────────────────────────
-// viewBox 0 0 100 105 — matches the aspect-[1/1.05] container
-// Basket at cx=50, cy=96 (≈ "bottom 8%" in percentage space)
-// All strokes use rgba(21,24,32,α) to match the ink token
 const COURT_STROKE = 'rgba(21,24,32,0.32)';
 const COURT_STROKE_MED = 'rgba(21,24,32,0.22)';
-const PAINT_FILL = 'rgba(181,13,13,0.04)';
 
 function CourtSVG(): ReactElement {
   return (
@@ -135,28 +131,6 @@ function CourtSVG(): ReactElement {
       className="absolute inset-0 h-full w-full"
       aria-hidden="true"
     >
-      <defs>
-        {/* Radial zone wash from basket outward: paint → mid → three → deep */}
-        <radialGradient id="courtZones" cx="50" cy="96" r="78" gradientUnits="userSpaceOnUse">
-          <stop offset="0%"   stopColor="rgb(181,13,13)" stopOpacity="0.11" />
-          <stop offset="28%"  stopColor="rgb(181,13,13)" stopOpacity="0.06" />
-          <stop offset="55%"  stopColor="rgb(181,13,13)" stopOpacity="0.03" />
-          <stop offset="80%"  stopColor="rgb(181,13,13)" stopOpacity="0.01" />
-          <stop offset="100%" stopColor="rgb(181,13,13)" stopOpacity="0"    />
-        </radialGradient>
-      </defs>
-
-      {/* Zone wash */}
-      <rect x="1" y="1" width="98" height="103" fill="url(#courtZones)" />
-
-      {/* Meaningful chart grid: x = current health, y = selected scout grade */}
-      <rect x="1" y="1" width="49" height="51" fill="rgba(186,139,25,0.055)" />
-      <rect x="50" y="1" width="49" height="51" fill="rgba(20,77,184,0.055)" />
-      <rect x="1" y="52" width="49" height="51" fill="rgba(21,24,32,0.025)" />
-      <rect x="50" y="52" width="49" height="51" fill="rgba(181,13,13,0.035)" />
-      <line x1="50" y1="5" x2="50" y2="101" stroke={COURT_STROKE_MED} strokeWidth="0.45" strokeDasharray="2,3" />
-      <line x1="5" y1="52" x2="95" y2="52" stroke={COURT_STROKE_MED} strokeWidth="0.45" strokeDasharray="2,3" />
-
       {/* Outer boundary */}
       <rect x="1" y="1" width="98" height="103" fill="none" stroke={COURT_STROKE} strokeWidth="0.5" />
 
@@ -177,7 +151,7 @@ function CourtSVG(): ReactElement {
         y="62"
         width="24"
         height="34"
-        fill={PAINT_FILL}
+        fill="none"
         stroke={COURT_STROKE}
         strokeWidth="0.6"
       />
@@ -429,7 +403,7 @@ export default function CurrentProjects(): ReactElement {
           <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1fr)_300px]">
 
             {/* Court */}
-            <div className="border border-[color:var(--color-line-strong)] bg-[linear-gradient(180deg,#fdf9f2_0%,#f0e8da_100%)] p-4 md:p-6">
+            <div className="border border-[color:var(--color-line-strong)] bg-[color:var(--color-surface-raised)] p-4 md:p-6">
               <div className="mx-auto w-full max-w-[700px]">
                 {/* Court title */}
                 <div className="mb-4 text-center">
