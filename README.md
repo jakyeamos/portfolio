@@ -41,6 +41,9 @@ The package is marked private in `package.json`, so it is intended for local wor
 - `pnpm prebuild` - `pnpm sync`
 - `pnpm prelint` - `pnpm sync`
 - `pnpm sync` - `node scripts/sync-tracker.mjs`
+- `pnpm deploy:status` - check the latest Netlify deploy through the Netlify API
+- `pnpm netlify:status` - run `netlify status` through the repo-local CLI wrapper
+- `pnpm netlify:cli -- <args>` - run the pinned local Netlify CLI with sandbox-safe config paths
 
 ## Development Notes
 
@@ -48,6 +51,8 @@ Key runtime dependencies include `lucide-react`, `motion`, `react`, `react-dom`,
 Use `pnpm` from this directory or the containing workspace to install dependencies and run scripts.
 
 `pnpm sync` reads `.tracker/truth-map.json` and local sibling `.tracker/PROJECT_TRUTH.md` files to refresh current-project health scores, statuses, next steps, and dates in `src/content/currentProjects.ts`.
+
+Use the repo-local Netlify CLI through `pnpm netlify:cli -- ...` or the shortcut `pnpm netlify:status`; avoid the older globally installed `netlify` binary for automation. The wrapper redirects Netlify config/cache writes into temporary directories so local status checks do not fail on macOS preference/config-store permissions. To verify production deploys without depending on CLI login/config state, set `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`, then run `pnpm deploy:status`. Set `NETLIFY_EXPECTED_COMMIT=<sha>` when you need the check to fail unless the latest ready deploy matches a specific commit.
 
 ## Verification
 
