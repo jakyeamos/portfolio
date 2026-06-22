@@ -46,6 +46,71 @@ type HistoricShot = {
   source: string;
 };
 
+type HistoricShotZone =
+  | 'deepLeft'
+  | 'deepTop'
+  | 'rightCorner'
+  | 'leftBaselineWing'
+  | 'aboveBreak'
+  | 'midrange';
+
+const HISTORIC_SHOTS: Record<HistoricShotZone, HistoricShot> = {
+  deepLeft: {
+    player: 'Damian Lillard',
+    moment: '2019 series clincher vs OKC',
+    zone: 'Deep left wing',
+    note: 'A long-range confidence shot from the same high-upside territory.',
+    youtubeId: 'a-M3x-eZpV8',
+    start: 0,
+    source: 'NBA on YouTube',
+  },
+  deepTop: {
+    player: 'Stephen Curry',
+    moment: '2016 overtime winner at OKC',
+    zone: 'Deep top wing',
+    note: 'A pull-up from range: early, confident, and hard to guard.',
+    youtubeId: 'GEMVGHoenXM',
+    start: 0,
+    source: 'NBA on YouTube',
+  },
+  rightCorner: {
+    player: 'Ray Allen',
+    moment: '2013 Finals Game 6 corner three',
+    zone: 'Right corner',
+    note: 'A precision reset shot: footwork, timing, and a clean release.',
+    youtubeId: 'ua_w5RxpFIQ',
+    start: 780,
+    source: 'NBA on YouTube',
+  },
+  leftBaselineWing: {
+    player: 'Kawhi Leonard',
+    moment: '2019 Game 7 winner vs Philadelphia',
+    zone: 'Left baseline wing',
+    note: 'A high-arc shot from a tight angle with real consequence.',
+    youtubeId: 'ChT3ewZXTfM',
+    start: 0,
+    source: 'NBA on YouTube',
+  },
+  aboveBreak: {
+    player: 'LeBron James',
+    moment: '2018 Game 5 winner vs Indiana',
+    zone: 'Above-the-break three',
+    note: 'A late-clock launch: direct, decisive, and built on pressure.',
+    youtubeId: '2XWgRpfkxhY',
+    start: 0,
+    source: 'NBA on YouTube',
+  },
+  midrange: {
+    player: 'Michael Jordan',
+    moment: '1998 Finals Game 6 title clincher',
+    zone: 'Midrange wing',
+    note: 'A controlled separation shot from the part of the floor where craft matters.',
+    youtubeId: '92fLApYaCGI',
+    start: 0,
+    source: 'NBA on YouTube',
+  },
+};
+
 function toStatusLabel(status: CurrentProject['trackerStatus']): string {
   if (status === 'on_track') return 'Active';
   if (status === 'needs_attention') return 'In Development';
@@ -90,76 +155,21 @@ function markerSizeForProject(project: CurrentProject): number {
   return 14 + project.grades.ambition;
 }
 
+function getHistoricShotZone(point: CourtPoint): HistoricShotZone {
+  const isDeep = point.top <= 30;
+  const isCornerDepth = point.top >= 62;
+
+  if (isCornerDepth && point.left >= 84) return 'rightCorner';
+  if (point.top >= 48 && point.top < 72 && point.left <= 30) return 'leftBaselineWing';
+  if (isDeep && point.left < 42) return 'deepLeft';
+  if (isDeep && point.left >= 42 && point.left <= 58) return 'deepTop';
+  if (point.top < 58) return 'aboveBreak';
+
+  return 'midrange';
+}
+
 function getHistoricShot(point: CourtPoint): HistoricShot {
-  if (point.top <= 30 && point.left < 46) {
-    return {
-      player: 'Damian Lillard',
-      moment: '2019 series clincher vs OKC',
-      zone: 'Deep left wing',
-      note: 'A long-range confidence shot from the same high-upside territory.',
-      youtubeId: 'a-M3x-eZpV8',
-      start: 0,
-      source: 'NBA on YouTube',
-    };
-  }
-
-  if (point.top <= 30) {
-    return {
-      player: 'Stephen Curry',
-      moment: '2016 overtime winner at OKC',
-      zone: 'Deep top wing',
-      note: 'A pull-up from range: early, confident, and hard to guard.',
-      youtubeId: 'GEMVGHoenXM',
-      start: 0,
-      source: 'NBA on YouTube',
-    };
-  }
-
-  if (point.top <= 54 && point.left >= 72) {
-    return {
-      player: 'Ray Allen',
-      moment: '2013 Finals Game 6 corner three',
-      zone: 'Right corner',
-      note: 'A precision reset shot: footwork, timing, and a clean release.',
-      youtubeId: 'ua_w5RxpFIQ',
-      start: 780,
-      source: 'NBA on YouTube',
-    };
-  }
-
-  if (point.top <= 54 && point.left <= 28) {
-    return {
-      player: 'Kawhi Leonard',
-      moment: '2019 Game 7 winner vs Philadelphia',
-      zone: 'Left baseline wing',
-      note: 'A high-arc shot from a tight angle with real consequence.',
-      youtubeId: 'ChT3ewZXTfM',
-      start: 0,
-      source: 'NBA on YouTube',
-    };
-  }
-
-  if (point.top <= 64) {
-    return {
-      player: 'Michael Jordan',
-      moment: '1998 Finals Game 6 title clincher',
-      zone: 'Midrange wing',
-      note: 'A controlled separation shot from the part of the floor where craft matters.',
-      youtubeId: '92fLApYaCGI',
-      start: 0,
-      source: 'NBA on YouTube',
-    };
-  }
-
-  return {
-    player: 'LeBron James',
-    moment: '2018 Game 5 winner vs Indiana',
-    zone: 'Above-the-break three',
-    note: 'A late-clock launch: direct, decisive, and built on pressure.',
-    youtubeId: '2XWgRpfkxhY',
-    start: 0,
-    source: 'NBA on YouTube',
-  };
+  return HISTORIC_SHOTS[getHistoricShotZone(point)];
 }
 
 function buildCourtLayout(projects: readonly CurrentProject[], axis: ProjectAxis): ProjectCourtLayout[] {
