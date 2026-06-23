@@ -80,6 +80,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 23: Filled the Historic Shot Clip registry to 45/45 quality-gated YouTube clips and replaced dead legacy YouTube IDs after live oEmbed validation
 - June 23: Updated Historic Shot Clip embeds to autoplay muted on modal open and default to a 45-second clip window from each shot's configured start time
 - June 23: Tuned Historic Shot Clip timing by replacing several broad/full-game sources with shorter shot clips and adding explicit start/end windows where shorter sources were not available; direct YouTube Browser timing review remains blocked, but local `/projects` iframe params and live oEmbed checks passed
+- June 23: Fixed Terrace on the Impact axis by windowing the LeBron Pacers 2018 clip to `start=112` and `end=154`, so it starts at the shot possession instead of the preceding block
 
 ## Open Problems
 
@@ -112,6 +113,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **45/45 shot target:** `pnpm shot-embeds:target` — PASS on 2026-06-23; current score is 45/45 quality-gated clips
 - **YouTube oEmbed validation:** live YouTube oEmbed check for all 45 registered IDs — PASS on 2026-06-23; dead legacy IDs and several broad sources were replaced with oEmbed-accessible shorter clips
 - **Historic Shot Clip autoplay/timing:** local Browser smoke on `/projects` — PASS on 2026-06-23; opening the Soundscape marker produced a YouTube iframe with `autoplay=1`, `mute=1`, `start=0`, `end=45`, and iframe autoplay permission; broader clips now use explicit configured windows
+- **Terrace Impact clip timing:** local Browser smoke on `/projects` — PASS on 2026-06-23; opening Terrace on the default Impact axis produced the LeBron iframe `JYmejM38vKs` with `start=112` and `end=154`
 - **Local browser smoke:** `/projects` in the in-app Browser — PASS on 2026-06-23; opening the Soundscape court marker showed the Historic Shot Clip module with one provider-generated YouTube iframe URL
 - **Deploy tooling:** `pnpm netlify:cli -- --version`, `pnpm netlify:status`, and `pnpm deploy:status` missing-env behavior — PASS on 2026-06-22; live deploy lookup still requires `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`
 - **Browser QA:** `/projects` in the in-app Browser — PASS on 2026-06-22 before the neutral-court styling cleanup; recalibrated Ambition desktop minimum marker gap 25.46px, mobile minimum marker gap 3.31px, no marker overlaps, no horizontal overflow, no console warnings/errors, Soundscape marker opened the detail modal. Browser verification for the neutral-court cleanup and Historic Shot modal work was blocked by the local in-app Browser policy for `127.0.0.1:3000`; shell network access also could not resolve `youtube.com`, so embed IDs still need live browser/deploy validation. `pnpm lint` and `pnpm build` passed after both changes.
