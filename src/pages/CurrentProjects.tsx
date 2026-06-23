@@ -127,6 +127,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'Mz3TBKrBp5M',
+        start: 0,
+        end: 65,
       },
       quality: {
         level: 'verified-game-clip',
@@ -162,14 +164,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A high-floor pressure shot with the whole arena leaning on it.',
       embed: {
         provider: 'youtube',
-        id: 'QjDX-s30W3o',
+        id: 'CGLacgHgvTs',
+        start: 0,
+        end: 31,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'ESPN result covers Trae quieting Madison Square Garden in the 2021 playoffs.',
+        note: 'Short source titled for Trae Young game-winner and MSG quieting gesture.',
       },
-      source: 'ESPN on YouTube',
+      source: 'YouTube',
     },
     {
       id: 'curry-france-2024',
@@ -202,6 +206,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'ua_w5RxpFIQ',
         start: 780,
+        end: 825,
       },
       quality: {
         level: 'verified-game-clip',
@@ -235,14 +240,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A scramble-possession three where spacing and readiness mattered.',
       embed: {
         provider: 'youtube',
-        id: 'oaDi_HR7bT4',
+        id: '4iEF6JXeZqI',
+        start: 0,
+        end: 35,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA on ESPN result titled for Horry buzzer-beater against Sacramento.',
+        note: 'Short source titled for Horry game-winning three against Sacramento.',
       },
-      source: 'NBA on ESPN',
+      source: 'YouTube',
     },
   ],
   leftBaselineWing: [
@@ -255,6 +262,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: '75iExVNvrWw',
+        start: 0,
+        end: 70,
       },
       quality: {
         level: 'verified-game-clip',
@@ -343,14 +352,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A transition pull-up that rewarded full-court ambition.',
       embed: {
         provider: 'youtube',
-        id: 'mAfoOtkc4cs',
+        id: '3t8w00NrDBE',
+        start: 0,
+        end: 65,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA channel result covers Durant big Game 3 three and clutch fourth-quarter sequence.',
+        note: 'Short source titled for Durant Game 3 dagger three.',
       },
-      source: 'NBA on YouTube',
+      source: 'YouTube',
     },
     {
       id: 'tatum-sixers-2023',
@@ -430,14 +441,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A downhill late-clock finish from above the break into the paint.',
       embed: {
         provider: 'youtube',
-        id: 'QbXuHPdGCbI',
+        id: '23GkX-ZeKx4',
+        start: 0,
+        end: 93,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA channel result titled for Morant 30-point Game 5 with game-winner.',
+        note: 'Short source titled for Morant game-winner after Edwards tied the game.',
       },
-      source: 'NBA on YouTube',
+      source: 'YouTube',
     },
     {
       id: 'reggie-knicks-1995',
@@ -448,6 +461,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'MRLysMEHokI',
+        start: 0,
+        end: 90,
       },
       quality: {
         level: 'verified-game-clip',
@@ -501,6 +516,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'B7wuI0dnK1M',
+        start: 0,
+        end: 90,
       },
       quality: {
         level: 'verified-game-clip',
@@ -518,6 +535,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'JgYnmcsUiHQ',
+        start: 0,
         end: 41,
       },
       quality: {
@@ -595,6 +613,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'iZlIE0cexwM',
+        start: 0,
         end: 31,
       },
       quality: {
@@ -630,6 +649,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: '_jxHf7h6U58',
+        start: 0,
         end: 180,
       },
       quality: {
@@ -682,6 +702,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'OKp-mxqUels',
+        start: 0,
         end: 87,
       },
       quality: {
@@ -699,13 +720,14 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A long two so close to three that the geometry became the story.',
       embed: {
         provider: 'youtube',
-        id: 'zSo3_EcNQD8',
-        end: 91,
+        id: '6rPRAjLymBc',
+        start: 0,
+        end: 12,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'Short source titled for Durant saving Brooklyn with the game-tying shot.',
+        note: 'Short source titled for Durant game-tying shot against Milwaukee.',
       },
       source: 'YouTube',
     },
@@ -735,6 +757,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'H9neM8by1SQ',
+        start: 0,
         end: 113,
       },
       quality: {
@@ -752,14 +775,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A polished scorer shot from the pocket between math and craft.',
       embed: {
         provider: 'youtube',
-        id: 'Tt8Cepx7HqY',
+        id: 'QjsuBaQVqnw',
+        start: 0,
+        end: 49,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA Game 1 playoff source for Booker 40-point triple-double against the Clippers.',
+        note: 'Short source titled for Booker signature midrange pull-up against the Clippers.',
       },
-      source: 'NBA on YouTube',
+      source: 'YouTube',
     },
     {
       id: 'paul-bucks-2021',
@@ -770,6 +795,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'KhhhrUHMMU4',
+        start: 0,
         end: 36,
       },
       quality: {
@@ -788,6 +814,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'ih2bjlg48YQ',
+        start: 0,
+        end: 80,
       },
       quality: {
         level: 'verified-game-clip',
@@ -821,14 +849,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A strength-and-balance shot from one of the best wing creators.',
       embed: {
         provider: 'youtube',
-        id: 'l_OUvWb9S7o',
+        id: 'KdND5Jvka20',
+        start: 0,
+        end: 49,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA channel Game 6 road victory clip for Leonard elimination-game shot-making.',
+        note: 'Short source titled for Kawhi clutch dagger and Game 6 scoring against Dallas.',
       },
-      source: 'NBA on YouTube',
+      source: 'YouTube',
     },
     {
       id: 'wade-mavericks-2006',
@@ -857,12 +887,14 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A balance-breaking shot that used time, angle, and touch.',
       embed: {
         provider: 'youtube',
-        id: 'c6AKrqv_Yq0',
+        id: 'oRFiKbI5CXc',
+        start: 0,
+        end: 72,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA channel result titled for Parker Game 1 buzzer-beater against Miami.',
+        note: 'NBA every-angle source for Parker Game 1 buzzer-beater against Miami.',
       },
       source: 'NBA on YouTube',
     },

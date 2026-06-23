@@ -12,6 +12,8 @@ June 23 timing pass: direct YouTube navigation in the in-app Browser remains blo
 
 June 23 Terrace Impact fix: `lebron-pacers-2018` now starts at `112` and ends at `154` so the Terrace impact-axis modal opens on the game-winning shot possession instead of the preceding block.
 
+June 23 full timing scan: live YouTube duration metadata flagged long clips without explicit timing decisions. Replaced broad sources for Trae Young, Robert Horry, Kevin Durant 2017, Ja Morant, Donovan Mitchell, Devin Booker 2021, Kevin Durant 2021, Kawhi Leonard 2021, and Tony Parker with shorter oEmbed-valid clips. Added explicit `start: 0` plus `end` windows where the shot intentionally starts at the beginning of a longer replay package.
+
 ## Quality Gate
 
 A clip counts only when all of these are true:
