@@ -21,6 +21,8 @@ June 23 backup inventory: `.tracker/shot-clip-backups.md` documents the workflow
 
 June 23 browser visual audit: `/shot-review.html` was used to load all 45 configured clips through the real YouTube iframe and capture the visible start frame for each window. This caught issues the duration gate could not see: intro cards, studio packages, full-game timestamps, broad highlight reels, and iframe restrictions. Same-source timing was corrected for `lillard-rockets-2014`, `allen-spurs-2013`, `tatum-sixers-2023`, `paul-spurs-2015`, `butler-bucks-2023`, and `edwards-nuggets-2024`.
 
+June 23 replacement pass: the browser review workflow replaced the remaining weak watchlist entries with verified tighter embeds. Replacements were applied for Kerr, Kobe, Booker 2021, Luka, Fox, Pierce, Garnett, Carmelo, Chris Paul 2021, Shai, and Wade. Some entries now use cleaner same-zone moments rather than preserving the old broad-package moment label.
+
 ## Quality Gate
 
 A clip counts only when all of these are true:
@@ -52,16 +54,4 @@ Local review workflow:
 
 ## Replacement Watchlist
 
-These clips are playable and quality-gated, but they are broader highlight, full-game, or nonofficial YouTube sources. Replace them later if a cleaner official single-shot clip is found:
-
-- `kerr-jazz-1997` - current source opens on studio/interview footage, not the shot.
-- `kobe-suns-2006` - current embed returns YouTube age-restricted playback inside the iframe.
-- `booker-suns-2021` - current source is a broad playoff-debut package rather than one tight pull-up possession.
-- `luka-celtics-2025` - current source is an ESPN shot-profile package rather than one live shot.
-- `fox-warriors-2023` - current source is a broad guard-battle package rather than one Fox pull-up.
-- `pierce-hawks-2015` - current source opens on a Taco Bell intro card before the banked winner.
-- `garnett-kings-2004` - current source opens on feature/celebration footage before game action.
-- `anthony-knicks-2012` - current source is a two-shot sequence and should be replaced if a tighter single-shot source is found.
-- `paul-bucks-2021` - current source is a three-shot takeover sequence, useful but broader than one clean snake-dribble jumper.
-- `shai-nuggets-2025` - current source is a broad Game 4 scoring package and should be replaced with a single midrange-possession clip.
-- `wade-mavericks-2006` - current source is a broader Game 5 performance package.
+No active replacement watchlist as of June 23, 2026. Future candidates should still prefer official NBA/team sources when an equally tight shot/replay embed is available.
