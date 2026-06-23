@@ -92,6 +92,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 23: Added a pre-clip sound toggle for Historic Shot Clips so a user gesture can request unmuted YouTube autoplay on later shot opens while preserving muted autoplay as the browser-compatible fallback
 - June 23: Removed same-axis Historic Shot Clip reuse by making shipped-project assignments skip clips already used by the current board while staying inside the same court zone; `pnpm shot-embeds:target` now fails visible assignment duplicates
 - June 23: Added `pnpm shot-inventory` plus `.tracker/shot-clip-backups.md` so future projects can use existing same-zone backup clips before doing new clip research
+- June 23: Used the local `/shot-review.html` browser workflow to visually sample the start frame for all 45 Historic Shot Clips and corrected the same-source windows for Lillard Rockets 2014, Ray Allen 2013, Jayson Tatum 2023, Chris Paul 2015, Jimmy Butler 2023, and Anthony Edwards 2024
 - June 23: Added a homepage "Now Playing" section that surfaces the four most recently updated current projects with tracker score, status, date, and scout take, then links into the live project board
 - June 23: Added Film Room mentions for TMCP as a concept-watch item and new website launches for Chiron's Forge and FRMWRK Labs without promoting TMCP into the scored project tracker
 - June 23: Added a `/blog` route, top/side-nav entries, and an initial TMCP concept note so protocol/tooling ideas can get long-form explanation without being forced into the project tracker
@@ -102,7 +103,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 - RemodelVision's tracker truth source is portfolio-local rather than stored in the sibling RemodelVision repo because this automation environment can only write inside the portfolio workspace
 - Ignored draft and binary assets still live beside the source tree; repo hygiene is acceptable, but long-term placement should be clarified
-- Historic Shot Clip has 45/45 quality-gated clips and a live same-zone backup inventory, but `.tracker/shot-clip-curation.md` still tracks a small replacement watchlist for broader, full-game, or nonofficial YouTube sources that could be upgraded later
+- Historic Shot Clip has 45/45 quality-gated clips and a live same-zone backup inventory. The local browser visual audit corrected several timing misses, but `.tracker/shot-clip-curation.md` still tracks replacement candidates where the current source is a broad reel, studio package, intro-card source, or iframe-restricted clip rather than a fully tight shot/replay embed.
 - No automated test suite is configured, so regression confidence still depends on type/build checks and manual verification
 
 ## Next Concrete Steps
@@ -136,6 +137,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Historic Shot Clip autoplay/timing:** local Browser smoke on `/projects` — PASS on 2026-06-23; opening the Soundscape marker produced a YouTube iframe with `autoplay=1`, `mute=1`, and iframe autoplay permission; all YouTube clips now resolve from explicit compact `start` and `end` windows
 - **Terrace Impact clip timing:** parameter verification — PASS on 2026-06-23; the LeBron iframe `JYmejM38vKs` is now configured with absolute YouTube seconds `start=26` and `end=48`, matching the compact shot-and-replay methodology
 - **Full shot timing scan:** live YouTube duration metadata scan for all 45 clips — PASS on 2026-06-23; no long clips remain without explicit start/end timing decisions
+- **Shot visual timing audit:** `/shot-review.html` browser pass for all 45 clips — PASS with follow-ups on 2026-06-23; six same-source timing windows were corrected, and remaining broad/restricted sources are tracked in `.tracker/shot-clip-curation.md`
 - **Historic Shot Clip sound request:** parameter verification — PASS on 2026-06-23; muted clips include `mute=1`, while sound-enabled clips omit the mute param after the user toggles shot sound
 - **Local browser smoke:** `/projects` in the in-app Browser — PASS on 2026-06-23; opening the Soundscape court marker showed the Historic Shot Clip module with one provider-generated YouTube iframe URL
 - **Deploy tooling:** `pnpm netlify:cli -- --version`, `pnpm netlify:status`, and `pnpm deploy:status` missing-env behavior — PASS on 2026-06-22; live deploy lookup still requires `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`
