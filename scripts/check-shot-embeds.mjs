@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 
 const source = readFileSync(new URL('../src/pages/CurrentProjects.tsx', import.meta.url), 'utf8');
+const strictTarget = process.argv.includes('--target=45');
 const youtubeIdPattern = /^[\w-]{11}$/;
 const vimeoIdPattern = /^\d+$/;
 const providers = new Map();
@@ -34,6 +35,7 @@ for (const line of source.split('\n')) {
 }
 
 const missing = [];
+const unverified = [];
 const invalid = [];
 const zonesWithoutEmbeds = new Set(shots.map((shot) => shot.zone));
 
@@ -41,9 +43,16 @@ for (const shot of shots) {
   const provider = shot.segment.match(/provider: '([^']+)'/)?.[1];
   const id = shot.segment.match(/^\s+id: '([^']+)',/m)?.[1];
   const url = shot.segment.match(/url: '([^']+)'/)?.[1];
+  const quality = shot.segment.match(/level: '([^']+)'/)?.[1];
+  const reviewedAt = shot.segment.match(/reviewedAt: '([^']+)'/)?.[1];
 
   if (!provider) {
     missing.push(`${shot.zone}/${shot.id}`);
+    continue;
+  }
+
+  if (quality !== 'verified-game-clip' || !reviewedAt) {
+    unverified.push(`${shot.zone}/${shot.id}`);
     continue;
   }
 
@@ -63,18 +72,23 @@ for (const shot of shots) {
   }
 }
 
-const embedded = shots.length - missing.length;
+const verified = shots.length - missing.length - unverified.length;
 const providerSummary = [...providers.entries()]
   .sort(([left], [right]) => left.localeCompare(right))
   .map(([provider, count]) => `${provider}=${count}`)
   .join(' ');
 
-console.log(`Historic shots: ${embedded}/${shots.length} have provider embeds or clip links.`);
+console.log(`Historic shots: ${verified}/${shots.length} have quality-gated provider clips.`);
 console.log(`Providers: ${providerSummary || 'none'}`);
 
 if (missing.length > 0) {
   console.log(`Reference-only shots: ${missing.length}`);
   for (const item of missing) console.log(`- ${item}`);
+}
+
+if (unverified.length > 0) {
+  console.log(`Provider clips missing quality review: ${unverified.length}`);
+  for (const item of unverified) console.log(`- ${item}`);
 }
 
 if (invalid.length > 0) {
@@ -86,4 +100,8 @@ if (zonesWithoutEmbeds.size > 0) {
   console.error(`Zones without any clip source: ${[...zonesWithoutEmbeds].join(', ')}`);
 }
 
-if (invalid.length > 0 || zonesWithoutEmbeds.size > 0) process.exit(1);
+if (strictTarget && verified !== shots.length) {
+  console.error(`Target gate failed: ${verified}/${shots.length} quality-gated clips.`);
+}
+
+if (invalid.length > 0 || zonesWithoutEmbeds.size > 0 || (strictTarget && verified !== shots.length)) process.exit(1);

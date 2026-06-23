@@ -56,6 +56,12 @@ type ShotEmbed =
       url: string;
     };
 
+type ShotClipQuality = {
+  level: 'verified-game-clip';
+  reviewedAt: string;
+  note: string;
+};
+
 type HistoricShot = {
   id: string;
   player: string;
@@ -63,6 +69,7 @@ type HistoricShot = {
   zone: string;
   note: string;
   embed?: ShotEmbed;
+  quality?: ShotClipQuality;
   source: string;
 };
 
@@ -85,6 +92,11 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'a-M3x-eZpV8',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Direct clip source for Lillard OKC 2019 shot.',
       },
       source: 'NBA on YouTube',
     },
@@ -115,6 +127,11 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'GEMVGHoenXM',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Direct clip source for Curry OKC 2016 shot.',
       },
       source: 'NBA on YouTube',
     },
@@ -147,6 +164,11 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         id: 'ua_w5RxpFIQ',
         start: 780,
       },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Full-game source positioned near Allen Spurs 2013 corner three.',
+      },
       source: 'NBA on YouTube',
     },
     {
@@ -177,6 +199,11 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'ChT3ewZXTfM',
       },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Direct clip source for Leonard Sixers 2019 shot.',
+      },
       source: 'NBA on YouTube',
     },
     {
@@ -206,6 +233,11 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: '2XWgRpfkxhY',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Direct clip source for LeBron Pacers 2018 shot.',
       },
       source: 'NBA on YouTube',
     },
@@ -340,6 +372,11 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: '92fLApYaCGI',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Full-game source for Jordan Jazz 1998 title-clinching shot.',
       },
       source: 'NBA on YouTube',
     },
@@ -569,7 +606,7 @@ function getHistoricShot(
 ): HistoricShot {
   const zone = getHistoricShotZone(point);
   const pool = HISTORIC_SHOT_POOLS[zone];
-  const embeddablePool = pool.filter((shot) => shot.embed);
+  const embeddablePool = pool.filter((shot) => shot.embed && shot.quality?.level === 'verified-game-clip');
   const selectionPool = embeddablePool.length > 0 ? embeddablePool : pool;
   const zoneRank = layout
     .filter((candidate) => getHistoricShotZone(candidate.point) === zone)
