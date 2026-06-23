@@ -90,9 +90,9 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
       'The concept has real ceiling. The current gap is execution tempo, not lack of upside.',
   },
   {
-    slug: 'amos-saas',
-    title: 'Amos SaaS',
-    shortCode: 'AS',
+    slug: 'bidcamp',
+    title: 'BidCamp',
+    shortCode: 'BC',
     summary:
       'Government-contracting SaaS platform with v1.0 shipped — full-stack Next.js app built on Supabase and Stripe with active work toward v1.1 feature expansion.',
     trackerComment:
