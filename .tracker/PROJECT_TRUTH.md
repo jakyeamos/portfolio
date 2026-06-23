@@ -6,17 +6,17 @@ healthScore: 87
 statusLabel: on_track
 nextStep: Keep the weekly tracker ingestion running from main so current-project progress rebuilds the public portfolio UI after each verified sync.
 blockers: []
-lastUpdated: 2026-06-22
+lastUpdated: 2026-06-23
 tags: [portfolio, personal-site, react, vite, tailwind]
-areas: [home, scouting-report, film-room, player-comps, impact-report]
+areas: [home, scouting-report, film-room, blog, player-comps, impact-report]
 goals:
   - Ship a professional portfolio site that accurately represents current work
   - Deploy and keep live
 repoType: app
 sourceOfTruth: inferred
 primaryLanguage: TypeScript
-activeBranch: codex/truth-sync-migration
-lastCommitDate: "2026-06-22"
+activeBranch: codex/portfolio-now-playing-home
+lastCommitDate: "2026-06-23"
 quality:
   lint: pass
   types: pass
@@ -37,13 +37,19 @@ agentExpectationsVersion: 1
 
 The portfolio is on branch `main` with tracker-sync infrastructure in place. The React/Vite/Tailwind SPA is the live app shape: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
 
-The current-project tracker now resolves 15 local project truth sources through `.tracker/truth-map.json` plus discovery, including AIOS, Soundscape, Terrace, Amos SaaS, Taski, Fantasy, RemodelVision, Bballedu, Dispatches, Book, the GitHub issue-resolution modeling repo, Signal Lab, Cap-Fit Builder, CLFE, and RTE. RemodelVision uses a portfolio-local truth source at `.tracker/remodelvision/PROJECT_TRUTH.md` because this automation sandbox cannot write into the sibling RemodelVision checkout. The sync script is scoped to `CURRENT_PROJECTS` so `CLOSED_PROJECTS` entries do not get overwritten by active repo truth snapshots.
+The current-project tracker now resolves 15 local project truth sources through `.tracker/truth-map.json` plus discovery, including AIOS, Soundscape, Terrace, BidCamp, Taski, Fantasy, RemodelVision, Bballedu, Dispatches, Book, the GitHub issue-resolution modeling repo, Signal Lab, Cap-Fit Builder, CLFE, and RTE. RemodelVision uses a portfolio-local truth source at `.tracker/remodelvision/PROJECT_TRUTH.md` because this automation sandbox cannot write into the sibling RemodelVision checkout. The sync script is scoped to `CURRENT_PROJECTS` so `CLOSED_PROJECTS` entries do not get overwritten by active repo truth snapshots.
 
 The repo uses pnpm as the single package-manager workflow: `package.json` declares `pnpm@10.26.0`, lifecycle hooks call `pnpm sync`, CI installs with `pnpm install --frozen-lockfile`, Netlify builds with `pnpm build`, and `pnpm-lock.yaml` is the lockfile.
 
 The weekly portfolio tracker ingestion automation now commits verified generated tracker updates and pushes the current branch after `pnpm sync`, `pnpm lint`, and `pnpm build` pass. This makes the portfolio-progress loop publishable, but the public UI only updates automatically when the pushed branch is the Netlify production deploy branch or is merged into it. Deploy status checks now avoid the unstable global Netlify CLI by using a pinned repo-local `netlify-cli`, a temp-config wrapper, and a direct Netlify API script.
 
-The current-project court UI now uses a meaningful matrix rather than a decorative half-arc: x-position represents tracker health/readiness, y-position represents the selected scout axis on a tough elite-threshold curve, marker size reflects ambition, marker color reflects status, and a deterministic spacing pass prevents dense project clusters from overlapping on desktop and mobile. The displayed board now normalizes against the projects currently shown so each active axis uses more of the court. The court itself stays visually neutral so the project dots and labels carry the meaning. Clearing the three-point arc is intentionally selective rather than the default for every strong project. Clicking a current-project dot or shipped-project card opens the detail modal with a compact "Historic Shot Clip" module that maps the displayed court location to a nearby famous NBA shot through mutually exclusive court zones. The clip selector is now provider-aware and quality-gated, so it can choose from YouTube, Vimeo, NBA, or external clip sources only when they are marked as verified game clips before falling back to reference-only entries.
+The current-project court UI now uses a meaningful matrix rather than a decorative half-arc: x-position represents tracker health/readiness, y-position represents the selected project axis on a tough elite-threshold curve, marker size reflects ambition, marker color reflects status, and a deterministic spacing pass prevents dense project clusters from overlapping on desktop and mobile. The displayed board now normalizes against the projects currently shown so each active axis uses more of the court. The court itself stays visually neutral so the project dots and labels carry the meaning. Clearing the three-point arc is intentionally selective rather than the default for every strong project. Clicking a current-project dot or shipped-project card opens the detail modal with a compact "Historic Shot Clip" module that maps the displayed court location to a nearby famous NBA shot through mutually exclusive court zones. The clip selector is now provider-aware and quality-gated, so it can choose from YouTube, Vimeo, NBA, or external clip sources only when they are marked as verified game clips before falling back to reference-only entries.
+
+The homepage now promotes the latest active project work before the feature-report grid through a "Now Playing" strip sourced from `CURRENT_PROJECTS`, sorted by `lastUpdated`, and linked to the current-project court matrix. The homepage and project page both describe the matrix as tracker health on X and the selected project axis on Y. This gives recent AI/workflow/product builds first-page presence without duplicating tracker content by hand.
+
+The Film Room now has a small "New Signals" surface: TMCP is mentioned as a concept-watch item rather than a scored tracker project, and recent website launches for Chiron's Forge and FRMWRK Labs are linked from the page. Chiron's Forge is described from its live site; FRMWRK Labs is intentionally link-forward only until the site is reachable for source-backed copy.
+
+The portfolio now includes `/blog` as a first-class writing surface for concepts that need more room than project cards. The initial post expands the TMCP mention into a working thesis, placement next to AIOS/Terrace, why the idea is worth mentioning, and what still needs a fuller draft. The owner-facing `/blog/write` route models a future write-once publishing workflow: draft a post, select destinations such as portfolio, FRMWRK Labs, Twitter, or BIP, and generate a publish plan/markdown payload without silently posting anywhere.
 
 ## Why This Matters / Intended Outcome
 
@@ -78,16 +84,31 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 23: Replaced the YouTube-only shot fields with a provider-based clip model that supports YouTube and Vimeo iframes plus NBA/external source links
 - June 23: Added explicit `verified-game-clip` quality metadata, a `pnpm shot-embeds:target` strict 45/45 gate, and `.tracker/shot-clip-curation.md` so weak non-YouTube sources do not count toward completion
 - June 23: Filled the Historic Shot Clip registry to 45/45 quality-gated YouTube clips and replaced dead legacy YouTube IDs after live oEmbed validation
-- June 23: Updated Historic Shot Clip embeds to autoplay muted on modal open and default to a 45-second clip window from each shot's configured start time
+- June 23: Updated Historic Shot Clip embeds to autoplay muted on modal open and later removed default YouTube timing so each reviewed clip carries explicit `start` and `end` seconds
 - June 23: Tuned Historic Shot Clip timing by replacing several broad/full-game sources with shorter shot clips and adding explicit start/end windows where shorter sources were not available; direct YouTube Browser timing review remains blocked, but local `/projects` iframe params and live oEmbed checks passed
-- June 23: Fixed Terrace on the Impact axis by windowing the LeBron Pacers 2018 clip to `start=112` and `end=154`, so it starts at the shot possession instead of the preceding block
+- June 23: Corrected Terrace on the Impact axis by windowing the LeBron Pacers 2018 clip to absolute YouTube seconds `start=26` and `end=48`, using a compact shot-and-replay window instead of the earlier late replay/commentary window
 - June 23: Ran a full YouTube duration-metadata timing scan for all 45 Historic Shot Clips, replaced additional broad sources with shorter clips, and made intentional `start=0` windows explicit so long clips no longer look untuned
+- June 23: Applied the compact shot-and-replay timing methodology across all 45 Historic Shot Clips: every YouTube clip now has explicit `start` and `end` seconds, windows are capped at 38 seconds, and the shot-embed target gate fails missing or overlong YouTube windows
+- June 23: Added a pre-clip sound toggle for Historic Shot Clips so a user gesture can request unmuted YouTube autoplay on later shot opens while preserving muted autoplay as the browser-compatible fallback
+- June 23: Removed same-axis Historic Shot Clip reuse by making shipped-project assignments skip clips already used by the current board while staying inside the same court zone; `pnpm shot-embeds:target` now fails visible assignment duplicates
+- June 23: Added `pnpm shot-inventory` plus `.tracker/shot-clip-backups.md` so future projects can use existing same-zone backup clips before doing new clip research
+- June 23: Used the local `/shot-review.html` browser workflow to visually sample the start frame for all 45 Historic Shot Clips and corrected the same-source windows for Lillard Rockets 2014, Ray Allen 2013, Jayson Tatum 2023, Chris Paul 2015, Jimmy Butler 2023, and Anthony Edwards 2024
+- June 23: Replaced the remaining weak Historic Shot Clip watchlist sources with tighter verified embeds, including Kerr, Kobe, Booker 2021, Luka, Fox, Pierce, Garnett, Carmelo, Chris Paul 2021, Shai, and Wade; the replacement watchlist is now empty
+- June 23: Added a homepage "Now Playing" section that surfaces the four most recently updated current projects with tracker score, status, date, and scout take, then links into the live project board
+- June 23: Added Film Room mentions for TMCP as a concept-watch item and new website launches for Chiron's Forge and FRMWRK Labs without promoting TMCP into the scored project tracker
+- June 23: Added a `/blog` route, top/side-nav entries, and an initial TMCP concept note so protocol/tooling ideas can get long-form explanation without being forced into the project tracker
+- June 23: Updated the former Amos SaaS portfolio entry and tracker map to BidCamp, pointing sync at `/Users/jakyeamos/projects/BidCamp/.tracker/PROJECT_TRUTH.md`
+- June 23: Replaced the one-off TMCP crosspost-channel card with an owner writer route at `/blog/write`, including destination checkboxes and generated markdown/publish-plan output for future GitHub/BIP automation
+- June 23: Added a dedicated Historic Shot Clip rim zone with a poster-heavy dunk pool led by Anthony Edwards over John Collins, preventing centered dunk-range dots such as Dispatches on Impact/Difficulty/Ambition from falling through to midrange clips
+- June 23: Hardened the shot assignment gate so Impact/Dispatches must resolve to `rim/edwards-collins-2024`; this catches the specific Pierce-style fallback regression even if broader zone coverage still passes
+- June 23: Aligned Current Projects labels, help text, modal copy, and homepage references around the court matrix model: X-axis is tracker health and Y-axis is the selected project axis; `pnpm lint` and `pnpm build` passed
+- June 23: Made court-marker modal selection carry the clicked axis, point, and layout so Dispatches on the Impact board cannot render a stale midrange shot panel under an Impact-axis modal
 
 ## Open Problems
 
 - RemodelVision's tracker truth source is portfolio-local rather than stored in the sibling RemodelVision repo because this automation environment can only write inside the portfolio workspace
 - Ignored draft and binary assets still live beside the source tree; repo hygiene is acceptable, but long-term placement should be clarified
-- Historic Shot Clip has 45/45 quality-gated clips, but `.tracker/shot-clip-curation.md` tracks a small replacement watchlist for broader, full-game, or nonofficial YouTube sources that could be upgraded later
+- Historic Shot Clip has 50/50 quality-gated clips, a live same-zone backup inventory, visually audited timing, and no active replacement watchlist as of June 23, 2026
 - No automated test suite is configured, so regression confidence still depends on type/build checks and manual verification
 
 ## Next Concrete Steps
@@ -108,14 +129,23 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Lint:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-22
 - **Types:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-22
 - **Build:** `pnpm build` — PASS on 2026-06-22
+- **Homepage Now Playing QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/` — PASS on 2026-06-23; the new homepage section rendered, showed current-project cards from synced tracker data, had no console warnings/errors or framework overlay, avoided mobile horizontal overflow at 390px width, and the "Open live board" link navigated to `/projects`
+- **Film Room New Signals QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/film-room` — PASS on 2026-06-23; TMCP, Chiron's Forge, and FRMWRK Labs rendered, the two website links were present with external URLs, there were no console warnings/errors or framework overlay, and the new section avoided mobile horizontal overflow at 390px width
+- **Blog QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/blog` — PASS on 2026-06-23; route rendered, Blog nav appeared active, the TMCP thesis and article sections were visible, desktop header had no horizontal overflow after compact top-nav labels, and mobile avoided horizontal overflow at 390px width
+- **Blog writer QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/blog` plus `/blog/write` — PASS on 2026-06-23; the old crosspost-channel card was removed, the Write CTA navigated to `/blog/write`, destination checkboxes rendered for Portfolio, FRMWRK Labs, Twitter, and BIP queue, checking FRMWRK/Twitter updated generated markdown and the publish plan, there were no console warnings/errors or framework overlay, and mobile avoided horizontal overflow at 390px width
 - **Shot-zone math:** targeted coordinate classification and uniqueness checks — PASS on 2026-06-22; Ray Allen `rightCorner` assignment appears only for `pre-cr-suite` on Ambition at `(84.7, 65.4)` and not for above-the-break positions, and each active axis assigns 16 unique shot references across current plus closed projects
 - **Displayed court geometry:** targeted spread/arc check — PASS on 2026-06-22; each active axis spans roughly 80% of the court, shot pools have no overflow, and inside-the-arc displayed dots have zero three-point-zone mismatches
-- **Shot embed coverage:** `pnpm shot-embeds` — PASS on 2026-06-23; all 45 Historic Shot Clip entries have quality-gated YouTube provider data
-- **45/45 shot target:** `pnpm shot-embeds:target` — PASS on 2026-06-23; current score is 45/45 quality-gated clips
+- **Shot embed coverage:** `pnpm shot-embeds` — PASS on 2026-06-23; all 50 Historic Shot Clip entries have quality-gated YouTube provider data and explicit compact clip windows
+- **50/50 shot target:** `pnpm shot-embeds:target` — PASS on 2026-06-23; current score is 50/50 quality-gated clips with no missing YouTube timing, no YouTube window longer than 38 seconds, zero same-axis visible assignment duplicates, zero rim-range zone mismatches, and zero required assignment mismatches
+- **Dispatches Impact modal QA:** in-app Browser on `/projects` — PASS on 2026-06-23; opening Dispatches from the Impact board rendered `Rim poster`, `Anthony Edwards`, `2024 poster dunk over John Collins`, and YouTube iframe `H7Wz8GnQYPs` while the Impact grade stayed selected
+- **Shot backup inventory:** `pnpm shot-inventory` — PASS on 2026-06-23; command prints assigned and backup clip IDs by scouting axis and court zone from the live registry, including the new rim pool
 - **YouTube oEmbed validation:** live YouTube oEmbed check for all 45 registered IDs — PASS on 2026-06-23; dead legacy IDs and several broad sources were replaced with oEmbed-accessible shorter clips
-- **Historic Shot Clip autoplay/timing:** local Browser smoke on `/projects` — PASS on 2026-06-23; opening the Soundscape marker produced a YouTube iframe with `autoplay=1`, `mute=1`, `start=0`, `end=45`, and iframe autoplay permission; broader clips now use explicit configured windows
-- **Terrace Impact clip timing:** local Browser smoke on `/projects` — PASS on 2026-06-23; opening Terrace on the default Impact axis produced the LeBron iframe `JYmejM38vKs` with `start=112` and `end=154`
+- **Historic Shot Clip autoplay/timing:** local Browser smoke on `/projects` — PASS on 2026-06-23; opening the Soundscape marker produced a YouTube iframe with `autoplay=1`, `mute=1`, and iframe autoplay permission; all YouTube clips now resolve from explicit compact `start` and `end` windows
+- **Terrace Impact clip timing:** parameter verification — PASS on 2026-06-23; the LeBron iframe `JYmejM38vKs` is now configured with absolute YouTube seconds `start=26` and `end=48`, matching the compact shot-and-replay methodology
 - **Full shot timing scan:** live YouTube duration metadata scan for all 45 clips — PASS on 2026-06-23; no long clips remain without explicit start/end timing decisions
+- **Shot visual timing audit:** `/shot-review.html` browser pass for all 45 clips — PASS with follow-ups on 2026-06-23; six same-source timing windows were corrected, then remaining broad/restricted sources were handled in the replacement pass
+- **Shot replacement pass:** `/shot-review.html` browser verification — PASS on 2026-06-23; remaining broad, intro-card, studio-package, and iframe-restricted watchlist entries were replaced with tighter verified embeds
+- **Historic Shot Clip sound request:** parameter verification — PASS on 2026-06-23; muted clips include `mute=1`, while sound-enabled clips omit the mute param after the user toggles shot sound
 - **Local browser smoke:** `/projects` in the in-app Browser — PASS on 2026-06-23; opening the Soundscape court marker showed the Historic Shot Clip module with one provider-generated YouTube iframe URL
 - **Deploy tooling:** `pnpm netlify:cli -- --version`, `pnpm netlify:status`, and `pnpm deploy:status` missing-env behavior — PASS on 2026-06-22; live deploy lookup still requires `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`
 - **Browser QA:** `/projects` in the in-app Browser — PASS on 2026-06-22 before the neutral-court styling cleanup; recalibrated Ambition desktop minimum marker gap 25.46px, mobile minimum marker gap 3.31px, no marker overlaps, no horizontal overflow, no console warnings/errors, Soundscape marker opened the detail modal. Browser verification for the neutral-court cleanup and Historic Shot modal work was blocked by the local in-app Browser policy for `127.0.0.1:3000`; shell network access also could not resolve `youtube.com`, so embed IDs still need live browser/deploy validation. `pnpm lint` and `pnpm build` passed after both changes.

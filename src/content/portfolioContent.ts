@@ -60,6 +60,33 @@ export interface PlayerComp {
   media: PosterMediaAsset;
 }
 
+export interface WebsiteLaunch {
+  title: string;
+  href: string;
+  label: string;
+  copy: string;
+}
+
+export interface ConceptNote {
+  title: string;
+  label: string;
+  copy: string;
+}
+
+export interface BlogPost {
+  slug: string;
+  title: string;
+  deck: string;
+  status: string;
+  date: string;
+  tags: readonly string[];
+  thesis: string;
+  sections: readonly {
+    heading: string;
+    body: string;
+  }[];
+}
+
 export const SITE_META = {
   name: 'Jakye Amos',
   brand: 'Front Office // Amos',
@@ -71,12 +98,13 @@ export const SITE_META = {
 } as const;
 
 export const PAGE_LINKS = [
-  { label: 'Front Page', path: '/' },
-  { label: 'Scouting Report', path: '/scouting-report' },
-  { label: 'Film Room', path: '/film-room' },
+  { label: 'Front Page', shortLabel: 'Front', path: '/' },
+  { label: 'Scouting Report', shortLabel: 'Scouting', path: '/scouting-report' },
+  { label: 'Film Room', shortLabel: 'Film', path: '/film-room' },
+  { label: 'Blog', path: '/blog' },
   { label: 'Projects', path: '/projects' },
-  { label: 'Player Comps', path: '/player-comps' },
-  { label: 'Impact Report', path: '/impact-report' },
+  { label: 'Player Comps', shortLabel: 'Comps', path: '/player-comps' },
+  { label: 'Impact Report', shortLabel: 'Impact', path: '/impact-report' },
 ] as const;
 
 export const QUICK_LINKS: readonly QuickLink[] = [
@@ -181,8 +209,8 @@ export const TOP_HEADLINES: readonly Headline[] = [
   },
   {
     category: 'Tracker feed',
-    title: 'Current projects now read like a live board, not a static project graveyard',
-    meta: 'Taski tracker scores, status comments, and scouting grades on a shot chart',
+    title: 'Current projects now map tracker health against the selected project axis',
+    meta: 'Taski tracker health, status comments, and selected-axis grades on a court matrix',
     href: '/projects',
   },
   {
@@ -232,8 +260,8 @@ export const FEATURE_REPORTS = [
   },
   {
     kicker: 'Projects',
-    title: 'Live shot chart',
-    copy: 'Tracker-backed project health on a court matrix, with scout grades for impact, difficulty, ambition, and creativity.',
+    title: 'Live court matrix',
+    copy: 'Tracker-backed project health on the X-axis, with impact, difficulty, ambition, or creativity selected on the Y-axis.',
     href: '/projects',
     cta: 'Open the board',
   },
@@ -387,6 +415,60 @@ export const BENCH_PROJECTS = [
     kicker: 'Spec discipline',
     title: 'Terrace',
     copy: 'Spec-driven, test-governed framework designed to make AI-assisted development more structured and less improv-heavy.',
+  },
+] as const;
+
+export const CONCEPT_NOTES: readonly ConceptNote[] = [
+  {
+    label: 'Concept watch',
+    title: 'TMCP',
+    copy: 'Not a formal project-board entry yet, but worth calling out as a high-upside protocol/tooling concept in the same AI-workflow lane as AIOS and Terrace.',
+  },
+] as const;
+
+export const WEBSITE_LAUNCHES: readonly WebsiteLaunch[] = [
+  {
+    label: 'Live website',
+    title: "Chiron's Forge",
+    href: 'https://www.chironsforge.com/',
+    copy: 'Multi-AI research pipeline that turns raw intent into expert AI skills, research reports, and Cursor rules, with an independent judge/refinement loop before delivery.',
+  },
+  {
+    label: 'Live website',
+    title: 'FRMWRK Labs',
+    href: 'https://www.frmwrklabs.com/',
+    copy: 'New website launch in the portfolio orbit. The live site was unavailable during this edit, so the portfolio keeps the mention link-forward without adding unsupported product claims.',
+  },
+] as const;
+
+export const BLOG_POSTS: readonly BlogPost[] = [
+  {
+    slug: 'tmcp',
+    title: 'TMCP belongs in the writing, not just the project board',
+    deck: 'A concept note for the AI workflow/protocol lane: less demo, more operating model.',
+    status: 'Concept note',
+    date: '2026-06-23',
+    tags: ['TMCP', 'AI workflow', 'protocols', 'tooling'],
+    thesis:
+      'TMCP is interesting because it points at the layer between agents, tools, project memory, and repeatable execution. It is not just another app idea; it is a way to think about how AI-assisted work should carry context, constraints, and handoffs across sessions.',
+    sections: [
+      {
+        heading: 'Why a blog page fits it better',
+        body: 'The project tracker is built for things with status, scores, dates, and shipped surfaces. TMCP is earlier and more conceptual than that. It needs room for definitions, tradeoffs, open questions, and examples before it deserves the same treatment as Soundscape, AIOS, or Terrace.',
+      },
+      {
+        heading: 'The lane it sits in',
+        body: 'The closest portfolio neighbors are AIOS and Terrace. AIOS is the personal operating layer, Terrace is the spec-and-validation discipline, and TMCP sits in the protocol/tooling conversation: how context moves, how agents know what contract they are operating under, and how a workflow stays legible after the first prompt is gone.',
+      },
+      {
+        heading: 'What makes it worth mentioning',
+        body: 'A lot of AI tooling stops at better prompting. TMCP is more interesting if it treats context as infrastructure: something structured, inspectable, reusable, and portable enough to survive across tools instead of living inside one chat window.',
+      },
+      {
+        heading: 'What still needs to be written',
+        body: 'The next useful version should define the acronym, describe the concrete workflow it enables, show one before-and-after example, and explain where it differs from MCP, project memory, agent skills, and ordinary prompt templates.',
+      },
+    ],
   },
 ] as const;
 

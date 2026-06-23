@@ -10,6 +10,7 @@ import {
   Sparkles,
   Sun,
   Target,
+  Volume2,
   X,
   Zap,
 } from 'lucide-react';
@@ -25,7 +26,6 @@ import {
 
 const AXES: readonly ProjectAxis[] = ['impact', 'difficulty', 'ambition', 'creativity'] as const;
 const ALL_PROJECTS: readonly CurrentProject[] = [...CURRENT_PROJECTS, ...CLOSED_PROJECTS] as const;
-const DEFAULT_SHOT_CLIP_SECONDS = 45;
 
 type CourtPoint = {
   left: number;
@@ -39,12 +39,19 @@ type ProjectCourtLayout = {
   position: CSSProperties;
 };
 
+type SelectedCourtProject = {
+  axis: ProjectAxis;
+  layout: readonly ProjectCourtLayout[];
+  point: CourtPoint;
+  project: CurrentProject;
+};
+
 type ShotEmbed =
   | {
       provider: 'youtube';
       id: string;
-      start?: number;
-      end?: number;
+      start: number;
+      end: number;
       sourceUrl?: string;
     }
   | {
@@ -80,6 +87,7 @@ type HistoricShotZone =
   | 'rightCorner'
   | 'leftBaselineWing'
   | 'aboveBreak'
+  | 'rim'
   | 'midrange';
 
 const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
@@ -93,6 +101,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'HMm5NtXLVDY',
+        start: 0,
+        end: 32,
       },
       quality: {
         level: 'verified-game-clip',
@@ -110,11 +120,13 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'mejFtEY5faU',
+        start: 10,
+        end: 30,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA channel result titled for Lillard game winner over Houston.',
+        note: 'NBA channel result titled for Lillard game winner over Houston; observed shot setup starts at 0:10 after the intro card.',
       },
       source: 'NBA on YouTube',
     },
@@ -128,7 +140,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'Mz3TBKrBp5M',
         start: 0,
-        end: 65,
+        end: 36,
       },
       quality: {
         level: 'verified-game-clip',
@@ -148,6 +160,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'GEMVGHoenXM',
+        start: 0,
+        end: 30,
       },
       quality: {
         level: 'verified-game-clip',
@@ -185,7 +199,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'DPDUDPCttfc',
         start: 220,
-        end: 347,
+        end: 255,
       },
       quality: {
         level: 'verified-game-clip',
@@ -205,13 +219,13 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'ua_w5RxpFIQ',
-        start: 780,
-        end: 825,
+        start: 2200,
+        end: 2230,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'Full-game source positioned near Allen Spurs 2013 corner three.',
+        note: 'Full-game source windowed to the Allen corner-three possession beginning at 36:40.',
       },
       source: 'NBA on YouTube',
     },
@@ -223,14 +237,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A trust-the-system shot: small window, huge consequence.',
       embed: {
         provider: 'youtube',
-        id: 'nJgPKeMOL-s',
+        id: '12VMuqXVGRw',
+        start: 0,
+        end: 28,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA channel result titled for Kerr game-winner against Utah in 1997.',
+        note: 'Short replacement source starts on the Kerr right-slot Finals winner setup instead of studio footage.',
       },
-      source: 'NBA on YouTube',
+      source: 'YouTube',
     },
     {
       id: 'horry-kings-2002',
@@ -263,7 +279,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: '75iExVNvrWw',
         start: 0,
-        end: 70,
+        end: 36,
       },
       quality: {
         level: 'verified-game-clip',
@@ -281,6 +297,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'p-u4pIQyjfE',
+        start: 0,
+        end: 24,
       },
       quality: {
         level: 'verified-game-clip',
@@ -298,6 +316,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: '0mU-bEOPujM',
+        start: 0,
+        end: 35,
       },
       quality: {
         level: 'verified-game-clip',
@@ -317,13 +337,13 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'JYmejM38vKs',
-        start: 112,
-        end: 154,
+        start: 26,
+        end: 48,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'ESPN full-sequence source windowed to the game-winning three after the block.',
+        note: 'ESPN full-sequence source windowed with absolute YouTube seconds for the shot setup, make, and first replay.',
       },
       source: 'ESPN on YouTube',
     },
@@ -336,6 +356,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'fZ8yCJgsF_4',
+        start: 0,
+        end: 34,
       },
       quality: {
         level: 'verified-game-clip',
@@ -354,7 +376,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: '3t8w00NrDBE',
         start: 0,
-        end: 65,
+        end: 32,
       },
       quality: {
         level: 'verified-game-clip',
@@ -372,11 +394,13 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'NLOJvl98SwQ',
+        start: 52,
+        end: 76,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA channel result covers Tatum fourth-quarter Game 6 run against Philadelphia.',
+        note: 'NBA channel result covers Tatum fourth-quarter Game 6 run; observed late-three setup starts at 0:52.',
       },
       source: 'NBA on YouTube',
     },
@@ -389,6 +413,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'T3xk9vay5tE',
+        start: 0,
+        end: 32,
       },
       quality: {
         level: 'verified-game-clip',
@@ -406,13 +432,13 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'XxSr2nArxkA',
-        start: 115,
-        end: 172,
+        start: 91,
+        end: 124,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA channel result covers the Pacers Game 1 comeback against New York.',
+        note: 'NBA channel result covers the Pacers Game 1 comeback against New York; observed shot sequence starts at 1:31.',
       },
       source: 'NBA on YouTube',
     },
@@ -425,6 +451,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'lm1wzEL8FZY',
+        start: 0,
+        end: 29,
       },
       quality: {
         level: 'verified-game-clip',
@@ -443,7 +471,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: '23GkX-ZeKx4',
         start: 0,
-        end: 93,
+        end: 35,
       },
       quality: {
         level: 'verified-game-clip',
@@ -462,7 +490,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'MRLysMEHokI',
         start: 0,
-        end: 90,
+        end: 38,
       },
       quality: {
         level: 'verified-game-clip',
@@ -480,11 +508,13 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'xb95YLw1bns',
+        start: 62,
+        end: 78,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA channel result titled for Chris Paul heroics in Game 7 against San Antonio.',
+        note: 'NBA channel result titled for Chris Paul heroics; observed winning-shot setup starts near 1:02.',
       },
       source: 'NBA on YouTube',
     },
@@ -496,33 +526,33 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A shot profile built on size, patience, and impossible timing.',
       embed: {
         provider: 'youtube',
-        id: '1as8JsjQrF0',
+        id: 'BhhwtBVLO4Y',
         start: 0,
-        end: 95,
+        end: 35,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'ESPN Signature Shots source for Doncic stepback shot profile.',
+        note: 'Short replacement source starts on the live Doncic high-slot buzzer-beater setup against Boston.',
       },
-      source: 'ESPN on YouTube',
+      source: 'YouTube',
     },
     {
-      id: 'fox-warriors-2023',
-      player: 'De Aaron Fox',
-      moment: '2023 playoff pull-up pressure three',
+      id: 'fox-bulls-2023',
+      player: "De'Aaron Fox",
+      moment: '2023 game-winning pull-up in Chicago',
       zone: 'High right slot',
       note: 'A pace-changing guard shot from the modern playoff map.',
       embed: {
         provider: 'youtube',
-        id: 'B7wuI0dnK1M',
+        id: 'ZP5_5qCa1kY',
         start: 0,
-        end: 90,
+        end: 30,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA channel Game 4 guard-battle clip for Fox playoff shot-making against Golden State.',
+        note: 'NBA channel replacement source starts on Fox isolating from the high right slot for the Chicago game-winner.',
       },
       source: 'NBA on YouTube',
     },
@@ -536,7 +566,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'JgYnmcsUiHQ',
         start: 0,
-        end: 41,
+        end: 35,
       },
       quality: {
         level: 'verified-game-clip',
@@ -553,16 +583,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A clean scorer shot from the first layer above the arc.',
       embed: {
         provider: 'youtube',
-        id: 'PuuDPaTZbmk',
+        id: 'izZdLhRsIgM',
         start: 0,
-        end: 80,
+        end: 8,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA playoff debut source for Booker playoff shot-making.',
+        note: 'Short replacement source starts directly on the Booker pull-up three against the Lakers.',
       },
-      source: 'NBA on YouTube',
+      source: 'YouTube',
     },
     {
       id: 'butler-bucks-2023',
@@ -573,13 +603,13 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'R0d-PK1iI8U',
-        start: 170,
-        end: 288,
+        start: 188,
+        end: 215,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA channel uncut end-of-regulation clip for Butler Game 5 against Milwaukee.',
+        note: 'NBA channel uncut end-of-regulation clip; observed Butler bailout possession starts at 3:08.',
       },
       source: 'NBA on YouTube',
     },
@@ -592,13 +622,110 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'y_EbaSvRh_U',
-        start: 0,
-        end: 80,
+        start: 170,
+        end: 205,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA Game 1 Denver source for Edwards playoff pull-up scoring.',
+        note: 'NBA Game 1 Denver source windowed to the observed fourth-quarter Edwards pull-up setup at 2:50.',
+      },
+      source: 'NBA on YouTube',
+    },
+  ],
+  rim: [
+    {
+      id: 'edwards-collins-2024',
+      player: 'Anthony Edwards',
+      moment: '2024 poster dunk over John Collins',
+      zone: 'Rim poster',
+      note: 'A rim-pressure finish with real lift, contact, and immediate force.',
+      embed: {
+        provider: 'youtube',
+        id: 'H7Wz8GnQYPs',
+        start: 0,
+        end: 35,
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Verified replacement rim-pool source starts on Edwards live setup before the John Collins poster.',
+      },
+      source: 'YouTube',
+    },
+    {
+      id: 'carter-weis-2000',
+      player: 'Vince Carter',
+      moment: '2000 Olympic dunk over Frederic Weis',
+      zone: 'Rim poster',
+      note: 'A historic above-the-rim finish where the whole play is the point of impact.',
+      embed: {
+        provider: 'youtube',
+        id: 'WihbbVEmppI',
+        start: 0,
+        end: 35,
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Olympics source starts on the live possession before Carter attacks the rim over Weis.',
+      },
+      source: 'Olympics on YouTube',
+    },
+    {
+      id: 'morant-wolves-2022-dunk',
+      player: 'Ja Morant',
+      moment: '2022 playoff poster dunk vs Minnesota',
+      zone: 'Rim attack',
+      note: 'A downhill explosion that maps cleanly to dunk-range court pressure.',
+      embed: {
+        provider: 'youtube',
+        id: 'zDOF56D0yo4',
+        start: 0,
+        end: 35,
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA source starts on the live setup before Morant attacks the rim against Minnesota.',
+      },
+      source: 'NBA on YouTube',
+    },
+    {
+      id: 'giannis-suns-2021-oop',
+      player: 'Giannis Antetokounmpo',
+      moment: '2021 Finals alley-oop seal vs Phoenix',
+      zone: 'Rim alley-oop',
+      note: 'A vertical finish where timing, force, and scale are all visible at the rim.',
+      embed: {
+        provider: 'youtube',
+        id: 'In3yIwP0NgU',
+        start: 0,
+        end: 35,
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA source starts on the steal and live transition sequence before the Giannis alley-oop.',
+      },
+      source: 'NBA on YouTube',
+    },
+    {
+      id: 'lebron-celtics-2012-oop',
+      player: 'LeBron James',
+      moment: 'monster alley-oop slam vs Boston',
+      zone: 'Rim alley-oop',
+      note: 'A violent rim finish that gives the dunk pool another same-zone backup.',
+      embed: {
+        provider: 'youtube',
+        id: 'fm_t6OfBF7Y',
+        start: 0,
+        end: 32,
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA source starts on the live setup before LeBron catches the alley-oop against Boston.',
       },
       source: 'NBA on YouTube',
     },
@@ -632,6 +759,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'a0TKEofio7w',
+        start: 0,
+        end: 32,
       },
       quality: {
         level: 'verified-game-clip',
@@ -648,14 +777,14 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A two-dribble midrange shot from the league’s hardest comfort zone.',
       embed: {
         provider: 'youtube',
-        id: '_jxHf7h6U58',
+        id: 'QBvDh9PdlHI',
         start: 0,
-        end: 180,
+        end: 23,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'Playable short source for Kobe 2006 buzzer-beater against Phoenix.',
+        note: 'Short replacement source avoids the age-restricted embed and starts on Kobe attacking for the Phoenix playoff winner.',
       },
       source: 'YouTube',
     },
@@ -668,6 +797,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: '9k4Li-iT8QU',
+        start: 0,
+        end: 28,
       },
       quality: {
         level: 'verified-game-clip',
@@ -684,31 +815,33 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A veteran midrange bank that turned timing into theater.',
       embed: {
         provider: 'youtube',
-        id: 'KGnTSu0orgc',
+        id: '_CKS3WSyzeo',
+        start: 0,
+        end: 23,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA channel result titled for Pierce banked Game 3 winner.',
+        note: 'Short replacement source starts directly on Pierce setting up the banked Game 3 winner.',
       },
-      source: 'NBA on YouTube',
+      source: 'YouTube',
     },
     {
-      id: 'garnett-kings-2004',
+      id: 'garnett-clippers-buzzer',
       player: 'Kevin Garnett',
-      moment: '2004 Game 7 turnaround vs Sacramento',
+      moment: 'Game-winning jumper at the buzzer vs LA Clippers',
       zone: 'High-post fade',
       note: 'A big-wing shot from the high post under elimination pressure.',
       embed: {
         provider: 'youtube',
-        id: 'OKp-mxqUels',
+        id: 'wDbsVYWW4lc',
         start: 0,
-        end: 87,
+        end: 24,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'Short source for Garnett greatest-game sequence against Sacramento.',
+        note: 'Short replacement source starts on Garnett receiving at the high post for the buzzer-beating jumper.',
       },
       source: 'YouTube',
     },
@@ -740,6 +873,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: '1CIIvmr58sA',
+        start: 0,
+        end: 30,
       },
       quality: {
         level: 'verified-game-clip',
@@ -756,14 +891,14 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A jab-step scorer shot from a wing who made this area dangerous.',
       embed: {
         provider: 'youtube',
-        id: 'H9neM8by1SQ',
+        id: 'TMWNq4KVqwU',
         start: 0,
-        end: 113,
+        end: 22,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'Playable YouTube source for Carmelo clutch threes against Chicago on Easter.',
+        note: 'Short replacement source starts on Carmelo setting up the Easter clutch jumper against Chicago.',
       },
       source: 'YouTube',
     },
@@ -777,7 +912,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'QjsuBaQVqnw',
         start: 0,
-        end: 49,
+        end: 32,
       },
       quality: {
         level: 'verified-game-clip',
@@ -794,35 +929,35 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A controlled point-guard shot from the center of the floor.',
       embed: {
         provider: 'youtube',
-        id: 'KhhhrUHMMU4',
+        id: 'MfriWb4vY9Q',
         start: 0,
-        end: 36,
+        end: 28,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'Playable YouTube source for Chris Paul midrange takeover sequence in the 2021 Finals.',
+        note: 'Short replacement source starts on Paul bringing the ball up for the brake-and-rise Finals jumper over Giannis.',
       },
       source: 'YouTube',
     },
     {
       id: 'shai-nuggets-2025',
       player: 'Shai Gilgeous-Alexander',
-      moment: 'Playoff stop-and-rise midrange jumper',
+      moment: '2025 game-winner vs Denver',
       zone: 'Right lane pull-up',
       note: 'A modern pressure midrange shot built on pace and balance.',
       embed: {
         provider: 'youtube',
-        id: 'ih2bjlg48YQ',
+        id: 'KC2k-TPGh6Q',
         start: 0,
-        end: 80,
+        end: 35,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA channel Game 4 clip for Gilgeous-Alexander playoff scoring against Denver.',
+        note: 'Bleacher Report replacement source starts on Shai setting up the right-lane game-winner against Denver.',
       },
-      source: 'NBA on YouTube',
+      source: 'YouTube',
     },
     {
       id: 'brunson-sixers-2024',
@@ -833,6 +968,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: '782QfcAxH1Q',
+        start: 0,
+        end: 34,
       },
       quality: {
         level: 'verified-game-clip',
@@ -851,7 +988,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'KdND5Jvka20',
         start: 0,
-        end: 49,
+        end: 32,
       },
       quality: {
         level: 'verified-game-clip',
@@ -861,23 +998,23 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       source: 'YouTube',
     },
     {
-      id: 'wade-mavericks-2006',
+      id: 'wade-celtics-ot',
       player: 'Dwyane Wade',
-      moment: '2006 Finals pressure pull-up vs Dallas',
+      moment: 'Crazy overtime jumper vs Boston',
       zone: 'Right lane pull-up',
       note: 'A downhill guard shot from the boundary between paint and midrange.',
       embed: {
         provider: 'youtube',
-        id: 'S3G_XTLunKA',
-        start: 250,
-        end: 360,
+        id: 'AjGvr-oSo88',
+        start: 0,
+        end: 20,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'Playable YouTube source for Wade clutch Game 5 performance against Dallas.',
+        note: 'NBA channel replacement source starts directly on Wade creating the right-lane overtime jumper.',
       },
-      source: 'YouTube',
+      source: 'NBA on YouTube',
     },
     {
       id: 'parker-heat-2013',
@@ -889,7 +1026,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'oRFiKbI5CXc',
         start: 0,
-        end: 72,
+        end: 34,
       },
       quality: {
         level: 'verified-game-clip',
@@ -907,6 +1044,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'wd3mxCQlve4',
+        start: 0,
+        end: 34,
       },
       quality: {
         level: 'verified-game-clip',
@@ -996,7 +1135,9 @@ function getHistoricShotZone(point: CourtPoint): HistoricShotZone {
   const isOutsideArc = isOutsideThreePointLine(point);
   const isDeep = point.top <= 30;
   const isCornerDepth = point.top >= 62;
+  const isRimRange = point.top >= 82 && point.left >= 34 && point.left <= 66;
 
+  if (isRimRange) return 'rim';
   if (!isOutsideArc) return 'midrange';
   if (isCornerDepth && point.left >= 84) return 'rightCorner';
   if (isCornerDepth && point.left <= 16) return 'leftBaselineWing';
@@ -1010,6 +1151,7 @@ function getHistoricShot(
   project: CurrentProject,
   point: CourtPoint,
   layout: readonly ProjectCourtLayout[],
+  usedShotIds: ReadonlySet<string> = new Set<string>(),
 ): HistoricShot {
   const zone = getHistoricShotZone(point);
   const pool = HISTORIC_SHOT_POOLS[zone];
@@ -1020,22 +1162,30 @@ function getHistoricShot(
     .findIndex((candidate) => candidate.project.slug === project.slug);
   const instanceIndex = Math.max(0, zoneRank);
 
+  for (let offset = 0; offset < selectionPool.length; offset += 1) {
+    const shot = selectionPool[(instanceIndex + offset) % selectionPool.length];
+    if (!usedShotIds.has(shot.id)) return shot;
+  }
+
   return selectionPool[instanceIndex % selectionPool.length];
 }
 
-function getShotEmbedUrl(embed: ShotEmbed): string | null {
+function getShotEmbedUrl(embed: ShotEmbed, soundEnabled: boolean): string | null {
   if (embed.provider === 'youtube') {
-    const start = embed.start ?? 0;
-    const end = embed.end ?? start + DEFAULT_SHOT_CLIP_SECONDS;
     const embedParams = new URLSearchParams({
       autoplay: '1',
-      mute: '1',
-      start: String(start),
-      end: String(end),
+      start: String(embed.start),
+      end: String(embed.end),
+      controls: '0',
+      disablekb: '1',
+      fs: '0',
+      iv_load_policy: '3',
       rel: '0',
       modestbranding: '1',
       playsinline: '1',
     });
+
+    if (!soundEnabled) embedParams.set('mute', '1');
 
     return `https://www.youtube.com/embed/${embed.id}?${embedParams.toString()}`;
   }
@@ -1205,7 +1355,7 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">Position</div>
             <p className="mt-1 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-              Left-to-right is tracker health. Bottom-to-top is the selected scouting axis grade.
+              X-axis is tracker health. Y-axis is the selected project axis grade.
             </p>
           </div>
         </div>
@@ -1214,7 +1364,7 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">Brightness</div>
             <p className="mt-1 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-              Marker fill opacity tracks the tracker health score (0–100). Brighter = healthier.
+              Marker fill opacity also tracks tracker health (0-100). Brighter = healthier.
             </p>
           </div>
         </div>
@@ -1223,7 +1373,7 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">Click a marker</div>
             <p className="mt-1 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-              Opens the full project breakdown: summary, scout grades, tracker comment, and status.
+              Opens the full project breakdown: summary, selected-axis grades, tracker comment, and status.
             </p>
           </div>
         </div>
@@ -1232,7 +1382,7 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">Court zones</div>
             <p className="mt-1 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-              Top-right = strong and healthy. Top-left = high-upside work that needs attention.
+              Top-right = high selected-axis grade and healthy tracker. Top-left = strong axis read with tracker risk.
             </p>
           </div>
         </div>
@@ -1242,9 +1392,11 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
 }
 
 function HistoricShotPlayer({
+  soundEnabled,
   point,
   shot,
 }: {
+  soundEnabled: boolean;
   point: CourtPoint;
   shot: HistoricShot;
 }): ReactElement {
@@ -1255,7 +1407,7 @@ function HistoricShotPlayer({
   const controlX = clamp((playerLeft + rimX) / 2, 14, 86);
   const controlY = clamp(Math.min(playerTop, rimY) - 18, 8, 82);
   const arcPath = `M ${playerLeft} ${playerTop} Q ${controlX} ${controlY} ${rimX} ${rimY}`;
-  const embedUrl = shot.embed ? getShotEmbedUrl(shot.embed) : null;
+  const embedUrl = shot.embed ? getShotEmbedUrl(shot.embed, soundEnabled) : null;
   const sourceUrl = shot.embed ? getShotSourceUrl(shot.embed) : null;
 
   return (
@@ -1273,7 +1425,8 @@ function HistoricShotPlayer({
             <iframe
               title={`${shot.player} ${shot.moment}`}
               src={embedUrl}
-              className="absolute inset-0 z-10 h-full w-full border-0"
+              key={`${shot.id}-${soundEnabled ? 'sound' : 'muted'}`}
+              className="pointer-events-none absolute inset-0 z-10 h-full w-full border-0"
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
@@ -1349,14 +1502,19 @@ function HistoricShotPlayer({
 export default function CurrentProjects(): ReactElement {
   const [activeAxis, setActiveAxis] = useState<ProjectAxis>('impact');
   const [selectedProject, setSelectedProject] = useState<CurrentProject | null>(null);
+  const [selectedCourtProject, setSelectedCourtProject] = useState<SelectedCourtProject | null>(null);
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
   const [showHelp, setShowHelp] = useState(false);
   const [showAllRoster, setShowAllRoster] = useState(false);
+  const [shotSoundEnabled, setShotSoundEnabled] = useState(false);
 
   useEffect(() => {
     if (!selectedProject) return undefined;
     function onKeyDown(e: KeyboardEvent): void {
-      if (e.key === 'Escape') setSelectedProject(null);
+      if (e.key === 'Escape') {
+        setSelectedProject(null);
+        setSelectedCourtProject(null);
+      }
     }
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
@@ -1381,28 +1539,51 @@ export default function CurrentProjects(): ReactElement {
     [activeAxis],
   );
   const selectedCourtPoint = useMemo(
-    () =>
-      selectedProject
-        ? courtLayout.find(({ project }) => project.slug === selectedProject.slug)?.point
-          ?? allProjectLayout.find(({ project }) => project.slug === selectedProject.slug)?.point
-          ?? null
-        : null,
-    [allProjectLayout, courtLayout, selectedProject],
+    () => {
+      if (!selectedProject) return null;
+
+      if (
+        selectedCourtProject?.project.slug === selectedProject.slug
+        && selectedCourtProject.axis === activeAxis
+      ) {
+        return selectedCourtProject.point;
+      }
+
+      return courtLayout.find(({ project }) => project.slug === selectedProject.slug)?.point
+        ?? allProjectLayout.find(({ project }) => project.slug === selectedProject.slug)?.point
+        ?? null;
+    },
+    [activeAxis, allProjectLayout, courtLayout, selectedCourtProject, selectedProject],
   );
   const selectedHistoricShot = useMemo(
     () => {
       if (!selectedProject || !selectedCourtPoint) return null;
 
-      const selectedLayout = courtLayout.some(({ project }) => project.slug === selectedProject.slug)
-        ? courtLayout
-        : allProjectLayout;
+      if (
+        selectedCourtProject?.project.slug === selectedProject.slug
+        && selectedCourtProject.axis === activeAxis
+      ) {
+        return getHistoricShot(selectedProject, selectedCourtPoint, selectedCourtProject.layout);
+      }
 
-      return getHistoricShot(selectedProject, selectedCourtPoint, selectedLayout);
+      const isCurrentProject = courtLayout.some(({ project }) => project.slug === selectedProject.slug);
+
+      if (isCurrentProject) return getHistoricShot(selectedProject, selectedCourtPoint, courtLayout);
+
+      const currentShotIds = new Set(
+        courtLayout.map(({ project, point }) => getHistoricShot(project, point, courtLayout).id),
+      );
+
+      return getHistoricShot(selectedProject, selectedCourtPoint, allProjectLayout, currentShotIds);
     },
-    [allProjectLayout, courtLayout, selectedCourtPoint, selectedProject],
+    [activeAxis, allProjectLayout, courtLayout, selectedCourtPoint, selectedCourtProject, selectedProject],
   );
 
-  useEffect(() => { setShowAllRoster(false); }, [activeAxis]);
+  useEffect(() => {
+    setShowAllRoster(false);
+    setSelectedProject(null);
+    setSelectedCourtProject(null);
+  }, [activeAxis]);
 
   // ── Summary stats ──
   const totalProjects = CURRENT_PROJECTS.length;
@@ -1430,12 +1611,12 @@ export default function CurrentProjects(): ReactElement {
           <div className="max-w-5xl">
             <div className="section-kicker">Projects</div>
             <h1 className="mt-4 max-w-[16ch] text-5xl font-black uppercase leading-[0.88] tracking-tight text-[color:var(--color-ink)] md:text-7xl">
-              Live board. Tracker-backed. Scout grades on the floor.
+              Live board. Tracker health on X. Selected axis on Y.
             </h1>
             <p className="mt-5 max-w-4xl text-lg leading-relaxed text-[color:var(--color-ink-soft)] md:text-xl">
-              Active tracker scores, status reads, and forward-looking notes on every project in the
-              portfolio. Basketball grades are editorial scouting reads that place each project on
-              the court. Shipped projects are catalogued below.
+              Active tracker health, status reads, and forward-looking notes on every project in the
+              portfolio. The court matrix maps tracker health left-to-right and the selected project
+              axis bottom-to-top. Shipped projects are catalogued below.
             </p>
           </div>
 
@@ -1458,14 +1639,14 @@ export default function CurrentProjects(): ReactElement {
           </div>
         </section>
 
-        {/* ── Shot Chart ── */}
+        {/* ── Court Matrix ── */}
         <section className="mt-8 editorial-card p-6 md:p-8">
 
           {/* Header row */}
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <div className="flex items-center gap-3">
-                <div className="section-kicker">Shot Chart</div>
+                <div className="section-kicker">Court Matrix</div>
                 <button
                   type="button"
                   aria-expanded={showHelp}
@@ -1475,6 +1656,20 @@ export default function CurrentProjects(): ReactElement {
                 >
                   <HelpCircle size={12} />
                   How to read
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={shotSoundEnabled}
+                  aria-label={shotSoundEnabled ? 'Shot clip sound enabled' : 'Enable shot clip sound'}
+                  title={shotSoundEnabled ? 'Shot clip sound enabled' : 'Enable shot clip sound'}
+                  className={`inline-flex h-8 w-8 items-center justify-center rounded-full border transition ${
+                    shotSoundEnabled
+                      ? 'border-[color:var(--color-primary)] bg-[color:var(--color-primary)] text-white'
+                      : 'border-[color:var(--color-line-strong)] bg-white text-[color:var(--color-ink-soft)] hover:border-[color:var(--color-primary)] hover:text-[color:var(--color-primary)]'
+                  }`}
+                  onClick={() => setShotSoundEnabled((enabled) => !enabled)}
+                >
+                  <Volume2 size={13} />
                 </button>
               </div>
               <h2 className="mt-3 text-4xl font-black uppercase leading-none tracking-tight text-[color:var(--color-ink)]">
@@ -1503,7 +1698,7 @@ export default function CurrentProjects(): ReactElement {
                 onClick={() => setActiveAxis(axis)}
               >
                 <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-primary)]">
-                  Scouting axis
+                  Y-axis selector
                 </div>
                 <div className="mt-2 text-2xl font-black uppercase leading-none tracking-tight text-[color:var(--color-ink)]">
                   {PROJECT_AXIS_META[axis].label}
@@ -1521,10 +1716,10 @@ export default function CurrentProjects(): ReactElement {
                 {/* Court title */}
                 <div className="mb-4 text-center">
                   <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[color:var(--color-ink-soft)]">
-                    Live tracker feed × scout-grade shot chart
+                    Tracker health × selected-axis court matrix
                   </div>
                   <div className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-soft)] opacity-60">
-                    X: tracker health · Y: {axisMeta.label}
+                    X: tracker health · Y: selected {axisMeta.label}
                   </div>
                 </div>
 
@@ -1533,20 +1728,20 @@ export default function CurrentProjects(): ReactElement {
                   <CourtSVG />
 
                   <div className="pointer-events-none absolute left-4 top-4 border border-[color:var(--color-line)] bg-white/80 px-2.5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-primary)]">
-                    High {axisMeta.label}
+                    High selected {axisMeta.label}
                   </div>
                   <div className="pointer-events-none absolute right-4 top-4 border border-[color:var(--color-line)] bg-white/80 px-2.5 py-1.5 text-right text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-secondary)]">
-                    Healthy ceiling
+                    High health + high axis
                   </div>
                   <div className="pointer-events-none absolute bottom-4 left-4 border border-[color:var(--color-line)] bg-white/80 px-2.5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-ink-soft)]">
-                    Rebuild lane
+                    Low health + low axis
                   </div>
                   <div className="pointer-events-none absolute bottom-4 right-4 border border-[color:var(--color-line)] bg-white/80 px-2.5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-secondary)]">
-                    Higher health
+                    Higher tracker health
                   </div>
 
                   {/* Shot markers */}
-                  {courtLayout.map(({ project, markerSize, position }) => {
+                  {courtLayout.map(({ project, markerSize, point, position }) => {
                     const alpha = 0.38 + (project.trackerScore / 100) * 0.52;
                     const markerRgb = getStatusRgb(project.trackerStatus);
                     const isSelected = selectedProject?.slug === project.slug;
@@ -1610,7 +1805,15 @@ export default function CurrentProjects(): ReactElement {
                           animate={{ scale: isSelected ? 1.25 : 1 }}
                           whileHover={{ scale: 1.5 }}
                           transition={{ duration: 0.15 }}
-                          onClick={() => setSelectedProject(project)}
+                          onClick={() => {
+                            setSelectedProject(project);
+                            setSelectedCourtProject({
+                              axis: activeAxis,
+                              layout: courtLayout,
+                              point,
+                              project,
+                            });
+                          }}
                           onMouseEnter={() => setHoveredSlug(project.slug)}
                           onMouseLeave={() => setHoveredSlug(null)}
                         >
@@ -1633,7 +1836,7 @@ export default function CurrentProjects(): ReactElement {
                   <div className="section-kicker">Roster</div>
                 </div>
                 <p className="mt-2 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-                  Sorted by {axisMeta.label.toLowerCase()} grade. Click to open.
+                  Sorted by the selected {axisMeta.label.toLowerCase()} axis plus tracker health. Click to open.
                 </p>
                 <div className="mt-4 grid gap-2">
                   {(showAllRoster ? orderedProjects : orderedProjects.slice(0, 5)).map((project) => {
@@ -1649,7 +1852,10 @@ export default function CurrentProjects(): ReactElement {
                             ? 'border-[color:var(--color-primary)] bg-[color:var(--color-surface-muted)]'
                             : 'border-[color:var(--color-line)] bg-[color:var(--color-surface-raised)]'
                         }`}
-                        onClick={() => setSelectedProject(isSelected ? null : project)}
+                        onClick={() => {
+                          setSelectedProject(isSelected ? null : project);
+                          setSelectedCourtProject(null);
+                        }}
                       >
                         <div className="flex items-center gap-3">
                           <span
@@ -1696,8 +1902,8 @@ export default function CurrentProjects(): ReactElement {
                   <div className="section-kicker text-[color:var(--color-gold)]">Source Note</div>
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-white/80">
-                  Scores and status reflect current project health from the active tracker. Axis
-                  grades are editorial scout reads for the portfolio treatment.
+                  X-position, marker brightness, scores, and status reflect current project health
+                  from the active tracker. Y-position reflects the selected project axis grade.
                 </p>
               </section>
             </aside>
@@ -1718,7 +1924,10 @@ export default function CurrentProjects(): ReactElement {
                 type="button"
                 key={project.slug}
                 className="border border-[color:var(--color-line)] bg-white p-5 text-left transition hover:border-[color:var(--color-primary)] hover:shadow-[0_8px_24px_rgba(16,28,44,0.10)]"
-                onClick={() => setSelectedProject(project)}
+                onClick={() => {
+                  setSelectedProject(project);
+                  setSelectedCourtProject(null);
+                }}
               >
                 <div className="flex items-center justify-between">
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[color:var(--color-secondary)] text-[9px] font-black uppercase text-white">
@@ -1748,7 +1957,10 @@ export default function CurrentProjects(): ReactElement {
         <div
           className="fixed inset-0 z-[70] flex items-center justify-center bg-[rgba(16,28,44,0.60)] p-4"
           role="presentation"
-          onClick={() => setSelectedProject(null)}
+          onClick={() => {
+            setSelectedProject(null);
+            setSelectedCourtProject(null);
+          }}
         >
           <div
             className="max-h-[90vh] w-full max-w-4xl overflow-y-auto border border-[color:var(--color-line-strong)] bg-[color:var(--color-surface-raised)] shadow-[0_32px_96px_rgba(16,28,44,0.30)]"
@@ -1779,7 +1991,10 @@ export default function CurrentProjects(): ReactElement {
                 type="button"
                 aria-label="Close project details"
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--color-line-strong)] bg-white text-[color:var(--color-ink)] hover:border-[color:var(--color-primary)] hover:text-[color:var(--color-primary)]"
-                onClick={() => setSelectedProject(null)}
+                onClick={() => {
+                  setSelectedProject(null);
+                  setSelectedCourtProject(null);
+                }}
               >
                 <X size={22} />
               </button>
@@ -1880,13 +2095,17 @@ export default function CurrentProjects(): ReactElement {
                     {toStatusLabel(selectedProject.trackerStatus)}
                   </p>
                   <p className="mt-3 text-sm leading-relaxed text-white/80">
-                    Tracker health score: {selectedProject.trackerScore}. Brightness on the court
-                    mirrors completion and current state.
+                    Tracker health score: {selectedProject.trackerScore}. X-position and brightness
+                    mirror current tracker health; Y-position follows the selected axis grade.
                   </p>
                 </section>
 
                 {selectedCourtPoint && selectedHistoricShot ? (
-                  <HistoricShotPlayer point={selectedCourtPoint} shot={selectedHistoricShot} />
+                  <HistoricShotPlayer
+                    soundEnabled={shotSoundEnabled}
+                    point={selectedCourtPoint}
+                    shot={selectedHistoricShot}
+                  />
                 ) : null}
 
                 {/* Tags */}

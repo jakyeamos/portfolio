@@ -90,16 +90,16 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
       'The concept has real ceiling. The current gap is execution tempo, not lack of upside.',
   },
   {
-    slug: 'amos-saas',
-    title: 'Amos SaaS',
-    shortCode: 'AS',
+    slug: 'bidcamp',
+    title: 'BidCamp',
+    shortCode: 'BC',
     summary:
       'Government-contracting SaaS platform with v1.0 shipped — full-stack Next.js app built on Supabase and Stripe with active work toward v1.1 feature expansion.',
     trackerComment:
-      'Fix the current ESLint error baseline so the repo returns to a hard-gate-clean state, then plan and execute Phase 11 (In-App Notifications).',
-    trackerStatus: 'needs_attention',
-    trackerScore: 59,
-    lastUpdated: '2026-04-12',
+      'Push chore/pre-cr-aios-hooks for review, then merge after branch review.',
+    trackerStatus: 'on_track',
+    trackerScore: 82,
+    lastUpdated: '2026-06-23',
     tags: ['SaaS', 'Next.js', 'Supabase', 'Stripe', 'government'],
     grades: { impact: 8, difficulty: 7, ambition: 8, creativity: 7 },
     scoutTake:
@@ -257,10 +257,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Contextual Lineup Fit Engine — models why a player elevates some lineups and drags down others, moving beyond raw on/off to explain conditional impact by roster context.',
     trackerComment:
-      'Execute CLFE Phase 1 audit-first plans: publish the direct-stint readiness audit, reconcile the schema contract, and define model-entry gates before archetype work.',
+      'Execute CLFE Phase 1 plan 01-02: reconcile the schema contract, lock the first player family, and map feature lanes before archetype work.',
     trackerStatus: 'needs_attention',
-    trackerScore: 57,
-    lastUpdated: '2026-05-26',
+    trackerScore: 60,
+    lastUpdated: '2026-06-23',
     tags: ['basketball', 'analytics', 'Python'],
     grades: { impact: 7, difficulty: 8, ambition: 8, creativity: 8 },
     scoutTake:

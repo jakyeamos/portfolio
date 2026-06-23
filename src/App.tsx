@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import Footer from '@/components/Footer';
 import SideNavBar from '@/components/SideNavBar';
 import TopNavBar from '@/components/TopNavBar';
+import Blog from '@/pages/Blog';
+import BlogWrite from '@/pages/BlogWrite';
 import CurrentProjects from '@/pages/CurrentProjects';
 import FilmRoom from '@/pages/FilmRoom';
 import Home from '@/pages/Home';
@@ -34,6 +36,8 @@ function AppContent(): ReactElement {
           <Route path="/" element={<Home />} />
           <Route path="/scouting-report" element={<ScoutingReport />} />
           <Route path="/film-room" element={<FilmRoom />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/write" element={<BlogWrite />} />
           <Route path="/projects" element={<CurrentProjects />} />
           <Route path="/player-comps" element={<PlayerComps />} />
           <Route path="/impact-report" element={<ImpactReport />} />

@@ -33,30 +33,30 @@ export default function TopNavBar(): ReactElement {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[color:var(--color-line)] bg-[rgba(252,248,241,0.95)] backdrop-blur">
-      <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between gap-6 px-4 sm:px-6">
-        <NavLink to="/" className="min-w-0">
+      <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6">
+        <NavLink to="/" className="min-w-0 shrink-0">
           <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[color:var(--color-primary)]">
             2026 Draft Desk
           </div>
-          <div className="truncate text-2xl font-black uppercase tracking-tight text-[color:var(--color-ink)]">
+          <div className="text-2xl font-black uppercase tracking-tight text-[color:var(--color-ink)]">
             {SITE_META.brand}
           </div>
         </NavLink>
 
-        <nav className="hidden items-center gap-5 lg:gap-6 lg:flex">
+        <nav className="hidden min-w-0 items-center gap-4 lg:flex xl:gap-5">
           {PAGE_LINKS.map((link) => (
             <NavLink
               key={link.path}
               to={link.path}
               className={({ isActive }) =>
-                `border-b-2 pb-1 text-[13px] font-bold uppercase tracking-[0.16em] transition ${
+                `whitespace-nowrap border-b-2 pb-1 text-[12px] font-bold uppercase tracking-[0.14em] transition xl:text-[13px] ${
                   isActive
                     ? 'border-[color:var(--color-primary)] text-[color:var(--color-primary)]'
                     : 'border-transparent text-[color:var(--color-ink-soft)] hover:text-[color:var(--color-primary)]'
                 }`
               }
             >
-              {link.label}
+              {'shortLabel' in link ? link.shortLabel : link.label}
             </NavLink>
           ))}
         </nav>
