@@ -1,47 +1,76 @@
 import { readFileSync } from 'node:fs';
 
 const source = readFileSync(new URL('../src/pages/CurrentProjects.tsx', import.meta.url), 'utf8');
-const zonePattern = /^  ([a-zA-Z]+): \[([\s\S]*?)^  \],/gm;
-const objectPattern = /\{\n([\s\S]*?)\n    \}/g;
-const fieldPattern = /^\s+([a-zA-Z]+): '([^']*)',/gm;
 const youtubeIdPattern = /^[\w-]{11}$/;
+const vimeoIdPattern = /^\d+$/;
+const providers = new Map();
+const shots = [];
+let currentZone = null;
+let currentShot = null;
 
-let total = 0;
-let embedded = 0;
-const missing = [];
-const invalid = [];
-const zonesWithoutEmbeds = [];
-
-for (const zoneMatch of source.matchAll(zonePattern)) {
-  const [, zone, body] = zoneMatch;
-  let zoneEmbedded = 0;
-
-  for (const objectMatch of body.matchAll(objectPattern)) {
-    const fields = Object.fromEntries(
-      [...objectMatch[1].matchAll(fieldPattern)].map(([, key, value]) => [key, value]),
-    );
-
-    if (!fields.id) continue;
-
-    total += 1;
-
-    if (!fields.youtubeId) {
-      missing.push(`${zone}/${fields.id}`);
-      continue;
-    }
-
-    embedded += 1;
-    zoneEmbedded += 1;
-
-    if (!youtubeIdPattern.test(fields.youtubeId)) {
-      invalid.push(`${zone}/${fields.id}: ${fields.youtubeId}`);
-    }
+for (const line of source.split('\n')) {
+  const zoneMatch = line.match(/^  ([a-zA-Z]+): \[$/);
+  if (zoneMatch) {
+    currentZone = zoneMatch[1];
+    continue;
   }
 
-  if (zoneEmbedded === 0) zonesWithoutEmbeds.push(zone);
+  const shotMatch = line.match(/^      id: '([^']+)',/);
+  if (shotMatch && currentZone) {
+    currentShot = {
+      id: shotMatch[1],
+      zone: currentZone,
+      segment: '',
+    };
+    shots.push(currentShot);
+    continue;
+  }
+
+  if (!currentShot) continue;
+
+  currentShot.segment += `${line}\n`;
+
+  if (line === '    },') currentShot = null;
 }
 
-console.log(`Historic shots: ${embedded}/${total} have YouTube embed IDs.`);
+const missing = [];
+const invalid = [];
+const zonesWithoutEmbeds = new Set(shots.map((shot) => shot.zone));
+
+for (const shot of shots) {
+  const provider = shot.segment.match(/provider: '([^']+)'/)?.[1];
+  const id = shot.segment.match(/^\s+id: '([^']+)',/m)?.[1];
+  const url = shot.segment.match(/url: '([^']+)'/)?.[1];
+
+  if (!provider) {
+    missing.push(`${shot.zone}/${shot.id}`);
+    continue;
+  }
+
+  providers.set(provider, (providers.get(provider) ?? 0) + 1);
+  zonesWithoutEmbeds.delete(shot.zone);
+
+  if (provider === 'youtube' && (!id || !youtubeIdPattern.test(id))) {
+    invalid.push(`${shot.zone}/${shot.id}: invalid YouTube id ${id ?? '(missing)'}`);
+  }
+
+  if (provider === 'vimeo' && (!id || !vimeoIdPattern.test(id))) {
+    invalid.push(`${shot.zone}/${shot.id}: invalid Vimeo id ${id ?? '(missing)'}`);
+  }
+
+  if ((provider === 'nba' || provider === 'external') && (!url || !URL.canParse(url))) {
+    invalid.push(`${shot.zone}/${shot.id}: invalid ${provider} url ${url ?? '(missing)'}`);
+  }
+}
+
+const embedded = shots.length - missing.length;
+const providerSummary = [...providers.entries()]
+  .sort(([left], [right]) => left.localeCompare(right))
+  .map(([provider, count]) => `${provider}=${count}`)
+  .join(' ');
+
+console.log(`Historic shots: ${embedded}/${shots.length} have provider embeds or clip links.`);
+console.log(`Providers: ${providerSummary || 'none'}`);
 
 if (missing.length > 0) {
   console.log(`Reference-only shots: ${missing.length}`);
@@ -49,12 +78,12 @@ if (missing.length > 0) {
 }
 
 if (invalid.length > 0) {
-  console.error(`Invalid YouTube IDs: ${invalid.length}`);
+  console.error(`Invalid clip references: ${invalid.length}`);
   for (const item of invalid) console.error(`- ${item}`);
 }
 
-if (zonesWithoutEmbeds.length > 0) {
-  console.error(`Zones without any embeddable shot: ${zonesWithoutEmbeds.join(', ')}`);
+if (zonesWithoutEmbeds.size > 0) {
+  console.error(`Zones without any clip source: ${[...zonesWithoutEmbeds].join(', ')}`);
 }
 
-if (invalid.length > 0 || zonesWithoutEmbeds.length > 0) process.exit(1);
+if (invalid.length > 0 || zonesWithoutEmbeds.size > 0) process.exit(1);

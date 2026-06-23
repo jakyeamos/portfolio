@@ -3,6 +3,7 @@ import {
   Activity,
   ArrowRight,
   CircleDot,
+  ExternalLink,
   HelpCircle,
   MapPin,
   Play,
@@ -37,15 +38,31 @@ type ProjectCourtLayout = {
   position: CSSProperties;
 };
 
+type ShotEmbed =
+  | {
+      provider: 'youtube';
+      id: string;
+      start?: number;
+      end?: number;
+      sourceUrl?: string;
+    }
+  | {
+      provider: 'vimeo';
+      id: string;
+      sourceUrl?: string;
+    }
+  | {
+      provider: 'nba' | 'external';
+      url: string;
+    };
+
 type HistoricShot = {
   id: string;
   player: string;
   moment: string;
   zone: string;
   note: string;
-  youtubeId?: string;
-  start: number;
-  end?: number;
+  embed?: ShotEmbed;
   source: string;
 };
 
@@ -65,8 +82,10 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2019 series clincher vs OKC',
       zone: 'Deep left wing',
       note: 'A long-range confidence shot from the same high-upside territory.',
-      youtubeId: 'a-M3x-eZpV8',
-      start: 0,
+      embed: {
+        provider: 'youtube',
+        id: 'a-M3x-eZpV8',
+      },
       source: 'NBA on YouTube',
     },
     {
@@ -75,7 +94,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2014 series clincher vs Houston',
       zone: 'Left wing three',
       note: 'A clean catch-and-fire ending from the left side of the floor.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -84,7 +102,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2020 bubble winner vs LA Clippers',
       zone: 'Left wing stepback',
       note: 'A left-wing creation shot under playoff pressure.',
-      start: 0,
       source: 'Shot reference',
     },
   ],
@@ -95,8 +112,10 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2016 overtime winner at OKC',
       zone: 'Deep top wing',
       note: 'A pull-up from range: early, confident, and hard to guard.',
-      youtubeId: 'GEMVGHoenXM',
-      start: 0,
+      embed: {
+        provider: 'youtube',
+        id: 'GEMVGHoenXM',
+      },
       source: 'NBA on YouTube',
     },
     {
@@ -105,7 +124,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2021 playoff silencer at Madison Square Garden',
       zone: 'High slot floater',
       note: 'A high-floor pressure shot with the whole arena leaning on it.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -114,7 +132,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2024 gold-medal dagger vs France',
       zone: 'Deep top pull-up',
       note: 'A late-clock distance shot that turned difficulty into separation.',
-      start: 0,
       source: 'Shot reference',
     },
   ],
@@ -125,8 +142,11 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2013 Finals Game 6 corner three',
       zone: 'Right corner',
       note: 'A precision reset shot: footwork, timing, and a clean release.',
-      youtubeId: 'ua_w5RxpFIQ',
-      start: 780,
+      embed: {
+        provider: 'youtube',
+        id: 'ua_w5RxpFIQ',
+        start: 780,
+      },
       source: 'NBA on YouTube',
     },
     {
@@ -135,7 +155,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '1997 Finals Game 6 winner',
       zone: 'Right slot release',
       note: 'A trust-the-system shot: small window, huge consequence.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -144,7 +163,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2002 Western Finals Game 4 winner',
       zone: 'Right-side three',
       note: 'A scramble-possession three where spacing and readiness mattered.',
-      start: 0,
       source: 'Shot reference',
     },
   ],
@@ -155,8 +173,10 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2019 Game 7 winner vs Philadelphia',
       zone: 'Left baseline wing',
       note: 'A high-arc shot from a tight angle with real consequence.',
-      youtubeId: 'ChT3ewZXTfM',
-      start: 0,
+      embed: {
+        provider: 'youtube',
+        id: 'ChT3ewZXTfM',
+      },
       source: 'NBA on YouTube',
     },
     {
@@ -165,7 +185,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2004 0.4-second winner vs San Antonio',
       zone: 'Left baseline catch',
       note: 'A near-impossible release from the baseline side.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -174,7 +193,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2020 bubble winner vs LA Clippers',
       zone: 'Left baseline fade',
       note: 'A contested baseline touch shot with no clean landing space.',
-      start: 0,
       source: 'Shot reference',
     },
   ],
@@ -185,8 +203,10 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2018 Game 5 winner vs Indiana',
       zone: 'Above-the-break three',
       note: 'A late-clock launch: direct, decisive, and built on pressure.',
-      youtubeId: '2XWgRpfkxhY',
-      start: 0,
+      embed: {
+        provider: 'youtube',
+        id: '2XWgRpfkxhY',
+      },
       source: 'NBA on YouTube',
     },
     {
@@ -195,7 +215,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2016 Finals Game 7 go-ahead three',
       zone: 'Right wing above the break',
       note: 'A high-skill isolation three with the title hanging on the possession.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -204,7 +223,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2017 Finals Game 3 pull-up',
       zone: 'Left slot above the break',
       note: 'A transition pull-up that rewarded full-court ambition.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -213,7 +231,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2023 Game 6 late three vs Philadelphia',
       zone: 'Left wing above the break',
       note: 'A cold-stretch breaker that kept the whole series alive.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -222,7 +239,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2024 playoff winner vs Lakers',
       zone: 'Right wing pull-up',
       note: 'A rhythm pull-up from the wing after a full-game pressure build.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -231,7 +247,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2025 playoff four-point play vs New York',
       zone: 'Top-side pull-up',
       note: 'A modern shot-profile swing: space, nerve, and instant leverage.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -240,7 +255,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2019 one-legged bank winner vs Golden State',
       zone: 'High right wing',
       note: 'A broken-play heave that turned improvisation into a highlight.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -249,7 +263,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2022 Game 5 winner vs Minnesota',
       zone: 'High lane attack',
       note: 'A downhill late-clock finish from above the break into the paint.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -258,7 +271,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '1995 eight-points-in-nine-seconds three',
       zone: 'Above-the-break three',
       note: 'A pressure swing shot where momentum flipped instantly.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -267,7 +279,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2015 Game 7 winner vs San Antonio',
       zone: 'High right lane',
       note: 'A one-legged high-angle shot over elite defense.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -276,7 +287,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: 'Late-clock stepback from the high slot',
       zone: 'High slot stepback',
       note: 'A shot profile built on size, patience, and impossible timing.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -285,7 +295,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2023 playoff pull-up pressure three',
       zone: 'High right slot',
       note: 'A pace-changing guard shot from the modern playoff map.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -294,7 +303,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2020 bubble scoring-run pull-up',
       zone: 'Top wing pull-up',
       note: 'A shot from the zone where scoring bursts start to feel inevitable.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -303,7 +311,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2021 playoff pull-up dagger',
       zone: 'Above-the-break pull-up',
       note: 'A clean scorer shot from the first layer above the arc.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -312,7 +319,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2023 playoff late-game bailout vs Milwaukee',
       zone: 'High slot creation',
       note: 'A possession-saving shot built more on nerve than comfort.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -321,7 +327,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2024 playoff pull-up pressure shot vs Denver',
       zone: 'Above-the-break pull-up',
       note: 'A modern power-guard shot from the part of the floor where confidence shows first.',
-      start: 0,
       source: 'Shot reference',
     },
   ],
@@ -332,8 +337,10 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '1998 Finals Game 6 title clincher',
       zone: 'Midrange wing',
       note: 'A controlled separation shot from the part of the floor where craft matters.',
-      youtubeId: '92fLApYaCGI',
-      start: 0,
+      embed: {
+        provider: 'youtube',
+        id: '92fLApYaCGI',
+      },
       source: 'NBA on YouTube',
     },
     {
@@ -342,7 +349,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '1989 series winner vs Cleveland',
       zone: 'Left elbow pull-up',
       note: 'The classic rise-and-hang playoff midrange shot.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -351,7 +357,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2006 playoff winner vs Phoenix',
       zone: 'Right elbow pull-up',
       note: 'A two-dribble midrange shot from the league’s hardest comfort zone.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -360,7 +365,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2011 Finals lefty finish vs Miami',
       zone: 'Left lane touch',
       note: 'A high-leverage touch shot from a creator who lived between zones.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -369,7 +373,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2015 banked winner vs Atlanta',
       zone: 'Left elbow bank',
       note: 'A veteran midrange bank that turned timing into theater.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -378,7 +381,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2004 Game 7 turnaround vs Sacramento',
       zone: 'High-post fade',
       note: 'A big-wing shot from the high post under elimination pressure.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -387,7 +389,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2021 Game 7 toe-on-line jumper vs Milwaukee',
       zone: 'Left wing long two',
       note: 'A long two so close to three that the geometry became the story.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -396,7 +397,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: 'Late-game footwork jumper from the elbow',
       zone: 'Elbow midrange',
       note: 'A footwork-and-balance shot from a pure midrange specialist.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -405,7 +405,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: 'Easter double-overtime jumper vs Chicago',
       zone: 'Left wing midrange',
       note: 'A jab-step scorer shot from a wing who made this area dangerous.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -414,7 +413,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2021 playoff midrange heater vs LA Clippers',
       zone: 'Right elbow pull-up',
       note: 'A polished scorer shot from the pocket between math and craft.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -423,7 +421,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2021 Finals snake-dribble jumper',
       zone: 'Free-throw-line pull-up',
       note: 'A controlled point-guard shot from the center of the floor.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -432,7 +429,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: 'Playoff stop-and-rise midrange jumper',
       zone: 'Right lane pull-up',
       note: 'A modern pressure midrange shot built on pace and balance.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -441,7 +437,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2024 playoff pull-up run vs Philadelphia',
       zone: 'Left elbow pull-up',
       note: 'A compact guard shot from a playoff series built on counters.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -450,7 +445,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2021 elimination-game midrange run vs Dallas',
       zone: 'Right wing long two',
       note: 'A strength-and-balance shot from one of the best wing creators.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -459,7 +453,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2006 Finals pressure pull-up vs Dallas',
       zone: 'Right lane pull-up',
       note: 'A downhill guard shot from the boundary between paint and midrange.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -468,7 +461,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2013 Finals Game 1 falling jumper',
       zone: 'High lane floater',
       note: 'A balance-breaking shot that used time, angle, and touch.',
-      start: 0,
       source: 'Shot reference',
     },
     {
@@ -477,7 +469,6 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2015 banked winner vs Cleveland',
       zone: 'Left wing bank',
       note: 'A sudden midrange-window shot that turned a broken possession into a roar.',
-      start: 0,
       source: 'Shot reference',
     },
   ],
@@ -578,7 +569,7 @@ function getHistoricShot(
 ): HistoricShot {
   const zone = getHistoricShotZone(point);
   const pool = HISTORIC_SHOT_POOLS[zone];
-  const embeddablePool = pool.filter((shot) => shot.youtubeId);
+  const embeddablePool = pool.filter((shot) => shot.embed);
   const selectionPool = embeddablePool.length > 0 ? embeddablePool : pool;
   const zoneRank = layout
     .filter((candidate) => getHistoricShotZone(candidate.point) === zone)
@@ -586,6 +577,34 @@ function getHistoricShot(
   const instanceIndex = Math.max(0, zoneRank);
 
   return selectionPool[instanceIndex % selectionPool.length];
+}
+
+function getShotEmbedUrl(embed: ShotEmbed): string | null {
+  if (embed.provider === 'youtube') {
+    const embedParams = new URLSearchParams({
+      start: String(embed.start ?? 0),
+      rel: '0',
+      modestbranding: '1',
+      playsinline: '1',
+    });
+
+    if (embed.end) embedParams.set('end', String(embed.end));
+
+    return `https://www.youtube.com/embed/${embed.id}?${embedParams.toString()}`;
+  }
+
+  if (embed.provider === 'vimeo') {
+    return `https://player.vimeo.com/video/${embed.id}`;
+  }
+
+  return null;
+}
+
+function getShotSourceUrl(embed: ShotEmbed): string | null {
+  if (embed.provider === 'youtube') return embed.sourceUrl ?? `https://www.youtube.com/watch?v=${embed.id}`;
+  if (embed.provider === 'vimeo') return embed.sourceUrl ?? `https://vimeo.com/${embed.id}`;
+
+  return embed.url;
 }
 
 function buildCourtLayout(projects: readonly CurrentProject[], axis: ProjectAxis): ProjectCourtLayout[] {
@@ -784,14 +803,8 @@ function HistoricShotPlayer({
   const controlX = clamp((playerLeft + rimX) / 2, 14, 86);
   const controlY = clamp(Math.min(playerTop, rimY) - 18, 8, 82);
   const arcPath = `M ${playerLeft} ${playerTop} Q ${controlX} ${controlY} ${rimX} ${rimY}`;
-  const embedParams = new URLSearchParams({
-    start: String(shot.start),
-    rel: '0',
-    modestbranding: '1',
-    playsinline: '1',
-  });
-
-  if (shot.end) embedParams.set('end', String(shot.end));
+  const embedUrl = shot.embed ? getShotEmbedUrl(shot.embed) : null;
+  const sourceUrl = shot.embed ? getShotSourceUrl(shot.embed) : null;
 
   return (
     <section className="border border-[color:var(--color-line)] bg-white p-4">
@@ -804,10 +817,10 @@ function HistoricShotPlayer({
 
       <div className="mt-3 overflow-hidden border border-[color:var(--color-line)] bg-[color:var(--color-surface-muted)]">
         <div className="relative h-[200px]">
-          {shot.youtubeId ? (
+          {embedUrl ? (
             <iframe
               title={`${shot.player} ${shot.moment}`}
-              src={`https://www.youtube.com/embed/${shot.youtubeId}?${embedParams.toString()}`}
+              src={embedUrl}
               className="absolute inset-0 z-10 h-full w-full border-0"
               loading="lazy"
               allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -853,6 +866,17 @@ function HistoricShotPlayer({
               {shot.zone}
             </span>
           </div>
+          {!embedUrl && sourceUrl ? (
+            <a
+              href={sourceUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="absolute right-2 top-2 z-10 inline-flex items-center gap-1 bg-[color:var(--color-ink)] px-2 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-white"
+            >
+              Open clip
+              <ExternalLink size={10} />
+            </a>
+          ) : null}
         </div>
       </div>
 
