@@ -73,6 +73,20 @@ export interface ConceptNote {
   copy: string;
 }
 
+export interface BlogPost {
+  slug: string;
+  title: string;
+  deck: string;
+  status: string;
+  date: string;
+  tags: readonly string[];
+  thesis: string;
+  sections: readonly {
+    heading: string;
+    body: string;
+  }[];
+}
+
 export const SITE_META = {
   name: 'Jakye Amos',
   brand: 'Front Office // Amos',
@@ -84,12 +98,13 @@ export const SITE_META = {
 } as const;
 
 export const PAGE_LINKS = [
-  { label: 'Front Page', path: '/' },
-  { label: 'Scouting Report', path: '/scouting-report' },
-  { label: 'Film Room', path: '/film-room' },
+  { label: 'Front Page', shortLabel: 'Front', path: '/' },
+  { label: 'Scouting Report', shortLabel: 'Scouting', path: '/scouting-report' },
+  { label: 'Film Room', shortLabel: 'Film', path: '/film-room' },
+  { label: 'Blog', path: '/blog' },
   { label: 'Projects', path: '/projects' },
-  { label: 'Player Comps', path: '/player-comps' },
-  { label: 'Impact Report', path: '/impact-report' },
+  { label: 'Player Comps', shortLabel: 'Comps', path: '/player-comps' },
+  { label: 'Impact Report', shortLabel: 'Impact', path: '/impact-report' },
 ] as const;
 
 export const QUICK_LINKS: readonly QuickLink[] = [
@@ -423,6 +438,37 @@ export const WEBSITE_LAUNCHES: readonly WebsiteLaunch[] = [
     title: 'FRMWRK Labs',
     href: 'https://www.frmwrklabs.com/',
     copy: 'New website launch in the portfolio orbit. The live site was unavailable during this edit, so the portfolio keeps the mention link-forward without adding unsupported product claims.',
+  },
+] as const;
+
+export const BLOG_POSTS: readonly BlogPost[] = [
+  {
+    slug: 'tmcp',
+    title: 'TMCP belongs in the writing, not just the project board',
+    deck: 'A concept note for the AI workflow/protocol lane: less demo, more operating model.',
+    status: 'Concept note',
+    date: '2026-06-23',
+    tags: ['TMCP', 'AI workflow', 'protocols', 'tooling'],
+    thesis:
+      'TMCP is interesting because it points at the layer between agents, tools, project memory, and repeatable execution. It is not just another app idea; it is a way to think about how AI-assisted work should carry context, constraints, and handoffs across sessions.',
+    sections: [
+      {
+        heading: 'Why a blog page fits it better',
+        body: 'The project tracker is built for things with status, scores, dates, and shipped surfaces. TMCP is earlier and more conceptual than that. It needs room for definitions, tradeoffs, open questions, and examples before it deserves the same treatment as Soundscape, AIOS, or Terrace.',
+      },
+      {
+        heading: 'The lane it sits in',
+        body: 'The closest portfolio neighbors are AIOS and Terrace. AIOS is the personal operating layer, Terrace is the spec-and-validation discipline, and TMCP sits in the protocol/tooling conversation: how context moves, how agents know what contract they are operating under, and how a workflow stays legible after the first prompt is gone.',
+      },
+      {
+        heading: 'What makes it worth mentioning',
+        body: 'A lot of AI tooling stops at better prompting. TMCP is more interesting if it treats context as infrastructure: something structured, inspectable, reusable, and portable enough to survive across tools instead of living inside one chat window.',
+      },
+      {
+        heading: 'What still needs to be written',
+        body: 'The next useful version should define the acronym, describe the concrete workflow it enables, show one before-and-after example, and explain where it differs from MCP, project memory, agent skills, and ordinary prompt templates.',
+      },
+    ],
   },
 ] as const;
 

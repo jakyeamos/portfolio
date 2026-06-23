@@ -1,9 +1,9 @@
 import type { ReactElement } from 'react';
-import { BarChart3, ClipboardList, Newspaper, Radar, Target, Tv } from 'lucide-react';
+import { BarChart3, ClipboardList, Newspaper, NotebookText, Radar, Target, Tv } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { PAGE_LINKS, QUICK_LINKS, SCOUTING_FACTS, SITE_META } from '@/content/portfolioContent';
 
-const SIDE_ICONS = [Newspaper, ClipboardList, Tv, Target, Radar, BarChart3] as const;
+const SIDE_ICONS = [Newspaper, ClipboardList, Tv, NotebookText, Target, Radar, BarChart3] as const;
 
 export default function SideNavBar(): ReactElement {
   return (
