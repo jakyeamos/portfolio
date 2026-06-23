@@ -10,6 +10,7 @@ import {
   Sparkles,
   Sun,
   Target,
+  Volume2,
   X,
   Zap,
 } from 'lucide-react';
@@ -1056,11 +1057,10 @@ function getHistoricShot(
   return selectionPool[instanceIndex % selectionPool.length];
 }
 
-function getShotEmbedUrl(embed: ShotEmbed): string | null {
+function getShotEmbedUrl(embed: ShotEmbed, soundEnabled: boolean): string | null {
   if (embed.provider === 'youtube') {
     const embedParams = new URLSearchParams({
       autoplay: '1',
-      mute: '1',
       start: String(embed.start),
       end: String(embed.end),
       controls: '0',
@@ -1071,6 +1071,8 @@ function getShotEmbedUrl(embed: ShotEmbed): string | null {
       modestbranding: '1',
       playsinline: '1',
     });
+
+    if (!soundEnabled) embedParams.set('mute', '1');
 
     return `https://www.youtube.com/embed/${embed.id}?${embedParams.toString()}`;
   }
@@ -1277,9 +1279,11 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
 }
 
 function HistoricShotPlayer({
+  soundEnabled,
   point,
   shot,
 }: {
+  soundEnabled: boolean;
   point: CourtPoint;
   shot: HistoricShot;
 }): ReactElement {
@@ -1290,7 +1294,7 @@ function HistoricShotPlayer({
   const controlX = clamp((playerLeft + rimX) / 2, 14, 86);
   const controlY = clamp(Math.min(playerTop, rimY) - 18, 8, 82);
   const arcPath = `M ${playerLeft} ${playerTop} Q ${controlX} ${controlY} ${rimX} ${rimY}`;
-  const embedUrl = shot.embed ? getShotEmbedUrl(shot.embed) : null;
+  const embedUrl = shot.embed ? getShotEmbedUrl(shot.embed, soundEnabled) : null;
   const sourceUrl = shot.embed ? getShotSourceUrl(shot.embed) : null;
 
   return (
@@ -1308,6 +1312,7 @@ function HistoricShotPlayer({
             <iframe
               title={`${shot.player} ${shot.moment}`}
               src={embedUrl}
+              key={`${shot.id}-${soundEnabled ? 'sound' : 'muted'}`}
               className="pointer-events-none absolute inset-0 z-10 h-full w-full border-0"
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -1387,6 +1392,7 @@ export default function CurrentProjects(): ReactElement {
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
   const [showHelp, setShowHelp] = useState(false);
   const [showAllRoster, setShowAllRoster] = useState(false);
+  const [shotSoundEnabled, setShotSoundEnabled] = useState(false);
 
   useEffect(() => {
     if (!selectedProject) return undefined;
@@ -1510,6 +1516,20 @@ export default function CurrentProjects(): ReactElement {
                 >
                   <HelpCircle size={12} />
                   How to read
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={shotSoundEnabled}
+                  aria-label={shotSoundEnabled ? 'Shot clip sound enabled' : 'Enable shot clip sound'}
+                  title={shotSoundEnabled ? 'Shot clip sound enabled' : 'Enable shot clip sound'}
+                  className={`inline-flex h-8 w-8 items-center justify-center rounded-full border transition ${
+                    shotSoundEnabled
+                      ? 'border-[color:var(--color-primary)] bg-[color:var(--color-primary)] text-white'
+                      : 'border-[color:var(--color-line-strong)] bg-white text-[color:var(--color-ink-soft)] hover:border-[color:var(--color-primary)] hover:text-[color:var(--color-primary)]'
+                  }`}
+                  onClick={() => setShotSoundEnabled((enabled) => !enabled)}
+                >
+                  <Volume2 size={13} />
                 </button>
               </div>
               <h2 className="mt-3 text-4xl font-black uppercase leading-none tracking-tight text-[color:var(--color-ink)]">
@@ -1921,7 +1941,11 @@ export default function CurrentProjects(): ReactElement {
                 </section>
 
                 {selectedCourtPoint && selectedHistoricShot ? (
-                  <HistoricShotPlayer point={selectedCourtPoint} shot={selectedHistoricShot} />
+                  <HistoricShotPlayer
+                    soundEnabled={shotSoundEnabled}
+                    point={selectedCourtPoint}
+                    shot={selectedHistoricShot}
+                  />
                 ) : null}
 
                 {/* Tags */}
