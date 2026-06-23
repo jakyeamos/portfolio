@@ -3,6 +3,7 @@
 Target: `45/45` quality-gated provider clips.
 
 Run `pnpm shot-embeds` to see current coverage. Run `pnpm shot-embeds:target` to enforce the full `45/45` target.
+Run `pnpm shot-inventory` to list assigned clips and same-zone backup clips by scouting axis.
 
 Current score: `45/45` quality-gated YouTube clips as of June 23, 2026. Every provider ID also passed a live YouTube oEmbed check in this environment.
 
@@ -15,6 +16,8 @@ June 23 Terrace Impact correction: `lebron-pacers-2018` uses absolute YouTube em
 June 23 compact-window scan: all 45 Historic Shot Clips were scanned for effective embed duration. Every YouTube clip now has explicit `start` and `end` seconds, long windows were reduced to `12-38` seconds depending on whether the named moment is a single shot or short sequence, and `pnpm shot-embeds:target` now fails any missing or overlong YouTube window.
 
 June 23 full timing scan: live YouTube duration metadata flagged long clips without explicit timing decisions. Replaced broad sources for Trae Young, Robert Horry, Kevin Durant 2017, Ja Morant, Donovan Mitchell, Devin Booker 2021, Kevin Durant 2021, Kawhi Leonard 2021, and Tony Parker with shorter oEmbed-valid clips. Added explicit `start: 0` plus `end` windows where the shot intentionally starts at the beginning of a longer replay package.
+
+June 23 backup inventory: `.tracker/shot-clip-backups.md` documents the workflow for using unused same-zone clips when new projects are added. `pnpm shot-inventory` prints the live backup pool from the actual registry and assignment logic.
 
 ## Quality Gate
 

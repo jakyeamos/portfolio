@@ -41,6 +41,7 @@ The package is marked private in `package.json`, so it is intended for local wor
 - `pnpm prebuild` - `pnpm sync`
 - `pnpm prelint` - `pnpm sync`
 - `pnpm sync` - `node scripts/sync-tracker.mjs`
+- `pnpm shot-inventory` - list assigned and same-zone backup Historic Shot Clip IDs by scouting axis
 - `pnpm deploy:status` - check the latest Netlify deploy through the Netlify API
 - `pnpm netlify:status` - run `netlify status` through the repo-local CLI wrapper
 - `pnpm netlify:cli -- <args>` - run the pinned local Netlify CLI with sandbox-safe config paths

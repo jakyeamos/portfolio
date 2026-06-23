@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 const source = readFileSync(new URL('../src/pages/CurrentProjects.tsx', import.meta.url), 'utf8');
 const projectSource = readFileSync(new URL('../src/content/currentProjects.ts', import.meta.url), 'utf8');
 const strictTarget = process.argv.includes('--target=45');
+const showInventory = process.argv.includes('--inventory');
 const youtubeIdPattern = /^[\w-]{11}$/;
 const vimeoIdPattern = /^\d+$/;
 const maxYouTubeWindowSeconds = 38;
@@ -102,6 +103,8 @@ const providerSummary = [...providers.entries()]
 console.log(`Historic shots: ${verified}/${shots.length} have quality-gated provider clips.`);
 console.log(`Providers: ${providerSummary || 'none'}`);
 console.log(`Assignment duplicates: ${assignmentDuplicates.length}`);
+
+if (showInventory) printAssignmentInventory();
 
 if (missing.length > 0) {
   console.log(`Reference-only shots: ${missing.length}`);
@@ -310,4 +313,58 @@ function findAssignmentDuplicates() {
   }
 
   return duplicates;
+}
+
+function getAssignmentRows(axis) {
+  const currentStart = projectSource.indexOf('export const CURRENT_PROJECTS');
+  const closedStart = projectSource.indexOf('export const CLOSED_PROJECTS');
+  const currentProjects = parseProjects(projectSource.slice(currentStart, closedStart));
+  const closedProjects = parseProjects(projectSource.slice(closedStart));
+  const allProjects = [...currentProjects, ...closedProjects];
+  const currentOrdered = [...currentProjects].sort(
+    (left, right) =>
+      Math.round(right.grades[axis] * 7 + right.trackerScore * 0.3)
+      - Math.round(left.grades[axis] * 7 + left.trackerScore * 0.3),
+  );
+  const currentLayout = buildCourtLayout(currentOrdered, axis);
+  const allLayout = buildCourtLayout(allProjects, axis);
+  const rows = [];
+  const currentShotIds = new Set();
+
+  for (const item of currentLayout) {
+    const assignment = assignShot(item.project, item.point, currentLayout);
+    currentShotIds.add(assignment.shotId);
+    rows.push({ axis, project: item.project.slug, scope: 'current', ...assignment });
+  }
+
+  for (const project of closedProjects) {
+    const item = allLayout.find((candidate) => candidate.project.slug === project.slug);
+    if (!item) continue;
+    rows.push({ axis, project: item.project.slug, scope: 'closed', ...assignShot(item.project, item.point, allLayout, currentShotIds) });
+  }
+
+  return rows;
+}
+
+function printAssignmentInventory() {
+  console.log('\nBackup inventory by axis and court zone:');
+
+  for (const axis of axes) {
+    const rows = getAssignmentRows(axis);
+    const usedShotIds = new Set(rows.map((row) => row.shotId));
+    console.log(`\n[${axis}] assigned=${rows.length} backups=${shots.length - usedShotIds.size}`);
+
+    for (const [zone, zoneShots] of [...shotIdsByZone.entries()].sort(([left], [right]) => left.localeCompare(right))) {
+      const assigned = rows
+        .filter((row) => row.zone === zone)
+        .map((row) => `${row.shotId}:${row.project}`);
+      const backups = zoneShots
+        .map((shot) => shot.id)
+        .filter((shotId) => !usedShotIds.has(shotId));
+
+      console.log(`  ${zone}`);
+      console.log(`    assigned (${assigned.length}): ${assigned.join(', ') || 'none'}`);
+      console.log(`    backups (${backups.length}): ${backups.join(', ') || 'none'}`);
+    }
+  }
 }

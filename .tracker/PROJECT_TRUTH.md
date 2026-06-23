@@ -85,12 +85,13 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 23: Applied the compact shot-and-replay timing methodology across all 45 Historic Shot Clips: every YouTube clip now has explicit `start` and `end` seconds, windows are capped at 38 seconds, and the shot-embed target gate fails missing or overlong YouTube windows
 - June 23: Added a pre-clip sound toggle for Historic Shot Clips so a user gesture can request unmuted YouTube autoplay on later shot opens while preserving muted autoplay as the browser-compatible fallback
 - June 23: Removed same-axis Historic Shot Clip reuse by making shipped-project assignments skip clips already used by the current board while staying inside the same court zone; `pnpm shot-embeds:target` now fails visible assignment duplicates
+- June 23: Added `pnpm shot-inventory` plus `.tracker/shot-clip-backups.md` so future projects can use existing same-zone backup clips before doing new clip research
 
 ## Open Problems
 
 - RemodelVision's tracker truth source is portfolio-local rather than stored in the sibling RemodelVision repo because this automation environment can only write inside the portfolio workspace
 - Ignored draft and binary assets still live beside the source tree; repo hygiene is acceptable, but long-term placement should be clarified
-- Historic Shot Clip has 45/45 quality-gated clips, but `.tracker/shot-clip-curation.md` tracks a small replacement watchlist for broader, full-game, or nonofficial YouTube sources that could be upgraded later
+- Historic Shot Clip has 45/45 quality-gated clips and a live same-zone backup inventory, but `.tracker/shot-clip-curation.md` still tracks a small replacement watchlist for broader, full-game, or nonofficial YouTube sources that could be upgraded later
 - No automated test suite is configured, so regression confidence still depends on type/build checks and manual verification
 
 ## Next Concrete Steps
@@ -115,6 +116,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Displayed court geometry:** targeted spread/arc check — PASS on 2026-06-22; each active axis spans roughly 80% of the court, shot pools have no overflow, and inside-the-arc displayed dots have zero three-point-zone mismatches
 - **Shot embed coverage:** `pnpm shot-embeds` — PASS on 2026-06-23; all 45 Historic Shot Clip entries have quality-gated YouTube provider data and explicit compact clip windows
 - **45/45 shot target:** `pnpm shot-embeds:target` — PASS on 2026-06-23; current score is 45/45 quality-gated clips with no missing YouTube timing, no YouTube window longer than 38 seconds, and zero same-axis visible assignment duplicates
+- **Shot backup inventory:** `pnpm shot-inventory` — PASS on 2026-06-23; command prints assigned and backup clip IDs by scouting axis and court zone from the live registry
 - **YouTube oEmbed validation:** live YouTube oEmbed check for all 45 registered IDs — PASS on 2026-06-23; dead legacy IDs and several broad sources were replaced with oEmbed-accessible shorter clips
 - **Historic Shot Clip autoplay/timing:** local Browser smoke on `/projects` — PASS on 2026-06-23; opening the Soundscape marker produced a YouTube iframe with `autoplay=1`, `mute=1`, and iframe autoplay permission; all YouTube clips now resolve from explicit compact `start` and `end` windows
 - **Terrace Impact clip timing:** parameter verification — PASS on 2026-06-23; the LeBron iframe `JYmejM38vKs` is now configured with absolute YouTube seconds `start=26` and `end=48`, matching the compact shot-and-replay methodology
