@@ -200,11 +200,11 @@ export default function Home(): ReactElement {
           <div>
             <div className="section-kicker">Now Playing</div>
             <h2 className="mt-3 max-w-4xl text-4xl font-black uppercase leading-[0.92] tracking-tight text-[color:var(--color-ink)] md:text-5xl">
-              The current board finally has enough live product reps to lead the broadcast.
+              The current board maps tracker health on X and the selected project axis on Y.
             </h2>
           </div>
           <Link className="report-link shrink-0" to="/projects">
-            Open live board
+            Open court matrix
             <ArrowRight size={16} />
           </Link>
         </div>
@@ -241,7 +241,7 @@ export default function Home(): ReactElement {
                 <div className="flex flex-col gap-4 border-t border-[color:var(--color-line)] pt-4 sm:flex-row sm:items-end sm:justify-between">
                   <div>
                     <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-soft)]">
-                      Tracker score
+                      Tracker health
                     </div>
                     <div className="mt-1 text-4xl font-black uppercase leading-none text-[color:var(--color-primary)]">
                       {project.trackerScore}

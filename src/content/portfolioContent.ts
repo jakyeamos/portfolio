@@ -209,8 +209,8 @@ export const TOP_HEADLINES: readonly Headline[] = [
   },
   {
     category: 'Tracker feed',
-    title: 'Current projects now read like a live board, not a static project graveyard',
-    meta: 'Taski tracker scores, status comments, and scouting grades on a shot chart',
+    title: 'Current projects now map tracker health against the selected project axis',
+    meta: 'Taski tracker health, status comments, and selected-axis grades on a court matrix',
     href: '/projects',
   },
   {
@@ -260,8 +260,8 @@ export const FEATURE_REPORTS = [
   },
   {
     kicker: 'Projects',
-    title: 'Live shot chart',
-    copy: 'Tracker-backed project health on a court matrix, with scout grades for impact, difficulty, ambition, and creativity.',
+    title: 'Live court matrix',
+    copy: 'Tracker-backed project health on the X-axis, with impact, difficulty, ambition, or creativity selected on the Y-axis.',
     href: '/projects',
     cta: 'Open the board',
   },

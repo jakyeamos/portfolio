@@ -1348,7 +1348,7 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">Position</div>
             <p className="mt-1 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-              Left-to-right is tracker health. Bottom-to-top is the selected scouting axis grade.
+              X-axis is tracker health. Y-axis is the selected project axis grade.
             </p>
           </div>
         </div>
@@ -1357,7 +1357,7 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">Brightness</div>
             <p className="mt-1 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-              Marker fill opacity tracks the tracker health score (0–100). Brighter = healthier.
+              Marker fill opacity also tracks tracker health (0-100). Brighter = healthier.
             </p>
           </div>
         </div>
@@ -1366,7 +1366,7 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">Click a marker</div>
             <p className="mt-1 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-              Opens the full project breakdown: summary, scout grades, tracker comment, and status.
+              Opens the full project breakdown: summary, selected-axis grades, tracker comment, and status.
             </p>
           </div>
         </div>
@@ -1375,7 +1375,7 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">Court zones</div>
             <p className="mt-1 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-              Top-right = strong and healthy. Top-left = high-upside work that needs attention.
+              Top-right = high selected-axis grade and healthy tracker. Top-left = strong axis read with tracker risk.
             </p>
           </div>
         </div>
@@ -1581,12 +1581,12 @@ export default function CurrentProjects(): ReactElement {
           <div className="max-w-5xl">
             <div className="section-kicker">Projects</div>
             <h1 className="mt-4 max-w-[16ch] text-5xl font-black uppercase leading-[0.88] tracking-tight text-[color:var(--color-ink)] md:text-7xl">
-              Live board. Tracker-backed. Scout grades on the floor.
+              Live board. Tracker health on X. Selected axis on Y.
             </h1>
             <p className="mt-5 max-w-4xl text-lg leading-relaxed text-[color:var(--color-ink-soft)] md:text-xl">
-              Active tracker scores, status reads, and forward-looking notes on every project in the
-              portfolio. Basketball grades are editorial scouting reads that place each project on
-              the court. Shipped projects are catalogued below.
+              Active tracker health, status reads, and forward-looking notes on every project in the
+              portfolio. The court matrix maps tracker health left-to-right and the selected project
+              axis bottom-to-top. Shipped projects are catalogued below.
             </p>
           </div>
 
@@ -1609,14 +1609,14 @@ export default function CurrentProjects(): ReactElement {
           </div>
         </section>
 
-        {/* ── Shot Chart ── */}
+        {/* ── Court Matrix ── */}
         <section className="mt-8 editorial-card p-6 md:p-8">
 
           {/* Header row */}
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <div className="flex items-center gap-3">
-                <div className="section-kicker">Shot Chart</div>
+                <div className="section-kicker">Court Matrix</div>
                 <button
                   type="button"
                   aria-expanded={showHelp}
@@ -1668,7 +1668,7 @@ export default function CurrentProjects(): ReactElement {
                 onClick={() => setActiveAxis(axis)}
               >
                 <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-primary)]">
-                  Scouting axis
+                  Y-axis selector
                 </div>
                 <div className="mt-2 text-2xl font-black uppercase leading-none tracking-tight text-[color:var(--color-ink)]">
                   {PROJECT_AXIS_META[axis].label}
@@ -1686,10 +1686,10 @@ export default function CurrentProjects(): ReactElement {
                 {/* Court title */}
                 <div className="mb-4 text-center">
                   <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[color:var(--color-ink-soft)]">
-                    Live tracker feed × scout-grade shot chart
+                    Tracker health × selected-axis court matrix
                   </div>
                   <div className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-soft)] opacity-60">
-                    X: tracker health · Y: {axisMeta.label}
+                    X: tracker health · Y: selected {axisMeta.label}
                   </div>
                 </div>
 
@@ -1698,16 +1698,16 @@ export default function CurrentProjects(): ReactElement {
                   <CourtSVG />
 
                   <div className="pointer-events-none absolute left-4 top-4 border border-[color:var(--color-line)] bg-white/80 px-2.5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-primary)]">
-                    High {axisMeta.label}
+                    High selected {axisMeta.label}
                   </div>
                   <div className="pointer-events-none absolute right-4 top-4 border border-[color:var(--color-line)] bg-white/80 px-2.5 py-1.5 text-right text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-secondary)]">
-                    Healthy ceiling
+                    High health + high axis
                   </div>
                   <div className="pointer-events-none absolute bottom-4 left-4 border border-[color:var(--color-line)] bg-white/80 px-2.5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-ink-soft)]">
-                    Rebuild lane
+                    Low health + low axis
                   </div>
                   <div className="pointer-events-none absolute bottom-4 right-4 border border-[color:var(--color-line)] bg-white/80 px-2.5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-secondary)]">
-                    Higher health
+                    Higher tracker health
                   </div>
 
                   {/* Shot markers */}
@@ -1798,7 +1798,7 @@ export default function CurrentProjects(): ReactElement {
                   <div className="section-kicker">Roster</div>
                 </div>
                 <p className="mt-2 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-                  Sorted by {axisMeta.label.toLowerCase()} grade. Click to open.
+                  Sorted by the selected {axisMeta.label.toLowerCase()} axis plus tracker health. Click to open.
                 </p>
                 <div className="mt-4 grid gap-2">
                   {(showAllRoster ? orderedProjects : orderedProjects.slice(0, 5)).map((project) => {
@@ -1861,8 +1861,8 @@ export default function CurrentProjects(): ReactElement {
                   <div className="section-kicker text-[color:var(--color-gold)]">Source Note</div>
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-white/80">
-                  Scores and status reflect current project health from the active tracker. Axis
-                  grades are editorial scout reads for the portfolio treatment.
+                  X-position, marker brightness, scores, and status reflect current project health
+                  from the active tracker. Y-position reflects the selected project axis grade.
                 </p>
               </section>
             </aside>
@@ -2045,8 +2045,8 @@ export default function CurrentProjects(): ReactElement {
                     {toStatusLabel(selectedProject.trackerStatus)}
                   </p>
                   <p className="mt-3 text-sm leading-relaxed text-white/80">
-                    Tracker health score: {selectedProject.trackerScore}. Brightness on the court
-                    mirrors completion and current state.
+                    Tracker health score: {selectedProject.trackerScore}. X-position and brightness
+                    mirror current tracker health; Y-position follows the selected axis grade.
                   </p>
                 </section>
 
