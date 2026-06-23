@@ -39,6 +39,13 @@ type ProjectCourtLayout = {
   position: CSSProperties;
 };
 
+type SelectedCourtProject = {
+  axis: ProjectAxis;
+  layout: readonly ProjectCourtLayout[];
+  point: CourtPoint;
+  project: CurrentProject;
+};
+
 type ShotEmbed =
   | {
       provider: 'youtube';
@@ -1495,6 +1502,7 @@ function HistoricShotPlayer({
 export default function CurrentProjects(): ReactElement {
   const [activeAxis, setActiveAxis] = useState<ProjectAxis>('impact');
   const [selectedProject, setSelectedProject] = useState<CurrentProject | null>(null);
+  const [selectedCourtProject, setSelectedCourtProject] = useState<SelectedCourtProject | null>(null);
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
   const [showHelp, setShowHelp] = useState(false);
   const [showAllRoster, setShowAllRoster] = useState(false);
@@ -1503,7 +1511,10 @@ export default function CurrentProjects(): ReactElement {
   useEffect(() => {
     if (!selectedProject) return undefined;
     function onKeyDown(e: KeyboardEvent): void {
-      if (e.key === 'Escape') setSelectedProject(null);
+      if (e.key === 'Escape') {
+        setSelectedProject(null);
+        setSelectedCourtProject(null);
+      }
     }
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
@@ -1528,17 +1539,32 @@ export default function CurrentProjects(): ReactElement {
     [activeAxis],
   );
   const selectedCourtPoint = useMemo(
-    () =>
-      selectedProject
-        ? courtLayout.find(({ project }) => project.slug === selectedProject.slug)?.point
-          ?? allProjectLayout.find(({ project }) => project.slug === selectedProject.slug)?.point
-          ?? null
-        : null,
-    [allProjectLayout, courtLayout, selectedProject],
+    () => {
+      if (!selectedProject) return null;
+
+      if (
+        selectedCourtProject?.project.slug === selectedProject.slug
+        && selectedCourtProject.axis === activeAxis
+      ) {
+        return selectedCourtProject.point;
+      }
+
+      return courtLayout.find(({ project }) => project.slug === selectedProject.slug)?.point
+        ?? allProjectLayout.find(({ project }) => project.slug === selectedProject.slug)?.point
+        ?? null;
+    },
+    [activeAxis, allProjectLayout, courtLayout, selectedCourtProject, selectedProject],
   );
   const selectedHistoricShot = useMemo(
     () => {
       if (!selectedProject || !selectedCourtPoint) return null;
+
+      if (
+        selectedCourtProject?.project.slug === selectedProject.slug
+        && selectedCourtProject.axis === activeAxis
+      ) {
+        return getHistoricShot(selectedProject, selectedCourtPoint, selectedCourtProject.layout);
+      }
 
       const isCurrentProject = courtLayout.some(({ project }) => project.slug === selectedProject.slug);
 
@@ -1550,10 +1576,14 @@ export default function CurrentProjects(): ReactElement {
 
       return getHistoricShot(selectedProject, selectedCourtPoint, allProjectLayout, currentShotIds);
     },
-    [allProjectLayout, courtLayout, selectedCourtPoint, selectedProject],
+    [activeAxis, allProjectLayout, courtLayout, selectedCourtPoint, selectedCourtProject, selectedProject],
   );
 
-  useEffect(() => { setShowAllRoster(false); }, [activeAxis]);
+  useEffect(() => {
+    setShowAllRoster(false);
+    setSelectedProject(null);
+    setSelectedCourtProject(null);
+  }, [activeAxis]);
 
   // ── Summary stats ──
   const totalProjects = CURRENT_PROJECTS.length;
@@ -1711,7 +1741,7 @@ export default function CurrentProjects(): ReactElement {
                   </div>
 
                   {/* Shot markers */}
-                  {courtLayout.map(({ project, markerSize, position }) => {
+                  {courtLayout.map(({ project, markerSize, point, position }) => {
                     const alpha = 0.38 + (project.trackerScore / 100) * 0.52;
                     const markerRgb = getStatusRgb(project.trackerStatus);
                     const isSelected = selectedProject?.slug === project.slug;
@@ -1775,7 +1805,15 @@ export default function CurrentProjects(): ReactElement {
                           animate={{ scale: isSelected ? 1.25 : 1 }}
                           whileHover={{ scale: 1.5 }}
                           transition={{ duration: 0.15 }}
-                          onClick={() => setSelectedProject(project)}
+                          onClick={() => {
+                            setSelectedProject(project);
+                            setSelectedCourtProject({
+                              axis: activeAxis,
+                              layout: courtLayout,
+                              point,
+                              project,
+                            });
+                          }}
                           onMouseEnter={() => setHoveredSlug(project.slug)}
                           onMouseLeave={() => setHoveredSlug(null)}
                         >
@@ -1814,7 +1852,10 @@ export default function CurrentProjects(): ReactElement {
                             ? 'border-[color:var(--color-primary)] bg-[color:var(--color-surface-muted)]'
                             : 'border-[color:var(--color-line)] bg-[color:var(--color-surface-raised)]'
                         }`}
-                        onClick={() => setSelectedProject(isSelected ? null : project)}
+                        onClick={() => {
+                          setSelectedProject(isSelected ? null : project);
+                          setSelectedCourtProject(null);
+                        }}
                       >
                         <div className="flex items-center gap-3">
                           <span
@@ -1883,7 +1924,10 @@ export default function CurrentProjects(): ReactElement {
                 type="button"
                 key={project.slug}
                 className="border border-[color:var(--color-line)] bg-white p-5 text-left transition hover:border-[color:var(--color-primary)] hover:shadow-[0_8px_24px_rgba(16,28,44,0.10)]"
-                onClick={() => setSelectedProject(project)}
+                onClick={() => {
+                  setSelectedProject(project);
+                  setSelectedCourtProject(null);
+                }}
               >
                 <div className="flex items-center justify-between">
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[color:var(--color-secondary)] text-[9px] font-black uppercase text-white">
@@ -1913,7 +1957,10 @@ export default function CurrentProjects(): ReactElement {
         <div
           className="fixed inset-0 z-[70] flex items-center justify-center bg-[rgba(16,28,44,0.60)] p-4"
           role="presentation"
-          onClick={() => setSelectedProject(null)}
+          onClick={() => {
+            setSelectedProject(null);
+            setSelectedCourtProject(null);
+          }}
         >
           <div
             className="max-h-[90vh] w-full max-w-4xl overflow-y-auto border border-[color:var(--color-line-strong)] bg-[color:var(--color-surface-raised)] shadow-[0_32px_96px_rgba(16,28,44,0.30)]"
@@ -1944,7 +1991,10 @@ export default function CurrentProjects(): ReactElement {
                 type="button"
                 aria-label="Close project details"
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--color-line-strong)] bg-white text-[color:var(--color-ink)] hover:border-[color:var(--color-primary)] hover:text-[color:var(--color-primary)]"
-                onClick={() => setSelectedProject(null)}
+                onClick={() => {
+                  setSelectedProject(null);
+                  setSelectedCourtProject(null);
+                }}
               >
                 <X size={22} />
               </button>
