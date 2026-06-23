@@ -1044,6 +1044,7 @@ function getHistoricShot(
   project: CurrentProject,
   point: CourtPoint,
   layout: readonly ProjectCourtLayout[],
+  usedShotIds: ReadonlySet<string> = new Set<string>(),
 ): HistoricShot {
   const zone = getHistoricShotZone(point);
   const pool = HISTORIC_SHOT_POOLS[zone];
@@ -1053,6 +1054,11 @@ function getHistoricShot(
     .filter((candidate) => getHistoricShotZone(candidate.point) === zone)
     .findIndex((candidate) => candidate.project.slug === project.slug);
   const instanceIndex = Math.max(0, zoneRank);
+
+  for (let offset = 0; offset < selectionPool.length; offset += 1) {
+    const shot = selectionPool[(instanceIndex + offset) % selectionPool.length];
+    if (!usedShotIds.has(shot.id)) return shot;
+  }
 
   return selectionPool[instanceIndex % selectionPool.length];
 }
@@ -1434,11 +1440,15 @@ export default function CurrentProjects(): ReactElement {
     () => {
       if (!selectedProject || !selectedCourtPoint) return null;
 
-      const selectedLayout = courtLayout.some(({ project }) => project.slug === selectedProject.slug)
-        ? courtLayout
-        : allProjectLayout;
+      const isCurrentProject = courtLayout.some(({ project }) => project.slug === selectedProject.slug);
 
-      return getHistoricShot(selectedProject, selectedCourtPoint, selectedLayout);
+      if (isCurrentProject) return getHistoricShot(selectedProject, selectedCourtPoint, courtLayout);
+
+      const currentShotIds = new Set(
+        courtLayout.map(({ project, point }) => getHistoricShot(project, point, courtLayout).id),
+      );
+
+      return getHistoricShot(selectedProject, selectedCourtPoint, allProjectLayout, currentShotIds);
     },
     [allProjectLayout, courtLayout, selectedCourtPoint, selectedProject],
   );

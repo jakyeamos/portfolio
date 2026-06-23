@@ -84,6 +84,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 23: Ran a full YouTube duration-metadata timing scan for all 45 Historic Shot Clips, replaced additional broad sources with shorter clips, and made intentional `start=0` windows explicit so long clips no longer look untuned
 - June 23: Applied the compact shot-and-replay timing methodology across all 45 Historic Shot Clips: every YouTube clip now has explicit `start` and `end` seconds, windows are capped at 38 seconds, and the shot-embed target gate fails missing or overlong YouTube windows
 - June 23: Added a pre-clip sound toggle for Historic Shot Clips so a user gesture can request unmuted YouTube autoplay on later shot opens while preserving muted autoplay as the browser-compatible fallback
+- June 23: Removed same-axis Historic Shot Clip reuse by making shipped-project assignments skip clips already used by the current board while staying inside the same court zone; `pnpm shot-embeds:target` now fails visible assignment duplicates
 
 ## Open Problems
 
@@ -113,7 +114,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Shot-zone math:** targeted coordinate classification and uniqueness checks — PASS on 2026-06-22; Ray Allen `rightCorner` assignment appears only for `pre-cr-suite` on Ambition at `(84.7, 65.4)` and not for above-the-break positions, and each active axis assigns 16 unique shot references across current plus closed projects
 - **Displayed court geometry:** targeted spread/arc check — PASS on 2026-06-22; each active axis spans roughly 80% of the court, shot pools have no overflow, and inside-the-arc displayed dots have zero three-point-zone mismatches
 - **Shot embed coverage:** `pnpm shot-embeds` — PASS on 2026-06-23; all 45 Historic Shot Clip entries have quality-gated YouTube provider data and explicit compact clip windows
-- **45/45 shot target:** `pnpm shot-embeds:target` — PASS on 2026-06-23; current score is 45/45 quality-gated clips with no missing YouTube timing and no YouTube window longer than 38 seconds
+- **45/45 shot target:** `pnpm shot-embeds:target` — PASS on 2026-06-23; current score is 45/45 quality-gated clips with no missing YouTube timing, no YouTube window longer than 38 seconds, and zero same-axis visible assignment duplicates
 - **YouTube oEmbed validation:** live YouTube oEmbed check for all 45 registered IDs — PASS on 2026-06-23; dead legacy IDs and several broad sources were replaced with oEmbed-accessible shorter clips
 - **Historic Shot Clip autoplay/timing:** local Browser smoke on `/projects` — PASS on 2026-06-23; opening the Soundscape marker produced a YouTube iframe with `autoplay=1`, `mute=1`, and iframe autoplay permission; all YouTube clips now resolve from explicit compact `start` and `end` windows
 - **Terrace Impact clip timing:** parameter verification — PASS on 2026-06-23; the LeBron iframe `JYmejM38vKs` is now configured with absolute YouTube seconds `start=26` and `end=48`, matching the compact shot-and-replay methodology
