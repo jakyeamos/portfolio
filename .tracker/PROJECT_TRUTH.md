@@ -77,12 +77,13 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 23: Made Historic Shot Clip selection embed-aware and added `pnpm shot-embeds` to report YouTube embed ID coverage by shot zone
 - June 23: Replaced the YouTube-only shot fields with a provider-based clip model that supports YouTube and Vimeo iframes plus NBA/external source links
 - June 23: Added explicit `verified-game-clip` quality metadata, a `pnpm shot-embeds:target` strict 45/45 gate, and `.tracker/shot-clip-curation.md` so weak non-YouTube sources do not count toward completion
+- June 23: Filled the Historic Shot Clip registry to 45/45 quality-gated YouTube clips and replaced dead legacy YouTube IDs after live oEmbed validation
 
 ## Open Problems
 
 - RemodelVision's tracker truth source is portfolio-local rather than stored in the sibling RemodelVision repo because this automation environment can only write inside the portfolio workspace
 - Ignored draft and binary assets still live beside the source tree; repo hygiene is acceptable, but long-term placement should be clarified
-- Historic Shot Clip still has 39 reference-only shot entries without quality-gated clip sources; `pnpm shot-embeds:target` intentionally fails until the registry reaches 45/45 verified game clips
+- Historic Shot Clip has 45/45 quality-gated clips, but `.tracker/shot-clip-curation.md` tracks a small replacement watchlist for broader, full-game, or nonofficial YouTube sources that could be upgraded later
 - No automated test suite is configured, so regression confidence still depends on type/build checks and manual verification
 
 ## Next Concrete Steps
@@ -105,8 +106,9 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Build:** `pnpm build` — PASS on 2026-06-22
 - **Shot-zone math:** targeted coordinate classification and uniqueness checks — PASS on 2026-06-22; Ray Allen `rightCorner` assignment appears only for `pre-cr-suite` on Ambition at `(84.7, 65.4)` and not for above-the-break positions, and each active axis assigns 16 unique shot references across current plus closed projects
 - **Displayed court geometry:** targeted spread/arc check — PASS on 2026-06-22; each active axis spans roughly 80% of the court, shot pools have no overflow, and inside-the-arc displayed dots have zero three-point-zone mismatches
-- **Shot embed coverage:** `pnpm shot-embeds` — PASS on 2026-06-23; all court zones have at least one quality-gated provider clip, with 6 YouTube clips and 39 reference-only shot entries still awaiting verified source data
-- **45/45 shot target:** `pnpm shot-embeds:target` — EXPECTED FAIL on 2026-06-23; current score is 6/45 quality-gated clips, and the command is the strict completion gate for future curation
+- **Shot embed coverage:** `pnpm shot-embeds` — PASS on 2026-06-23; all 45 Historic Shot Clip entries have quality-gated YouTube provider data
+- **45/45 shot target:** `pnpm shot-embeds:target` — PASS on 2026-06-23; current score is 45/45 quality-gated clips
+- **YouTube oEmbed validation:** live YouTube oEmbed check for all 45 registered IDs — PASS on 2026-06-23; dead legacy IDs for Lillard OKC, Kawhi Sixers, LeBron Pacers, and the inaccessible Curry France source were replaced
 - **Local browser smoke:** `/projects` in the in-app Browser — PASS on 2026-06-23; opening the Soundscape court marker showed the Historic Shot Clip module with one provider-generated YouTube iframe URL
 - **Deploy tooling:** `pnpm netlify:cli -- --version`, `pnpm netlify:status`, and `pnpm deploy:status` missing-env behavior — PASS on 2026-06-22; live deploy lookup still requires `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`
 - **Browser QA:** `/projects` in the in-app Browser — PASS on 2026-06-22 before the neutral-court styling cleanup; recalibrated Ambition desktop minimum marker gap 25.46px, mobile minimum marker gap 3.31px, no marker overlaps, no horizontal overflow, no console warnings/errors, Soundscape marker opened the detail modal. Browser verification for the neutral-court cleanup and Historic Shot modal work was blocked by the local in-app Browser policy for `127.0.0.1:3000`; shell network access also could not resolve `youtube.com`, so embed IDs still need live browser/deploy validation. `pnpm lint` and `pnpm build` passed after both changes.
