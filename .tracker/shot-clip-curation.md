@@ -10,6 +10,8 @@ The portfolio modal autoplays clips muted when a project opens. YouTube clips de
 
 June 23 timing pass: direct YouTube navigation in the in-app Browser remains blocked by Browser policy, so timing was tuned from YouTube search metadata, live oEmbed checks, shorter replacement sources, and local `/projects` iframe-parameter smoke tests. Several broad or full-game sources were replaced with shorter exact-shot clips; remaining broad sources now carry explicit `start` and `end` windows where a better short source was not available.
 
+June 23 Terrace Impact fix: `lebron-pacers-2018` now starts at `112` and ends at `154` so the Terrace impact-axis modal opens on the game-winning shot possession instead of the preceding block.
+
 ## Quality Gate
 
 A clip counts only when all of these are true:

@@ -308,11 +308,13 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'JYmejM38vKs',
+        start: 112,
+        end: 154,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'ESPN result shows the block-to-game-winning-three sequence against Indiana.',
+        note: 'ESPN full-sequence source windowed to the game-winning three after the block.',
       },
       source: 'ESPN on YouTube',
     },
