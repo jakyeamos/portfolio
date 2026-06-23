@@ -179,12 +179,14 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A late-clock distance shot that turned difficulty into separation.',
       embed: {
         provider: 'youtube',
-        id: '2EnWmXE4ZPs',
+        id: 'DPDUDPCttfc',
+        start: 220,
+        end: 347,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'Olympics result covers Team USA gold-medal game against France.',
+        note: 'Olympics all-threes source windowed to Curry Paris 2024 closing threes.',
       },
       source: 'Olympics on YouTube',
     },
@@ -391,6 +393,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'XxSr2nArxkA',
+        start: 115,
+        end: 172,
       },
       quality: {
         level: 'verified-game-clip',
@@ -476,6 +480,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: '1as8JsjQrF0',
+        start: 0,
+        end: 95,
       },
       quality: {
         level: 'verified-game-clip',
@@ -509,14 +515,15 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A shot from the zone where scoring bursts start to feel inevitable.',
       embed: {
         provider: 'youtube',
-        id: 'qP5YMqKNHnM',
+        id: 'JgYnmcsUiHQ',
+        end: 41,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'ESPN playoff highlight source for Mitchell scoring run against Denver.',
+        note: 'Short source titled for Mitchell dagger three against Denver.',
       },
-      source: 'ESPN on YouTube',
+      source: 'YouTube',
     },
     {
       id: 'booker-suns-2021',
@@ -527,6 +534,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'PuuDPaTZbmk',
+        start: 0,
+        end: 80,
       },
       quality: {
         level: 'verified-game-clip',
@@ -544,6 +553,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'R0d-PK1iI8U',
+        start: 170,
+        end: 288,
       },
       quality: {
         level: 'verified-game-clip',
@@ -561,6 +572,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'y_EbaSvRh_U',
+        start: 0,
+        end: 80,
       },
       quality: {
         level: 'verified-game-clip',
@@ -579,14 +592,15 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A controlled separation shot from the part of the floor where craft matters.',
       embed: {
         provider: 'youtube',
-        id: '92fLApYaCGI',
+        id: 'iZlIE0cexwM',
+        end: 31,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'Full-game source for Jordan Jazz 1998 title-clinching shot.',
+        note: 'Short source titled for Jordan 1998 last shot.',
       },
-      source: 'NBA on YouTube',
+      source: 'YouTube',
     },
     {
       id: 'jordan-cavs-1989',
@@ -613,12 +627,13 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A two-dribble midrange shot from the league’s hardest comfort zone.',
       embed: {
         provider: 'youtube',
-        id: 'ACZnF87Iy84',
+        id: '_jxHf7h6U58',
+        end: 180,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'Playable YouTube source for Kobe game-tying and game-winning shots against Phoenix.',
+        note: 'Playable short source for Kobe 2006 buzzer-beater against Phoenix.',
       },
       source: 'YouTube',
     },
@@ -664,14 +679,15 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A big-wing shot from the high post under elimination pressure.',
       embed: {
         provider: 'youtube',
-        id: 'kLzDbqh_K4k',
+        id: 'OKp-mxqUels',
+        end: 87,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA full-game source for Garnett Game 7 dominance against Sacramento.',
+        note: 'Short source for Garnett greatest-game sequence against Sacramento.',
       },
-      source: 'NBA on YouTube',
+      source: 'YouTube',
     },
     {
       id: 'durant-bucks-2021',
@@ -681,14 +697,15 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A long two so close to three that the geometry became the story.',
       embed: {
         provider: 'youtube',
-        id: 'iw-O8B6H798',
+        id: 'zSo3_EcNQD8',
+        end: 91,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'ESPN Game 7 source for Durant 48-point performance and toe-on-line jumper.',
+        note: 'Short source titled for Durant saving Brooklyn with the game-tying shot.',
       },
-      source: 'ESPN on YouTube',
+      source: 'YouTube',
     },
     {
       id: 'derozan-raptors-2018',
@@ -716,6 +733,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'H9neM8by1SQ',
+        end: 113,
       },
       quality: {
         level: 'verified-game-clip',
@@ -750,6 +768,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'KhhhrUHMMU4',
+        end: 36,
       },
       quality: {
         level: 'verified-game-clip',
@@ -818,6 +837,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'S3G_XTLunKA',
+        start: 250,
+        end: 360,
       },
       quality: {
         level: 'verified-game-clip',

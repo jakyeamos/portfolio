@@ -8,6 +8,8 @@ Current score: `45/45` quality-gated YouTube clips as of June 23, 2026. Every pr
 
 The portfolio modal autoplays clips muted when a project opens. YouTube clips default to a 45-second window from the configured `start` time so broad highlight or full-game sources do not continue as full videos.
 
+June 23 timing pass: direct YouTube navigation in the in-app Browser remains blocked by Browser policy, so timing was tuned from YouTube search metadata, live oEmbed checks, shorter replacement sources, and local `/projects` iframe-parameter smoke tests. Several broad or full-game sources were replaced with shorter exact-shot clips; remaining broad sources now carry explicit `start` and `end` windows where a better short source was not available.
+
 ## Quality Gate
 
 A clip counts only when all of these are true:
@@ -24,7 +26,6 @@ These clips are playable and quality-gated, but they are broader highlight, full
 
 - `kobe-suns-2006`
 - `garnett-kings-2004`
-- `durant-bucks-2021`
 - `anthony-knicks-2012`
 - `paul-bucks-2021`
 - `wade-mavericks-2006`
