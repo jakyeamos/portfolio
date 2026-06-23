@@ -33,6 +33,7 @@ type CourtPoint = {
 type ProjectCourtLayout = {
   project: CurrentProject;
   markerSize: number;
+  point: CourtPoint;
   position: CSSProperties;
 };
 
@@ -522,39 +523,76 @@ function getShotCoordinates(project: CurrentProject, axis: ProjectAxis): CourtPo
   return { left, top };
 }
 
+function normalizeCourtPoints(points: readonly CourtPoint[]): CourtPoint[] {
+  const leftValues = points.map((point) => point.left);
+  const topValues = points.map((point) => point.top);
+  const minLeft = Math.min(...leftValues);
+  const maxLeft = Math.max(...leftValues);
+  const minTop = Math.min(...topValues);
+  const maxTop = Math.max(...topValues);
+  const leftRange = maxLeft - minLeft;
+  const topRange = maxTop - minTop;
+
+  return points.map((point) => ({
+    left: leftRange < 1 ? 50 : 10 + ((point.left - minLeft) / leftRange) * 80,
+    top: topRange < 1 ? 48 : 8 + ((point.top - minTop) / topRange) * 80,
+  }));
+}
+
 function markerSizeForProject(project: CurrentProject): number {
   return 14 + project.grades.ambition;
 }
 
+function getThreePointArcTop(left: number): number {
+  const arcX = clamp(left, 7, 93);
+  const dx = arcX - 50;
+  const radius = 43;
+
+  return 96 - Math.sqrt(Math.max(0, radius ** 2 - dx ** 2));
+}
+
+function isOutsideThreePointLine(point: CourtPoint): boolean {
+  if (point.left <= 7 || point.left >= 93) return point.top <= 77;
+
+  return point.top <= getThreePointArcTop(point.left);
+}
+
 function getHistoricShotZone(point: CourtPoint): HistoricShotZone {
+  const isOutsideArc = isOutsideThreePointLine(point);
   const isDeep = point.top <= 30;
   const isCornerDepth = point.top >= 62;
 
+  if (!isOutsideArc) return 'midrange';
   if (isCornerDepth && point.left >= 84) return 'rightCorner';
-  if (point.top >= 48 && point.top < 72 && point.left <= 30) return 'leftBaselineWing';
+  if (isCornerDepth && point.left <= 16) return 'leftBaselineWing';
   if (isDeep && point.left < 42) return 'deepLeft';
   if (isDeep && point.left >= 42 && point.left <= 58) return 'deepTop';
-  if (point.top < 58) return 'aboveBreak';
 
-  return 'midrange';
+  return 'aboveBreak';
 }
 
-function getHistoricShot(project: CurrentProject, axis: ProjectAxis, point: CourtPoint): HistoricShot {
+function getHistoricShot(
+  project: CurrentProject,
+  point: CourtPoint,
+  layout: readonly ProjectCourtLayout[],
+): HistoricShot {
   const zone = getHistoricShotZone(point);
   const pool = HISTORIC_SHOT_POOLS[zone];
-  const zoneRank = ALL_PROJECTS.filter(
-    (candidate) => getHistoricShotZone(getShotCoordinates(candidate, axis)) === zone,
-  ).findIndex((candidate) => candidate.slug === project.slug);
+  const zoneRank = layout
+    .filter((candidate) => getHistoricShotZone(candidate.point) === zone)
+    .findIndex((candidate) => candidate.project.slug === project.slug);
   const instanceIndex = Math.max(0, zoneRank);
 
   return pool[instanceIndex % pool.length];
 }
 
 function buildCourtLayout(projects: readonly CurrentProject[], axis: ProjectAxis): ProjectCourtLayout[] {
-  const points = projects.map((project) => ({
+  const rawPoints = projects.map((project) => getShotCoordinates(project, axis));
+  const normalizedPoints = normalizeCourtPoints(rawPoints);
+  const points = projects.map((project, index) => ({
     project,
     markerSize: markerSizeForProject(project),
-    ...getShotCoordinates(project, axis),
+    ...normalizedPoints[index],
   }));
 
   for (let pass = 0; pass < 24; pass += 1) {
@@ -584,6 +622,7 @@ function buildCourtLayout(projects: readonly CurrentProject[], axis: ProjectAxis
   return points.map(({ project, markerSize, left, top }) => ({
     project,
     markerSize,
+    point: { left, top },
     position: {
       left: `${left}%`,
       top: `${top}%`,
@@ -859,13 +898,30 @@ export default function CurrentProjects(): ReactElement {
     () => buildCourtLayout(orderedProjects, activeAxis),
     [orderedProjects, activeAxis],
   );
+  const allProjectLayout = useMemo(
+    () => buildCourtLayout(ALL_PROJECTS, activeAxis),
+    [activeAxis],
+  );
   const selectedCourtPoint = useMemo(
-    () => (selectedProject ? getShotCoordinates(selectedProject, activeAxis) : null),
-    [selectedProject, activeAxis],
+    () =>
+      selectedProject
+        ? courtLayout.find(({ project }) => project.slug === selectedProject.slug)?.point
+          ?? allProjectLayout.find(({ project }) => project.slug === selectedProject.slug)?.point
+          ?? null
+        : null,
+    [allProjectLayout, courtLayout, selectedProject],
   );
   const selectedHistoricShot = useMemo(
-    () => (selectedProject && selectedCourtPoint ? getHistoricShot(selectedProject, activeAxis, selectedCourtPoint) : null),
-    [activeAxis, selectedCourtPoint, selectedProject],
+    () => {
+      if (!selectedProject || !selectedCourtPoint) return null;
+
+      const selectedLayout = courtLayout.some(({ project }) => project.slug === selectedProject.slug)
+        ? courtLayout
+        : allProjectLayout;
+
+      return getHistoricShot(selectedProject, selectedCourtPoint, selectedLayout);
+    },
+    [allProjectLayout, courtLayout, selectedCourtPoint, selectedProject],
   );
 
   useEffect(() => { setShowAllRoster(false); }, [activeAxis]);
