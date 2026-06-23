@@ -4,6 +4,7 @@ const source = readFileSync(new URL('../src/pages/CurrentProjects.tsx', import.m
 const strictTarget = process.argv.includes('--target=45');
 const youtubeIdPattern = /^[\w-]{11}$/;
 const vimeoIdPattern = /^\d+$/;
+const maxYouTubeWindowSeconds = 38;
 const providers = new Map();
 const shots = [];
 let currentZone = null;
@@ -43,6 +44,10 @@ for (const shot of shots) {
   const provider = shot.segment.match(/provider: '([^']+)'/)?.[1];
   const id = shot.segment.match(/^\s+id: '([^']+)',/m)?.[1];
   const url = shot.segment.match(/url: '([^']+)'/)?.[1];
+  const startMatch = shot.segment.match(/start: (\d+)/);
+  const endMatch = shot.segment.match(/end: (\d+)/);
+  const start = Number(startMatch?.[1] ?? 0);
+  const end = Number(endMatch?.[1] ?? 0);
   const quality = shot.segment.match(/level: '([^']+)'/)?.[1];
   const reviewedAt = shot.segment.match(/reviewedAt: '([^']+)'/)?.[1];
 
@@ -61,6 +66,18 @@ for (const shot of shots) {
 
   if (provider === 'youtube' && (!id || !youtubeIdPattern.test(id))) {
     invalid.push(`${shot.zone}/${shot.id}: invalid YouTube id ${id ?? '(missing)'}`);
+  }
+
+  if (provider === 'youtube' && (!startMatch || !endMatch)) {
+    invalid.push(`${shot.zone}/${shot.id}: missing explicit YouTube start/end window`);
+  }
+
+  if (provider === 'youtube' && end <= start) {
+    invalid.push(`${shot.zone}/${shot.id}: invalid YouTube window ${start}-${end}`);
+  }
+
+  if (provider === 'youtube' && end - start > maxYouTubeWindowSeconds) {
+    invalid.push(`${shot.zone}/${shot.id}: YouTube window ${end - start}s exceeds ${maxYouTubeWindowSeconds}s compact clip limit`);
   }
 
   if (provider === 'vimeo' && (!id || !vimeoIdPattern.test(id))) {

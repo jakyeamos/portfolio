@@ -25,7 +25,6 @@ import {
 
 const AXES: readonly ProjectAxis[] = ['impact', 'difficulty', 'ambition', 'creativity'] as const;
 const ALL_PROJECTS: readonly CurrentProject[] = [...CURRENT_PROJECTS, ...CLOSED_PROJECTS] as const;
-const DEFAULT_SHOT_CLIP_SECONDS = 45;
 
 type CourtPoint = {
   left: number;
@@ -43,8 +42,8 @@ type ShotEmbed =
   | {
       provider: 'youtube';
       id: string;
-      start?: number;
-      end?: number;
+      start: number;
+      end: number;
       sourceUrl?: string;
     }
   | {
@@ -93,6 +92,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'HMm5NtXLVDY',
+        start: 0,
+        end: 32,
       },
       quality: {
         level: 'verified-game-clip',
@@ -110,6 +111,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'mejFtEY5faU',
+        start: 0,
+        end: 28,
       },
       quality: {
         level: 'verified-game-clip',
@@ -128,7 +131,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'Mz3TBKrBp5M',
         start: 0,
-        end: 65,
+        end: 36,
       },
       quality: {
         level: 'verified-game-clip',
@@ -148,6 +151,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'GEMVGHoenXM',
+        start: 0,
+        end: 30,
       },
       quality: {
         level: 'verified-game-clip',
@@ -185,7 +190,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'DPDUDPCttfc',
         start: 220,
-        end: 347,
+        end: 255,
       },
       quality: {
         level: 'verified-game-clip',
@@ -206,7 +211,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'ua_w5RxpFIQ',
         start: 780,
-        end: 825,
+        end: 812,
       },
       quality: {
         level: 'verified-game-clip',
@@ -224,6 +229,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'nJgPKeMOL-s',
+        start: 0,
+        end: 28,
       },
       quality: {
         level: 'verified-game-clip',
@@ -263,7 +270,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: '75iExVNvrWw',
         start: 0,
-        end: 70,
+        end: 36,
       },
       quality: {
         level: 'verified-game-clip',
@@ -281,6 +288,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'p-u4pIQyjfE',
+        start: 0,
+        end: 24,
       },
       quality: {
         level: 'verified-game-clip',
@@ -298,6 +307,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: '0mU-bEOPujM',
+        start: 0,
+        end: 35,
       },
       quality: {
         level: 'verified-game-clip',
@@ -317,13 +328,13 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'JYmejM38vKs',
-        start: 112,
-        end: 154,
+        start: 26,
+        end: 48,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'ESPN full-sequence source windowed to the game-winning three after the block.',
+        note: 'ESPN full-sequence source windowed with absolute YouTube seconds for the shot setup, make, and first replay.',
       },
       source: 'ESPN on YouTube',
     },
@@ -336,6 +347,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'fZ8yCJgsF_4',
+        start: 0,
+        end: 34,
       },
       quality: {
         level: 'verified-game-clip',
@@ -354,7 +367,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: '3t8w00NrDBE',
         start: 0,
-        end: 65,
+        end: 32,
       },
       quality: {
         level: 'verified-game-clip',
@@ -372,6 +385,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'NLOJvl98SwQ',
+        start: 0,
+        end: 34,
       },
       quality: {
         level: 'verified-game-clip',
@@ -389,6 +404,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'T3xk9vay5tE',
+        start: 0,
+        end: 32,
       },
       quality: {
         level: 'verified-game-clip',
@@ -407,7 +424,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'XxSr2nArxkA',
         start: 115,
-        end: 172,
+        end: 148,
       },
       quality: {
         level: 'verified-game-clip',
@@ -425,6 +442,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'lm1wzEL8FZY',
+        start: 0,
+        end: 29,
       },
       quality: {
         level: 'verified-game-clip',
@@ -443,7 +462,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: '23GkX-ZeKx4',
         start: 0,
-        end: 93,
+        end: 35,
       },
       quality: {
         level: 'verified-game-clip',
@@ -462,7 +481,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'MRLysMEHokI',
         start: 0,
-        end: 90,
+        end: 38,
       },
       quality: {
         level: 'verified-game-clip',
@@ -480,6 +499,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'xb95YLw1bns',
+        start: 0,
+        end: 33,
       },
       quality: {
         level: 'verified-game-clip',
@@ -498,7 +519,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: '1as8JsjQrF0',
         start: 0,
-        end: 95,
+        end: 30,
       },
       quality: {
         level: 'verified-game-clip',
@@ -517,7 +538,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'B7wuI0dnK1M',
         start: 0,
-        end: 90,
+        end: 35,
       },
       quality: {
         level: 'verified-game-clip',
@@ -536,7 +557,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'JgYnmcsUiHQ',
         start: 0,
-        end: 41,
+        end: 35,
       },
       quality: {
         level: 'verified-game-clip',
@@ -555,7 +576,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'PuuDPaTZbmk',
         start: 0,
-        end: 80,
+        end: 35,
       },
       quality: {
         level: 'verified-game-clip',
@@ -574,7 +595,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'R0d-PK1iI8U',
         start: 170,
-        end: 288,
+        end: 205,
       },
       quality: {
         level: 'verified-game-clip',
@@ -593,7 +614,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'y_EbaSvRh_U',
         start: 0,
-        end: 80,
+        end: 35,
       },
       quality: {
         level: 'verified-game-clip',
@@ -632,6 +653,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'a0TKEofio7w',
+        start: 0,
+        end: 32,
       },
       quality: {
         level: 'verified-game-clip',
@@ -650,7 +673,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: '_jxHf7h6U58',
         start: 0,
-        end: 180,
+        end: 36,
       },
       quality: {
         level: 'verified-game-clip',
@@ -668,6 +691,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: '9k4Li-iT8QU',
+        start: 0,
+        end: 28,
       },
       quality: {
         level: 'verified-game-clip',
@@ -685,6 +710,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'KGnTSu0orgc',
+        start: 0,
+        end: 27,
       },
       quality: {
         level: 'verified-game-clip',
@@ -703,7 +730,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'OKp-mxqUels',
         start: 0,
-        end: 87,
+        end: 35,
       },
       quality: {
         level: 'verified-game-clip',
@@ -740,6 +767,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: '1CIIvmr58sA',
+        start: 0,
+        end: 30,
       },
       quality: {
         level: 'verified-game-clip',
@@ -758,7 +787,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'H9neM8by1SQ',
         start: 0,
-        end: 113,
+        end: 36,
       },
       quality: {
         level: 'verified-game-clip',
@@ -777,7 +806,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'QjsuBaQVqnw',
         start: 0,
-        end: 49,
+        end: 32,
       },
       quality: {
         level: 'verified-game-clip',
@@ -815,7 +844,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'ih2bjlg48YQ',
         start: 0,
-        end: 80,
+        end: 35,
       },
       quality: {
         level: 'verified-game-clip',
@@ -833,6 +862,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: '782QfcAxH1Q',
+        start: 0,
+        end: 34,
       },
       quality: {
         level: 'verified-game-clip',
@@ -851,7 +882,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'KdND5Jvka20',
         start: 0,
-        end: 49,
+        end: 32,
       },
       quality: {
         level: 'verified-game-clip',
@@ -870,7 +901,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'S3G_XTLunKA',
         start: 250,
-        end: 360,
+        end: 285,
       },
       quality: {
         level: 'verified-game-clip',
@@ -889,7 +920,7 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
         provider: 'youtube',
         id: 'oRFiKbI5CXc',
         start: 0,
-        end: 72,
+        end: 34,
       },
       quality: {
         level: 'verified-game-clip',
@@ -907,6 +938,8 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'wd3mxCQlve4',
+        start: 0,
+        end: 34,
       },
       quality: {
         level: 'verified-game-clip',
@@ -1025,13 +1058,11 @@ function getHistoricShot(
 
 function getShotEmbedUrl(embed: ShotEmbed): string | null {
   if (embed.provider === 'youtube') {
-    const start = embed.start ?? 0;
-    const end = embed.end ?? start + DEFAULT_SHOT_CLIP_SECONDS;
     const embedParams = new URLSearchParams({
       autoplay: '1',
       mute: '1',
-      start: String(start),
-      end: String(end),
+      start: String(embed.start),
+      end: String(embed.end),
       rel: '0',
       modestbranding: '1',
       playsinline: '1',

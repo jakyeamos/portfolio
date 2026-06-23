@@ -15,8 +15,8 @@ goals:
 repoType: app
 sourceOfTruth: inferred
 primaryLanguage: TypeScript
-activeBranch: codex/truth-sync-migration
-lastCommitDate: "2026-06-22"
+activeBranch: codex/fix-terrace-lebron-clip
+lastCommitDate: "2026-06-23"
 quality:
   lint: pass
   types: pass
@@ -78,10 +78,11 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 23: Replaced the YouTube-only shot fields with a provider-based clip model that supports YouTube and Vimeo iframes plus NBA/external source links
 - June 23: Added explicit `verified-game-clip` quality metadata, a `pnpm shot-embeds:target` strict 45/45 gate, and `.tracker/shot-clip-curation.md` so weak non-YouTube sources do not count toward completion
 - June 23: Filled the Historic Shot Clip registry to 45/45 quality-gated YouTube clips and replaced dead legacy YouTube IDs after live oEmbed validation
-- June 23: Updated Historic Shot Clip embeds to autoplay muted on modal open and default to a 45-second clip window from each shot's configured start time
+- June 23: Updated Historic Shot Clip embeds to autoplay muted on modal open and later removed default YouTube timing so each reviewed clip carries explicit `start` and `end` seconds
 - June 23: Tuned Historic Shot Clip timing by replacing several broad/full-game sources with shorter shot clips and adding explicit start/end windows where shorter sources were not available; direct YouTube Browser timing review remains blocked, but local `/projects` iframe params and live oEmbed checks passed
-- June 23: Fixed Terrace on the Impact axis by windowing the LeBron Pacers 2018 clip to `start=112` and `end=154`, so it starts at the shot possession instead of the preceding block
+- June 23: Corrected Terrace on the Impact axis by windowing the LeBron Pacers 2018 clip to absolute YouTube seconds `start=26` and `end=48`, using a compact shot-and-replay window instead of the earlier late replay/commentary window
 - June 23: Ran a full YouTube duration-metadata timing scan for all 45 Historic Shot Clips, replaced additional broad sources with shorter clips, and made intentional `start=0` windows explicit so long clips no longer look untuned
+- June 23: Applied the compact shot-and-replay timing methodology across all 45 Historic Shot Clips: every YouTube clip now has explicit `start` and `end` seconds, windows are capped at 38 seconds, and the shot-embed target gate fails missing or overlong YouTube windows
 
 ## Open Problems
 
@@ -110,11 +111,11 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Build:** `pnpm build` — PASS on 2026-06-22
 - **Shot-zone math:** targeted coordinate classification and uniqueness checks — PASS on 2026-06-22; Ray Allen `rightCorner` assignment appears only for `pre-cr-suite` on Ambition at `(84.7, 65.4)` and not for above-the-break positions, and each active axis assigns 16 unique shot references across current plus closed projects
 - **Displayed court geometry:** targeted spread/arc check — PASS on 2026-06-22; each active axis spans roughly 80% of the court, shot pools have no overflow, and inside-the-arc displayed dots have zero three-point-zone mismatches
-- **Shot embed coverage:** `pnpm shot-embeds` — PASS on 2026-06-23; all 45 Historic Shot Clip entries have quality-gated YouTube provider data
-- **45/45 shot target:** `pnpm shot-embeds:target` — PASS on 2026-06-23; current score is 45/45 quality-gated clips
+- **Shot embed coverage:** `pnpm shot-embeds` — PASS on 2026-06-23; all 45 Historic Shot Clip entries have quality-gated YouTube provider data and explicit compact clip windows
+- **45/45 shot target:** `pnpm shot-embeds:target` — PASS on 2026-06-23; current score is 45/45 quality-gated clips with no missing YouTube timing and no YouTube window longer than 38 seconds
 - **YouTube oEmbed validation:** live YouTube oEmbed check for all 45 registered IDs — PASS on 2026-06-23; dead legacy IDs and several broad sources were replaced with oEmbed-accessible shorter clips
-- **Historic Shot Clip autoplay/timing:** local Browser smoke on `/projects` — PASS on 2026-06-23; opening the Soundscape marker produced a YouTube iframe with `autoplay=1`, `mute=1`, `start=0`, `end=45`, and iframe autoplay permission; broader clips now use explicit configured windows
-- **Terrace Impact clip timing:** local Browser smoke on `/projects` — PASS on 2026-06-23; opening Terrace on the default Impact axis produced the LeBron iframe `JYmejM38vKs` with `start=112` and `end=154`
+- **Historic Shot Clip autoplay/timing:** local Browser smoke on `/projects` — PASS on 2026-06-23; opening the Soundscape marker produced a YouTube iframe with `autoplay=1`, `mute=1`, and iframe autoplay permission; all YouTube clips now resolve from explicit compact `start` and `end` windows
+- **Terrace Impact clip timing:** parameter verification — PASS on 2026-06-23; the LeBron iframe `JYmejM38vKs` is now configured with absolute YouTube seconds `start=26` and `end=48`, matching the compact shot-and-replay methodology
 - **Full shot timing scan:** live YouTube duration metadata scan for all 45 clips — PASS on 2026-06-23; no long clips remain without explicit start/end timing decisions
 - **Local browser smoke:** `/projects` in the in-app Browser — PASS on 2026-06-23; opening the Soundscape court marker showed the Historic Shot Clip module with one provider-generated YouTube iframe URL
 - **Deploy tooling:** `pnpm netlify:cli -- --version`, `pnpm netlify:status`, and `pnpm deploy:status` missing-env behavior — PASS on 2026-06-22; live deploy lookup still requires `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`

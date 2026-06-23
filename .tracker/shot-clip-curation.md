@@ -6,11 +6,13 @@ Run `pnpm shot-embeds` to see current coverage. Run `pnpm shot-embeds:target` to
 
 Current score: `45/45` quality-gated YouTube clips as of June 23, 2026. Every provider ID also passed a live YouTube oEmbed check in this environment.
 
-The portfolio modal autoplays clips muted when a project opens. YouTube clips default to a 45-second window from the configured `start` time so broad highlight or full-game sources do not continue as full videos.
+The portfolio modal autoplays clips muted when a project opens. Every YouTube clip must carry explicit `start` and `end` seconds; there is no default timing fallback for reviewed clips.
 
-June 23 timing pass: direct YouTube navigation in the in-app Browser remains blocked by Browser policy, so timing was tuned from YouTube search metadata, live oEmbed checks, shorter replacement sources, and local `/projects` iframe-parameter smoke tests. Several broad or full-game sources were replaced with shorter exact-shot clips; remaining broad sources now carry explicit `start` and `end` windows where a better short source was not available.
+June 23 timing pass: direct YouTube navigation in the in-app Browser remains blocked by Browser policy, so timing was tuned from YouTube search metadata, live oEmbed checks, shorter replacement sources, user-observed playback offsets, and local `/projects` iframe-parameter smoke tests. Several broad or full-game sources were replaced with shorter exact-shot clips; remaining broad sources now carry explicit `start` and `end` windows where a better short source was not available.
 
-June 23 Terrace Impact fix: `lebron-pacers-2018` now starts at `112` and ends at `154` so the Terrace impact-axis modal opens on the game-winning shot possession instead of the preceding block.
+June 23 Terrace Impact correction: `lebron-pacers-2018` uses absolute YouTube embed seconds and now starts at `26` and ends at `48`. The timing method is a compact shot-and-replay window: begin a few seconds before the relevant possession, include the make and first replay, then stop before broader aftermath or commentary.
+
+June 23 compact-window scan: all 45 Historic Shot Clips were scanned for effective embed duration. Every YouTube clip now has explicit `start` and `end` seconds, long windows were reduced to `12-38` seconds depending on whether the named moment is a single shot or short sequence, and `pnpm shot-embeds:target` now fails any missing or overlong YouTube window.
 
 June 23 full timing scan: live YouTube duration metadata flagged long clips without explicit timing decisions. Replaced broad sources for Trae Young, Robert Horry, Kevin Durant 2017, Ja Morant, Donovan Mitchell, Devin Booker 2021, Kevin Durant 2021, Kawhi Leonard 2021, and Tony Parker with shorter oEmbed-valid clips. Added explicit `start: 0` plus `end` windows where the shot intentionally starts at the beginning of a longer replay package.
 
