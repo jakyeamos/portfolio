@@ -80,6 +80,7 @@ type HistoricShotZone =
   | 'rightCorner'
   | 'leftBaselineWing'
   | 'aboveBreak'
+  | 'rim'
   | 'midrange';
 
 const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
@@ -625,6 +626,103 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       source: 'NBA on YouTube',
     },
   ],
+  rim: [
+    {
+      id: 'edwards-collins-2024',
+      player: 'Anthony Edwards',
+      moment: '2024 poster dunk over John Collins',
+      zone: 'Rim poster',
+      note: 'A rim-pressure finish with real lift, contact, and immediate force.',
+      embed: {
+        provider: 'youtube',
+        id: 'H7Wz8GnQYPs',
+        start: 0,
+        end: 35,
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Verified replacement rim-pool source starts on Edwards live setup before the John Collins poster.',
+      },
+      source: 'YouTube',
+    },
+    {
+      id: 'carter-weis-2000',
+      player: 'Vince Carter',
+      moment: '2000 Olympic dunk over Frederic Weis',
+      zone: 'Rim poster',
+      note: 'A historic above-the-rim finish where the whole play is the point of impact.',
+      embed: {
+        provider: 'youtube',
+        id: 'WihbbVEmppI',
+        start: 0,
+        end: 35,
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Olympics source starts on the live possession before Carter attacks the rim over Weis.',
+      },
+      source: 'Olympics on YouTube',
+    },
+    {
+      id: 'morant-wolves-2022-dunk',
+      player: 'Ja Morant',
+      moment: '2022 playoff poster dunk vs Minnesota',
+      zone: 'Rim attack',
+      note: 'A downhill explosion that maps cleanly to dunk-range court pressure.',
+      embed: {
+        provider: 'youtube',
+        id: 'zDOF56D0yo4',
+        start: 0,
+        end: 35,
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA source starts on the live setup before Morant attacks the rim against Minnesota.',
+      },
+      source: 'NBA on YouTube',
+    },
+    {
+      id: 'giannis-suns-2021-oop',
+      player: 'Giannis Antetokounmpo',
+      moment: '2021 Finals alley-oop seal vs Phoenix',
+      zone: 'Rim alley-oop',
+      note: 'A vertical finish where timing, force, and scale are all visible at the rim.',
+      embed: {
+        provider: 'youtube',
+        id: 'In3yIwP0NgU',
+        start: 0,
+        end: 35,
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA source starts on the steal and live transition sequence before the Giannis alley-oop.',
+      },
+      source: 'NBA on YouTube',
+    },
+    {
+      id: 'lebron-celtics-2012-oop',
+      player: 'LeBron James',
+      moment: 'monster alley-oop slam vs Boston',
+      zone: 'Rim alley-oop',
+      note: 'A violent rim finish that gives the dunk pool another same-zone backup.',
+      embed: {
+        provider: 'youtube',
+        id: 'fm_t6OfBF7Y',
+        start: 0,
+        end: 32,
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA source starts on the live setup before LeBron catches the alley-oop against Boston.',
+      },
+      source: 'NBA on YouTube',
+    },
+  ],
   midrange: [
     {
       id: 'jordan-jazz-1998',
@@ -1030,7 +1128,9 @@ function getHistoricShotZone(point: CourtPoint): HistoricShotZone {
   const isOutsideArc = isOutsideThreePointLine(point);
   const isDeep = point.top <= 30;
   const isCornerDepth = point.top >= 62;
+  const isRimRange = point.top >= 82 && point.left >= 34 && point.left <= 66;
 
+  if (isRimRange) return 'rim';
   if (!isOutsideArc) return 'midrange';
   if (isCornerDepth && point.left >= 84) return 'rightCorner';
   if (isCornerDepth && point.left <= 16) return 'leftBaselineWing';

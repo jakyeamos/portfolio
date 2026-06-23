@@ -99,12 +99,13 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 23: Added a `/blog` route, top/side-nav entries, and an initial TMCP concept note so protocol/tooling ideas can get long-form explanation without being forced into the project tracker
 - June 23: Updated the former Amos SaaS portfolio entry and tracker map to BidCamp, pointing sync at `/Users/jakyeamos/projects/BidCamp/.tracker/PROJECT_TRUTH.md`
 - June 23: Replaced the one-off TMCP crosspost-channel card with an owner writer route at `/blog/write`, including destination checkboxes and generated markdown/publish-plan output for future GitHub/BIP automation
+- June 23: Added a dedicated Historic Shot Clip rim zone with a poster-heavy dunk pool led by Anthony Edwards over John Collins, preventing centered dunk-range dots such as Dispatches on Impact/Difficulty/Ambition from falling through to midrange clips
 
 ## Open Problems
 
 - RemodelVision's tracker truth source is portfolio-local rather than stored in the sibling RemodelVision repo because this automation environment can only write inside the portfolio workspace
 - Ignored draft and binary assets still live beside the source tree; repo hygiene is acceptable, but long-term placement should be clarified
-- Historic Shot Clip has 45/45 quality-gated clips, a live same-zone backup inventory, visually audited timing, and no active replacement watchlist as of June 23, 2026
+- Historic Shot Clip has 50/50 quality-gated clips, a live same-zone backup inventory, visually audited timing, and no active replacement watchlist as of June 23, 2026
 - No automated test suite is configured, so regression confidence still depends on type/build checks and manual verification
 
 ## Next Concrete Steps
@@ -131,9 +132,9 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Blog writer QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/blog` plus `/blog/write` — PASS on 2026-06-23; the old crosspost-channel card was removed, the Write CTA navigated to `/blog/write`, destination checkboxes rendered for Portfolio, FRMWRK Labs, Twitter, and BIP queue, checking FRMWRK/Twitter updated generated markdown and the publish plan, there were no console warnings/errors or framework overlay, and mobile avoided horizontal overflow at 390px width
 - **Shot-zone math:** targeted coordinate classification and uniqueness checks — PASS on 2026-06-22; Ray Allen `rightCorner` assignment appears only for `pre-cr-suite` on Ambition at `(84.7, 65.4)` and not for above-the-break positions, and each active axis assigns 16 unique shot references across current plus closed projects
 - **Displayed court geometry:** targeted spread/arc check — PASS on 2026-06-22; each active axis spans roughly 80% of the court, shot pools have no overflow, and inside-the-arc displayed dots have zero three-point-zone mismatches
-- **Shot embed coverage:** `pnpm shot-embeds` — PASS on 2026-06-23; all 45 Historic Shot Clip entries have quality-gated YouTube provider data and explicit compact clip windows
-- **45/45 shot target:** `pnpm shot-embeds:target` — PASS on 2026-06-23; current score is 45/45 quality-gated clips with no missing YouTube timing, no YouTube window longer than 38 seconds, and zero same-axis visible assignment duplicates
-- **Shot backup inventory:** `pnpm shot-inventory` — PASS on 2026-06-23; command prints assigned and backup clip IDs by scouting axis and court zone from the live registry
+- **Shot embed coverage:** `pnpm shot-embeds` — PASS on 2026-06-23; all 50 Historic Shot Clip entries have quality-gated YouTube provider data and explicit compact clip windows
+- **50/50 shot target:** `pnpm shot-embeds:target` — PASS on 2026-06-23; current score is 50/50 quality-gated clips with no missing YouTube timing, no YouTube window longer than 38 seconds, zero same-axis visible assignment duplicates, and zero rim-range zone mismatches
+- **Shot backup inventory:** `pnpm shot-inventory` — PASS on 2026-06-23; command prints assigned and backup clip IDs by scouting axis and court zone from the live registry, including the new rim pool
 - **YouTube oEmbed validation:** live YouTube oEmbed check for all 45 registered IDs — PASS on 2026-06-23; dead legacy IDs and several broad sources were replaced with oEmbed-accessible shorter clips
 - **Historic Shot Clip autoplay/timing:** local Browser smoke on `/projects` — PASS on 2026-06-23; opening the Soundscape marker produced a YouTube iframe with `autoplay=1`, `mute=1`, and iframe autoplay permission; all YouTube clips now resolve from explicit compact `start` and `end` windows
 - **Terrace Impact clip timing:** parameter verification — PASS on 2026-06-23; the LeBron iframe `JYmejM38vKs` is now configured with absolute YouTube seconds `start=26` and `end=48`, matching the compact shot-and-replay methodology

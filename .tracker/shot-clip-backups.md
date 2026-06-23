@@ -23,7 +23,7 @@ Rules for using backups:
 
 Current baseline as of June 23, 2026:
 
-- Registry: `45/45` quality-gated YouTube clips.
+- Registry: `50/50` quality-gated YouTube clips.
 - Visible assignment audit: `0` same-axis duplicate clips.
 - Window audit: no missing timing and no YouTube window over `38` seconds.
-
+- Rim-zone audit: no centered dunk-range point may fall through to the midrange pool.

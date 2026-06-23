@@ -1,11 +1,11 @@
 # Historic Shot Clip Curation
 
-Target: `45/45` quality-gated provider clips.
+Target: `50/50` quality-gated provider clips.
 
-Run `pnpm shot-embeds` to see current coverage. Run `pnpm shot-embeds:target` to enforce the full `45/45` target.
+Run `pnpm shot-embeds` to see current coverage. Run `pnpm shot-embeds:target` to enforce the full `50/50` target.
 Run `pnpm shot-inventory` to list assigned clips and same-zone backup clips by scouting axis.
 
-Current score: `45/45` quality-gated YouTube clips as of June 23, 2026. Every provider ID also passed a live YouTube oEmbed check in this environment.
+Current score: `50/50` quality-gated YouTube clips as of June 23, 2026. Every provider ID also passed a live YouTube oEmbed check in this environment before the rim-pool expansion, and the five new rim-pool IDs were visually sampled through `/shot-review.html`.
 
 The portfolio modal autoplays clips muted when a project opens. Every YouTube clip must carry explicit `start` and `end` seconds; there is no default timing fallback for reviewed clips.
 
@@ -22,6 +22,8 @@ June 23 backup inventory: `.tracker/shot-clip-backups.md` documents the workflow
 June 23 browser visual audit: `/shot-review.html` was used to load all 45 configured clips through the real YouTube iframe and capture the visible start frame for each window. This caught issues the duration gate could not see: intro cards, studio packages, full-game timestamps, broad highlight reels, and iframe restrictions. Same-source timing was corrected for `lillard-rockets-2014`, `allen-spurs-2013`, `tatum-sixers-2023`, `paul-spurs-2015`, `butler-bucks-2023`, and `edwards-nuggets-2024`.
 
 June 23 replacement pass: the browser review workflow replaced the remaining weak watchlist entries with verified tighter embeds. Replacements were applied for Kerr, Kobe, Booker 2021, Luka, Fox, Pierce, Garnett, Carmelo, Chris Paul 2021, Shai, and Wade. Some entries now use cleaner same-zone moments rather than preserving the old broad-package moment label.
+
+June 23 rim-pool expansion: centered dunk-range dots now map to a dedicated `rim` zone instead of falling through to `midrange`. The new pool prioritizes poster and vertical-impact clips, led by Anthony Edwards over John Collins, with Vince Carter over Frederic Weis, Ja Morant vs Minnesota, Giannis' Finals alley-oop, and a LeBron alley-oop as same-zone inventory.
 
 ## Quality Gate
 

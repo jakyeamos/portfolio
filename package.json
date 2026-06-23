@@ -14,7 +14,7 @@
     "prelint": "pnpm sync",
     "sync": "node scripts/sync-tracker.mjs",
     "shot-embeds": "node scripts/check-shot-embeds.mjs",
-    "shot-embeds:target": "node scripts/check-shot-embeds.mjs --target=45",
+    "shot-embeds:target": "node scripts/check-shot-embeds.mjs --target=50",
     "shot-inventory": "node scripts/check-shot-embeds.mjs --inventory",
     "deploy:status": "node scripts/netlify-deploy-status.mjs",
     "netlify:cli": "node scripts/netlify-cli.mjs",

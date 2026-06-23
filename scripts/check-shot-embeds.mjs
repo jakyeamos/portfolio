@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 
 const source = readFileSync(new URL('../src/pages/CurrentProjects.tsx', import.meta.url), 'utf8');
 const projectSource = readFileSync(new URL('../src/content/currentProjects.ts', import.meta.url), 'utf8');
-const strictTarget = process.argv.includes('--target=45');
+const strictTarget = process.argv.some((arg) => arg.startsWith('--target='));
 const showInventory = process.argv.includes('--inventory');
 const youtubeIdPattern = /^[\w-]{11}$/;
 const vimeoIdPattern = /^\d+$/;
@@ -95,6 +95,7 @@ for (const shot of shots) {
 const verified = shots.length - missing.length - unverified.length;
 const shotIdsByZone = Map.groupBy(shots, (shot) => shot.zone);
 const assignmentDuplicates = findAssignmentDuplicates();
+const rimRangeMismatches = findRimRangeMismatches();
 const providerSummary = [...providers.entries()]
   .sort(([left], [right]) => left.localeCompare(right))
   .map(([provider, count]) => `${provider}=${count}`)
@@ -103,6 +104,7 @@ const providerSummary = [...providers.entries()]
 console.log(`Historic shots: ${verified}/${shots.length} have quality-gated provider clips.`);
 console.log(`Providers: ${providerSummary || 'none'}`);
 console.log(`Assignment duplicates: ${assignmentDuplicates.length}`);
+console.log(`Rim-range zone mismatches: ${rimRangeMismatches.length}`);
 
 if (showInventory) printAssignmentInventory();
 
@@ -126,6 +128,11 @@ if (assignmentDuplicates.length > 0) {
   for (const item of assignmentDuplicates) console.error(`- ${item}`);
 }
 
+if (rimRangeMismatches.length > 0) {
+  console.error(`Rim-range assignment mismatches: ${rimRangeMismatches.length}`);
+  for (const item of rimRangeMismatches) console.error(`- ${item}`);
+}
+
 if (zonesWithoutEmbeds.size > 0) {
   console.error(`Zones without any clip source: ${[...zonesWithoutEmbeds].join(', ')}`);
 }
@@ -137,6 +144,7 @@ if (strictTarget && verified !== shots.length) {
 if (
   invalid.length > 0
   || assignmentDuplicates.length > 0
+  || rimRangeMismatches.length > 0
   || zonesWithoutEmbeds.size > 0
   || (strictTarget && verified !== shots.length)
 ) process.exit(1);
@@ -247,7 +255,9 @@ function getHistoricShotZone(point) {
     : point.top <= getThreePointArcTop(point.left);
   const isDeep = point.top <= 30;
   const isCornerDepth = point.top >= 62;
+  const isRimRange = point.top >= 82 && point.left >= 34 && point.left <= 66;
 
+  if (isRimRange) return 'rim';
   if (!isOutsideArc) return 'midrange';
   if (isCornerDepth && point.left >= 84) return 'rightCorner';
   if (isCornerDepth && point.left <= 16) return 'leftBaselineWing';
@@ -315,6 +325,18 @@ function findAssignmentDuplicates() {
   return duplicates;
 }
 
+function isRimRange(point) {
+  return point.top >= 82 && point.left >= 34 && point.left <= 66;
+}
+
+function findRimRangeMismatches() {
+  return axes.flatMap((axis) =>
+    getAssignmentRows(axis)
+      .filter((row) => isRimRange(row.point) && row.zone !== 'rim')
+      .map((row) => `${axis}/${row.project} at ${row.point.left.toFixed(1)},${row.point.top.toFixed(1)} assigned ${row.zone}/${row.shotId}; expected rim`),
+  );
+}
+
 function getAssignmentRows(axis) {
   const currentStart = projectSource.indexOf('export const CURRENT_PROJECTS');
   const closedStart = projectSource.indexOf('export const CLOSED_PROJECTS');
@@ -334,13 +356,13 @@ function getAssignmentRows(axis) {
   for (const item of currentLayout) {
     const assignment = assignShot(item.project, item.point, currentLayout);
     currentShotIds.add(assignment.shotId);
-    rows.push({ axis, project: item.project.slug, scope: 'current', ...assignment });
+    rows.push({ axis, project: item.project.slug, scope: 'current', point: item.point, ...assignment });
   }
 
   for (const project of closedProjects) {
     const item = allLayout.find((candidate) => candidate.project.slug === project.slug);
     if (!item) continue;
-    rows.push({ axis, project: item.project.slug, scope: 'closed', ...assignShot(item.project, item.point, allLayout, currentShotIds) });
+    rows.push({ axis, project: item.project.slug, scope: 'closed', point: item.point, ...assignShot(item.project, item.point, allLayout, currentShotIds) });
   }
 
   return rows;
