@@ -47,6 +47,8 @@ The current-project court UI now uses a meaningful matrix rather than a decorati
 
 The homepage now promotes the latest active project work before the feature-report grid through a "Now Playing" strip sourced from `CURRENT_PROJECTS`, sorted by `lastUpdated`, and linked to the live projects board. This gives recent AI/workflow/product builds first-page presence without duplicating tracker content by hand.
 
+The Film Room now has a small "New Signals" surface: TMCP is mentioned as a concept-watch item rather than a scored tracker project, and recent website launches for Chiron's Forge and FRMWRK Labs are linked from the page. Chiron's Forge is described from its live site; FRMWRK Labs is intentionally link-forward only until the site is reachable for source-backed copy.
+
 ## Why This Matters / Intended Outcome
 
 This is the primary public-facing artifact for career opportunities. It needs to stay live, accurate, and easy to maintain from `main`.
@@ -89,6 +91,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 23: Removed same-axis Historic Shot Clip reuse by making shipped-project assignments skip clips already used by the current board while staying inside the same court zone; `pnpm shot-embeds:target` now fails visible assignment duplicates
 - June 23: Added `pnpm shot-inventory` plus `.tracker/shot-clip-backups.md` so future projects can use existing same-zone backup clips before doing new clip research
 - June 23: Added a homepage "Now Playing" section that surfaces the four most recently updated current projects with tracker score, status, date, and scout take, then links into the live project board
+- June 23: Added Film Room mentions for TMCP as a concept-watch item and new website launches for Chiron's Forge and FRMWRK Labs without promoting TMCP into the scored project tracker
 
 ## Open Problems
 
@@ -116,6 +119,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Types:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-22
 - **Build:** `pnpm build` — PASS on 2026-06-22
 - **Homepage Now Playing QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/` — PASS on 2026-06-23; the new homepage section rendered, showed current-project cards from synced tracker data, had no console warnings/errors or framework overlay, avoided mobile horizontal overflow at 390px width, and the "Open live board" link navigated to `/projects`
+- **Film Room New Signals QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/film-room` — PASS on 2026-06-23; TMCP, Chiron's Forge, and FRMWRK Labs rendered, the two website links were present with external URLs, there were no console warnings/errors or framework overlay, and the new section avoided mobile horizontal overflow at 390px width
 - **Shot-zone math:** targeted coordinate classification and uniqueness checks — PASS on 2026-06-22; Ray Allen `rightCorner` assignment appears only for `pre-cr-suite` on Ambition at `(84.7, 65.4)` and not for above-the-break positions, and each active axis assigns 16 unique shot references across current plus closed projects
 - **Displayed court geometry:** targeted spread/arc check — PASS on 2026-06-22; each active axis spans roughly 80% of the court, shot pools have no overflow, and inside-the-arc displayed dots have zero three-point-zone mismatches
 - **Shot embed coverage:** `pnpm shot-embeds` — PASS on 2026-06-23; all 45 Historic Shot Clip entries have quality-gated YouTube provider data and explicit compact clip windows

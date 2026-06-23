@@ -60,6 +60,19 @@ export interface PlayerComp {
   media: PosterMediaAsset;
 }
 
+export interface WebsiteLaunch {
+  title: string;
+  href: string;
+  label: string;
+  copy: string;
+}
+
+export interface ConceptNote {
+  title: string;
+  label: string;
+  copy: string;
+}
+
 export const SITE_META = {
   name: 'Jakye Amos',
   brand: 'Front Office // Amos',
@@ -387,6 +400,29 @@ export const BENCH_PROJECTS = [
     kicker: 'Spec discipline',
     title: 'Terrace',
     copy: 'Spec-driven, test-governed framework designed to make AI-assisted development more structured and less improv-heavy.',
+  },
+] as const;
+
+export const CONCEPT_NOTES: readonly ConceptNote[] = [
+  {
+    label: 'Concept watch',
+    title: 'TMCP',
+    copy: 'Not a formal project-board entry yet, but worth calling out as a high-upside protocol/tooling concept in the same AI-workflow lane as AIOS and Terrace.',
+  },
+] as const;
+
+export const WEBSITE_LAUNCHES: readonly WebsiteLaunch[] = [
+  {
+    label: 'Live website',
+    title: "Chiron's Forge",
+    href: 'https://www.chironsforge.com/',
+    copy: 'Multi-AI research pipeline that turns raw intent into expert AI skills, research reports, and Cursor rules, with an independent judge/refinement loop before delivery.',
+  },
+  {
+    label: 'Live website',
+    title: 'FRMWRK Labs',
+    href: 'https://www.frmwrklabs.com/',
+    copy: 'New website launch in the portfolio orbit. The live site was unavailable during this edit, so the portfolio keeps the mention link-forward without adding unsupported product claims.',
   },
 ] as const;
 

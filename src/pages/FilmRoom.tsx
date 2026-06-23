@@ -1,8 +1,13 @@
 import { type ReactElement, useState } from 'react';
-import { ArrowRight, ClipboardList, Eye, RadioTower, Sparkles, Wrench } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, ClipboardList, Eye, Sparkles, Wrench } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import EditorialPoster from '@/components/EditorialPoster';
-import { BENCH_PROJECTS, FILM_ROOM_PROJECTS, MISSING_PROJECT_PACKETS } from '@/content/portfolioContent';
+import {
+  BENCH_PROJECTS,
+  CONCEPT_NOTES,
+  FILM_ROOM_PROJECTS,
+  WEBSITE_LAUNCHES,
+} from '@/content/portfolioContent';
 
 const BREAKDOWN_LABELS = [
   { icon: ClipboardList, label: 'Situation', key: 'situation' },
@@ -180,6 +185,64 @@ export default function FilmRoom(): ReactElement {
               ))}
             </div>
           </article>
+
+          <aside className="grid gap-6">
+            <article className="editorial-card p-6">
+              <div className="section-kicker">Concept Watch</div>
+              <h2 className="mt-4 text-3xl font-black uppercase leading-none tracking-tight text-[color:var(--color-ink)]">
+                Cool ideas that are not tracker projects yet.
+              </h2>
+              <div className="mt-5 grid gap-4">
+                {CONCEPT_NOTES.map((concept) => (
+                  <article
+                    key={concept.title}
+                    className="border border-[color:var(--color-line)] bg-white p-5"
+                  >
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--color-primary)]">
+                      {concept.label}
+                    </div>
+                    <h3 className="mt-3 text-2xl font-black uppercase leading-none tracking-tight text-[color:var(--color-ink)]">
+                      {concept.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
+                      {concept.copy}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </article>
+
+            <article className="editorial-card p-6">
+              <div className="section-kicker">New Websites</div>
+              <div className="mt-5 grid gap-4">
+                {WEBSITE_LAUNCHES.map((site) => (
+                  <a
+                    key={site.href}
+                    href={site.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group block border border-[color:var(--color-line)] bg-white p-5 hover:-translate-y-1 hover:border-[color:var(--color-primary)] hover:shadow-[0_14px_30px_rgba(16,28,44,0.08)]"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--color-primary)]">
+                        {site.label}
+                      </div>
+                      <ArrowUpRight
+                        size={16}
+                        className="shrink-0 text-[color:var(--color-ink-soft)] transition group-hover:text-[color:var(--color-primary)]"
+                      />
+                    </div>
+                    <h3 className="mt-3 text-2xl font-black uppercase leading-none tracking-tight text-[color:var(--color-ink)] transition group-hover:text-[color:var(--color-primary)]">
+                      {site.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
+                      {site.copy}
+                    </p>
+                  </a>
+                ))}
+              </div>
+            </article>
+          </aside>
         </section>
       </main>
     </div>
