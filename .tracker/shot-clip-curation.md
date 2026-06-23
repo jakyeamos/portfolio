@@ -41,6 +41,13 @@ Manual timing review should use this process:
 - Set `end` after the make and first useful replay, before broader commentary or highlight runoff.
 - Add the observed start time to `quality.note` for any clip corrected from playback.
 
+Local review workflow:
+
+- Run `pnpm dev`.
+- Open `/shot-review.html?id=<youtubeId>&start=<seconds>&end=<seconds>`.
+- Use the embedded player for fast start/end checks.
+- Use the "Open watch page" link when YouTube serves preroll ads or when direct YouTube frame review is needed.
+
 ## Replacement Watchlist
 
 These clips are playable and quality-gated, but they are broader highlight, full-game, or nonofficial YouTube sources. Replace them later if a cleaner official single-shot clip is found:
