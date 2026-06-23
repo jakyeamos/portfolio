@@ -91,12 +91,12 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A long-range confidence shot from the same high-upside territory.',
       embed: {
         provider: 'youtube',
-        id: 'a-M3x-eZpV8',
+        id: 'HMm5NtXLVDY',
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'Direct clip source for Lillard OKC 2019 shot.',
+        note: 'NBA channel result titled for Lillard epic game-winner against OKC.',
       },
       source: 'NBA on YouTube',
     },
@@ -106,7 +106,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2014 series clincher vs Houston',
       zone: 'Left wing three',
       note: 'A clean catch-and-fire ending from the left side of the floor.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'mejFtEY5faU',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel result titled for Lillard game winner over Houston.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'luka-clippers-2020',
@@ -114,7 +123,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2020 bubble winner vs LA Clippers',
       zone: 'Left wing stepback',
       note: 'A left-wing creation shot under playoff pressure.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'Mz3TBKrBp5M',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel every-angle result for Doncic Game 4 OT buzzer-beater.',
+      },
+      source: 'NBA on YouTube',
     },
   ],
   deepTop: [
@@ -141,7 +159,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2021 playoff silencer at Madison Square Garden',
       zone: 'High slot floater',
       note: 'A high-floor pressure shot with the whole arena leaning on it.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'QjDX-s30W3o',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'ESPN result covers Trae quieting Madison Square Garden in the 2021 playoffs.',
+      },
+      source: 'ESPN on YouTube',
     },
     {
       id: 'curry-france-2024',
@@ -149,7 +176,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2024 gold-medal dagger vs France',
       zone: 'Deep top pull-up',
       note: 'A late-clock distance shot that turned difficulty into separation.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: '2EnWmXE4ZPs',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Olympics result covers Team USA gold-medal game against France.',
+      },
+      source: 'Olympics on YouTube',
     },
   ],
   rightCorner: [
@@ -177,7 +213,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '1997 Finals Game 6 winner',
       zone: 'Right slot release',
       note: 'A trust-the-system shot: small window, huge consequence.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'nJgPKeMOL-s',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel result titled for Kerr game-winner against Utah in 1997.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'horry-kings-2002',
@@ -185,7 +230,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2002 Western Finals Game 4 winner',
       zone: 'Right-side three',
       note: 'A scramble-possession three where spacing and readiness mattered.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'oaDi_HR7bT4',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA on ESPN result titled for Horry buzzer-beater against Sacramento.',
+      },
+      source: 'NBA on ESPN',
     },
   ],
   leftBaselineWing: [
@@ -197,12 +251,12 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A high-arc shot from a tight angle with real consequence.',
       embed: {
         provider: 'youtube',
-        id: 'ChT3ewZXTfM',
+        id: '75iExVNvrWw',
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'Direct clip source for Leonard Sixers 2019 shot.',
+        note: 'NBA channel result titled for Kawhi winning the series at the buzzer.',
       },
       source: 'NBA on YouTube',
     },
@@ -212,7 +266,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2004 0.4-second winner vs San Antonio',
       zone: 'Left baseline catch',
       note: 'A near-impossible release from the baseline side.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'p-u4pIQyjfE',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel result titled for Fisher 0.4-second game winner.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'booker-clippers-2020',
@@ -220,7 +283,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2020 bubble winner vs LA Clippers',
       zone: 'Left baseline fade',
       note: 'A contested baseline touch shot with no clean landing space.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: '0mU-bEOPujM',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel every-angle result for Booker bubble buzzer-beater against the Clippers.',
+      },
+      source: 'NBA on YouTube',
     },
   ],
   aboveBreak: [
@@ -232,14 +304,14 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       note: 'A late-clock launch: direct, decisive, and built on pressure.',
       embed: {
         provider: 'youtube',
-        id: '2XWgRpfkxhY',
+        id: 'JYmejM38vKs',
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'Direct clip source for LeBron Pacers 2018 shot.',
+        note: 'ESPN result shows the block-to-game-winning-three sequence against Indiana.',
       },
-      source: 'NBA on YouTube',
+      source: 'ESPN on YouTube',
     },
     {
       id: 'kyrie-warriors-2016',
@@ -247,7 +319,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2016 Finals Game 7 go-ahead three',
       zone: 'Right wing above the break',
       note: 'A high-skill isolation three with the title hanging on the possession.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'fZ8yCJgsF_4',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel result titled for Kyrie clutch three in Game 7 of the 2016 Finals.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'durant-cavs-2017',
@@ -255,7 +336,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2017 Finals Game 3 pull-up',
       zone: 'Left slot above the break',
       note: 'A transition pull-up that rewarded full-court ambition.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'mAfoOtkc4cs',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel result covers Durant big Game 3 three and clutch fourth-quarter sequence.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'tatum-sixers-2023',
@@ -263,7 +353,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2023 Game 6 late three vs Philadelphia',
       zone: 'Left wing above the break',
       note: 'A cold-stretch breaker that kept the whole series alive.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'NLOJvl98SwQ',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel result covers Tatum fourth-quarter Game 6 run against Philadelphia.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'murray-lakers-2024',
@@ -271,7 +370,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2024 playoff winner vs Lakers',
       zone: 'Right wing pull-up',
       note: 'A rhythm pull-up from the wing after a full-game pressure build.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'T3xk9vay5tE',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel result titled for Murray game-winner against the Lakers on April 29, 2024.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'haliburton-knicks-2025',
@@ -279,7 +387,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2025 playoff four-point play vs New York',
       zone: 'Top-side pull-up',
       note: 'A modern shot-profile swing: space, nerve, and instant leverage.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'XxSr2nArxkA',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel result covers the Pacers Game 1 comeback against New York.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'wade-warriors-2019',
@@ -287,7 +404,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2019 one-legged bank winner vs Golden State',
       zone: 'High right wing',
       note: 'A broken-play heave that turned improvisation into a highlight.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'lm1wzEL8FZY',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel result titled for Wade buzzer-beater against Golden State.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'morant-wolves-2022',
@@ -295,7 +421,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2022 Game 5 winner vs Minnesota',
       zone: 'High lane attack',
       note: 'A downhill late-clock finish from above the break into the paint.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'QbXuHPdGCbI',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel result titled for Morant 30-point Game 5 with game-winner.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'reggie-knicks-1995',
@@ -303,7 +438,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '1995 eight-points-in-nine-seconds three',
       zone: 'Above-the-break three',
       note: 'A pressure swing shot where momentum flipped instantly.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'MRLysMEHokI',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Indiana Pacers result contains Miller complete eight-points-in-nine-seconds sequence.',
+      },
+      source: 'Indiana Pacers on YouTube',
     },
     {
       id: 'paul-spurs-2015',
@@ -311,7 +455,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2015 Game 7 winner vs San Antonio',
       zone: 'High right lane',
       note: 'A one-legged high-angle shot over elite defense.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'xb95YLw1bns',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel result titled for Chris Paul heroics in Game 7 against San Antonio.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'luka-celtics-2025',
@@ -319,7 +472,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: 'Late-clock stepback from the high slot',
       zone: 'High slot stepback',
       note: 'A shot profile built on size, patience, and impossible timing.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: '1as8JsjQrF0',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'ESPN Signature Shots source for Doncic stepback shot profile.',
+      },
+      source: 'ESPN on YouTube',
     },
     {
       id: 'fox-warriors-2023',
@@ -327,7 +489,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2023 playoff pull-up pressure three',
       zone: 'High right slot',
       note: 'A pace-changing guard shot from the modern playoff map.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'B7wuI0dnK1M',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel Game 4 guard-battle clip for Fox playoff shot-making against Golden State.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'mitchell-nuggets-2020',
@@ -335,7 +506,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2020 bubble scoring-run pull-up',
       zone: 'Top wing pull-up',
       note: 'A shot from the zone where scoring bursts start to feel inevitable.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'qP5YMqKNHnM',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'ESPN playoff highlight source for Mitchell scoring run against Denver.',
+      },
+      source: 'ESPN on YouTube',
     },
     {
       id: 'booker-suns-2021',
@@ -343,7 +523,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2021 playoff pull-up dagger',
       zone: 'Above-the-break pull-up',
       note: 'A clean scorer shot from the first layer above the arc.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'PuuDPaTZbmk',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA playoff debut source for Booker playoff shot-making.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'butler-bucks-2023',
@@ -351,7 +540,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2023 playoff late-game bailout vs Milwaukee',
       zone: 'High slot creation',
       note: 'A possession-saving shot built more on nerve than comfort.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'R0d-PK1iI8U',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel uncut end-of-regulation clip for Butler Game 5 against Milwaukee.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'edwards-nuggets-2024',
@@ -359,7 +557,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2024 playoff pull-up pressure shot vs Denver',
       zone: 'Above-the-break pull-up',
       note: 'A modern power-guard shot from the part of the floor where confidence shows first.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'y_EbaSvRh_U',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA Game 1 Denver source for Edwards playoff pull-up scoring.',
+      },
+      source: 'NBA on YouTube',
     },
   ],
   midrange: [
@@ -386,7 +593,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '1989 series winner vs Cleveland',
       zone: 'Left elbow pull-up',
       note: 'The classic rise-and-hang playoff midrange shot.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'a0TKEofio7w',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel result titled for Jordan iconic game-winner in Cleveland.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'kobe-suns-2006',
@@ -394,7 +610,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2006 playoff winner vs Phoenix',
       zone: 'Right elbow pull-up',
       note: 'A two-dribble midrange shot from the league’s hardest comfort zone.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'ACZnF87Iy84',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Playable YouTube source for Kobe game-tying and game-winning shots against Phoenix.',
+      },
+      source: 'YouTube',
     },
     {
       id: 'dirk-heat-2011',
@@ -402,7 +627,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2011 Finals lefty finish vs Miami',
       zone: 'Left lane touch',
       note: 'A high-leverage touch shot from a creator who lived between zones.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: '9k4Li-iT8QU',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel result titled for Dirk game winner against Miami.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'pierce-hawks-2015',
@@ -410,7 +644,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2015 banked winner vs Atlanta',
       zone: 'Left elbow bank',
       note: 'A veteran midrange bank that turned timing into theater.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'KGnTSu0orgc',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel result titled for Pierce banked Game 3 winner.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'garnett-kings-2004',
@@ -418,7 +661,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2004 Game 7 turnaround vs Sacramento',
       zone: 'High-post fade',
       note: 'A big-wing shot from the high post under elimination pressure.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'kLzDbqh_K4k',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA full-game source for Garnett Game 7 dominance against Sacramento.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'durant-bucks-2021',
@@ -426,7 +678,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2021 Game 7 toe-on-line jumper vs Milwaukee',
       zone: 'Left wing long two',
       note: 'A long two so close to three that the geometry became the story.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'iw-O8B6H798',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'ESPN Game 7 source for Durant 48-point performance and toe-on-line jumper.',
+      },
+      source: 'ESPN on YouTube',
     },
     {
       id: 'derozan-raptors-2018',
@@ -434,7 +695,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: 'Late-game footwork jumper from the elbow',
       zone: 'Elbow midrange',
       note: 'A footwork-and-balance shot from a pure midrange specialist.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: '1CIIvmr58sA',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Toronto Raptors result titled for DeRozan clutch jumper.',
+      },
+      source: 'Toronto Raptors on YouTube',
     },
     {
       id: 'anthony-knicks-2012',
@@ -442,7 +712,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: 'Easter double-overtime jumper vs Chicago',
       zone: 'Left wing midrange',
       note: 'A jab-step scorer shot from a wing who made this area dangerous.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'H9neM8by1SQ',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Playable YouTube source for Carmelo clutch threes against Chicago on Easter.',
+      },
+      source: 'YouTube',
     },
     {
       id: 'booker-clippers-2021',
@@ -450,7 +729,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2021 playoff midrange heater vs LA Clippers',
       zone: 'Right elbow pull-up',
       note: 'A polished scorer shot from the pocket between math and craft.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'Tt8Cepx7HqY',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA Game 1 playoff source for Booker 40-point triple-double against the Clippers.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'paul-bucks-2021',
@@ -458,7 +746,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2021 Finals snake-dribble jumper',
       zone: 'Free-throw-line pull-up',
       note: 'A controlled point-guard shot from the center of the floor.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'KhhhrUHMMU4',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Playable YouTube source for Chris Paul midrange takeover sequence in the 2021 Finals.',
+      },
+      source: 'YouTube',
     },
     {
       id: 'shai-nuggets-2025',
@@ -466,7 +763,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: 'Playoff stop-and-rise midrange jumper',
       zone: 'Right lane pull-up',
       note: 'A modern pressure midrange shot built on pace and balance.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'ih2bjlg48YQ',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel Game 4 clip for Gilgeous-Alexander playoff scoring against Denver.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'brunson-sixers-2024',
@@ -474,7 +780,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2024 playoff pull-up run vs Philadelphia',
       zone: 'Left elbow pull-up',
       note: 'A compact guard shot from a playoff series built on counters.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: '782QfcAxH1Q',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel game-winning sequence result featuring Brunson and DiVincenzo against Philadelphia.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'leonard-mavs-2021',
@@ -482,7 +797,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2021 elimination-game midrange run vs Dallas',
       zone: 'Right wing long two',
       note: 'A strength-and-balance shot from one of the best wing creators.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'l_OUvWb9S7o',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel Game 6 road victory clip for Leonard elimination-game shot-making.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'wade-mavericks-2006',
@@ -490,7 +814,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2006 Finals pressure pull-up vs Dallas',
       zone: 'Right lane pull-up',
       note: 'A downhill guard shot from the boundary between paint and midrange.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'S3G_XTLunKA',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'Playable YouTube source for Wade clutch Game 5 performance against Dallas.',
+      },
+      source: 'YouTube',
     },
     {
       id: 'parker-heat-2013',
@@ -498,7 +831,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2013 Finals Game 1 falling jumper',
       zone: 'High lane floater',
       note: 'A balance-breaking shot that used time, angle, and touch.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'c6AKrqv_Yq0',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel result titled for Parker Game 1 buzzer-beater against Miami.',
+      },
+      source: 'NBA on YouTube',
     },
     {
       id: 'rose-cavs-2015',
@@ -506,7 +848,16 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       moment: '2015 banked winner vs Cleveland',
       zone: 'Left wing bank',
       note: 'A sudden midrange-window shot that turned a broken possession into a roar.',
-      source: 'Shot reference',
+      embed: {
+        provider: 'youtube',
+        id: 'wd3mxCQlve4',
+      },
+      quality: {
+        level: 'verified-game-clip',
+        reviewedAt: '2026-06-23',
+        note: 'NBA channel every-angle result for Rose game-winning buzzer-beater.',
+      },
+      source: 'NBA on YouTube',
     },
   ],
 };
