@@ -29,6 +29,18 @@ A clip counts only when all of these are true:
 - It has a provider entry in `src/pages/CurrentProjects.tsx`.
 - It has `quality.level: 'verified-game-clip'`, a `reviewedAt` date, and a short note explaining what was verified.
 
+## Timing Review Method
+
+The automated gate verifies that every YouTube clip has explicit timing, a compact duration, a valid provider ID, and no visible assignment reuse. It does not prove the shot starts on the right frame.
+
+Manual timing review should use this process:
+
+- Open the source video directly in YouTube.
+- Find the first frame where the relevant possession or shot setup starts.
+- Record that absolute YouTube timestamp as `start`.
+- Set `end` after the make and first useful replay, before broader commentary or highlight runoff.
+- Add the observed start time to `quality.note` for any clip corrected from playback.
+
 ## Replacement Watchlist
 
 These clips are playable and quality-gated, but they are broader highlight, full-game, or nonofficial YouTube sources. Replace them later if a cleaner official single-shot clip is found:

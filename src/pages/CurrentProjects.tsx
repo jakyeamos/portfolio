@@ -424,13 +424,13 @@ const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
       embed: {
         provider: 'youtube',
         id: 'XxSr2nArxkA',
-        start: 115,
-        end: 148,
+        start: 91,
+        end: 124,
       },
       quality: {
         level: 'verified-game-clip',
         reviewedAt: '2026-06-23',
-        note: 'NBA channel result covers the Pacers Game 1 comeback against New York.',
+        note: 'NBA channel result covers the Pacers Game 1 comeback against New York; observed shot sequence starts at 1:31.',
       },
       source: 'NBA on YouTube',
     },
