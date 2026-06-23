@@ -1063,6 +1063,10 @@ function getShotEmbedUrl(embed: ShotEmbed): string | null {
       mute: '1',
       start: String(embed.start),
       end: String(embed.end),
+      controls: '0',
+      disablekb: '1',
+      fs: '0',
+      iv_load_policy: '3',
       rel: '0',
       modestbranding: '1',
       playsinline: '1',
@@ -1304,7 +1308,7 @@ function HistoricShotPlayer({
             <iframe
               title={`${shot.player} ${shot.moment}`}
               src={embedUrl}
-              className="absolute inset-0 z-10 h-full w-full border-0"
+              className="pointer-events-none absolute inset-0 z-10 h-full w-full border-0"
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
