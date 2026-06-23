@@ -6,7 +6,7 @@ healthScore: 87
 statusLabel: on_track
 nextStep: Keep the weekly tracker ingestion running from main so current-project progress rebuilds the public portfolio UI after each verified sync.
 blockers: []
-lastUpdated: 2026-06-22
+lastUpdated: 2026-06-23
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, player-comps, impact-report]
 goals:
@@ -15,7 +15,7 @@ goals:
 repoType: app
 sourceOfTruth: inferred
 primaryLanguage: TypeScript
-activeBranch: codex/fix-terrace-lebron-clip
+activeBranch: codex/portfolio-now-playing-home
 lastCommitDate: "2026-06-23"
 quality:
   lint: pass
@@ -44,6 +44,8 @@ The repo uses pnpm as the single package-manager workflow: `package.json` declar
 The weekly portfolio tracker ingestion automation now commits verified generated tracker updates and pushes the current branch after `pnpm sync`, `pnpm lint`, and `pnpm build` pass. This makes the portfolio-progress loop publishable, but the public UI only updates automatically when the pushed branch is the Netlify production deploy branch or is merged into it. Deploy status checks now avoid the unstable global Netlify CLI by using a pinned repo-local `netlify-cli`, a temp-config wrapper, and a direct Netlify API script.
 
 The current-project court UI now uses a meaningful matrix rather than a decorative half-arc: x-position represents tracker health/readiness, y-position represents the selected scout axis on a tough elite-threshold curve, marker size reflects ambition, marker color reflects status, and a deterministic spacing pass prevents dense project clusters from overlapping on desktop and mobile. The displayed board now normalizes against the projects currently shown so each active axis uses more of the court. The court itself stays visually neutral so the project dots and labels carry the meaning. Clearing the three-point arc is intentionally selective rather than the default for every strong project. Clicking a current-project dot or shipped-project card opens the detail modal with a compact "Historic Shot Clip" module that maps the displayed court location to a nearby famous NBA shot through mutually exclusive court zones. The clip selector is now provider-aware and quality-gated, so it can choose from YouTube, Vimeo, NBA, or external clip sources only when they are marked as verified game clips before falling back to reference-only entries.
+
+The homepage now promotes the latest active project work before the feature-report grid through a "Now Playing" strip sourced from `CURRENT_PROJECTS`, sorted by `lastUpdated`, and linked to the live projects board. This gives recent AI/workflow/product builds first-page presence without duplicating tracker content by hand.
 
 ## Why This Matters / Intended Outcome
 
@@ -86,6 +88,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 23: Added a pre-clip sound toggle for Historic Shot Clips so a user gesture can request unmuted YouTube autoplay on later shot opens while preserving muted autoplay as the browser-compatible fallback
 - June 23: Removed same-axis Historic Shot Clip reuse by making shipped-project assignments skip clips already used by the current board while staying inside the same court zone; `pnpm shot-embeds:target` now fails visible assignment duplicates
 - June 23: Added `pnpm shot-inventory` plus `.tracker/shot-clip-backups.md` so future projects can use existing same-zone backup clips before doing new clip research
+- June 23: Added a homepage "Now Playing" section that surfaces the four most recently updated current projects with tracker score, status, date, and scout take, then links into the live project board
 
 ## Open Problems
 
@@ -112,6 +115,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Lint:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-22
 - **Types:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-22
 - **Build:** `pnpm build` — PASS on 2026-06-22
+- **Homepage Now Playing QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/` — PASS on 2026-06-23; the new homepage section rendered, showed current-project cards from synced tracker data, had no console warnings/errors or framework overlay, avoided mobile horizontal overflow at 390px width, and the "Open live board" link navigated to `/projects`
 - **Shot-zone math:** targeted coordinate classification and uniqueness checks — PASS on 2026-06-22; Ray Allen `rightCorner` assignment appears only for `pre-cr-suite` on Ambition at `(84.7, 65.4)` and not for above-the-break positions, and each active axis assigns 16 unique shot references across current plus closed projects
 - **Displayed court geometry:** targeted spread/arc check — PASS on 2026-06-22; each active axis spans roughly 80% of the court, shot pools have no overflow, and inside-the-arc displayed dots have zero three-point-zone mismatches
 - **Shot embed coverage:** `pnpm shot-embeds` — PASS on 2026-06-23; all 45 Historic Shot Clip entries have quality-gated YouTube provider data and explicit compact clip windows

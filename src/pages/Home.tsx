@@ -1,10 +1,10 @@
 import type { ReactElement } from 'react';
-import { ArrowRight, FileText, Mic, PlayCircle, Radio } from 'lucide-react';
+import { ArrowRight, Radio } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import EditorialPoster from '@/components/EditorialPoster';
 import { PORTFOLIO_ASSETS } from '@/content/portfolioAssets';
+import { CURRENT_PROJECTS, type CurrentProject } from '@/content/currentProjects';
 import {
-  BROADCAST_ASSETS,
   BREAKING_TICKER,
   FEATURE_REPORTS,
   HERO_ACTIONS,
@@ -15,6 +15,23 @@ import {
   SITE_META,
   TOP_HEADLINES,
 } from '@/content/portfolioContent';
+
+const NOW_PLAYING_PROJECTS = [...CURRENT_PROJECTS]
+  .sort((first, second) => second.lastUpdated.localeCompare(first.lastUpdated))
+  .slice(0, 4);
+
+function getProjectStatusLabel(status: CurrentProject['trackerStatus']): string {
+  if (status === 'on_track') return 'Active';
+  if (status === 'needs_attention') return 'In development';
+  if (status === 'stalled') return 'On deck';
+  return 'Shipped';
+}
+
+function getProjectStatusClass(status: CurrentProject['trackerStatus']): string {
+  if (status === 'on_track') return 'text-[color:var(--color-secondary)]';
+  if (status === 'needs_attention') return 'text-[color:var(--color-gold)]';
+  return 'text-[color:var(--color-primary)]';
+}
 
 function HomeAction({
   href,
@@ -177,6 +194,68 @@ export default function Home(): ReactElement {
           </section>
         </aside>
       </div>
+
+      <section className="mt-8 editorial-card p-6 md:p-8">
+        <div className="flex flex-col gap-5 border-b border-[color:var(--color-line)] pb-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <div className="section-kicker">Now Playing</div>
+            <h2 className="mt-3 max-w-4xl text-4xl font-black uppercase leading-[0.92] tracking-tight text-[color:var(--color-ink)] md:text-5xl">
+              The current board finally has enough live product reps to lead the broadcast.
+            </h2>
+          </div>
+          <Link className="report-link shrink-0" to="/projects">
+            Open live board
+            <ArrowRight size={16} />
+          </Link>
+        </div>
+
+        <div className="mt-6 grid gap-4 lg:grid-cols-4">
+          {NOW_PLAYING_PROJECTS.map((project) => (
+            <Link
+              key={project.slug}
+              to="/projects"
+              className="group flex min-h-[280px] flex-col border border-[color:var(--color-line)] bg-white p-5 hover:-translate-y-1 hover:border-[color:var(--color-primary)] hover:shadow-[0_18px_36px_rgba(16,28,44,0.08)]"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-[color:var(--color-navy)] text-xl font-black uppercase text-white">
+                  {project.shortCode}
+                </div>
+                <div className="text-right">
+                  <div className={`text-[10px] font-semibold uppercase tracking-[0.18em] ${getProjectStatusClass(project.trackerStatus)}`}>
+                    {getProjectStatusLabel(project.trackerStatus)}
+                  </div>
+                  <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-soft)]">
+                    {project.lastUpdated}
+                  </div>
+                </div>
+              </div>
+
+              <h3 className="mt-5 text-3xl font-black uppercase leading-none tracking-tight text-[color:var(--color-ink)] transition group-hover:text-[color:var(--color-primary)]">
+                {project.title}
+              </h3>
+              <p className="mt-4 line-clamp-4 text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
+                {project.summary}
+              </p>
+
+              <div className="mt-auto pt-5">
+                <div className="flex flex-col gap-4 border-t border-[color:var(--color-line)] pt-4 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-soft)]">
+                      Tracker score
+                    </div>
+                    <div className="mt-1 text-4xl font-black uppercase leading-none text-[color:var(--color-primary)]">
+                      {project.trackerScore}
+                    </div>
+                  </div>
+                  <div className="text-sm font-semibold leading-snug text-[color:var(--color-ink)] sm:max-w-[150px] sm:text-right sm:text-xs">
+                    {project.scoutTake}
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
 
       <section className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-5">
         {FEATURE_REPORTS.map((report) => (
