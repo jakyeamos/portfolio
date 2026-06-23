@@ -25,6 +25,8 @@ June 23 replacement pass: the browser review workflow replaced the remaining wea
 
 June 23 rim-pool expansion: centered dunk-range dots now map to a dedicated `rim` zone instead of falling through to `midrange`. The new pool prioritizes poster and vertical-impact clips, led by Anthony Edwards over John Collins, with Vince Carter over Frederic Weis, Ja Morant vs Minnesota, Giannis' Finals alley-oop, and a LeBron alley-oop as same-zone inventory.
 
+June 23 Impact/Dispatches guard: `pnpm shot-embeds:target` now fails unless Impact-axis Dispatches resolves to `rim/edwards-collins-2024`. This protects the specific dunk-range assignment from falling back to a midrange clip such as Paul Pierce.
+
 ## Quality Gate
 
 A clip counts only when all of these are true:

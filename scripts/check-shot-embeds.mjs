@@ -96,6 +96,7 @@ const verified = shots.length - missing.length - unverified.length;
 const shotIdsByZone = Map.groupBy(shots, (shot) => shot.zone);
 const assignmentDuplicates = findAssignmentDuplicates();
 const rimRangeMismatches = findRimRangeMismatches();
+const requiredAssignmentMismatches = findRequiredAssignmentMismatches();
 const providerSummary = [...providers.entries()]
   .sort(([left], [right]) => left.localeCompare(right))
   .map(([provider, count]) => `${provider}=${count}`)
@@ -105,6 +106,7 @@ console.log(`Historic shots: ${verified}/${shots.length} have quality-gated prov
 console.log(`Providers: ${providerSummary || 'none'}`);
 console.log(`Assignment duplicates: ${assignmentDuplicates.length}`);
 console.log(`Rim-range zone mismatches: ${rimRangeMismatches.length}`);
+console.log(`Required assignment mismatches: ${requiredAssignmentMismatches.length}`);
 
 if (showInventory) printAssignmentInventory();
 
@@ -133,6 +135,11 @@ if (rimRangeMismatches.length > 0) {
   for (const item of rimRangeMismatches) console.error(`- ${item}`);
 }
 
+if (requiredAssignmentMismatches.length > 0) {
+  console.error(`Required shot assignment mismatches: ${requiredAssignmentMismatches.length}`);
+  for (const item of requiredAssignmentMismatches) console.error(`- ${item}`);
+}
+
 if (zonesWithoutEmbeds.size > 0) {
   console.error(`Zones without any clip source: ${[...zonesWithoutEmbeds].join(', ')}`);
 }
@@ -145,6 +152,7 @@ if (
   invalid.length > 0
   || assignmentDuplicates.length > 0
   || rimRangeMismatches.length > 0
+  || requiredAssignmentMismatches.length > 0
   || zonesWithoutEmbeds.size > 0
   || (strictTarget && verified !== shots.length)
 ) process.exit(1);
@@ -335,6 +343,28 @@ function findRimRangeMismatches() {
       .filter((row) => isRimRange(row.point) && row.zone !== 'rim')
       .map((row) => `${axis}/${row.project} at ${row.point.left.toFixed(1)},${row.point.top.toFixed(1)} assigned ${row.zone}/${row.shotId}; expected rim`),
   );
+}
+
+function findRequiredAssignmentMismatches() {
+  const requiredAssignments = [
+    {
+      axis: 'impact',
+      project: 'dispatches',
+      shotId: 'edwards-collins-2024',
+      zone: 'rim',
+    },
+  ];
+
+  return requiredAssignments.flatMap((required) => {
+    const row = getAssignmentRows(required.axis).find((candidate) => candidate.project === required.project);
+
+    if (!row) return [`${required.axis}/${required.project} missing from assignment inventory`];
+    if (row.zone === required.zone && row.shotId === required.shotId) return [];
+
+    return [
+      `${required.axis}/${required.project} assigned ${row.zone}/${row.shotId} at ${row.point.left.toFixed(1)},${row.point.top.toFixed(1)}; expected ${required.zone}/${required.shotId}`,
+    ];
+  });
 }
 
 function getAssignmentRows(axis) {

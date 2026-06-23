@@ -100,6 +100,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 23: Updated the former Amos SaaS portfolio entry and tracker map to BidCamp, pointing sync at `/Users/jakyeamos/projects/BidCamp/.tracker/PROJECT_TRUTH.md`
 - June 23: Replaced the one-off TMCP crosspost-channel card with an owner writer route at `/blog/write`, including destination checkboxes and generated markdown/publish-plan output for future GitHub/BIP automation
 - June 23: Added a dedicated Historic Shot Clip rim zone with a poster-heavy dunk pool led by Anthony Edwards over John Collins, preventing centered dunk-range dots such as Dispatches on Impact/Difficulty/Ambition from falling through to midrange clips
+- June 23: Hardened the shot assignment gate so Impact/Dispatches must resolve to `rim/edwards-collins-2024`; this catches the specific Pierce-style fallback regression even if broader zone coverage still passes
 - June 23: Aligned Current Projects labels, help text, modal copy, and homepage references around the court matrix model: X-axis is tracker health and Y-axis is the selected project axis; `pnpm lint` and `pnpm build` passed
 
 ## Open Problems
@@ -134,7 +135,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Shot-zone math:** targeted coordinate classification and uniqueness checks — PASS on 2026-06-22; Ray Allen `rightCorner` assignment appears only for `pre-cr-suite` on Ambition at `(84.7, 65.4)` and not for above-the-break positions, and each active axis assigns 16 unique shot references across current plus closed projects
 - **Displayed court geometry:** targeted spread/arc check — PASS on 2026-06-22; each active axis spans roughly 80% of the court, shot pools have no overflow, and inside-the-arc displayed dots have zero three-point-zone mismatches
 - **Shot embed coverage:** `pnpm shot-embeds` — PASS on 2026-06-23; all 50 Historic Shot Clip entries have quality-gated YouTube provider data and explicit compact clip windows
-- **50/50 shot target:** `pnpm shot-embeds:target` — PASS on 2026-06-23; current score is 50/50 quality-gated clips with no missing YouTube timing, no YouTube window longer than 38 seconds, zero same-axis visible assignment duplicates, and zero rim-range zone mismatches
+- **50/50 shot target:** `pnpm shot-embeds:target` — PASS on 2026-06-23; current score is 50/50 quality-gated clips with no missing YouTube timing, no YouTube window longer than 38 seconds, zero same-axis visible assignment duplicates, zero rim-range zone mismatches, and zero required assignment mismatches
 - **Shot backup inventory:** `pnpm shot-inventory` — PASS on 2026-06-23; command prints assigned and backup clip IDs by scouting axis and court zone from the live registry, including the new rim pool
 - **YouTube oEmbed validation:** live YouTube oEmbed check for all 45 registered IDs — PASS on 2026-06-23; dead legacy IDs and several broad sources were replaced with oEmbed-accessible shorter clips
 - **Historic Shot Clip autoplay/timing:** local Browser smoke on `/projects` — PASS on 2026-06-23; opening the Soundscape marker produced a YouTube iframe with `autoplay=1`, `mute=1`, and iframe autoplay permission; all YouTube clips now resolve from explicit compact `start` and `end` windows
