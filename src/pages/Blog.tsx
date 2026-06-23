@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react';
-import { ArrowRight, FileText, NotebookText } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, FileText, NotebookText, Repeat2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { BLOG_POSTS, WEBSITE_LAUNCHES } from '@/content/portfolioContent';
 
@@ -109,6 +109,32 @@ export default function Blog(): ReactElement {
                 ))}
               </div>
             </section>
+
+            {featuredPost.crosspost && (
+              <section className="border border-[color:var(--color-line-strong)] bg-[color:var(--color-navy)] p-6 text-white">
+                <div className="flex items-center gap-3">
+                  <Repeat2 size={18} className="text-[color:var(--color-gold)]" />
+                  <div className="section-kicker text-[color:var(--color-gold)]">
+                    {featuredPost.crosspost.status}
+                  </div>
+                </div>
+                <h3 className="mt-4 text-3xl font-black uppercase leading-none tracking-tight">
+                  {featuredPost.crosspost.publication}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/78">
+                  {featuredPost.crosspost.note}
+                </p>
+                <a
+                  className="mt-5 inline-flex items-center gap-2 border border-white/35 px-4 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-white hover:bg-white hover:text-[color:var(--color-navy)]"
+                  href={featuredPost.crosspost.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open FRMWRK blog
+                  <ArrowUpRight size={15} />
+                </a>
+              </section>
+            )}
 
             <section className="border border-[color:var(--color-line-strong)] bg-[color:var(--color-surface-muted)] p-6">
               <div className="section-kicker">Related Launches</div>

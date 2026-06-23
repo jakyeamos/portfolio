@@ -80,6 +80,12 @@ export interface BlogPost {
   status: string;
   date: string;
   tags: readonly string[];
+  crosspost?: {
+    publication: string;
+    href: string;
+    status: string;
+    note: string;
+  };
   thesis: string;
   sections: readonly {
     heading: string;
@@ -449,6 +455,12 @@ export const BLOG_POSTS: readonly BlogPost[] = [
     status: 'Concept note',
     date: '2026-06-23',
     tags: ['TMCP', 'AI workflow', 'protocols', 'tooling'],
+    crosspost: {
+      publication: 'FRMWRK Labs Blog',
+      href: 'https://www.frmwrklabs.com/blog/',
+      status: 'Crosspost channel',
+      note: 'FRMWRK Labs uses generated static blog URLs under /blog/<slug>/. Link to the blog index for now; switch to the direct TMCP mirror once that post exists there.',
+    },
     thesis:
       'TMCP is interesting because it points at the layer between agents, tools, project memory, and repeatable execution. It is not just another app idea; it is a way to think about how AI-assisted work should carry context, constraints, and handoffs across sessions.',
     sections: [
