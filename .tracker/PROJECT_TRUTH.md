@@ -49,7 +49,7 @@ The homepage now promotes the latest active project work before the feature-repo
 
 The Film Room now has a small "New Signals" surface: TMCP is mentioned as a concept-watch item rather than a scored tracker project, and recent website launches for Chiron's Forge and FRMWRK Labs are linked from the page. Chiron's Forge is described from its live site; FRMWRK Labs is intentionally link-forward only until the site is reachable for source-backed copy.
 
-The portfolio now includes `/blog` as a first-class writing surface for concepts that need more room than project cards. The initial post expands the TMCP mention into a working thesis, placement next to AIOS/Terrace, why the idea is worth mentioning, and what still needs a fuller draft. Blog posts can carry crosspost metadata; the TMCP note currently links to the FRMWRK Labs blog index as the crosspost channel until a direct mirrored post URL exists there.
+The portfolio now includes `/blog` as a first-class writing surface for concepts that need more room than project cards. The initial post expands the TMCP mention into a working thesis, placement next to AIOS/Terrace, why the idea is worth mentioning, and what still needs a fuller draft. The owner-facing `/blog/write` route models a future write-once publishing workflow: draft a post, select destinations such as portfolio, FRMWRK Labs, Twitter, or BIP, and generate a publish plan/markdown payload without silently posting anywhere.
 
 ## Why This Matters / Intended Outcome
 
@@ -96,7 +96,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 23: Added Film Room mentions for TMCP as a concept-watch item and new website launches for Chiron's Forge and FRMWRK Labs without promoting TMCP into the scored project tracker
 - June 23: Added a `/blog` route, top/side-nav entries, and an initial TMCP concept note so protocol/tooling ideas can get long-form explanation without being forced into the project tracker
 - June 23: Updated the former Amos SaaS portfolio entry and tracker map to BidCamp, pointing sync at `/Users/jakyeamos/projects/BidCamp/.tracker/PROJECT_TRUTH.md`
-- June 23: Added portfolio-side crosspost metadata and a `/blog` crosspost card linking the TMCP note to the FRMWRK Labs blog channel
+- June 23: Replaced the one-off TMCP crosspost-channel card with an owner writer route at `/blog/write`, including destination checkboxes and generated markdown/publish-plan output for future GitHub/BIP automation
 
 ## Open Problems
 
@@ -126,7 +126,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Homepage Now Playing QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/` — PASS on 2026-06-23; the new homepage section rendered, showed current-project cards from synced tracker data, had no console warnings/errors or framework overlay, avoided mobile horizontal overflow at 390px width, and the "Open live board" link navigated to `/projects`
 - **Film Room New Signals QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/film-room` — PASS on 2026-06-23; TMCP, Chiron's Forge, and FRMWRK Labs rendered, the two website links were present with external URLs, there were no console warnings/errors or framework overlay, and the new section avoided mobile horizontal overflow at 390px width
 - **Blog QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/blog` — PASS on 2026-06-23; route rendered, Blog nav appeared active, the TMCP thesis and article sections were visible, desktop header had no horizontal overflow after compact top-nav labels, and mobile avoided horizontal overflow at 390px width
-- **Blog crosspost QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/blog` — PASS on 2026-06-23; the FRMWRK Labs Blog crosspost card rendered, linked to `https://www.frmwrklabs.com/blog/`, had no console warnings/errors or framework overlay, and avoided mobile horizontal overflow at 390px width
+- **Blog writer QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/blog` plus `/blog/write` — PASS on 2026-06-23; the old crosspost-channel card was removed, the Write CTA navigated to `/blog/write`, destination checkboxes rendered for Portfolio, FRMWRK Labs, Twitter, and BIP queue, checking FRMWRK/Twitter updated generated markdown and the publish plan, there were no console warnings/errors or framework overlay, and mobile avoided horizontal overflow at 390px width
 - **Shot-zone math:** targeted coordinate classification and uniqueness checks — PASS on 2026-06-22; Ray Allen `rightCorner` assignment appears only for `pre-cr-suite` on Ambition at `(84.7, 65.4)` and not for above-the-break positions, and each active axis assigns 16 unique shot references across current plus closed projects
 - **Displayed court geometry:** targeted spread/arc check — PASS on 2026-06-22; each active axis spans roughly 80% of the court, shot pools have no overflow, and inside-the-arc displayed dots have zero three-point-zone mismatches
 - **Shot embed coverage:** `pnpm shot-embeds` — PASS on 2026-06-23; all 45 Historic Shot Clip entries have quality-gated YouTube provider data and explicit compact clip windows

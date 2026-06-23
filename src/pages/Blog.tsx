@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react';
-import { ArrowRight, ArrowUpRight, FileText, NotebookText, Repeat2 } from 'lucide-react';
+import { ArrowRight, FileText, NotebookText, PenLine } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { BLOG_POSTS, WEBSITE_LAUNCHES } from '@/content/portfolioContent';
 
@@ -23,14 +23,21 @@ export default function Blog(): ReactElement {
             </div>
 
             <aside className="border border-[color:var(--color-line-strong)] bg-[color:var(--color-navy)] p-5 text-white">
-              <div className="section-kicker text-[color:var(--color-gold)]">Editor Note</div>
+              <div className="section-kicker text-[color:var(--color-gold)]">Writer Desk</div>
               <p className="mt-3 text-2xl font-black uppercase leading-tight">
-                Keep concepts visible without pretending they are shipped products.
+                Draft once, then decide where the post should go.
               </p>
               <p className="mt-3 text-sm leading-relaxed text-white/78">
-                TMCP gets more room here because the current one-card mention was too thin to
-                explain why the idea is interesting.
+                The owner workflow should choose destinations like portfolio, FRMWRK Labs, and
+                Twitter/BIP before anything gets published.
               </p>
+              <Link
+                className="mt-5 inline-flex items-center gap-2 border border-white/35 px-4 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-white hover:bg-white hover:text-[color:var(--color-navy)]"
+                to="/blog/write"
+              >
+                Write a post
+                <ArrowRight size={15} />
+              </Link>
             </aside>
           </div>
         </section>
@@ -110,31 +117,28 @@ export default function Blog(): ReactElement {
               </div>
             </section>
 
-            {featuredPost.crosspost && (
-              <section className="border border-[color:var(--color-line-strong)] bg-[color:var(--color-navy)] p-6 text-white">
-                <div className="flex items-center gap-3">
-                  <Repeat2 size={18} className="text-[color:var(--color-gold)]" />
-                  <div className="section-kicker text-[color:var(--color-gold)]">
-                    {featuredPost.crosspost.status}
-                  </div>
+            <section className="border border-[color:var(--color-line-strong)] bg-[color:var(--color-navy)] p-6 text-white">
+              <div className="flex items-center gap-3">
+                <PenLine size={18} className="text-[color:var(--color-gold)]" />
+                <div className="section-kicker text-[color:var(--color-gold)]">
+                  Owner Workflow
                 </div>
-                <h3 className="mt-4 text-3xl font-black uppercase leading-none tracking-tight">
-                  {featuredPost.crosspost.publication}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/78">
-                  {featuredPost.crosspost.note}
-                </p>
-                <a
-                  className="mt-5 inline-flex items-center gap-2 border border-white/35 px-4 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-white hover:bg-white hover:text-[color:var(--color-navy)]"
-                  href={featuredPost.crosspost.href}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Open FRMWRK blog
-                  <ArrowUpRight size={15} />
-                </a>
-              </section>
-            )}
+              </div>
+              <h3 className="mt-4 text-3xl font-black uppercase leading-none tracking-tight">
+                Write with crosspost options.
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/78">
+                Use the composer to draft a post and mark destinations. Publishing still needs a
+                server-side GitHub/BIP handoff before it can write to other sites automatically.
+              </p>
+              <Link
+                className="mt-5 inline-flex items-center gap-2 border border-white/35 px-4 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-white hover:bg-white hover:text-[color:var(--color-navy)]"
+                to="/blog/write"
+              >
+                Open writer
+                <ArrowRight size={15} />
+              </Link>
+            </section>
 
             <section className="border border-[color:var(--color-line-strong)] bg-[color:var(--color-surface-muted)] p-6">
               <div className="section-kicker">Related Launches</div>
