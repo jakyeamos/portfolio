@@ -6,6 +6,8 @@ Run `pnpm shot-embeds` to see current coverage. Run `pnpm shot-embeds:target` to
 
 Current score: `45/45` quality-gated YouTube clips as of June 23, 2026. Every provider ID also passed a live YouTube oEmbed check in this environment.
 
+The portfolio modal autoplays clips muted when a project opens. YouTube clips default to a 45-second window from the configured `start` time so broad highlight or full-game sources do not continue as full videos.
+
 ## Quality Gate
 
 A clip counts only when all of these are true:

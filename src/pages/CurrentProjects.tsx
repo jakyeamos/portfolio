@@ -25,6 +25,7 @@ import {
 
 const AXES: readonly ProjectAxis[] = ['impact', 'difficulty', 'ambition', 'creativity'] as const;
 const ALL_PROJECTS: readonly CurrentProject[] = [...CURRENT_PROJECTS, ...CLOSED_PROJECTS] as const;
+const DEFAULT_SHOT_CLIP_SECONDS = 45;
 
 type CourtPoint = {
   left: number;
@@ -969,20 +970,28 @@ function getHistoricShot(
 
 function getShotEmbedUrl(embed: ShotEmbed): string | null {
   if (embed.provider === 'youtube') {
+    const start = embed.start ?? 0;
+    const end = embed.end ?? start + DEFAULT_SHOT_CLIP_SECONDS;
     const embedParams = new URLSearchParams({
-      start: String(embed.start ?? 0),
+      autoplay: '1',
+      mute: '1',
+      start: String(start),
+      end: String(end),
       rel: '0',
       modestbranding: '1',
       playsinline: '1',
     });
 
-    if (embed.end) embedParams.set('end', String(embed.end));
-
     return `https://www.youtube.com/embed/${embed.id}?${embedParams.toString()}`;
   }
 
   if (embed.provider === 'vimeo') {
-    return `https://player.vimeo.com/video/${embed.id}`;
+    const embedParams = new URLSearchParams({
+      autoplay: '1',
+      muted: '1',
+    });
+
+    return `https://player.vimeo.com/video/${embed.id}?${embedParams.toString()}`;
   }
 
   return null;
@@ -1211,7 +1220,7 @@ function HistoricShotPlayer({
               src={embedUrl}
               className="absolute inset-0 z-10 h-full w-full border-0"
               loading="lazy"
-              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
               referrerPolicy="strict-origin-when-cross-origin"
             />
