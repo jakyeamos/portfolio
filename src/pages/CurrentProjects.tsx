@@ -578,12 +578,14 @@ function getHistoricShot(
 ): HistoricShot {
   const zone = getHistoricShotZone(point);
   const pool = HISTORIC_SHOT_POOLS[zone];
+  const embeddablePool = pool.filter((shot) => shot.youtubeId);
+  const selectionPool = embeddablePool.length > 0 ? embeddablePool : pool;
   const zoneRank = layout
     .filter((candidate) => getHistoricShotZone(candidate.point) === zone)
     .findIndex((candidate) => candidate.project.slug === project.slug);
   const instanceIndex = Math.max(0, zoneRank);
 
-  return pool[instanceIndex % pool.length];
+  return selectionPool[instanceIndex % selectionPool.length];
 }
 
 function buildCourtLayout(projects: readonly CurrentProject[], axis: ProjectAxis): ProjectCourtLayout[] {

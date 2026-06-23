@@ -13,6 +13,7 @@
     "prebuild": "pnpm sync",
     "prelint": "pnpm sync",
     "sync": "node scripts/sync-tracker.mjs",
+    "shot-embeds": "node scripts/check-shot-embeds.mjs",
     "deploy:status": "node scripts/netlify-deploy-status.mjs",
     "netlify:cli": "node scripts/netlify-cli.mjs",
     "netlify:status": "node scripts/netlify-cli.mjs status"
