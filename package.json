@@ -18,7 +18,13 @@
     "shot-inventory": "node scripts/check-shot-embeds.mjs --inventory",
     "deploy:status": "node scripts/netlify-deploy-status.mjs",
     "netlify:cli": "node scripts/netlify-cli.mjs",
-    "netlify:status": "node scripts/netlify-cli.mjs status"
+    "netlify:status": "node scripts/netlify-cli.mjs status",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/check-shot-embeds.mjs --inventory",
+    "env:check": "node scripts/validate-env.mjs",
+    "secret:scan": "node scripts/secret-scan.mjs",
+    "dependency:security": "pnpm audit --audit-level high",
+    "e2e:smoke": "pnpm shot-embeds:target"
   },
   "dependencies": {
     "lucide-react": "^0.546.0",
@@ -36,6 +42,6 @@
     "netlify-cli": "^26.1.0",
     "tailwindcss": "^4.1.14",
     "typescript": "~5.8.2",
-    "vite": "^6.2.0"
+    "vite": "^6.4.3"
   }
 }
