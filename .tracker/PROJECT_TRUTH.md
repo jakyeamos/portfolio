@@ -1,12 +1,12 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site has tracker-sync wired against all 15 current-project truth sources, a meaningfully positioned current-project court matrix, weekly ingestion commits verified tracker changes, and pnpm is used consistently for local, CI, and deploy workflows.
+summary: Personal portfolio site has tracker-sync wired against all 15 current-project truth sources, content integrity tests for project catalog data, build/typecheck-backed Pre-CR gates, and pnpm is used consistently for local, CI, and deploy workflows.
 healthScore: 87
 statusLabel: on_track
 nextStep: Keep the weekly tracker ingestion running from main so current-project progress rebuilds the public portfolio UI after each verified sync.
 blockers: []
-lastUpdated: 2026-06-23
+lastUpdated: 2026-06-24
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, blog, player-comps, impact-report]
 goals:
@@ -15,12 +15,12 @@ goals:
 repoType: app
 sourceOfTruth: inferred
 primaryLanguage: TypeScript
-activeBranch: codex/portfolio-now-playing-home
-lastCommitDate: "2026-06-23"
+activeBranch: main
+lastCommitDate: "2026-06-24"
 quality:
   lint: pass
   types: pass
-  tests: unknown
+  tests: pass
   deadCode: unknown
   structure: pass
 canonicalCommands:
@@ -28,7 +28,7 @@ canonicalCommands:
   dev: pnpm dev
   lint: pnpm lint
   typecheck: pnpm lint
-  test: unknown
+  test: pnpm test
   deadcode: unknown
 agentExpectationsVersion: 1
 ---
@@ -42,6 +42,8 @@ The current-project tracker now resolves 15 local project truth sources through 
 The repo uses pnpm as the single package-manager workflow: `package.json` declares `pnpm@10.26.0`, lifecycle hooks call `pnpm sync`, CI installs with `pnpm install --frozen-lockfile`, Netlify builds with `pnpm build`, and `pnpm-lock.yaml` is the lockfile.
 
 The weekly portfolio tracker ingestion automation now commits verified generated tracker updates and pushes the current branch after `pnpm sync`, `pnpm lint`, and `pnpm build` pass. This makes the portfolio-progress loop publishable, but the public UI only updates automatically when the pushed branch is the Netlify production deploy branch or is merged into it. Deploy status checks now avoid the unstable global Netlify CLI by using a pinned repo-local `netlify-cli`, a temp-config wrapper, and a direct Netlify API script.
+
+Pre-CR is now calibrated for this repo's content-heavy shape: it runs `pnpm precr:check`, which validates project catalog integrity, typechecks through `pnpm lint`, and runs the production build. Changed-line coverage is non-blocking because static catalog/config edits are better protected by schema/content validation than deep line coverage.
 
 The current-project court UI now uses a meaningful matrix rather than a decorative half-arc: x-position represents tracker health/readiness, y-position represents the selected project axis on a tough elite-threshold curve, marker size reflects ambition, marker color reflects status, and a deterministic spacing pass prevents dense project clusters from overlapping on desktop and mobile. The displayed board now normalizes against the projects currently shown so each active axis uses more of the court. The court itself stays visually neutral so the project dots and labels carry the meaning. Clearing the three-point arc is intentionally selective rather than the default for every strong project. Clicking a current-project dot or shipped-project card opens the detail modal with a compact "Historic Shot Clip" module that maps the displayed court location to a nearby famous NBA shot through mutually exclusive court zones. The clip selector is now provider-aware and quality-gated, so it can choose from YouTube, Vimeo, NBA, or external clip sources only when they are marked as verified game clips before falling back to reference-only entries.
 
@@ -103,13 +105,14 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 23: Hardened the shot assignment gate so Impact/Dispatches must resolve to `rim/edwards-collins-2024`; this catches the specific Pierce-style fallback regression even if broader zone coverage still passes
 - June 23: Aligned Current Projects labels, help text, modal copy, and homepage references around the court matrix model: X-axis is tracker health and Y-axis is the selected project axis; `pnpm lint` and `pnpm build` passed
 - June 23: Made court-marker modal selection carry the clicked axis, point, and layout so Dispatches on the Impact board cannot render a stale midrange shot panel under an Impact-axis modal
+- June 24: Added `pnpm test:content` and recalibrated Pre-CR so portfolio commits require content integrity, typecheck, and build checks instead of deep changed-line coverage for static catalog/config files
 
 ## Open Problems
 
 - RemodelVision's tracker truth source is portfolio-local rather than stored in the sibling RemodelVision repo because this automation environment can only write inside the portfolio workspace
 - Ignored draft and binary assets still live beside the source tree; repo hygiene is acceptable, but long-term placement should be clarified
 - Historic Shot Clip has 50/50 quality-gated clips, a live same-zone backup inventory, visually audited timing, and no active replacement watchlist as of June 23, 2026
-- No automated test suite is configured, so regression confidence still depends on type/build checks and manual verification
+- Browser interaction regressions still depend on targeted smoke checks when UI behavior changes
 
 ## Next Concrete Steps
 
@@ -121,14 +124,16 @@ This is the primary public-facing artifact for career opportunities. It needs to
 ## Risks / Blockers
 
 - No active blockers
-- Lack of tests means regressions can still slip through despite a clean type/build baseline
+- Content/catalog regressions are covered by `pnpm test:content`; browser interaction regressions still need targeted smoke checks when UI behavior changes
 - Keeping ignored draft/binary artifacts next to the repo can still create maintenance ambiguity even though they are no longer polluting git status
 
 ## Quality Ladder Notes
 
-- **Lint:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-22
-- **Types:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-22
-- **Build:** `pnpm build` — PASS on 2026-06-22
+- **Content integrity:** `pnpm test:content` — PASS on 2026-06-24; validates current and closed project catalog shape, unique slugs/short codes, valid statuses, score bounds, date parseability, tags, and grade ranges.
+- **Pre-CR check:** `pnpm precr:check` — PASS on 2026-06-24; runs content integrity, typecheck, and production build. Changed-line coverage is intentionally non-blocking for static catalog/config changes.
+- **Lint:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-24
+- **Types:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-24
+- **Build:** `pnpm build` — PASS on 2026-06-24 with the existing Vite large chunk warning.
 - **Homepage Now Playing QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/` — PASS on 2026-06-23; the new homepage section rendered, showed current-project cards from synced tracker data, had no console warnings/errors or framework overlay, avoided mobile horizontal overflow at 390px width, and the "Open live board" link navigated to `/projects`
 - **Film Room New Signals QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/film-room` — PASS on 2026-06-23; TMCP, Chiron's Forge, and FRMWRK Labs rendered, the two website links were present with external URLs, there were no console warnings/errors or framework overlay, and the new section avoided mobile horizontal overflow at 390px width
 - **Blog QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/blog` — PASS on 2026-06-23; route rendered, Blog nav appeared active, the TMCP thesis and article sections were visible, desktop header had no horizontal overflow after compact top-nav labels, and mobile avoided horizontal overflow at 390px width
@@ -150,7 +155,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Deploy tooling:** `pnpm netlify:cli -- --version`, `pnpm netlify:status`, and `pnpm deploy:status` missing-env behavior — PASS on 2026-06-22; live deploy lookup still requires `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`
 - **Browser QA:** `/projects` in the in-app Browser — PASS on 2026-06-22 before the neutral-court styling cleanup; recalibrated Ambition desktop minimum marker gap 25.46px, mobile minimum marker gap 3.31px, no marker overlaps, no horizontal overflow, no console warnings/errors, Soundscape marker opened the detail modal. Browser verification for the neutral-court cleanup and Historic Shot modal work was blocked by the local in-app Browser policy for `127.0.0.1:3000`; shell network access also could not resolve `youtube.com`, so embed IDs still need live browser/deploy validation. `pnpm lint` and `pnpm build` passed after both changes.
 - **Architecture check:** `node scripts/aios-architecture-check.mjs` — PASS on 2026-05-24
-- **Tests:** no test script or test files found — unknown
+- **Tests:** `pnpm test` now runs content integrity plus shot inventory checks.
 - **Dead code:** not configured
 - **Structure:** SPA structure is clean (pages, components, content, hooks separation) — PASS
 
