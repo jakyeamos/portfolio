@@ -64,10 +64,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Personal AI operating system built around session hooks, workflow orchestration, pattern extraction, and layered knowledge retrieval — actively used as the backbone of daily engineering operations.',
     trackerComment:
-      'Triage the 15 full-suite Python test failures and stale repo-wide Ruff/BasedPyright baselines before claiming repo-level quality green.',
+      'Triage the 18 full-suite Python test failures and stale repo-wide Ruff/BasedPyright baselines before claiming repo-level quality green.',
     trackerStatus: 'needs_attention',
     trackerScore: 66,
-    lastUpdated: '2026-06-22',
+    lastUpdated: '2026-06-23',
     tags: ['Python', 'shell', 'SQLite', 'automation', 'AI-tooling'],
     grades: { impact: 8, difficulty: 7, ambition: 9, creativity: 9 },
     scoutTake:
@@ -80,10 +80,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Spec-driven AI development framework that governs structured, test-validated builds — designed to bring discipline and repeatability to AI-assisted engineering workflows.',
     trackerComment:
-      'Run a fresh corpus sample after the planning refresh command, then decide whether dead-code scanning belongs in the release gate.',
+      'Review the remaining downstream corpus security findings in sampled repositories, then decide whether dead-code scanning belongs in the release gate.',
     trackerStatus: 'on_track',
     trackerScore: 100,
-    lastUpdated: '2026-05-19',
+    lastUpdated: '2026-06-23',
     tags: ['framework', 'governance', 'AI-tooling', 'validation'],
     grades: { impact: 8, difficulty: 8, ambition: 9, creativity: 8 },
     scoutTake:
@@ -91,16 +91,16 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
   },
   {
     slug: 'bidcamp',
-    title: 'BidCamp',
+    title: 'Bidcamp',
     shortCode: 'BC',
     summary:
-      'Government-contracting SaaS platform with v1.0 shipped — full-stack Next.js app built on Supabase and Stripe with active work toward v1.1 feature expansion.',
+      'Government-contracting platform with v1.0 shipped — full-stack Next.js app built on Supabase and Stripe with active work toward v1.1 feature expansion.',
     trackerComment:
       'Push chore/pre-cr-aios-hooks for review, then merge after branch review.',
     trackerStatus: 'on_track',
     trackerScore: 82,
     lastUpdated: '2026-06-23',
-    tags: ['SaaS', 'Next.js', 'Supabase', 'Stripe', 'government'],
+    tags: ['GovCon', 'Next.js', 'Supabase', 'Stripe', 'government'],
     grades: { impact: 8, difficulty: 7, ambition: 8, creativity: 7 },
     scoutTake:
       'A real business-shaped build. Less flashy than some others, but the practical value is obvious.',
@@ -196,7 +196,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
       'Deploy the Render blueprint with production `ADMIN_EMAIL` and `ADMIN_PASSWORD`, point the live domain at the Node service, and run `BOOK_SMOKE_BASE_URL=... pnpm run platform:fullstack-smoke` against the deployed service.',
     trackerStatus: 'on_track',
     trackerScore: 88,
-    lastUpdated: '2026-06-13',
+    lastUpdated: '2026-06-24',
     tags: ['interactive-book', 'admin-CMS', 'audio', 'TypeScript', 'publishing'],
     grades: { impact: 6, difficulty: 7, ambition: 7, creativity: 9 },
     scoutTake:

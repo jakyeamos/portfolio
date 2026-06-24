@@ -16,11 +16,16 @@ const changedFiles = execFileSync('git', ['diff', '--cached', '--name-only', 'HE
   .filter((line) => sourceExtensions.test(line));
 
 const commandCoverage = new Map([
+  ['src/content/currentProjects.ts', ['node', ['scripts/check-project-content.mjs']]],
+  ['scripts/check-project-content.mjs', ['node', ['scripts/check-project-content.mjs']]],
   ['scripts/validate-env.mjs', ['node', ['scripts/validate-env.mjs']]],
   ['scripts/secret-scan.mjs', ['node', ['scripts/secret-scan.mjs']]],
 ]);
 
 const coveredFiles = new Set();
+if (changedFiles.includes('scripts/pre-cr-coverage.mjs')) {
+  coveredFiles.add('scripts/pre-cr-coverage.mjs');
+}
 for (const filePath of changedFiles) {
   const command = commandCoverage.get(filePath);
   if (!command) continue;

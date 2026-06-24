@@ -1,5 +1,5 @@
 {
-  "testCommand": "pnpm lint",
+  "testCommand": "pnpm precr:check",
   "coveragePaths": [
     "coverage/pre-cr.lcov"
   ],
@@ -12,5 +12,11 @@
       "coverageFormat": "lcov"
     }
   ],
-  "threshold": 0
+  "threshold": 0,
+  "checks": {
+    "coverage": true,
+    "security": true,
+    "checklist": true
+  },
+  "version": 1
 }
