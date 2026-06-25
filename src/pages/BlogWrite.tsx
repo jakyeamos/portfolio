@@ -9,6 +9,7 @@ type Destination = {
   label: string;
   repo: string;
   pathPattern: string;
+  writingProfilePath?: string;
 };
 
 const DESTINATIONS: readonly Destination[] = [
@@ -23,6 +24,7 @@ const DESTINATIONS: readonly Destination[] = [
     label: 'FRMWRK Labs',
     repo: 'jakyeamos/frmwrklabs',
     pathPattern: '_posts/{date}-{slug}.md',
+    writingProfilePath: '/Users/jakyeamos/projects/frmwrklabs/WRITING_PROFILE.md',
   },
 ] as const;
 
@@ -95,6 +97,7 @@ ${body}
             label: destination.label,
             repo: destination.repo,
             path: destinationPath(destination, slug, today),
+            writingProfilePath: destination.writingProfilePath,
           })),
         },
         null,
@@ -227,6 +230,11 @@ ${body}
                       <span className="mt-2 block break-words font-mono text-xs text-[color:var(--color-ink-soft)]">
                         {destinationPath(destination, slug, today)}
                       </span>
+                      {destination.writingProfilePath ? (
+                        <span className="mt-2 block break-words text-xs font-semibold leading-relaxed text-[color:var(--color-primary)]">
+                          Writing profile: {destination.writingProfilePath}
+                        </span>
+                      ) : null}
                     </span>
                   </label>
                 ))}
