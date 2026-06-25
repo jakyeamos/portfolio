@@ -19,12 +19,20 @@
 - Example fix: Pre-CR changed-line coverage failed: 0% < threshold 80%.
 
 ### Pattern: AIOS allowlisted quality gate failed
-- Seen: 5 times
+- Seen: 6 times
 - Gates: AIOS
 - Category: unknown
 - Common cause: An AIOS-controlled project quality command failed during the commit gate.
 - Avoid by: Run the AIOS allowlisted quality gate locally before committing.
 - Example fix: test_quality failed: pnpm dependency:security failed: > front-office-amos@0.0.0 dependency:security /Users/jakyeamos/projects/portfolio. test_quality fixes must preserve or improve behavior coverage; delete tests only when they are proven obsolete, redundant with stronger coverage, or pure noise.
+
+### Pattern: pre-cr did not produce a passing coverage result
+- Seen: 2 times
+- Gates: Pre-CR
+- Category: process
+- Common cause: Pre-CR could not complete its configured readiness workflow.
+- Avoid by: Verify Pre-CR setup before relying on the readiness result.
+- Example fix: Fix the Pre-CR setup or execution error, then rerun the gate.
 
 ### Pattern: changed lines lacked coverage
 - Seen: 6 times
@@ -37,8 +45,8 @@
 ## Current repo-specific rules learned from gate history
 
 - Run focused tests with coverage before Pre-CR; changed lines must be covered or intentionally classified.
-- Run focused tests with coverage before committing changed source lines.
 - Run the AIOS allowlisted quality gate locally before committing.
+- Run focused tests with coverage before committing changed source lines.
 - Verify Pre-CR setup before relying on the readiness result.
 
 ## High-priority agent reminders
