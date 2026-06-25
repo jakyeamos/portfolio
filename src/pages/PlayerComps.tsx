@@ -34,11 +34,11 @@ export default function PlayerComps(): ReactElement {
           </div>
         </section>
 
-        <section className="mt-8 grid gap-6 xl:grid-cols-2">
+        <section className="mt-8 grid items-start gap-6 xl:grid-cols-2">
           {PLAYER_COMPS.map((comp) => (
             <article key={comp.player} className="editorial-card overflow-hidden">
-              <div className="grid h-full md:grid-cols-[220px_minmax(0,1fr)]">
-                <div className="relative min-h-[320px] overflow-hidden border-b border-[color:var(--color-line)] bg-[linear-gradient(180deg,#fff8ed_0%,#f5eee2_100%)] md:border-b-0 md:border-r">
+              <div className="grid md:grid-cols-[220px_minmax(0,1fr)] md:items-start">
+                <div className="relative h-[360px] overflow-hidden border-b border-[color:var(--color-line)] bg-[linear-gradient(180deg,#fff8ed_0%,#f5eee2_100%)] md:h-[420px] md:border-b-0 md:border-r">
                   <div className="absolute inset-x-0 top-0 h-20 bg-[linear-gradient(180deg,rgba(181,13,13,0.1)_0%,rgba(181,13,13,0)_100%)]" />
                   <img
                     src={comp.media.imageSrc}

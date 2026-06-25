@@ -101,7 +101,7 @@ export default function ImpactReport(): ReactElement {
           </div>
         </section>
 
-        <section className="mt-8 grid gap-6 xl:grid-cols-[300px_minmax(0,1fr)]">
+        <section className="mt-8 grid items-start gap-6 xl:grid-cols-[300px_minmax(0,1fr)]">
           <EditorialPoster
             kicker={activeCase.kicker}
             title={activeCase.title}
@@ -150,7 +150,7 @@ export default function ImpactReport(): ReactElement {
           </article>
         </section>
 
-        <section className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1.05fr)_360px]">
+        <section className="mt-8 grid items-start gap-6 xl:grid-cols-[minmax(0,1.05fr)_360px]">
           <article className="editorial-card p-6 md:p-8">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div>

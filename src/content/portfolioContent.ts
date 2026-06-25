@@ -423,6 +423,12 @@ export const WEBSITE_LAUNCHES: readonly WebsiteLaunch[] = [
     href: 'https://www.frmwrklabs.com/',
     copy: 'New website launch in the portfolio orbit. The live site was unavailable during this edit, so the portfolio keeps the mention link-forward without adding unsupported product claims.',
   },
+  {
+    label: 'Live website',
+    title: 'BBDSE',
+    href: 'https://bbdse.vercel.app/',
+    copy: 'Basketball decision-support and education site in the same portfolio orbit as Court Vision and the broader basketball IQ training work.',
+  },
 ] as const;
 
 export const MISSING_PROJECT_PACKETS = [

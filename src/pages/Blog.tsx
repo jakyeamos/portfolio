@@ -113,17 +113,29 @@ export default function Blog(): ReactElement {
 
             <section className="border border-[color:var(--color-line-strong)] bg-[color:var(--color-surface-muted)] p-6">
               <div className="section-kicker">Related Launches</div>
-              <div className="mt-5 grid gap-3">
+              <div className="mt-5 grid gap-4">
                 {WEBSITE_LAUNCHES.map((site) => (
                   <a
                     key={site.href}
                     href={site.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="group flex items-center justify-between gap-4 border border-[color:var(--color-line)] bg-white px-4 py-4 text-sm font-bold uppercase tracking-[0.14em] text-[color:var(--color-ink)] hover:border-[color:var(--color-primary)] hover:text-[color:var(--color-primary)]"
+                    className="group flex min-h-32 items-start justify-between gap-4 border border-[color:var(--color-line-strong)] bg-white p-5 text-[color:var(--color-ink)] shadow-[0_10px_24px_rgba(16,28,44,0.05)] hover:border-[color:var(--color-primary)] hover:shadow-[0_14px_32px_rgba(181,13,13,0.1)]"
                   >
-                    {site.title}
-                    <ArrowRight size={15} />
+                    <span>
+                      <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--color-primary)]">
+                        {site.label}
+                      </span>
+                      <span className="mt-3 block text-3xl font-black uppercase leading-none tracking-tight text-[color:var(--color-ink)] group-hover:text-[color:var(--color-primary)]">
+                        {site.title}
+                      </span>
+                      <span className="mt-3 block text-sm font-medium leading-relaxed normal-case tracking-normal text-[color:var(--color-ink-soft)]">
+                        {site.copy}
+                      </span>
+                    </span>
+                    <span className="mt-1 flex size-9 shrink-0 items-center justify-center border border-[color:var(--color-primary)] text-[color:var(--color-primary)] group-hover:bg-[color:var(--color-primary)] group-hover:text-white">
+                      <ArrowRight size={18} />
+                    </span>
                   </a>
                 ))}
               </div>

@@ -26,6 +26,7 @@ import {
 
 const AXES: readonly ProjectAxis[] = ['impact', 'difficulty', 'ambition', 'creativity'] as const;
 const ALL_PROJECTS: readonly CurrentProject[] = [...CURRENT_PROJECTS, ...CLOSED_PROJECTS] as const;
+const COURT_MARKER_SIZE = 9;
 
 type CourtPoint = {
   left: number;
@@ -1113,10 +1114,6 @@ function normalizeCourtPoints(points: readonly CourtPoint[]): CourtPoint[] {
   }));
 }
 
-function markerSizeForProject(project: CurrentProject): number {
-  return 14 + project.grades.ambition;
-}
-
 function getThreePointArcTop(left: number): number {
   const arcX = clamp(left, 7, 93);
   const dx = arcX - 50;
@@ -1214,7 +1211,7 @@ function buildCourtLayout(projects: readonly CurrentProject[], axis: ProjectAxis
   const normalizedPoints = normalizeCourtPoints(rawPoints);
   const points = projects.map((project, index) => ({
     project,
-    markerSize: markerSizeForProject(project),
+    markerSize: COURT_MARKER_SIZE,
     ...normalizedPoints[index],
   }));
 
@@ -1742,8 +1739,6 @@ export default function CurrentProjects(): ReactElement {
 
                   {/* Shot markers */}
                   {courtLayout.map(({ project, markerSize, point, position }) => {
-                    const alpha = 0.38 + (project.trackerScore / 100) * 0.52;
-                    const markerRgb = getStatusRgb(project.trackerStatus);
                     const isSelected = selectedProject?.slug === project.slug;
                     const isHovered = hoveredSlug === project.slug;
 
@@ -1793,15 +1788,7 @@ export default function CurrentProjects(): ReactElement {
                         <motion.button
                           type="button"
                           aria-label={`${project.title} — click for details`}
-                          className="flex items-center justify-center rounded-full border border-white/80 text-[7px] font-black uppercase leading-none text-white"
-                          style={{
-                            height: `${markerSize}px`,
-                            width: `${markerSize}px`,
-                            backgroundColor: `rgba(${markerRgb},${alpha})`,
-                            boxShadow: isSelected
-                              ? `0 0 0 2px rgba(${markerRgb},0.55), 0 4px 12px rgba(16,28,44,0.22)`
-                              : '0 2px 8px rgba(16,28,44,0.18)',
-                          }}
+                          className="flex h-6 w-6 items-center justify-center rounded-full bg-transparent p-0"
                           animate={{ scale: isSelected ? 1.25 : 1 }}
                           whileHover={{ scale: 1.5 }}
                           transition={{ duration: 0.15 }}
@@ -1817,7 +1804,16 @@ export default function CurrentProjects(): ReactElement {
                           onMouseEnter={() => setHoveredSlug(project.slug)}
                           onMouseLeave={() => setHoveredSlug(null)}
                         >
-                          {project.shortCode}
+                          <span
+                            className="block rounded-full border border-white/90 bg-[color:var(--color-primary)]"
+                            style={{
+                              height: `${markerSize}px`,
+                              width: `${markerSize}px`,
+                              boxShadow: isSelected
+                                ? '0 0 0 2px rgba(181,13,13,0.55), 0 4px 12px rgba(16,28,44,0.22)'
+                                : '0 2px 8px rgba(16,28,44,0.18)',
+                            }}
+                          />
                         </motion.button>
                       </div>
                     );

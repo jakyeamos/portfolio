@@ -1,10 +1,10 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site has tracker-sync wired against all 15 current-project truth sources, content integrity tests for project catalog data, build/typecheck-backed Pre-CR gates, and production-aware Netlify deploy verification for weekly main refreshes.
+summary: Personal portfolio site has tracker-sync wired against all 15 current-project truth sources, live-launch promotion on the homepage/blog, simplified current-project court markers, content integrity tests, build/typecheck-backed Pre-CR gates, and production-aware Netlify deploy verification for weekly main refreshes.
 healthScore: 87
 statusLabel: on_track
-nextStep: Run the weekly tracker refresh from main with Netlify deploy verification so the public production site is confirmed on the refreshed commit.
+nextStep: Run the weekly tracker refresh from main with Netlify deploy verification, then browser-smoke the live-launch cards and simplified court markers in production.
 blockers: []
 lastUpdated: 2026-06-25
 tags: [portfolio, personal-site, react, vite, tailwind]
@@ -45,9 +45,9 @@ The weekly portfolio tracker ingestion automation now has a production refresh e
 
 Pre-CR is now calibrated for this repo's content-heavy shape: it runs `pnpm precr:check`, which validates project catalog integrity, typechecks through `pnpm lint`, and runs the production build. Changed-line coverage is non-blocking because static catalog/config edits are better protected by schema/content validation than deep line coverage.
 
-The current-project court UI now uses a meaningful matrix rather than a decorative half-arc: x-position represents tracker health/readiness, y-position represents the selected project axis on a tough elite-threshold curve, marker size reflects ambition, marker color reflects status, and a deterministic spacing pass prevents dense project clusters from overlapping on desktop and mobile. The displayed board now normalizes against the projects currently shown so each active axis uses more of the court. The court itself stays visually neutral so the project dots and labels carry the meaning. Clearing the three-point arc is intentionally selective rather than the default for every strong project. Clicking a current-project dot or shipped-project card opens the detail modal with a compact "Historic Shot Clip" module that maps the displayed court location to a nearby famous NBA shot through mutually exclusive court zones. The clip selector is now provider-aware and quality-gated, so it can choose from YouTube, Vimeo, NBA, or external clip sources only when they are marked as verified game clips before falling back to reference-only entries.
+The current-project court UI now uses a meaningful matrix rather than a decorative half-arc: x-position represents tracker health/readiness, y-position represents the selected project axis on a tough elite-threshold curve, and a deterministic spacing pass prevents dense project clusters from overlapping on desktop and mobile. The displayed board now normalizes against the projects currently shown so each active axis uses more of the court. The court itself stays visually neutral, and project markers are now small red dots without embedded letter labels so detail discovery happens through hover, sidebar, and modal interactions. Clearing the three-point arc is intentionally selective rather than the default for every strong project. Clicking a current-project dot or shipped-project card opens the detail modal with a compact "Historic Shot Clip" module that maps the displayed court location to a nearby famous NBA shot through mutually exclusive court zones. The clip selector is now provider-aware and quality-gated, so it can choose from YouTube, Vimeo, NBA, or external clip sources only when they are marked as verified game clips before falling back to reference-only entries.
 
-The homepage now promotes the latest active project work before the feature-report grid through a "Now Playing" strip sourced from `CURRENT_PROJECTS`, sorted by `lastUpdated`, and linked to the current-project court matrix. The homepage and project page both describe the matrix as tracker health on X and the selected project axis on Y. This gives recent AI/workflow/product builds first-page presence without duplicating tracker content by hand.
+The homepage now promotes the latest active project work before the feature-report grid through a "Now Playing" strip sourced from `CURRENT_PROJECTS`, sorted by `lastUpdated`, and linked to the current-project court matrix. The homepage and project page both describe the matrix as tracker health on X and the selected project axis on Y. A Live Launches section now surfaces recent external site launches directly on the homepage and blog, including BBDSE. This gives recent AI/workflow/product builds and shipped sites first-page presence without duplicating tracker content by hand.
 
 The Film Room now has a small "New Signals" surface: TMCP is mentioned as a concept-watch item rather than a scored tracker project, and recent website launches for Chiron's Forge and FRMWRK Labs are linked from the page. Chiron's Forge is described from its live site; FRMWRK Labs is intentionally link-forward only until the site is reachable for source-backed copy.
 
@@ -107,6 +107,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 25: Migrated blog posts to repo-backed Markdown files and restored `/blog/write` as a local/private writer that generates canonical Markdown plus a BIP crosspost payload for portfolio and FRMWRK repo targets.
 - June 25: Added the FRMWRK writing profile path to the BIP handoff payload so crossposts can be adapted against `/Users/jakyeamos/projects/frmwrklabs/WRITING_PROFILE.md`.
 - June 25: Added `pnpm tracker:weekly` so the weekly main tracker refresh runs sync/typecheck/build gates and then confirms the latest Netlify production deploy is on the refreshed commit.
+- June 25: Added homepage/blog Live Launches cards for recent external site launches, including BBDSE, and simplified project court markers to small red dots without internal labels.
 - June 23: Added a dedicated Historic Shot Clip rim zone with a poster-heavy dunk pool led by Anthony Edwards over John Collins, preventing centered dunk-range dots such as Dispatches on Impact/Difficulty/Ambition from falling through to midrange clips
 - June 23: Hardened the shot assignment gate so Impact/Dispatches must resolve to `rim/edwards-collins-2024`; this catches the specific Pierce-style fallback regression even if broader zone coverage still passes
 - June 23: Aligned Current Projects labels, help text, modal copy, and homepage references around the court matrix model: X-axis is tracker health and Y-axis is the selected project axis; `pnpm lint` and `pnpm build` passed
@@ -138,6 +139,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 - **Content integrity:** `pnpm test:content` — PASS on 2026-06-24; validates current and closed project catalog shape, unique slugs/short codes, valid statuses, score bounds, date parseability, tags, and grade ranges.
 - **Film Room poster cleanup:** `pnpm typecheck` — PASS on 2026-06-25; the decorative play badge and stale `showPlay` prop/data path are removed without TypeScript fallout.
+- **Live launches and court marker cleanup:** local direct checks passed on 2026-06-25: `node scripts/check-project-content.mjs`, `node node_modules/typescript/bin/tsc --noEmit`, and `node node_modules/vite/bin/vite.js build` with the existing large chunk warning. `pnpm test:content` and `pnpm typecheck` are blocked before script execution by existing pnpm ignored-build approval prompts for dependencies.
 - **Pre-CR check:** `pnpm precr:check` — PASS on 2026-06-24; runs content integrity, typecheck, and production build. Changed-line coverage is intentionally non-blocking for static catalog/config changes.
 - **Lint:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-24
 - **Types:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-24

@@ -48,10 +48,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Full-stack music social platform in active development — covering discovery, ratings, feeds, market surfaces, clubs, and a shared web/mobile codebase in a TypeScript monorepo.',
     trackerComment:
-      'Run `pnpm clerk:doctor` again after `clerk auth login` and `clerk link`, then close the polymorphic `ExternalId` persistence gap and rerun the repo-level quality ladder.',
+      'Close the Phase 116 artifact trail, then continue Phase 117 provider credentials, Phase 82 hosted rollout evidence, or Phase 119 mobile/TestFlight launch blockers.',
     trackerStatus: 'needs_attention',
-    trackerScore: 79,
-    lastUpdated: '2026-06-12',
+    trackerScore: 78,
+    lastUpdated: '2026-06-25',
     tags: ['music', 'social', 'monorepo', 'tRPC', 'Prisma'],
     grades: { impact: 9, difficulty: 9, ambition: 10, creativity: 8 },
     scoutTake:
@@ -64,10 +64,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Personal AI operating system built around session hooks, workflow orchestration, pattern extraction, and layered knowledge retrieval — actively used as the backbone of daily engineering operations.',
     trackerComment:
-      'Triage the 18 full-suite Python test failures and stale repo-wide Ruff/BasedPyright baselines before claiming repo-level quality green.',
+      'Use the smoke-verified `aios tmcp review-plan` workflow on the full Soundscape visual-polish evidence set, then triage the remaining Ruff format/check and BasedPyright baseline failures.',
     trackerStatus: 'needs_attention',
-    trackerScore: 66,
-    lastUpdated: '2026-06-23',
+    trackerScore: 72,
+    lastUpdated: '2026-06-25',
     tags: ['Python', 'shell', 'SQLite', 'automation', 'AI-tooling'],
     grades: { impact: 8, difficulty: 7, ambition: 9, creativity: 9 },
     scoutTake:
