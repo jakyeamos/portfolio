@@ -13,6 +13,7 @@
     "prebuild": "pnpm sync",
     "prelint": "pnpm sync",
     "sync": "node scripts/sync-tracker.mjs",
+    "tracker:weekly": "node scripts/weekly-tracker-main-refresh.mjs",
     "shot-embeds": "node scripts/check-shot-embeds.mjs",
     "shot-embeds:target": "node scripts/check-shot-embeds.mjs --target=50",
     "shot-inventory": "node scripts/check-shot-embeds.mjs --inventory",

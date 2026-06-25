@@ -1,10 +1,10 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site has tracker-sync wired against all 15 current-project truth sources, content integrity tests for project catalog data, build/typecheck-backed Pre-CR gates, and pnpm is used consistently for local, CI, and deploy workflows.
+summary: Personal portfolio site has tracker-sync wired against all 15 current-project truth sources, content integrity tests for project catalog data, build/typecheck-backed Pre-CR gates, and production-aware Netlify deploy verification for weekly main refreshes.
 healthScore: 87
 statusLabel: on_track
-nextStep: Keep the weekly tracker ingestion running from main so current-project progress rebuilds the public portfolio UI after each verified sync.
+nextStep: Run the weekly tracker refresh from main with Netlify deploy verification so the public production site is confirmed on the refreshed commit.
 blockers: []
 lastUpdated: 2026-06-25
 tags: [portfolio, personal-site, react, vite, tailwind]
@@ -41,7 +41,7 @@ The current-project tracker now resolves 15 local project truth sources through 
 
 The repo uses pnpm as the single package-manager workflow: `package.json` declares `pnpm@10.26.0`, lifecycle hooks call `pnpm sync`, CI installs with `pnpm install --frozen-lockfile`, Netlify builds with `pnpm build`, and `pnpm-lock.yaml` is the lockfile.
 
-The weekly portfolio tracker ingestion automation now commits verified generated tracker updates and pushes the current branch after `pnpm sync`, `pnpm lint`, and `pnpm build` pass. This makes the portfolio-progress loop publishable, but the public UI only updates automatically when the pushed branch is the Netlify production deploy branch or is merged into it. Deploy status checks now avoid the unstable global Netlify CLI by using a pinned repo-local `netlify-cli`, a temp-config wrapper, and a direct Netlify API script.
+The weekly portfolio tracker ingestion automation now has a production refresh entry point: `pnpm tracker:weekly` runs only from `main` by default, performs `pnpm sync`, `pnpm lint`, and `pnpm build`, requires the refreshed tracker state to already be committed, then verifies the latest Netlify production deploy for `main` is on the current `HEAD` commit. Deploy status checks avoid the unstable global Netlify CLI by using a pinned repo-local `netlify-cli`, a temp-config wrapper, and a direct Netlify API script that filters production deploys before comparing commits.
 
 Pre-CR is now calibrated for this repo's content-heavy shape: it runs `pnpm precr:check`, which validates project catalog integrity, typechecks through `pnpm lint`, and runs the production build. Changed-line coverage is non-blocking because static catalog/config edits are better protected by schema/content validation than deep line coverage.
 
@@ -105,6 +105,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 23: Replaced the one-off TMCP crosspost-channel card with an owner writer route at `/blog/write`, including destination checkboxes and generated markdown/publish-plan output for future GitHub/BIP automation
 - June 25: Removed the public `/blog/write` owner workflow route and public blog CTAs because the deployed SPA has no authentication layer for owner-only publishing tools.
 - June 25: Migrated blog posts to repo-backed Markdown files and restored `/blog/write` as a local/private writer that generates canonical Markdown plus a BIP crosspost payload for portfolio and FRMWRK repo targets.
+- June 25: Added `pnpm tracker:weekly` so the weekly main tracker refresh runs sync/typecheck/build gates and then confirms the latest Netlify production deploy is on the refreshed commit.
 - June 23: Added a dedicated Historic Shot Clip rim zone with a poster-heavy dunk pool led by Anthony Edwards over John Collins, preventing centered dunk-range dots such as Dispatches on Impact/Difficulty/Ambition from falling through to midrange clips
 - June 23: Hardened the shot assignment gate so Impact/Dispatches must resolve to `rim/edwards-collins-2024`; this catches the specific Pierce-style fallback regression even if broader zone coverage still passes
 - June 23: Aligned Current Projects labels, help text, modal copy, and homepage references around the court matrix model: X-axis is tracker health and Y-axis is the selected project axis; `pnpm lint` and `pnpm build` passed
@@ -121,7 +122,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 ## Next Concrete Steps
 
-1. Keep the weekly tracker ingestion running from main so weekly commits rebuild the public portfolio UI
+1. Run the weekly tracker ingestion from main with `pnpm tracker:weekly` so refreshed tracker commits are verified against Netlify production
 2. Decide whether RemodelVision should eventually move its truth source into `/Users/jakyeamos/projects/remodelvision/.tracker/PROJECT_TRUTH.md`
 3. Decide whether the ignored draft/binary assets should stay colocated with the repo or move to a non-repo archive location
 4. Add lightweight smoke coverage or a documented manual verification checklist if the site is changing frequently
@@ -158,6 +159,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Shot replacement pass:** `/shot-review.html` browser verification — PASS on 2026-06-23; remaining broad, intro-card, studio-package, and iframe-restricted watchlist entries were replaced with tighter verified embeds
 - **Historic Shot Clip sound request:** parameter verification — PASS on 2026-06-23; muted clips include `mute=1`, while sound-enabled clips omit the mute param after the user toggles shot sound
 - **Local browser smoke:** `/projects` in the in-app Browser — PASS on 2026-06-23; opening the Soundscape court marker showed the Historic Shot Clip module with one provider-generated YouTube iframe URL
+- **Weekly tracker deploy verification:** `node --check scripts/weekly-tracker-main-refresh.mjs`, `node --check scripts/netlify-deploy-status.mjs`, `node scripts/netlify-deploy-status.mjs` missing-env behavior, `node scripts/weekly-tracker-main-refresh.mjs` branch guard, direct `tsc --noEmit`, and direct Vite production build — PASS on 2026-06-25; live deploy lookup still requires `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`
 - **Deploy tooling:** `pnpm netlify:cli -- --version`, `pnpm netlify:status`, and `pnpm deploy:status` missing-env behavior — PASS on 2026-06-22; live deploy lookup still requires `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`
 - **Browser QA:** `/projects` in the in-app Browser — PASS on 2026-06-22 before the neutral-court styling cleanup; recalibrated Ambition desktop minimum marker gap 25.46px, mobile minimum marker gap 3.31px, no marker overlaps, no horizontal overflow, no console warnings/errors, Soundscape marker opened the detail modal. Browser verification for the neutral-court cleanup and Historic Shot modal work was blocked by the local in-app Browser policy for `127.0.0.1:3000`; shell network access also could not resolve `youtube.com`, so embed IDs still need live browser/deploy validation. `pnpm lint` and `pnpm build` passed after both changes.
 - **Architecture check:** `node scripts/aios-architecture-check.mjs` — PASS on 2026-05-24
