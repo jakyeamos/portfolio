@@ -99,7 +99,6 @@ export default function FilmRoom(): ReactElement {
             detail={activeProject.detail}
             media={activeProject.media}
             tone={activeProject.tone}
-            showPlay={activeProject.showPlay}
           />
 
           <article className="editorial-card p-6 md:p-8">

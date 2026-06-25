@@ -12,7 +12,6 @@ interface EditorialPosterProps {
   tone: PosterTone;
   media?: PosterMediaAsset;
   stat?: string;
-  showPlay?: boolean;
 }
 
 const TONE_CLASSES: Record<PosterTone, string> = {
@@ -36,7 +35,6 @@ export default function EditorialPoster({
   tone,
   media,
   stat,
-  showPlay = false,
 }: EditorialPosterProps): ReactElement {
   const hasMedia = Boolean(media?.imageSrc || media?.videoSrc || media?.posterSrc);
   const mediaStyle: CSSProperties | undefined = media?.objectPosition
@@ -149,11 +147,6 @@ export default function EditorialPoster({
             ) : (
               <div />
             )}
-            {showPlay ? (
-              <div className="flex h-[72px] w-[72px] items-center justify-center rounded-full border-2 border-[color:var(--color-primary)] bg-white text-[color:var(--color-primary)] shadow-[0_16px_30px_rgba(181,13,13,0.18)] transition group-hover:-translate-y-1">
-                <div className="ml-1 h-0 w-0 border-b-[12px] border-l-[18px] border-b-transparent border-l-[color:var(--color-primary)] border-t-[12px] border-t-transparent" />
-              </div>
-            ) : null}
           </div>
         </div>
       </div>

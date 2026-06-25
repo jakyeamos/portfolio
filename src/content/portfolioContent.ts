@@ -30,7 +30,6 @@ export interface FilmRoomProject {
   result: string;
   whyItMatters: string;
   engineeringRead: string;
-  showPlay?: boolean;
 }
 
 export interface HeroAction {
@@ -366,7 +365,6 @@ export const FILM_ROOM_PROJECTS: readonly FilmRoomProject[] = [
     result: 'The end result is a deep roster build, not a one-screen demo. It shows comfort handling product ambition and system structure at the same time.',
     whyItMatters: 'This is the tape for lead-ball-handler upside: seeing the whole floor, keeping the offense organized, and making multiple surfaces feel like one product.',
     engineeringRead: 'Jakye looks comfortable running a lot of action without losing the shared contracts and product discipline that keep the possession alive.',
-    showPlay: true,
   },
   {
     kicker: 'Workflow Tape',

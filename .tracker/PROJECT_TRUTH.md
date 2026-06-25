@@ -6,7 +6,7 @@ healthScore: 87
 statusLabel: on_track
 nextStep: Keep the weekly tracker ingestion running from main so current-project progress rebuilds the public portfolio UI after each verified sync.
 blockers: []
-lastUpdated: 2026-06-24
+lastUpdated: 2026-06-25
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, blog, player-comps, impact-report]
 goals:
@@ -50,6 +50,8 @@ The current-project court UI now uses a meaningful matrix rather than a decorati
 The homepage now promotes the latest active project work before the feature-report grid through a "Now Playing" strip sourced from `CURRENT_PROJECTS`, sorted by `lastUpdated`, and linked to the current-project court matrix. The homepage and project page both describe the matrix as tracker health on X and the selected project axis on Y. This gives recent AI/workflow/product builds first-page presence without duplicating tracker content by hand.
 
 The Film Room now has a small "New Signals" surface: TMCP is mentioned as a concept-watch item rather than a scored tracker project, and recent website launches for Chiron's Forge and FRMWRK Labs are linked from the page. Chiron's Forge is described from its live site; FRMWRK Labs is intentionally link-forward only until the site is reachable for source-backed copy.
+
+The Film Room poster now omits the old decorative play badge because it looked interactive but had no playback behavior. The `EditorialPoster` API no longer carries a `showPlay` prop.
 
 The portfolio now includes `/blog` as a first-class writing surface for concepts that need more room than project cards. The initial post expands the TMCP mention into a working thesis, placement next to AIOS/Terrace, why the idea is worth mentioning, and what still needs a fuller draft. The owner-facing `/blog/write` route models a future write-once publishing workflow: draft a post, select destinations such as portfolio, FRMWRK Labs, Twitter, or BIP, and generate a publish plan/markdown payload without silently posting anywhere.
 
@@ -106,6 +108,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 23: Aligned Current Projects labels, help text, modal copy, and homepage references around the court matrix model: X-axis is tracker health and Y-axis is the selected project axis; `pnpm lint` and `pnpm build` passed
 - June 23: Made court-marker modal selection carry the clicked axis, point, and layout so Dispatches on the Impact board cannot render a stale midrange shot panel under an Impact-axis modal
 - June 24: Added `pnpm test:content` and recalibrated Pre-CR so portfolio commits require content integrity, typecheck, and build checks instead of deep changed-line coverage for static catalog/config files
+- June 25: Removed the nonfunctional Film Room poster play badge and deleted the stale `showPlay` prop/data path; `pnpm typecheck` passed.
 
 ## Open Problems
 
@@ -130,6 +133,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 ## Quality Ladder Notes
 
 - **Content integrity:** `pnpm test:content` — PASS on 2026-06-24; validates current and closed project catalog shape, unique slugs/short codes, valid statuses, score bounds, date parseability, tags, and grade ranges.
+- **Film Room poster cleanup:** `pnpm typecheck` — PASS on 2026-06-25; the decorative play badge and stale `showPlay` prop/data path are removed without TypeScript fallout.
 - **Pre-CR check:** `pnpm precr:check` — PASS on 2026-06-24; runs content integrity, typecheck, and production build. Changed-line coverage is intentionally non-blocking for static catalog/config changes.
 - **Lint:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-24
 - **Types:** `pnpm lint` (`tsc --noEmit`) — PASS on 2026-06-24
