@@ -1,7 +1,8 @@
 import type { ReactElement } from 'react';
 import { ArrowRight, FileText, NotebookText } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { BLOG_POSTS, WEBSITE_LAUNCHES } from '@/content/portfolioContent';
+import { BLOG_POSTS } from '@/content/blogContent';
+import { WEBSITE_LAUNCHES } from '@/content/portfolioContent';
 
 export default function Blog(): ReactElement {
   const featuredPost = BLOG_POSTS[0];

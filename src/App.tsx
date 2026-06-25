@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import SideNavBar from '@/components/SideNavBar';
 import TopNavBar from '@/components/TopNavBar';
 import Blog from '@/pages/Blog';
+import BlogWrite from '@/pages/BlogWrite';
 import CurrentProjects from '@/pages/CurrentProjects';
 import FilmRoom from '@/pages/FilmRoom';
 import Home from '@/pages/Home';
@@ -24,6 +25,7 @@ function ScrollToTop(): null {
 function AppContent(): ReactElement {
   const location = useLocation();
   const showSideNav = location.pathname !== '/';
+  const showBlogWriter = import.meta.env.DEV || import.meta.env.VITE_ENABLE_BLOG_WRITER === 'true';
 
   return (
     <div className="site-shell min-h-screen flex flex-col">
@@ -36,6 +38,7 @@ function AppContent(): ReactElement {
           <Route path="/scouting-report" element={<ScoutingReport />} />
           <Route path="/film-room" element={<FilmRoom />} />
           <Route path="/blog" element={<Blog />} />
+          {showBlogWriter ? <Route path="/blog/write" element={<BlogWrite />} /> : null}
           <Route path="/projects" element={<CurrentProjects />} />
           <Route path="/player-comps" element={<PlayerComps />} />
           <Route path="/impact-report" element={<ImpactReport />} />
