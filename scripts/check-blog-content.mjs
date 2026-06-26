@@ -1,23 +1,57 @@
 #!/usr/bin/env node
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { readdirSync, readFileSync } from 'node:fs';
+import { basename, resolve } from 'node:path';
 import ts from 'typescript';
 
 const root = resolve(import.meta.dirname, '..');
-const sourcePath = resolve(root, 'src/content/blogSorting.ts');
-const compiled = ts.transpileModule(readFileSync(sourcePath, 'utf8'), {
-  compilerOptions: {
-    module: ts.ModuleKind.ES2022,
-    target: ts.ScriptTarget.ES2022,
-  },
-});
+const blogDirectory = resolve(root, 'src/content/blog');
 
-const moduleUrl = `data:text/javascript;base64,${Buffer.from(compiled.outputText).toString('base64')}`;
-const { sortBlogPosts } = await import(moduleUrl);
+async function importTypescriptModule(relativePath) {
+  const sourcePath = resolve(root, relativePath);
+  const compiled = ts.transpileModule(readFileSync(sourcePath, 'utf8'), {
+    compilerOptions: {
+      module: ts.ModuleKind.ES2022,
+      target: ts.ScriptTarget.ES2022,
+    },
+  });
+
+  const moduleUrl = `data:text/javascript;base64,${Buffer.from(compiled.outputText).toString('base64')}`;
+  return import(moduleUrl);
+}
+
+const { sortBlogPosts } = await importTypescriptModule('src/content/blogSorting.ts');
+const { parseBlogMarkdown } = await importTypescriptModule('src/content/blogMarkdown.ts');
 
 function fail(message) {
   console.error(`[FAIL] ${message}`);
   process.exitCode = 1;
+}
+
+const markdownFiles = readdirSync(blogDirectory, { withFileTypes: true })
+  .filter((entry) => entry.isFile() && entry.name.endsWith('.md'))
+  .map((entry) => entry.name)
+  .sort((a, b) => a.localeCompare(b));
+
+if (markdownFiles.length === 0) {
+  fail('src/content/blog must contain at least one Markdown post');
+}
+
+const parsedPosts = [];
+
+for (const filename of markdownFiles) {
+  const filePath = resolve(blogDirectory, filename);
+
+  try {
+    const parsedPost = parseBlogMarkdown(readFileSync(filePath, 'utf8'));
+    parsedPosts.push({
+      ...parsedPost.frontmatter,
+      slug: basename(filename, '.md'),
+      sections: parsedPost.sections,
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    fail(`${filename}: ${message}`);
+  }
 }
 
 const posts = [
@@ -39,6 +73,12 @@ if (sortedSlugs.join(',') !== expectedSlugs.join(',')) {
   fail(`pinned blog ordering expected ${expectedSlugs.join(',')}, received ${sortedSlugs.join(',')}`);
 }
 
+for (const post of parsedPosts) {
+  if (post.sections.length === 0) {
+    fail(`${post.slug}.md parsed without sections`);
+  }
+}
+
 if (!process.exitCode) {
-  console.log('[PASS] blog content ordering');
+  console.log(`[PASS] blog content integrity (${parsedPosts.length} Markdown posts) and ordering`);
 }

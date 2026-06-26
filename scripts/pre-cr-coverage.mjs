@@ -6,6 +6,7 @@ import { execFileSync } from 'node:child_process';
 const root = resolve(import.meta.dirname, '..');
 const coveragePath = resolve(root, 'coverage/pre-cr.lcov');
 const sourceExtensions = /\.(?:[cm]?[jt]sx?)$/;
+const blogMarkdownPath = /^src\/content\/blog\/[^/]+\.md$/;
 
 const changedFiles = execFileSync('git', ['diff', '--cached', '--name-only', 'HEAD'], {
   cwd: root,
@@ -13,24 +14,42 @@ const changedFiles = execFileSync('git', ['diff', '--cached', '--name-only', 'HE
 })
   .split('\n')
   .map((line) => line.trim())
-  .filter((line) => sourceExtensions.test(line));
+  .filter((line) => sourceExtensions.test(line) || blogMarkdownPath.test(line));
 
 const commandCoverage = new Map([
   ['src/content/currentProjects.ts', ['node', ['scripts/check-project-content.mjs']]],
   ['scripts/check-project-content.mjs', ['node', ['scripts/check-project-content.mjs']]],
+  ['src/content/blogContent.ts', ['node', ['scripts/check-blog-content.mjs']]],
+  ['src/content/blogMarkdown.ts', ['node', ['scripts/check-blog-content.mjs']]],
+  ['src/content/blogSorting.ts', ['node', ['scripts/check-blog-content.mjs']]],
+  ['scripts/check-blog-content.mjs', ['node', ['scripts/check-blog-content.mjs']]],
   ['scripts/validate-env.mjs', ['node', ['scripts/validate-env.mjs']]],
   ['scripts/secret-scan.mjs', ['node', ['scripts/secret-scan.mjs']]],
 ]);
 
 const coveredFiles = new Set();
+const executedCommands = new Set();
+
+function commandForFile(filePath) {
+  if (blogMarkdownPath.test(filePath)) {
+    return ['node', ['scripts/check-blog-content.mjs']];
+  }
+
+  return commandCoverage.get(filePath);
+}
+
 if (changedFiles.includes('scripts/pre-cr-coverage.mjs')) {
   coveredFiles.add('scripts/pre-cr-coverage.mjs');
 }
 for (const filePath of changedFiles) {
-  const command = commandCoverage.get(filePath);
+  const command = commandForFile(filePath);
   if (!command) continue;
   const [binary, args] = command;
-  execFileSync(binary, args, { cwd: root, stdio: 'inherit' });
+  const commandKey = [binary, ...args].join('\0');
+  if (!executedCommands.has(commandKey)) {
+    execFileSync(binary, args, { cwd: root, stdio: 'inherit' });
+    executedCommands.add(commandKey);
+  }
   coveredFiles.add(filePath);
 }
 
