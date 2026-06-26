@@ -1,12 +1,12 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site has tracker-sync wired against all 15 current-project truth sources, live-launch promotion on the homepage/blog, simplified current-project court markers, content integrity tests, build/typecheck-backed Pre-CR gates, and production-aware Netlify deploy verification for weekly main refreshes.
+summary: Personal portfolio site has tracker-sync wired against all 15 current-project truth sources, live-launch promotion on the homepage/blog, pinned Markdown blog posts, simplified current-project court markers, content integrity tests, build/typecheck-backed Pre-CR gates, and production-aware Netlify deploy verification for weekly main refreshes.
 healthScore: 87
 statusLabel: on_track
 nextStep: Run the weekly tracker refresh from main with Netlify deploy verification, then browser-smoke the live-launch cards and simplified court markers in production.
 blockers: []
-lastUpdated: 2026-06-25
+lastUpdated: 2026-06-26
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, blog, player-comps, impact-report]
 goals:
@@ -54,6 +54,8 @@ The Film Room now has a small "New Signals" surface: TMCP is mentioned as a conc
 The Film Room poster now omits the old decorative play badge because it looked interactive but had no playback behavior. The `EditorialPoster` API no longer carries a `showPlay` prop.
 
 The portfolio now includes `/blog` as a first-class writing surface for concepts that need more room than project cards. Blog posts are repo-backed Markdown files under `src/content/blog/*.md`, with the initial TMCP concept note migrated out of hardcoded TypeScript content. The owner-facing writer is available only during local development or an explicit private `VITE_ENABLE_BLOG_WRITER=true` build; it emits canonical Markdown plus a BIP handoff payload with portfolio and FRMWRK repo targets so BIP can own draft hosting, review, and cross-repo pushes without exposing public unauthenticated publishing. The FRMWRK target carries `/Users/jakyeamos/projects/frmwrklabs/WRITING_PROFILE.md` as a site-specific style contract because FRMWRK Labs should not use the same voice as the personal portfolio.
+
+Blog Markdown now supports `pinned: true` frontmatter. Pinned posts sort ahead of unpinned posts while preserving newest-first order inside each group, the public blog marks pinned entries with a pin badge, and the local/private writer can include pinned metadata in both canonical Markdown and the BIP handoff payload.
 
 ## Why This Matters / Intended Outcome
 
@@ -108,6 +110,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - June 25: Added the FRMWRK writing profile path to the BIP handoff payload so crossposts can be adapted against `/Users/jakyeamos/projects/frmwrklabs/WRITING_PROFILE.md`.
 - June 25: Added `pnpm tracker:weekly` so the weekly main tracker refresh runs sync/typecheck/build gates and then confirms the latest Netlify production deploy is on the refreshed commit.
 - June 25: Added homepage/blog Live Launches cards for recent external site launches, including BBDSE, and simplified project court markers to small red dots without internal labels.
+- June 26: Added pinned Markdown blog posts, including pinned sorting, public pin badges, local writer pinned-frontmatter output, and a blog ordering content check.
 - June 23: Added a dedicated Historic Shot Clip rim zone with a poster-heavy dunk pool led by Anthony Edwards over John Collins, preventing centered dunk-range dots such as Dispatches on Impact/Difficulty/Ambition from falling through to midrange clips
 - June 23: Hardened the shot assignment gate so Impact/Dispatches must resolve to `rim/edwards-collins-2024`; this catches the specific Pierce-style fallback regression even if broader zone coverage still passes
 - June 23: Aligned Current Projects labels, help text, modal copy, and homepage references around the court matrix model: X-axis is tracker health and Y-axis is the selected project axis; `pnpm lint` and `pnpm build` passed
@@ -148,6 +151,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Film Room New Signals QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/film-room` — PASS on 2026-06-23; TMCP, Chiron's Forge, and FRMWRK Labs rendered, the two website links were present with external URLs, there were no console warnings/errors or framework overlay, and the new section avoided mobile horizontal overflow at 390px width
 - **Blog QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke on `/blog` — PASS on 2026-06-23; route rendered, Blog nav appeared active, the TMCP thesis and article sections were visible, desktop header had no horizontal overflow after compact top-nav labels, and mobile avoided horizontal overflow at 390px width
 - **Blog writer/BIP handoff QA:** `pnpm lint`, `pnpm build`, and in-app Browser smoke — PASS on 2026-06-25; production preview `/blog` renders the Markdown-backed TMCP post without writer CTAs, production preview `/blog/write` does not render the writer, and local dev `/blog/write` renders canonical Markdown plus a BIP payload whose selected repo targets update from checkbox state. FRMWRK payload targets include `/Users/jakyeamos/projects/frmwrklabs/WRITING_PROFILE.md`.
+- **Pinned blog post QA:** direct content checks, typecheck, production build, and in-app Browser smoke — PASS on 2026-06-26; `node scripts/check-blog-content.mjs`, `node scripts/check-project-content.mjs`, `node node_modules/typescript/bin/tsc --noEmit`, and `node node_modules/vite/bin/vite.js build` passed with the existing Vite large-chunk warning. Browser smoke on local dev verified `/blog` shows the pinned TMCP post with no horizontal overflow and `/blog/write` toggles pinned output into Markdown plus the BIP payload with no horizontal overflow or console warnings. `pnpm test:content` remains blocked before script execution by the existing pnpm ignored-build approval prompt.
 - **Shot-zone math:** targeted coordinate classification and uniqueness checks — PASS on 2026-06-22; Ray Allen `rightCorner` assignment appears only for `pre-cr-suite` on Ambition at `(84.7, 65.4)` and not for above-the-break positions, and each active axis assigns 16 unique shot references across current plus closed projects
 - **Displayed court geometry:** targeted spread/arc check — PASS on 2026-06-22; each active axis spans roughly 80% of the court, shot pools have no overflow, and inside-the-arc displayed dots have zero three-point-zone mismatches
 - **Shot embed coverage:** `pnpm shot-embeds` — PASS on 2026-06-23; all 50 Historic Shot Clip entries have quality-gated YouTube provider data and explicit compact clip windows
