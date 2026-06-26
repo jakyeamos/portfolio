@@ -3,6 +3,7 @@ title: "TMCP belongs in the writing, not just the project board"
 deck: "A concept note for the AI workflow/protocol lane: less demo, more operating model."
 status: "Concept note"
 date: "2026-06-23"
+pinned: true
 tags: ["TMCP", "AI workflow", "protocols", "tooling"]
 thesis: "TMCP is interesting because it points at the layer between agents, tools, project memory, and repeatable execution. It is not just another app idea; it is a way to think about how AI-assisted work should carry context, constraints, and handoffs across sessions."
 ---

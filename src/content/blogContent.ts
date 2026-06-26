@@ -1,9 +1,12 @@
+import { sortBlogPosts } from './blogSorting';
+
 export interface BlogPost {
   slug: string;
   title: string;
   deck: string;
   status: string;
   date: string;
+  pinned: boolean;
   tags: readonly string[];
   thesis: string;
   sections: readonly {
@@ -63,6 +66,10 @@ function parseTags(value: string | undefined): readonly string[] {
     .filter(Boolean);
 }
 
+function parseBoolean(value: string | undefined): boolean {
+  return value?.replace(/^"|"$/g, '').toLowerCase() === 'true';
+}
+
 function parseSections(body: string): BlogPost['sections'] {
   return body
     .split(/^## /m)
@@ -85,6 +92,7 @@ function postFromMarkdown(path: string, markdown: string): BlogPost {
     deck: parseString(frontmatter.deck, 'deck'),
     status: parseString(frontmatter.status, 'status'),
     date: parseString(frontmatter.date, 'date'),
+    pinned: parseBoolean(frontmatter.pinned),
     tags: parseTags(frontmatter.tags),
     thesis: parseString(frontmatter.thesis, 'thesis'),
   };
@@ -96,6 +104,7 @@ function postFromMarkdown(path: string, markdown: string): BlogPost {
   };
 }
 
-export const BLOG_POSTS: readonly BlogPost[] = [...Object.entries(rawBlogPosts)]
-  .map(([path, markdown]) => postFromMarkdown(path, markdown))
-  .sort((a: BlogPost, b: BlogPost) => b.date.localeCompare(a.date));
+const parsedBlogPosts: readonly BlogPost[] = [...Object.entries(rawBlogPosts)]
+  .map(([path, markdown]) => postFromMarkdown(path, markdown));
+
+export const BLOG_POSTS: readonly BlogPost[] = sortBlogPosts(parsedBlogPosts);

@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react';
-import { ArrowRight, FileText, NotebookText } from 'lucide-react';
+import { ArrowRight, FileText, NotebookText, Pin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { BLOG_POSTS } from '@/content/blogContent';
 import { WEBSITE_LAUNCHES } from '@/content/portfolioContent';
@@ -41,6 +41,12 @@ export default function Blog(): ReactElement {
             <div className="flex flex-wrap items-center gap-3">
               <NotebookText size={18} className="text-[color:var(--color-primary)]" />
               <div className="section-kicker">{featuredPost.status}</div>
+              {featuredPost.pinned ? (
+                <span className="stat-chip gap-2 text-[color:var(--color-primary)]">
+                  <Pin size={12} />
+                  Pinned
+                </span>
+              ) : null}
               <span className="stat-chip">{featuredPost.date}</span>
             </div>
 
@@ -97,8 +103,16 @@ export default function Blog(): ReactElement {
                     key={post.slug}
                     className="border border-[color:var(--color-line)] bg-white p-5"
                   >
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-secondary)]">
-                      {post.status}
+                    <div className="flex flex-wrap items-center gap-2">
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-secondary)]">
+                        {post.status}
+                      </div>
+                      {post.pinned ? (
+                        <span className="inline-flex items-center gap-1 border border-[color:var(--color-line-strong)] px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-primary)]">
+                          <Pin size={10} />
+                          Pinned
+                        </span>
+                      ) : null}
                     </div>
                     <h3 className="mt-3 text-2xl font-black uppercase leading-none tracking-tight text-[color:var(--color-ink)]">
                       {post.title}

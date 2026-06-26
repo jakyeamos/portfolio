@@ -1,5 +1,5 @@
 import { type ChangeEvent, type ReactElement, useMemo, useState } from 'react';
-import { CheckSquare, ClipboardList, FileCode2, Github, PenLine, Send } from 'lucide-react';
+import { CheckSquare, ClipboardList, FileCode2, Github, PenLine, Pin, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 type DestinationId = 'portfolio' | 'frmwrk';
@@ -59,6 +59,7 @@ export default function BlogWrite(): ReactElement {
   const [body, setBody] = useState(
     '## Working note\n\nDraft the argument here. Keep headings as Markdown sections so the portfolio renderer and FRMWRK static blog can both consume the same post body.',
   );
+  const [pinned, setPinned] = useState(false);
   const [selectedDestinations, setSelectedDestinations] = useState<Set<DestinationId>>(
     () => new Set<DestinationId>(['portfolio', 'frmwrk']),
   );
@@ -74,13 +75,14 @@ title: ${quoteYaml(title)}
 deck: ${quoteYaml(deck)}
 status: "Draft"
 date: ${quoteYaml(today)}
+pinned: ${pinned ? 'true' : 'false'}
 tags: []
 thesis: ${quoteYaml(thesis)}
 ---
 
 ${body}
 `,
-    [body, deck, thesis, title, today],
+    [body, deck, pinned, thesis, title, today],
   );
   const bipPayload = useMemo(
     () =>
@@ -91,6 +93,7 @@ ${body}
           slug,
           title,
           date: today,
+          pinned,
           canonicalMarkdown: markdown,
           targets: selectedDestinationList.map((destination) => ({
             id: destination.id,
@@ -103,7 +106,7 @@ ${body}
         null,
         2,
       ),
-    [markdown, selectedDestinationList, slug, title, today],
+    [markdown, pinned, selectedDestinationList, slug, title, today],
   );
 
   function updateDestination(event: ChangeEvent<HTMLInputElement>, id: DestinationId): void {
@@ -150,8 +153,8 @@ ${body}
           </div>
         </section>
 
-        <section className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1fr)_420px]">
-          <form className="editorial-card p-6 md:p-8">
+        <section className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
+          <form className="editorial-card min-w-0 p-6 md:p-8">
             <div className="flex items-center gap-3">
               <PenLine size={18} className="text-[color:var(--color-primary)]" />
               <div className="section-kicker">Draft</div>
@@ -200,10 +203,23 @@ ${body}
                 onChange={(event) => setBody(event.target.value)}
               />
             </label>
+
+            <label className="mt-5 flex cursor-pointer items-center gap-3 border border-[color:var(--color-line)] bg-white p-4">
+              <input
+                className="h-4 w-4 accent-[color:var(--color-primary)]"
+                type="checkbox"
+                checked={pinned}
+                onChange={(event) => setPinned(event.target.checked)}
+              />
+              <span className="flex items-center gap-2 text-sm font-black uppercase tracking-[0.14em] text-[color:var(--color-ink)]">
+                <Pin size={16} className="text-[color:var(--color-primary)]" />
+                Pinned post
+              </span>
+            </label>
           </form>
 
-          <aside className="grid gap-6">
-            <section className="editorial-card p-6">
+          <aside className="grid min-w-0 gap-6">
+            <section className="editorial-card min-w-0 p-6">
               <div className="flex items-center gap-3">
                 <CheckSquare size={18} className="text-[color:var(--color-primary)]" />
                 <div className="section-kicker">Repo Targets</div>
@@ -212,7 +228,7 @@ ${body}
                 {DESTINATIONS.map((destination) => (
                   <label
                     key={destination.id}
-                    className="flex cursor-pointer gap-3 border border-[color:var(--color-line)] bg-white p-4"
+                    className="flex min-w-0 cursor-pointer gap-3 border border-[color:var(--color-line)] bg-white p-4"
                   >
                     <input
                       className="mt-1 h-4 w-4 accent-[color:var(--color-primary)]"
@@ -220,11 +236,11 @@ ${body}
                       checked={selectedDestinations.has(destination.id)}
                       onChange={(event) => updateDestination(event, destination.id)}
                     />
-                    <span>
+                    <span className="min-w-0">
                       <span className="block text-sm font-black uppercase tracking-[0.12em] text-[color:var(--color-ink)]">
                         {destination.label}
                       </span>
-                      <span className="mt-1 block font-mono text-xs text-[color:var(--color-secondary)]">
+                      <span className="mt-1 block break-words font-mono text-xs text-[color:var(--color-secondary)]">
                         {destination.repo}
                       </span>
                       <span className="mt-2 block break-words font-mono text-xs text-[color:var(--color-ink-soft)]">
@@ -241,19 +257,19 @@ ${body}
               </div>
             </section>
 
-            <section className="border border-[color:var(--color-line-strong)] bg-[color:var(--color-navy)] p-6 text-white">
+            <section className="min-w-0 border border-[color:var(--color-line-strong)] bg-[color:var(--color-navy)] p-6 text-white">
               <div className="flex items-center gap-3">
                 <FileCode2 size={18} className="text-[color:var(--color-gold)]" />
                 <div className="section-kicker text-[color:var(--color-gold)]">BIP Payload</div>
               </div>
-              <pre className="mt-4 max-h-80 overflow-auto whitespace-pre-wrap border border-white/15 bg-white/5 p-4 text-xs leading-relaxed text-white/85">
+              <pre className="mt-4 max-h-80 min-w-0 overflow-auto whitespace-pre-wrap border border-white/15 bg-white/5 p-4 text-xs leading-relaxed text-white/85">
                 {bipPayload}
               </pre>
             </section>
 
-            <section className="editorial-card p-6">
+            <section className="editorial-card min-w-0 p-6">
               <div className="section-kicker">Canonical Markdown</div>
-              <pre className="mt-4 max-h-96 overflow-auto whitespace-pre-wrap border border-[color:var(--color-line)] bg-white p-4 text-xs leading-relaxed text-[color:var(--color-ink)]">
+              <pre className="mt-4 max-h-96 min-w-0 overflow-auto whitespace-pre-wrap border border-[color:var(--color-line)] bg-white p-4 text-xs leading-relaxed text-[color:var(--color-ink)]">
                 {markdown}
               </pre>
               <Link className="report-link mt-5" to="/blog">
