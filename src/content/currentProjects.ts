@@ -48,10 +48,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Full-stack music social platform in active development — covering discovery, ratings, feeds, market surfaces, clubs, and a shared web/mobile codebase in a TypeScript monorepo.',
     trackerComment:
-      'Close the Phase 116 artifact trail, then continue Phase 117 provider credentials, Phase 82 hosted rollout evidence, or Phase 119 mobile/TestFlight launch blockers.',
+      'Provide Expo/EAS auth (`eas login` or `EXPO_TOKEN`), rerun the Phase 119 simulator smoke with unsandboxed CoreSimulatorService access, then create the iOS preview build.',
     trackerStatus: 'needs_attention',
     trackerScore: 78,
-    lastUpdated: '2026-06-25',
+    lastUpdated: '2026-06-27',
     tags: ['music', 'social', 'monorepo', 'tRPC', 'Prisma'],
     grades: { impact: 9, difficulty: 9, ambition: 10, creativity: 8 },
     scoutTake:
@@ -64,10 +64,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Personal AI operating system built around session hooks, workflow orchestration, pattern extraction, and layered knowledge retrieval — actively used as the backbone of daily engineering operations.',
     trackerComment:
-      'Use the smoke-verified `aios tmcp review-plan` workflow on the full Soundscape visual-polish evidence set, then triage the remaining Ruff format/check and BasedPyright baseline failures.',
+      'Review Codex session meta-learning proposals from the next rollout ingest and decide whether the review CLI should expose accept/reject operations for the proposal JSONL queue.',
     trackerStatus: 'needs_attention',
-    trackerScore: 72,
-    lastUpdated: '2026-06-25',
+    trackerScore: 73,
+    lastUpdated: '2026-06-29',
     tags: ['Python', 'shell', 'SQLite', 'automation', 'AI-tooling'],
     grades: { impact: 8, difficulty: 7, ambition: 9, creativity: 9 },
     scoutTake:
@@ -96,10 +96,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Government-contracting platform with v1.0 shipped — full-stack Next.js app built on Supabase and Stripe with active work toward v1.1 feature expansion.',
     trackerComment:
-      'Push chore/pre-cr-aios-hooks for review, then merge after branch review.',
-    trackerStatus: 'on_track',
-    trackerScore: 82,
-    lastUpdated: '2026-06-23',
+      'Review and push codex/port-vercel-runtime-work; after deploy, apply migration 193 and verify dashboard snapshots plus the five-run OpenGov GitHub Actions cycle.',
+    trackerStatus: 'needs_attention',
+    trackerScore: 62,
+    lastUpdated: '2026-06-29',
     tags: ['GovCon', 'Next.js', 'Supabase', 'Stripe', 'government'],
     grades: { impact: 8, difficulty: 7, ambition: 8, creativity: 7 },
     scoutTake:
@@ -129,10 +129,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Local-first dynasty fantasy football intelligence app featuring a working trade engine, FastAPI backend, React/Vite frontend, and DuckDB persistence — with multi-team scoring in active development.',
     trackerComment:
-      'Plan the next trade-engine phase around multi-team trade scoring while keeping the Phase 21 opportunity feed and restored counterparty player picker stable.',
+      'Load curated dense player metrics such as YPRR, route participation, snap share, and first-read share through the new player metadata CSV import path.',
     trackerStatus: 'on_track',
     trackerScore: 78,
-    lastUpdated: '2026-06-13',
+    lastUpdated: '2026-06-28',
     tags: ['fantasy-football', 'FastAPI', 'React', 'DuckDB', 'dynasty'],
     grades: { impact: 6, difficulty: 7, ambition: 7, creativity: 8 },
     scoutTake:
@@ -193,10 +193,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Interactive digital book reader with chapter-specific visuals, music, ambient effects, particles, and a growing admin CMS layer for nontechnical chapter editing and soundtrack cue management.',
     trackerComment:
-      'Deploy the Render blueprint with production `ADMIN_EMAIL` and `ADMIN_PASSWORD`, point the live domain at the Node service, and run `BOOK_SMOKE_BASE_URL=... pnpm run platform:fullstack-smoke` against the deployed service.',
+      'Deploy the Render blueprint with production `ADMIN_EMAIL` and `ADMIN_PASSWORD`, point the live domain at the Node service, and run `BOOK_SMOKE_BASE_URL=... pnpm run platform:deployed-acceptance` against the deployed service.',
     trackerStatus: 'on_track',
     trackerScore: 88,
-    lastUpdated: '2026-06-24',
+    lastUpdated: '2026-06-25',
     tags: ['interactive-book', 'admin-CMS', 'audio', 'TypeScript', 'publishing'],
     grades: { impact: 6, difficulty: 7, ambition: 7, creativity: 9 },
     scoutTake:
