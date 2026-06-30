@@ -6,7 +6,7 @@ healthScore: 87
 statusLabel: on_track
 nextStep: Run the weekly tracker refresh from main with Netlify deploy verification, then browser-smoke the live-launch cards and simplified court markers in production.
 blockers: []
-lastUpdated: 2026-06-29
+lastUpdated: 2026-06-30
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, blog, player-comps, impact-report]
 goals:
@@ -65,9 +65,10 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 ## Recent Progress
 
+- June 30: Removed the stale inactive active-project-list note from the portfolio truth snapshot.
 - April 7: Replaced placeholder projects and rewrote bio content to reflect current work
 - April 8-10: Landed the React SPA, planning scaffolding, and cleanup needed to merge the refresh branch back to `main`
-- April 10: Restored a passing TypeScript/build baseline and removed GitNexus from the active-project list
+- April 10: Restored a passing TypeScript/build baseline and removed stale inactive entries from the active-project list
 - Deployment config (`netlify.toml`) and ignored artifact handling are in place
 - April 23: Replaced stale tracker sync logic with auto-discovery + override mapping and wired sync to run automatically before `dev`, `build`, and `lint`
 - May 1: Added Book to the current-project catalog and mapped `book` to the Book repo's project truth file
