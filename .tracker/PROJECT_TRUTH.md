@@ -1,12 +1,12 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site has tracker-sync wired against all 15 current-project truth sources, content integrity tests for project catalog data, build/typecheck-backed Pre-CR gates, and pnpm is used consistently for local, CI, and deploy workflows.
+summary: Personal portfolio site has tracker-sync wired against all 15 current-project truth sources, recruiter-facing README context, content integrity tests for project catalog data, build/typecheck-backed Pre-CR gates, and pnpm is used consistently for local, CI, and deploy workflows.
 healthScore: 87
 statusLabel: on_track
-nextStep: Keep the weekly tracker ingestion running from main so current-project progress rebuilds the public portfolio UI after each verified sync.
+nextStep: Keep the weekly tracker ingestion running from main so current-project progress rebuilds the public portfolio UI after each verified sync, then capture fresh browser screenshots for the live public site.
 blockers: []
-lastUpdated: 2026-06-25
+lastUpdated: 2026-07-01
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, blog, player-comps, impact-report]
 goals:
@@ -61,6 +61,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 ## Recent Progress
 
+- July 1: Added a README project-board snapshot and a structured "Why This Matters" section for recruiter review; `git diff --check` passed for the documentation change.
 - April 7: Replaced placeholder projects and rewrote bio content to reflect current work
 - April 8-10: Landed the React SPA, planning scaffolding, and cleanup needed to merge the refresh branch back to `main`
 - April 10: Restored a passing TypeScript/build baseline and removed GitNexus from the active-project list
