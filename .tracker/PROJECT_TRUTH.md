@@ -1,12 +1,12 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site has tracker-sync wired against all 15 current-project truth sources, live-launch promotion on the homepage/blog, pinned Markdown blog posts with shared parser-backed integrity checks, simplified current-project court markers, content integrity tests, build/typecheck-backed Pre-CR gates, and production-aware Netlify deploy verification for weekly main refreshes.
+summary: Personal portfolio site has tracker-sync and production verification in place, and now owns the cross-repo Interview Surface Public Readiness planning milestone with GSD-style phase plans for using Quality Runner, repo audits, BBDSE release planning, product hardening, reviewer-surface updates, and tiered release scheduling.
 healthScore: 87
 statusLabel: on_track
-nextStep: Run the weekly tracker refresh from main with Netlify deploy verification, then browser-smoke the live-launch cards and simplified court markers in production.
+nextStep: Execute Phase 0 of the Interview Surface Public Readiness milestone by baselining Quality Runner's current audit boundary before using it as a standard repo-readiness bar.
 blockers: []
-lastUpdated: 2026-06-30
+lastUpdated: 2026-07-01
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, blog, player-comps, impact-report]
 goals:
@@ -35,7 +35,9 @@ agentExpectationsVersion: 1
 
 ## Current State
 
-The portfolio is on branch `main` with tracker-sync infrastructure in place. The React/Vite/Tailwind SPA is the live app shape: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
+The portfolio is on branch `codex/pin-blog-posts` with tracker-sync infrastructure in place. The React/Vite/Tailwind SPA is the live app shape: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
+
+The `.planning/` control plane now centers the `Interview Surface Public Readiness` milestone. The milestone treats this repo as the cross-repo planning surface for making mature projects public-ready as a hiring/interview surface. It defines requirements, a seven-phase roadmap, and GSD-style `PLAN.md` files for Phase 0 through Phase 6. Candidate repo hardening and visibility changes have not started; the immediate next phase is to baseline Quality Runner's current audit capability before it becomes a standard input to repo-readiness decisions.
 
 The current-project tracker now resolves 15 local project truth sources through `.tracker/truth-map.json` plus discovery, including AIOS, Soundscape, Terrace, BidCamp, Taski, Fantasy, RemodelVision, Bballedu, Dispatches, Book, the GitHub issue-resolution modeling repo, Signal Lab, Cap-Fit Builder, CLFE, and RTE. RemodelVision uses a portfolio-local truth source at `.tracker/remodelvision/PROJECT_TRUTH.md` because this automation sandbox cannot write into the sibling RemodelVision checkout. The sync script is scoped to `CURRENT_PROJECTS` so `CLOSED_PROJECTS` entries do not get overwritten by active repo truth snapshots.
 
@@ -65,6 +67,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 ## Recent Progress
 
+- July 1: Replaced the stale April portfolio bootstrap planning state with the Interview Surface Public Readiness milestone. Added GSD-style phase plans for Quality Runner readiness, candidate inventory, public-readiness gate design, BBDSE release-train planning, product repo hardening plans, reviewer-surface planning, and tiered release scheduling. No candidate repo source files or visibility settings were changed.
 - June 30: Removed the stale inactive active-project-list note from the portfolio truth snapshot.
 - April 7: Replaced placeholder projects and rewrote bio content to reflect current work
 - April 8-10: Landed the React SPA, planning scaffolding, and cleanup needed to merge the refresh branch back to `main`
@@ -132,19 +135,22 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 ## Next Concrete Steps
 
-1. Run the weekly tracker ingestion from main with `pnpm tracker:weekly` so refreshed tracker commits are verified against Netlify production
-2. Decide whether RemodelVision should eventually move its truth source into `/Users/jakyeamos/projects/remodelvision/.tracker/PROJECT_TRUTH.md`
-3. Decide whether the ignored draft/binary assets should stay colocated with the repo or move to a non-repo archive location
-4. Add lightweight smoke coverage or a documented manual verification checklist if the site is changing frequently
+1. Execute `.planning/phases/phase-0-quality-runner-readiness/PLAN.md` and write the Quality Runner baseline artifact.
+2. Execute `.planning/phases/phase-1-candidate-inventory/PLAN.md` to create the repo inventory and scoring matrix.
+3. Review the Phase 0 and Phase 1 outputs before any candidate repo cleanup begins.
+4. Continue weekly tracker ingestion from main separately so production portfolio deploy verification remains healthy.
 
 ## Risks / Blockers
 
 - No active blockers
+- Quality Runner is pre-release, so Phase 0 must define which findings are reliable before using it as a hard public-readiness bar
+- BBDSE public release planning has data provenance risk because several subprojects include CSV/parquet/report artifacts that need source/license review
 - Content/catalog regressions are covered by `pnpm test:content`; browser interaction regressions still need targeted smoke checks when UI behavior changes
 - Keeping ignored draft/binary artifacts next to the repo can still create maintenance ambiguity even though they are no longer polluting git status
 
 ## Quality Ladder Notes
 
+- **Interview Surface planning docs:** placeholder scan and phase-plan existence checks — PASS on 2026-07-01; confirmed all seven phase `PLAN.md` files exist, ROADMAP links to them, and no placeholder markers remain in the new planning files. This was a documentation/planning-only change, so UI/browser checks were not required.
 - **Content integrity:** direct checks PASS on 2026-06-26: `node scripts/check-project-content.mjs` and `node scripts/check-blog-content.mjs`. Project validation covers current and closed project catalog shape, unique slugs/short codes, valid statuses, score bounds, date parseability, tags, and grade ranges. Blog validation now walks every `src/content/blog/*.md` file through the shared parser, requiring title, deck, status, date, pinned, tags, thesis, and at least one non-empty `##` section. `pnpm test:content` remains blocked before script execution by the existing pnpm ignored-build approval prompt.
 - **Film Room poster cleanup:** `pnpm typecheck` — PASS on 2026-06-25; the decorative play badge and stale `showPlay` prop/data path are removed without TypeScript fallout.
 - **Live launches and court marker cleanup:** local direct checks passed on 2026-06-25: `node scripts/check-project-content.mjs`, `node node_modules/typescript/bin/tsc --noEmit`, and `node node_modules/vite/bin/vite.js build` with the existing large chunk warning. `pnpm test:content` and `pnpm typecheck` are blocked before script execution by existing pnpm ignored-build approval prompts for dependencies.
