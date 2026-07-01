@@ -2,6 +2,43 @@
 
 Vite/React portfolio app for the Front Office Amos project. It combines the main React entry, public assets, evidence-backed status projection, and docs/planning material for the portfolio surface.
 
+![Portfolio project board snapshot](docs/assets/readme-snapshot.png)
+
+## Why This Matters
+
+### Problem
+
+A portfolio can go stale quickly when the work lives across many repos. Static project cards do not show current project health, recent progress, or the difference between polished shipped work and active engineering bets.
+
+### Who It Helps
+
+This site helps recruiters, hiring managers, collaborators, and future teammates understand what I am building without cloning several repos or reading raw planning files.
+
+### What I Built
+
+I built a React/Vite portfolio with project pages, a current-project board, writing/blog surfaces, Film Room content, deployment tooling, and tracker sync that pulls project status from local `.tracker/PROJECT_TRUTH.md` files.
+
+### Technical Decisions
+
+- Project status is generated from repo truth files so public content can stay aligned with active work.
+- The portfolio uses a sports-front-office metaphor because it matches the basketball/data/product work I want to showcase.
+- Content integrity, typecheck, and build gates are wired into the local workflow so static catalog edits still get useful verification.
+- Netlify deploy checks use repo-local tooling instead of relying on unstable global CLI state.
+
+### How To Run It
+
+```bash
+pnpm install
+pnpm sync
+pnpm dev
+pnpm lint
+pnpm build
+```
+
+### What I Would Improve Next
+
+The next improvements are tighter browser smoke coverage for interactive project-board behavior, clearer handling for large ignored draft assets, and continued weekly tracker ingestion from the deploy branch.
+
 ## Scope
 
 This is the top-level portfolio application workspace.
