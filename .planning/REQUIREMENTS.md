@@ -8,8 +8,8 @@ clean code, strong evidence, and honest project presentation.
 
 ### Planning Control Plane
 
-- [ ] **ISR-01**: The portfolio repo contains GSD-style phase plans for the full public-readiness release train before candidate repo work begins.
-- [ ] **ISR-02**: Each phase plan names target repos, audit commands, Quality Runner usage, cleanup criteria, verification gates, commit strategy, and publish/no-publish decision rules.
+- [ ] **ISR-01**: The portfolio repo contains multiple numbered GSD-style plans per phase for the full public-readiness release train before candidate repo work begins.
+- [ ] **ISR-02**: Each numbered plan names target repos, audit commands or planning inputs, Quality Runner usage where relevant, cleanup criteria, verification gates, commit strategy, and publish/no-publish decision rules where relevant.
 - [ ] **ISR-03**: The planning state preserves a tiered release model: `publish now`, `publish after cleanup`, or `case-study only`.
 
 ### Quality Runner Baseline

@@ -11,9 +11,9 @@ clean code, strong evidence, and honest project presentation.
 ## Current Position
 
 Phase: 0 of 6 (Quality Runner Readiness Baseline)
-Plan: `.planning/phases/phase-0-quality-runner-readiness/PLAN.md`
-Status: Ready for phase execution
-Last activity: 2026-07-01 - Created milestone requirements, roadmap, and GSD-style phase plans.
+Plan: `.planning/phases/phase-0-quality-runner-readiness/00-01-PLAN.md`
+Status: Ready for plan execution
+Last activity: 2026-07-01 - Converted milestone planning into GSD-style multi-plan phase directories.
 
 Progress: [█░░░░░░░░░] 10%
 
@@ -26,15 +26,15 @@ Progress: [█░░░░░░░░░] 10%
 
 **By Phase:**
 
-| Phase | Plan | Execution | Notes |
+| Phase | Plans | Execution | Notes |
 | --- | --- | --- | --- |
-| 0. Quality Runner Readiness Baseline | Ready | Not started | First execution step |
-| 1. Candidate Repo Inventory and Scoring Matrix | Ready | Not started | Depends on Phase 0 |
-| 2. Public-Readiness Gate Template | Ready | Not started | Depends on Phase 1 |
-| 3. BBDSE Release-Train Plans | Ready | Not started | Depends on Phase 2 |
-| 4. Product Repo Hardening Plans | Ready | Not started | Depends on Phase 2 |
-| 5. Portfolio and GitHub Profile Plan | Ready | Not started | Depends on Phase 1 |
-| 6. Tiered Release Schedule | Ready | Not started | Depends on Phases 3-5 |
+| 0. Quality Runner Readiness Baseline | 0/3 | Not started | First plan: 00-01 |
+| 1. Candidate Repo Inventory and Scoring Matrix | 0/3 | Not started | Depends on Phase 0 |
+| 2. Public-Readiness Gate Template | 0/3 | Not started | Depends on Phase 1 |
+| 3. BBDSE Release-Train Plans | 0/3 | Not started | Depends on Phase 2 |
+| 4. Product Repo Hardening Plans | 0/3 | Not started | Depends on Phase 2 |
+| 5. Portfolio and GitHub Profile Plan | 0/3 | Not started | Depends on Phase 1 |
+| 6. Tiered Release Schedule | 0/3 | Not started | Depends on Phases 3-5 |
 
 ## Accumulated Context
 
@@ -48,7 +48,9 @@ Progress: [█░░░░░░░░░] 10%
 
 ### Pending Todos
 
-- Execute Phase 0 to baseline Quality Runner.
+- Execute `00-01-PLAN.md` to inventory Quality Runner capabilities.
+- Execute `00-02-PLAN.md` to smoke-test the current Quality Runner command path.
+- Execute `00-03-PLAN.md` to define the Quality Runner interpretation policy.
 - Execute Phase 1 to build the candidate repo inventory and scoring matrix.
 - Review phase outputs before any candidate repo cleanup begins.
 
@@ -61,5 +63,5 @@ Progress: [█░░░░░░░░░] 10%
 ## Session Continuity
 
 Last session: 2026-07-01
-Stopped at: Planning artifacts created; phase execution not started.
+Stopped at: Multi-plan phase artifacts created; first executable plan is `00-01-PLAN.md`.
 Resume file: None
