@@ -6,7 +6,7 @@ healthScore: 87
 statusLabel: on_track
 nextStep: Execute `.planning/phases/phase-0-quality-runner-readiness/00-01-PLAN.md` to inventory Quality Runner capabilities before using it as a standard repo-readiness bar.
 blockers: []
-lastUpdated: 2026-07-01
+lastUpdated: 2026-07-03
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, blog, player-comps, impact-report]
 goals:
@@ -21,7 +21,7 @@ quality:
   lint: pass
   types: pass
   tests: pass
-  deadCode: unknown
+  deadCode: configured_failing
   structure: pass
 canonicalCommands:
   install: pnpm install
@@ -29,7 +29,7 @@ canonicalCommands:
   lint: pnpm lint
   typecheck: pnpm lint
   test: pnpm test
-  deadcode: unknown
+  deadcode: pnpm audit:dead-code
 agentExpectationsVersion: 1
 ---
 
@@ -68,6 +68,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 ## Recent Progress
 
 - July 1: Replaced the stale April portfolio bootstrap planning state with the Interview Surface Public Readiness milestone. Added 21 numbered GSD-style plan files across Quality Runner readiness, candidate inventory, public-readiness gate design, BBDSE release-train planning, product repo hardening plans, reviewer-surface planning, and tiered release scheduling. No candidate repo source files or visibility settings were changed.
+- July 3: Ran Quality Runner triage with runner 0.2.1 on branch `qr/triage-parallel-20260702T200935Z`. Added repo-owned formatter, dead-code, and runtime-smoke gate commands plus Prettier/pnpm gate configuration. Final QR capability discovery has no missing capabilities; `pnpm smoke` passes, while the new formatter/dead-code gates expose existing broad formatting drift and unused imports that should be handled separately.
 - June 30: Removed the stale inactive active-project-list note from the portfolio truth snapshot.
 - April 7: Replaced placeholder projects and rewrote bio content to reflect current work
 - April 8-10: Landed the React SPA, planning scaffolding, and cleanup needed to merge the refresh branch back to `main`
@@ -144,12 +145,14 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 - No active blockers
 - Quality Runner is pre-release, so Phase 0 must define which findings are reliable before using it as a hard public-readiness bar
+- Formatter and dead-code gates are now configured but not yet clean: `pnpm format` reports broad existing formatting drift, and `pnpm audit:dead-code` reports existing unused imports/values across page components.
 - BBDSE public release planning has data provenance risk because several subprojects include CSV/parquet/report artifacts that need source/license review
 - Content/catalog regressions are covered by `pnpm test:content`; browser interaction regressions still need targeted smoke checks when UI behavior changes
 - Keeping ignored draft/binary artifacts next to the repo can still create maintenance ambiguity even though they are no longer polluting git status
 
 ## Quality Ladder Notes
 
+- **Quality Runner triage:** `/Users/jakyeamos/projects/quality-runner/.venv/bin/quality-runner --version` — PASS on 2026-07-03 with 0.2.1. Final `quality-runner run --run-id triage-20260702-portfolio /Users/jakyeamos/projects/portfolio --json` — PASS on 2026-07-03; capability matrix now lists formatter, dead_code, and runtime_smoke as available with no missing capabilities, and quality audit reports 17 non-blocking structural findings. `pnpm smoke` — PASS on 2026-07-03. `pnpm format` and `pnpm audit:dead-code` are configured but fail on existing broad formatting drift and unused imports, so cleanup is intentionally deferred outside this triage.
 - **Interview Surface planning docs:** placeholder scan and phase-plan existence checks — PASS on 2026-07-01; confirmed all 21 numbered phase plan files exist, ROADMAP links to them, and no placeholder markers remain in the new planning files. This was a documentation/planning-only change, so UI/browser checks were not required.
 - **Content integrity:** direct checks PASS on 2026-06-26: `node scripts/check-project-content.mjs` and `node scripts/check-blog-content.mjs`. Project validation covers current and closed project catalog shape, unique slugs/short codes, valid statuses, score bounds, date parseability, tags, and grade ranges. Blog validation now walks every `src/content/blog/*.md` file through the shared parser, requiring title, deck, status, date, pinned, tags, thesis, and at least one non-empty `##` section. `pnpm test:content` remains blocked before script execution by the existing pnpm ignored-build approval prompt.
 - **Film Room poster cleanup:** `pnpm typecheck` — PASS on 2026-06-25; the decorative play badge and stale `showPlay` prop/data path are removed without TypeScript fallout.
@@ -183,7 +186,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Browser QA:** `/projects` in the in-app Browser — PASS on 2026-06-22 before the neutral-court styling cleanup; recalibrated Ambition desktop minimum marker gap 25.46px, mobile minimum marker gap 3.31px, no marker overlaps, no horizontal overflow, no console warnings/errors, Soundscape marker opened the detail modal. Browser verification for the neutral-court cleanup and Historic Shot modal work was blocked by the local in-app Browser policy for `127.0.0.1:3000`; shell network access also could not resolve `youtube.com`, so embed IDs still need live browser/deploy validation. `pnpm lint` and `pnpm build` passed after both changes.
 - **Architecture check:** `node scripts/aios-architecture-check.mjs` — PASS on 2026-05-24
 - **Tests:** `pnpm test` now runs content integrity plus shot inventory checks.
-- **Dead code:** not configured
+- **Dead code:** `pnpm audit:dead-code` is configured and currently reports existing unused imports/values that need a separate cleanup pass.
 - **Structure:** SPA structure is clean (pages, components, content, hooks separation) — PASS
 
 ## Agent Notes

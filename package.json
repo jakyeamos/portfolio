@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
+    "format": "prettier --check .",
+    "format:write": "prettier --write .",
     "preview": "vite preview",
     "lint": "tsc --noEmit",
     "predev": "pnpm sync",
@@ -23,11 +25,13 @@
     "typecheck": "tsc --noEmit",
     "test": "pnpm test:content && pnpm shot-inventory",
     "test:content": "node scripts/check-project-content.mjs && node scripts/check-blog-content.mjs",
+    "audit:dead-code": "tsc --noEmit --noUnusedLocals --noUnusedParameters",
     "precr:check": "pnpm test:content && pnpm lint && pnpm build",
     "env:check": "node scripts/validate-env.mjs",
     "secret:scan": "node scripts/secret-scan.mjs",
     "dependency:security": "pnpm audit --audit-level high",
-    "e2e:smoke": "pnpm shot-embeds:target"
+    "e2e:smoke": "pnpm shot-embeds:target",
+    "smoke": "pnpm e2e:smoke"
   },
   "dependencies": {
     "lucide-react": "^0.546.0",
@@ -43,6 +47,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.0.4",
     "netlify-cli": "^26.1.0",
+    "prettier": "^3.9.4",
     "tailwindcss": "^4.1.14",
     "typescript": "~5.8.2",
     "vite": "^6.4.3"

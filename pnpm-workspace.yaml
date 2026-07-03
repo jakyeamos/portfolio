@@ -1,0 +1,7 @@
+allowBuilds:
+  netlify-cli: true
+ignoredBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild
+  - sharp
+  - unix-dgram
