@@ -1,27 +1,27 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site has tracker-sync and production verification in place, and now owns the cross-repo Interview Surface Public Readiness planning milestone with 21 numbered GSD-style plans across Quality Runner baselining, repo audits, BBDSE release planning, product hardening, reviewer-surface updates, and tiered release scheduling.
-healthScore: 87
+summary: Personal portfolio site now surfaces the July 2026 public package release run, has formatter/parser gates hardened against quote-style drift, and passes the full local quality ladder.
+healthScore: 94
 statusLabel: on_track
-nextStep: Execute `.planning/phases/phase-0-quality-runner-readiness/00-01-PLAN.md` to inventory Quality Runner capabilities before using it as a standard repo-readiness bar.
+nextStep: Review the release-focused portfolio copy in-browser, then deploy the updated public site after the branch is ready.
 blockers: []
-lastUpdated: 2026-07-03
+lastUpdated: 2026-07-04
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, blog, player-comps, impact-report]
 goals:
   - Ship a professional portfolio site that accurately represents current work
   - Deploy and keep live
 repoType: app
-sourceOfTruth: inferred
+sourceOfTruth: mixed
 primaryLanguage: TypeScript
-activeBranch: main
-lastCommitDate: "2026-06-29"
+activeBranch: qr/triage-parallel-20260702T200935Z
+lastCommitDate: '2026-07-04'
 quality:
   lint: pass
   types: pass
   tests: pass
-  deadCode: configured_failing
+  deadCode: pass
   structure: pass
 canonicalCommands:
   install: pnpm install
@@ -35,7 +35,9 @@ agentExpectationsVersion: 1
 
 ## Current State
 
-The portfolio is on branch `codex/pin-blog-posts` with tracker-sync infrastructure in place. The React/Vite/Tailwind SPA is the live app shape: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
+The portfolio is on branch `qr/triage-parallel-20260702T200935Z` with tracker-sync infrastructure in place. The React/Vite/Tailwind SPA is the live app shape: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
+
+The July 2026 release-focused refresh now promotes the public package run across the homepage, Film Room, and Projects board. Shipped entries now include Quality Runner, ESLint Anti-Slop, Agent Eval Contract, Research Domain Writing, TMCP, and Pre-CR Suite, while active product/system work remains separate from shipped package proof.
 
 The `.planning/` control plane now centers the `Interview Surface Public Readiness` milestone. The milestone treats this repo as the cross-repo planning surface for making mature projects public-ready as a hiring/interview surface. It defines requirements, a seven-phase roadmap, and 21 numbered GSD-style plan files across Phase 0 through Phase 6. Candidate repo hardening and visibility changes have not started; the immediate next plan is `00-01-PLAN.md`, which inventories Quality Runner's current audit capability before it becomes a standard input to repo-readiness decisions.
 
@@ -67,6 +69,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 ## Recent Progress
 
+- July 4: Updated the public-facing portfolio copy around the confirmed PyPI/npm/MCP release run; added shipped project entries for Quality Runner, ESLint Anti-Slop, Agent Eval Contract, Research Domain Writing, TMCP, and Pre-CR Suite; added a Prettier config; formatted the repo; hardened tracker, blog, and shot-check parsers so formatter quote-style changes do not break gates; and restored a passing formatter/lint/test/dead-code/build/smoke/security baseline.
 - July 1: Replaced the stale April portfolio bootstrap planning state with the Interview Surface Public Readiness milestone. Added 21 numbered GSD-style plan files across Quality Runner readiness, candidate inventory, public-readiness gate design, BBDSE release-train planning, product repo hardening plans, reviewer-surface planning, and tiered release scheduling. No candidate repo source files or visibility settings were changed.
 - July 3: Ran Quality Runner triage with runner 0.2.1 on branch `qr/triage-parallel-20260702T200935Z`. Added repo-owned formatter, dead-code, and runtime-smoke gate commands plus Prettier/pnpm gate configuration. Final QR capability discovery has no missing capabilities; `pnpm smoke` passes, while the new formatter/dead-code gates expose existing broad formatting drift and unused imports that should be handled separately.
 - June 30: Removed the stale inactive active-project-list note from the portfolio truth snapshot.
@@ -145,13 +148,13 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 - No active blockers
 - Quality Runner is pre-release, so Phase 0 must define which findings are reliable before using it as a hard public-readiness bar
-- Formatter and dead-code gates are now configured but not yet clean: `pnpm format` reports broad existing formatting drift, and `pnpm audit:dead-code` reports existing unused imports/values across page components.
 - BBDSE public release planning has data provenance risk because several subprojects include CSV/parquet/report artifacts that need source/license review
 - Content/catalog regressions are covered by `pnpm test:content`; browser interaction regressions still need targeted smoke checks when UI behavior changes
 - Keeping ignored draft/binary artifacts next to the repo can still create maintenance ambiguity even though they are no longer polluting git status
 
 ## Quality Ladder Notes
 
+- **July 4 full quality ladder:** `pnpm format`, `pnpm lint`, `pnpm audit:dead-code`, `pnpm test`, `pnpm build`, `pnpm smoke`, `pnpm env:check`, and `pnpm secret:scan` — PASS. `pnpm dependency:security` exits cleanly at the configured high-severity threshold while reporting 2 low and 1 moderate advisory. `pnpm build` still reports the existing Vite chunk-size warning for a ~520 kB JS chunk.
 - **Quality Runner triage:** `/Users/jakyeamos/projects/quality-runner/.venv/bin/quality-runner --version` — PASS on 2026-07-03 with 0.2.1. Final `quality-runner run --run-id triage-20260702-portfolio /Users/jakyeamos/projects/portfolio --json` — PASS on 2026-07-03; capability matrix now lists formatter, dead_code, and runtime_smoke as available with no missing capabilities, and quality audit reports 17 non-blocking structural findings. `pnpm smoke` — PASS on 2026-07-03. `pnpm format` and `pnpm audit:dead-code` are configured but fail on existing broad formatting drift and unused imports, so cleanup is intentionally deferred outside this triage.
 - **Interview Surface planning docs:** placeholder scan and phase-plan existence checks — PASS on 2026-07-01; confirmed all 21 numbered phase plan files exist, ROADMAP links to them, and no placeholder markers remain in the new planning files. This was a documentation/planning-only change, so UI/browser checks were not required.
 - **Content integrity:** direct checks PASS on 2026-06-26: `node scripts/check-project-content.mjs` and `node scripts/check-blog-content.mjs`. Project validation covers current and closed project catalog shape, unique slugs/short codes, valid statuses, score bounds, date parseability, tags, and grade ranges. Blog validation now walks every `src/content/blog/*.md` file through the shared parser, requiring title, deck, status, date, pinned, tags, thesis, and at least one non-empty `##` section. `pnpm test:content` remains blocked before script execution by the existing pnpm ignored-build approval prompt.
@@ -185,8 +188,8 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - **Deploy tooling:** `pnpm netlify:cli -- --version`, `pnpm netlify:status`, and `pnpm deploy:status` missing-env behavior — PASS on 2026-06-22; live deploy lookup still requires `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`
 - **Browser QA:** `/projects` in the in-app Browser — PASS on 2026-06-22 before the neutral-court styling cleanup; recalibrated Ambition desktop minimum marker gap 25.46px, mobile minimum marker gap 3.31px, no marker overlaps, no horizontal overflow, no console warnings/errors, Soundscape marker opened the detail modal. Browser verification for the neutral-court cleanup and Historic Shot modal work was blocked by the local in-app Browser policy for `127.0.0.1:3000`; shell network access also could not resolve `youtube.com`, so embed IDs still need live browser/deploy validation. `pnpm lint` and `pnpm build` passed after both changes.
 - **Architecture check:** `node scripts/aios-architecture-check.mjs` — PASS on 2026-05-24
-- **Tests:** `pnpm test` now runs content integrity plus shot inventory checks.
-- **Dead code:** `pnpm audit:dead-code` is configured and currently reports existing unused imports/values that need a separate cleanup pass.
+- **Tests:** `pnpm test` now runs content integrity plus shot inventory checks and passes as of 2026-07-04.
+- **Dead code:** `pnpm audit:dead-code` passes as of 2026-07-04.
 - **Structure:** SPA structure is clean (pages, components, content, hooks separation) — PASS
 
 ## Agent Notes
