@@ -47,6 +47,12 @@ export interface HeroProof {
   detail: string;
 }
 
+export interface HiringManagerRead {
+  label: string;
+  title: string;
+  copy: string;
+}
+
 export interface PlayerComp {
   player: string;
   team: string;
@@ -166,6 +172,24 @@ export const HERO_PROOF: readonly HeroProof[] = [
     value: '400%',
     label: 'Output gain',
     detail: 'Architecture-firm productivity software lifted team output in under 5 weeks.',
+  },
+] as const;
+
+export const HIRING_MANAGER_READ: readonly HiringManagerRead[] = [
+  {
+    label: 'Best fit',
+    title: 'Product-heavy engineering teams',
+    copy: 'Strongest fit is full-stack product work where backend, frontend, data, and AI workflow logic have to connect quickly.',
+  },
+  {
+    label: 'Proof',
+    title: 'Enterprise reps plus public releases',
+    copy: 'Amazon Ads/FinTech internships, Cleveland Clinic and operations builds, and public PyPI/npm package surfaces anchor the read.',
+  },
+  {
+    label: 'Next step',
+    title: 'Review projects, then contact',
+    copy: 'Use the projects board for shipped proof, the scouting report for role fit, and the resume or email links for the hiring loop.',
   },
 ] as const;
 

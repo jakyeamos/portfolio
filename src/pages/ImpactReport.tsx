@@ -232,7 +232,7 @@ export default function ImpactReport(): ReactElement {
                 <Link className="btn-primary" to="/scouting-report">
                   Back to scouting report
                 </Link>
-                <Link className="btn-ghost" to="/current-projects">
+                <Link className="btn-ghost" to="/projects">
                   Open current projects
                 </Link>
               </div>

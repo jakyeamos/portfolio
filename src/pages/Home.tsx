@@ -9,7 +9,7 @@ import {
   FEATURE_REPORTS,
   HERO_ACTIONS,
   HERO_PROOF,
-  HOME_FRONT_OFFICE_NOTES,
+  HIRING_MANAGER_READ,
   IMPACT_METRICS,
   SITE_META,
   TOP_HEADLINES,
@@ -145,18 +145,38 @@ export default function Home(): ReactElement {
                 ))}
               </div>
 
-              <div className="mt-8 grid gap-4 border-t border-[color:var(--color-line)] pt-6 md:grid-cols-3">
-                {HOME_FRONT_OFFICE_NOTES.map((note) => (
-                  <article key={note.label}>
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-soft)]">
-                      {note.label}
-                    </div>
-                    <p className="mt-2 text-sm leading-relaxed text-[color:var(--color-ink)]">
-                      {note.copy}
-                    </p>
-                  </article>
-                ))}
-              </div>
+              <section className="mt-8 border-t border-[color:var(--color-line)] pt-6">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <div className="section-kicker">Hiring Manager Read</div>
+                    <h2 className="mt-2 text-3xl font-black uppercase leading-none tracking-tight text-[color:var(--color-ink)]">
+                      What to do with the tape.
+                    </h2>
+                  </div>
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-soft)]">
+                    Resume | Projects | Scouting report | Email
+                  </div>
+                </div>
+
+                <div className="mt-4 grid gap-3 md:grid-cols-3">
+                  {HIRING_MANAGER_READ.map((note) => (
+                    <article
+                      key={note.label}
+                      className="border border-[color:var(--color-line)] bg-[color:var(--color-surface-muted)] p-4"
+                    >
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-secondary)]">
+                        {note.label}
+                      </div>
+                      <h3 className="mt-2 text-xl font-black uppercase leading-tight text-[color:var(--color-ink)]">
+                        {note.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-[color:var(--color-ink)]">
+                        {note.copy}
+                      </p>
+                    </article>
+                  ))}
+                </div>
+              </section>
             </div>
 
             <EditorialPoster
@@ -171,19 +191,19 @@ export default function Home(): ReactElement {
         </section>
 
         <aside className="grid gap-6">
-          <section className="editorial-card p-6">
-            <div className="section-kicker">Top Headlines</div>
-            <div className="mt-5 grid gap-5">
-              {TOP_HEADLINES.map((headline) => (
+          <section className="editorial-card bg-white/70 p-5">
+            <div className="section-kicker">Latest Signals</div>
+            <div className="mt-4 grid gap-4">
+              {TOP_HEADLINES.slice(0, 3).map((headline) => (
                 <Link
                   key={headline.title}
                   to={headline.href}
-                  className="group border-b border-[color:var(--color-line)] pb-5 last:border-none last:pb-0"
+                  className="group border-b border-[color:var(--color-line)] pb-4 last:border-none last:pb-0"
                 >
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[color:var(--color-primary)]">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--color-primary)]">
                     {headline.category}
                   </div>
-                  <h2 className="mt-2 text-xl font-black uppercase leading-tight tracking-tight text-[color:var(--color-ink)] transition group-hover:text-[color:var(--color-primary)]">
+                  <h2 className="mt-2 text-lg font-black uppercase leading-tight tracking-tight text-[color:var(--color-ink)] transition group-hover:text-[color:var(--color-primary)]">
                     {headline.title}
                   </h2>
                   <p className="mt-2 text-sm leading-relaxed text-[color:var(--color-ink-soft)]">

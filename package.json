@@ -24,7 +24,7 @@
     "netlify:status": "node scripts/netlify-cli.mjs status",
     "typecheck": "tsc --noEmit",
     "test": "pnpm test:content && pnpm shot-inventory",
-    "test:content": "node scripts/check-project-content.mjs && node scripts/check-blog-content.mjs",
+    "test:content": "node scripts/check-project-content.mjs && node scripts/check-blog-content.mjs && node scripts/check-internal-routes.mjs",
     "audit:dead-code": "tsc --noEmit --noUnusedLocals --noUnusedParameters",
     "precr:check": "pnpm test:content && pnpm lint && pnpm build",
     "env:check": "node scripts/validate-env.mjs",

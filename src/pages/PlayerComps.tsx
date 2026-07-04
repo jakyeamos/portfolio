@@ -1,7 +1,58 @@
-import type { ReactElement } from 'react';
+import { type ReactElement, useState } from 'react';
 import { Blend } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { BREAKING_TICKER, PLAYER_COMPS } from '@/content/portfolioContent';
+import {
+  BREAKING_TICKER,
+  PLAYER_COMPS,
+  type PlayerComp,
+} from '@/content/portfolioContent';
+
+function PlayerCompMedia({ comp }: { comp: PlayerComp }): ReactElement {
+  const [imageFailed, setImageFailed] = useState(false);
+  const initials = comp.player
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 2);
+
+  return (
+    <div className="relative h-[360px] overflow-hidden border-b border-[color:var(--color-line)] bg-[linear-gradient(180deg,#fff8ed_0%,#f5eee2_100%)] md:h-[420px] md:border-b-0 md:border-r">
+      <div className="absolute inset-x-0 top-0 h-20 bg-[linear-gradient(180deg,rgba(181,13,13,0.1)_0%,rgba(181,13,13,0)_100%)]" />
+      <div
+        className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
+        role={imageFailed || !comp.media.imageSrc ? 'img' : undefined}
+        aria-hidden={imageFailed || !comp.media.imageSrc ? undefined : true}
+        aria-label={
+          imageFailed || !comp.media.imageSrc ? `${comp.player} headshot fallback` : undefined
+        }
+      >
+        <div className="flex size-28 items-center justify-center rounded-full border border-[color:var(--color-line-strong)] bg-white text-5xl font-black uppercase leading-none text-[color:var(--color-primary)]">
+          {initials}
+        </div>
+        <div className="mt-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-[color:var(--color-ink-soft)]">
+          Comp portrait
+        </div>
+      </div>
+      {!imageFailed && comp.media.imageSrc ? (
+        <img
+          src={comp.media.imageSrc}
+          alt={comp.media.alt}
+          className="absolute inset-0 h-full w-full object-contain px-4 pt-6"
+          onError={() => setImageFailed(true)}
+          style={
+            comp.media.objectPosition ? { objectPosition: comp.media.objectPosition } : undefined
+          }
+        />
+      ) : null}
+      <div className="absolute bottom-0 left-0 right-0 border-t border-[color:var(--color-line)] bg-[rgba(16,28,44,0.88)] px-4 py-3 text-white">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--color-gold)]">
+          {comp.team}
+        </div>
+        <p className="mt-1 text-sm font-bold uppercase tracking-[0.1em]">{comp.role}</p>
+      </div>
+    </div>
+  );
+}
 
 export default function PlayerComps(): ReactElement {
   return (
@@ -37,25 +88,7 @@ export default function PlayerComps(): ReactElement {
           {PLAYER_COMPS.map((comp) => (
             <article key={comp.player} className="editorial-card overflow-hidden">
               <div className="grid md:grid-cols-[220px_minmax(0,1fr)] md:items-start">
-                <div className="relative h-[360px] overflow-hidden border-b border-[color:var(--color-line)] bg-[linear-gradient(180deg,#fff8ed_0%,#f5eee2_100%)] md:h-[420px] md:border-b-0 md:border-r">
-                  <div className="absolute inset-x-0 top-0 h-20 bg-[linear-gradient(180deg,rgba(181,13,13,0.1)_0%,rgba(181,13,13,0)_100%)]" />
-                  <img
-                    src={comp.media.imageSrc}
-                    alt={comp.media.alt}
-                    className="absolute inset-0 h-full w-full object-contain px-4 pt-6"
-                    style={
-                      comp.media.objectPosition
-                        ? { objectPosition: comp.media.objectPosition }
-                        : undefined
-                    }
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 border-t border-[color:var(--color-line)] bg-[rgba(16,28,44,0.88)] px-4 py-3 text-white">
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--color-gold)]">
-                      {comp.team}
-                    </div>
-                    <p className="mt-1 text-sm font-bold uppercase tracking-[0.1em]">{comp.role}</p>
-                  </div>
-                </div>
+                <PlayerCompMedia comp={comp} />
 
                 <div className="p-6 md:p-7">
                   <div className="flex flex-wrap items-center gap-3">
