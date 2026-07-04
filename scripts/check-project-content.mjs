@@ -54,7 +54,11 @@ function validateProject(project, collectionName, index) {
     fail(`${label}.trackerStatus must be one of ${Array.from(statuses).join(', ')}`);
   }
 
-  if (!Number.isInteger(project.trackerScore) || project.trackerScore < 0 || project.trackerScore > 100) {
+  if (
+    !Number.isInteger(project.trackerScore) ||
+    project.trackerScore < 0 ||
+    project.trackerScore > 100
+  ) {
     fail(`${label}.trackerScore must be an integer from 0 to 100`);
   }
 

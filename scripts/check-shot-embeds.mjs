@@ -1,7 +1,13 @@
 import { readFileSync } from 'node:fs';
+import ts from 'typescript';
 
 const source = readFileSync(new URL('../src/pages/CurrentProjects.tsx', import.meta.url), 'utf8');
-const projectSource = readFileSync(new URL('../src/content/currentProjects.ts', import.meta.url), 'utf8');
+const { CURRENT_PROJECTS, CLOSED_PROJECTS } = await importTypescriptModule(
+  '../src/content/currentProjects.ts',
+);
+const currentProjects = CURRENT_PROJECTS.map(toShotProject);
+const closedProjects = CLOSED_PROJECTS.map(toShotProject);
+const allProjects = [...currentProjects, ...closedProjects];
 const strictTarget = process.argv.some((arg) => arg.startsWith('--target='));
 const showInventory = process.argv.includes('--inventory');
 const youtubeIdPattern = /^[\w-]{11}$/;
@@ -9,33 +15,149 @@ const vimeoIdPattern = /^\d+$/;
 const maxYouTubeWindowSeconds = 38;
 const axes = ['impact', 'difficulty', 'ambition', 'creativity'];
 const providers = new Map();
-const shots = [];
-let currentZone = null;
-let currentShot = null;
+const shots = readHistoricShotPools(source);
 
-for (const line of source.split('\n')) {
-  const zoneMatch = line.match(/^  ([a-zA-Z]+): \[$/);
-  if (zoneMatch) {
-    currentZone = zoneMatch[1];
-    continue;
+async function importTypescriptModule(relativePath) {
+  const sourceText = readFileSync(new URL(relativePath, import.meta.url), 'utf8');
+  const compiled = ts.transpileModule(sourceText, {
+    compilerOptions: {
+      module: ts.ModuleKind.ES2022,
+      target: ts.ScriptTarget.ES2022,
+    },
+  });
+  const moduleUrl = `data:text/javascript;base64,${Buffer.from(compiled.outputText).toString('base64')}`;
+  return import(moduleUrl);
+}
+
+function toShotProject(project) {
+  return {
+    slug: project.slug,
+    trackerScore: project.trackerScore,
+    trackerStatus: project.trackerStatus,
+    grades: project.grades,
+  };
+}
+
+function readHistoricShotPools(sourceText) {
+  const sourceFile = ts.createSourceFile(
+    'CurrentProjects.tsx',
+    sourceText,
+    ts.ScriptTarget.Latest,
+    true,
+    ts.ScriptKind.TSX,
+  );
+  let initializer = null;
+
+  function visit(node) {
+    if (
+      ts.isVariableDeclaration(node) &&
+      ts.isIdentifier(node.name) &&
+      node.name.text === 'HISTORIC_SHOT_POOLS'
+    ) {
+      initializer = unwrapExpression(node.initializer);
+      return;
+    }
+
+    ts.forEachChild(node, visit);
   }
 
-  const shotMatch = line.match(/^      id: '([^']+)',/);
-  if (shotMatch && currentZone) {
-    currentShot = {
-      id: shotMatch[1],
-      zone: currentZone,
-      segment: '',
-    };
-    shots.push(currentShot);
-    continue;
+  visit(sourceFile);
+
+  if (!initializer || !ts.isObjectLiteralExpression(initializer)) {
+    throw new Error('Could not parse HISTORIC_SHOT_POOLS from CurrentProjects.tsx');
   }
 
-  if (!currentShot) continue;
+  const parsedShots = [];
 
-  currentShot.segment += `${line}\n`;
+  for (const zoneProperty of initializer.properties) {
+    if (!ts.isPropertyAssignment(zoneProperty)) continue;
 
-  if (line === '    },') currentShot = null;
+    const zone = propertyNameToString(zoneProperty.name);
+    const zoneInitializer = unwrapExpression(zoneProperty.initializer);
+    if (!zone || !zoneInitializer || !ts.isArrayLiteralExpression(zoneInitializer)) continue;
+
+    for (const element of zoneInitializer.elements) {
+      const shotObject = unwrapExpression(element);
+      if (!shotObject || !ts.isObjectLiteralExpression(shotObject)) continue;
+
+      const id = readStringProperty(shotObject, 'id');
+      if (!id) continue;
+
+      parsedShots.push({
+        id,
+        zone,
+        embed: readEmbed(shotObject),
+        quality: readQuality(shotObject),
+      });
+    }
+  }
+
+  return parsedShots;
+}
+
+function unwrapExpression(expression) {
+  if (!expression) return null;
+  if (ts.isAsExpression(expression) || ts.isSatisfiesExpression(expression)) {
+    return unwrapExpression(expression.expression);
+  }
+  return expression;
+}
+
+function propertyNameToString(name) {
+  if (ts.isIdentifier(name)) return name.text;
+  if (ts.isStringLiteral(name) || ts.isNumericLiteral(name)) return name.text;
+  return null;
+}
+
+function findProperty(objectLiteral, fieldName) {
+  return objectLiteral.properties.find(
+    (property) =>
+      ts.isPropertyAssignment(property) && propertyNameToString(property.name) === fieldName,
+  );
+}
+
+function readStringProperty(objectLiteral, fieldName) {
+  const initializer = unwrapExpression(findProperty(objectLiteral, fieldName)?.initializer);
+  if (!initializer) return undefined;
+  if (ts.isStringLiteral(initializer) || ts.isNoSubstitutionTemplateLiteral(initializer)) {
+    return initializer.text;
+  }
+  return undefined;
+}
+
+function readNumberProperty(objectLiteral, fieldName) {
+  const initializer = unwrapExpression(findProperty(objectLiteral, fieldName)?.initializer);
+  if (!initializer || !ts.isNumericLiteral(initializer)) return undefined;
+  return Number(initializer.text);
+}
+
+function readObjectProperty(objectLiteral, fieldName) {
+  const initializer = unwrapExpression(findProperty(objectLiteral, fieldName)?.initializer);
+  if (!initializer || !ts.isObjectLiteralExpression(initializer)) return undefined;
+  return initializer;
+}
+
+function readEmbed(shotObject) {
+  const embedObject = readObjectProperty(shotObject, 'embed');
+  if (!embedObject) return undefined;
+
+  return {
+    provider: readStringProperty(embedObject, 'provider'),
+    id: readStringProperty(embedObject, 'id'),
+    url: readStringProperty(embedObject, 'url'),
+    start: readNumberProperty(embedObject, 'start'),
+    end: readNumberProperty(embedObject, 'end'),
+  };
+}
+
+function readQuality(shotObject) {
+  const qualityObject = readObjectProperty(shotObject, 'quality');
+  if (!qualityObject) return undefined;
+
+  return {
+    level: readStringProperty(qualityObject, 'level'),
+    reviewedAt: readStringProperty(qualityObject, 'reviewedAt'),
+  };
 }
 
 const missing = [];
@@ -44,15 +166,13 @@ const invalid = [];
 const zonesWithoutEmbeds = new Set(shots.map((shot) => shot.zone));
 
 for (const shot of shots) {
-  const provider = shot.segment.match(/provider: '([^']+)'/)?.[1];
-  const id = shot.segment.match(/^\s+id: '([^']+)',/m)?.[1];
-  const url = shot.segment.match(/url: '([^']+)'/)?.[1];
-  const startMatch = shot.segment.match(/start: (\d+)/);
-  const endMatch = shot.segment.match(/end: (\d+)/);
-  const start = Number(startMatch?.[1] ?? 0);
-  const end = Number(endMatch?.[1] ?? 0);
-  const quality = shot.segment.match(/level: '([^']+)'/)?.[1];
-  const reviewedAt = shot.segment.match(/reviewedAt: '([^']+)'/)?.[1];
+  const provider = shot.embed?.provider;
+  const id = shot.embed?.id;
+  const url = shot.embed?.url;
+  const start = shot.embed?.start ?? 0;
+  const end = shot.embed?.end ?? 0;
+  const quality = shot.quality?.level;
+  const reviewedAt = shot.quality?.reviewedAt;
 
   if (!provider) {
     missing.push(`${shot.zone}/${shot.id}`);
@@ -71,7 +191,10 @@ for (const shot of shots) {
     invalid.push(`${shot.zone}/${shot.id}: invalid YouTube id ${id ?? '(missing)'}`);
   }
 
-  if (provider === 'youtube' && (!startMatch || !endMatch)) {
+  if (
+    provider === 'youtube' &&
+    (shot.embed?.start === undefined || shot.embed?.end === undefined)
+  ) {
     invalid.push(`${shot.zone}/${shot.id}: missing explicit YouTube start/end window`);
   }
 
@@ -80,7 +203,9 @@ for (const shot of shots) {
   }
 
   if (provider === 'youtube' && end - start > maxYouTubeWindowSeconds) {
-    invalid.push(`${shot.zone}/${shot.id}: YouTube window ${end - start}s exceeds ${maxYouTubeWindowSeconds}s compact clip limit`);
+    invalid.push(
+      `${shot.zone}/${shot.id}: YouTube window ${end - start}s exceeds ${maxYouTubeWindowSeconds}s compact clip limit`,
+    );
   }
 
   if (provider === 'vimeo' && (!id || !vimeoIdPattern.test(id))) {
@@ -149,28 +274,14 @@ if (strictTarget && verified !== shots.length) {
 }
 
 if (
-  invalid.length > 0
-  || assignmentDuplicates.length > 0
-  || rimRangeMismatches.length > 0
-  || requiredAssignmentMismatches.length > 0
-  || zonesWithoutEmbeds.size > 0
-  || (strictTarget && verified !== shots.length)
-) process.exit(1);
-
-function parseProjects(section) {
-  return [...section.matchAll(/\{\n    slug: '([^']+)',[\s\S]*?\n  \}/g)].map((match) => {
-    const block = match[0];
-    return {
-      slug: match[1],
-      trackerScore: Number(block.match(/trackerScore: (\d+)/)?.[1]),
-      trackerStatus: block.match(/trackerStatus: '([^']+)'/)?.[1],
-      grades: Object.fromEntries(
-        [...block.matchAll(/(impact|difficulty|ambition|creativity): (\d+)/g)]
-          .map((gradeMatch) => [gradeMatch[1], Number(gradeMatch[2])]),
-      ),
-    };
-  });
-}
+  invalid.length > 0 ||
+  assignmentDuplicates.length > 0 ||
+  rimRangeMismatches.length > 0 ||
+  requiredAssignmentMismatches.length > 0 ||
+  zonesWithoutEmbeds.size > 0 ||
+  (strictTarget && verified !== shots.length)
+)
+  process.exit(1);
 
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
@@ -184,11 +295,12 @@ function getShotCoordinates(project, axis) {
   const verticalScore = (baselineGrade - 5) * 7.2 + eliteLift * 13;
   const difficultyPressure = (project.grades.difficulty - 5.5) / 10;
   const creativeSpread = (project.grades.creativity - project.grades.impact) / 10;
-  const statusDrag = project.trackerStatus === 'on_track'
-    ? 0.03
-    : project.trackerStatus === 'stalled'
-      ? -0.06
-      : -0.02;
+  const statusDrag =
+    project.trackerStatus === 'on_track'
+      ? 0.03
+      : project.trackerStatus === 'stalled'
+        ? -0.06
+        : -0.02;
 
   return {
     left: clamp(14 + health * 72 + creativeSpread * 7 + statusDrag * 100, 8, 92),
@@ -217,7 +329,9 @@ function markerSizeForProject(project) {
 }
 
 function buildCourtLayout(projects, axis) {
-  const normalizedPoints = normalizeCourtPoints(projects.map((project) => getShotCoordinates(project, axis)));
+  const normalizedPoints = normalizeCourtPoints(
+    projects.map((project) => getShotCoordinates(project, axis)),
+  );
   const points = projects.map((project, index) => ({
     project,
     markerSize: markerSizeForProject(project),
@@ -258,9 +372,10 @@ function getThreePointArcTop(left) {
 }
 
 function getHistoricShotZone(point) {
-  const isOutsideArc = point.left <= 7 || point.left >= 93
-    ? point.top <= 77
-    : point.top <= getThreePointArcTop(point.left);
+  const isOutsideArc =
+    point.left <= 7 || point.left >= 93
+      ? point.top <= 77
+      : point.top <= getThreePointArcTop(point.left);
   const isDeep = point.top <= 30;
   const isCornerDepth = point.top >= 62;
   const isRimRange = point.top >= 82 && point.left >= 34 && point.left <= 66;
@@ -292,18 +407,13 @@ function assignShot(project, point, layout, usedShotIds = new Set()) {
 }
 
 function findAssignmentDuplicates() {
-  const currentStart = projectSource.indexOf('export const CURRENT_PROJECTS');
-  const closedStart = projectSource.indexOf('export const CLOSED_PROJECTS');
-  const currentProjects = parseProjects(projectSource.slice(currentStart, closedStart));
-  const closedProjects = parseProjects(projectSource.slice(closedStart));
-  const allProjects = [...currentProjects, ...closedProjects];
   const duplicates = [];
 
   for (const axis of axes) {
     const currentOrdered = [...currentProjects].sort(
       (left, right) =>
-        Math.round(right.grades[axis] * 7 + right.trackerScore * 0.3)
-        - Math.round(left.grades[axis] * 7 + left.trackerScore * 0.3),
+        Math.round(right.grades[axis] * 7 + right.trackerScore * 0.3) -
+        Math.round(left.grades[axis] * 7 + left.trackerScore * 0.3),
     );
     const currentLayout = buildCourtLayout(currentOrdered, axis);
     const allLayout = buildCourtLayout(allProjects, axis);
@@ -319,7 +429,9 @@ function findAssignmentDuplicates() {
     for (const project of closedProjects) {
       const item = allLayout.find((candidate) => candidate.project.slug === project.slug);
       if (!item) continue;
-      rows.push({ axis, project: item.project.slug, scope: 'closed', ...assignShot(item.project, item.point, allLayout, currentShotIds) });
+      const assignment = assignShot(item.project, item.point, allLayout, currentShotIds);
+      currentShotIds.add(assignment.shotId);
+      rows.push({ axis, project: item.project.slug, scope: 'closed', ...assignment });
     }
 
     for (const [shotId, assignments] of Map.groupBy(rows, (row) => row.shotId)) {
@@ -341,7 +453,10 @@ function findRimRangeMismatches() {
   return axes.flatMap((axis) =>
     getAssignmentRows(axis)
       .filter((row) => isRimRange(row.point) && row.zone !== 'rim')
-      .map((row) => `${axis}/${row.project} at ${row.point.left.toFixed(1)},${row.point.top.toFixed(1)} assigned ${row.zone}/${row.shotId}; expected rim`),
+      .map(
+        (row) =>
+          `${axis}/${row.project} at ${row.point.left.toFixed(1)},${row.point.top.toFixed(1)} assigned ${row.zone}/${row.shotId}; expected rim`,
+      ),
   );
 }
 
@@ -356,7 +471,9 @@ function findRequiredAssignmentMismatches() {
   ];
 
   return requiredAssignments.flatMap((required) => {
-    const row = getAssignmentRows(required.axis).find((candidate) => candidate.project === required.project);
+    const row = getAssignmentRows(required.axis).find(
+      (candidate) => candidate.project === required.project,
+    );
 
     if (!row) return [`${required.axis}/${required.project} missing from assignment inventory`];
     if (row.zone === required.zone && row.shotId === required.shotId) return [];
@@ -368,15 +485,10 @@ function findRequiredAssignmentMismatches() {
 }
 
 function getAssignmentRows(axis) {
-  const currentStart = projectSource.indexOf('export const CURRENT_PROJECTS');
-  const closedStart = projectSource.indexOf('export const CLOSED_PROJECTS');
-  const currentProjects = parseProjects(projectSource.slice(currentStart, closedStart));
-  const closedProjects = parseProjects(projectSource.slice(closedStart));
-  const allProjects = [...currentProjects, ...closedProjects];
   const currentOrdered = [...currentProjects].sort(
     (left, right) =>
-      Math.round(right.grades[axis] * 7 + right.trackerScore * 0.3)
-      - Math.round(left.grades[axis] * 7 + left.trackerScore * 0.3),
+      Math.round(right.grades[axis] * 7 + right.trackerScore * 0.3) -
+      Math.round(left.grades[axis] * 7 + left.trackerScore * 0.3),
   );
   const currentLayout = buildCourtLayout(currentOrdered, axis);
   const allLayout = buildCourtLayout(allProjects, axis);
@@ -386,13 +498,27 @@ function getAssignmentRows(axis) {
   for (const item of currentLayout) {
     const assignment = assignShot(item.project, item.point, currentLayout);
     currentShotIds.add(assignment.shotId);
-    rows.push({ axis, project: item.project.slug, scope: 'current', point: item.point, ...assignment });
+    rows.push({
+      axis,
+      project: item.project.slug,
+      scope: 'current',
+      point: item.point,
+      ...assignment,
+    });
   }
 
   for (const project of closedProjects) {
     const item = allLayout.find((candidate) => candidate.project.slug === project.slug);
     if (!item) continue;
-    rows.push({ axis, project: item.project.slug, scope: 'closed', point: item.point, ...assignShot(item.project, item.point, allLayout, currentShotIds) });
+    const assignment = assignShot(item.project, item.point, allLayout, currentShotIds);
+    currentShotIds.add(assignment.shotId);
+    rows.push({
+      axis,
+      project: item.project.slug,
+      scope: 'closed',
+      point: item.point,
+      ...assignment,
+    });
   }
 
   return rows;
@@ -406,13 +532,13 @@ function printAssignmentInventory() {
     const usedShotIds = new Set(rows.map((row) => row.shotId));
     console.log(`\n[${axis}] assigned=${rows.length} backups=${shots.length - usedShotIds.size}`);
 
-    for (const [zone, zoneShots] of [...shotIdsByZone.entries()].sort(([left], [right]) => left.localeCompare(right))) {
+    for (const [zone, zoneShots] of [...shotIdsByZone.entries()].sort(([left], [right]) =>
+      left.localeCompare(right),
+    )) {
       const assigned = rows
         .filter((row) => row.zone === zone)
         .map((row) => `${row.shotId}:${row.project}`);
-      const backups = zoneShots
-        .map((shot) => shot.id)
-        .filter((shotId) => !usedShotIds.has(shotId));
+      const backups = zoneShots.map((shot) => shot.id).filter((shotId) => !usedShotIds.has(shotId));
 
       console.log(`  ${zone}`);
       console.log(`    assigned (${assigned.length}): ${assigned.join(', ') || 'none'}`);

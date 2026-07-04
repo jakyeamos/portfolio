@@ -18,15 +18,35 @@ const secretPatterns = [
   { name: 'live stripe key', pattern: /sk_live_[A-Za-z0-9]{20,}/ },
   { name: 'slack token', pattern: /xox[baprs]-[A-Za-z0-9-]{20,}/ },
   { name: 'aws access key', pattern: /AKIA[0-9A-Z]{16}/ },
-  { name: 'supabase service role jwt', pattern: /eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}/ },
+  {
+    name: 'supabase service role jwt',
+    pattern: /eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}/,
+  },
 ];
-const extensions = new Set(['.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs', '.json', '.md', '.yml', '.yaml', '.env', '.example', '.toml']);
+const extensions = new Set([
+  '.js',
+  '.jsx',
+  '.ts',
+  '.tsx',
+  '.mjs',
+  '.cjs',
+  '.json',
+  '.md',
+  '.yml',
+  '.yaml',
+  '.env',
+  '.example',
+  '.toml',
+]);
 const findings = [];
 function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     if (ignored.has(entry.name)) continue;
     const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) { walk(fullPath); continue; }
+    if (entry.isDirectory()) {
+      walk(fullPath);
+      continue;
+    }
     const ext = path.extname(entry.name);
     if (!extensions.has(ext) && !entry.name.includes('.env')) continue;
     const text = fs.readFileSync(fullPath, 'utf8');

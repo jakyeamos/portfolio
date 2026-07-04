@@ -1,5 +1,5 @@
 import { type ChangeEvent, type ReactElement, useMemo, useState } from 'react';
-import { CheckSquare, ClipboardList, FileCode2, Github, PenLine, Pin, Send } from 'lucide-react';
+import { CheckSquare, ClipboardList, FileCode2, PenLine, Pin, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 type DestinationId = 'portfolio' | 'frmwrk';
@@ -140,7 +140,9 @@ ${body}
             <aside className="border border-[color:var(--color-line-strong)] bg-[color:var(--color-navy)] p-5 text-white">
               <div className="flex items-center gap-3">
                 <ClipboardList size={18} className="text-[color:var(--color-gold)]" />
-                <div className="section-kicker text-[color:var(--color-gold)]">Publishing Model</div>
+                <div className="section-kicker text-[color:var(--color-gold)]">
+                  Publishing Model
+                </div>
               </div>
               <p className="mt-3 text-2xl font-black uppercase leading-tight">
                 Portfolio and FRMWRK consume Markdown. BIP coordinates the write.

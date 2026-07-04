@@ -3,7 +3,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
-const roots = ['src', 'app', 'pages', 'packages'].map((entry) => path.join(root, entry)).filter((entry) => fs.existsSync(entry));
+const roots = ['src', 'app', 'pages', 'packages']
+  .map((entry) => path.join(root, entry))
+  .filter((entry) => fs.existsSync(entry));
 const sourceExtensions = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs']);
 const ignored = new Set(['node_modules', '.next', 'dist', 'build', 'coverage', '.turbo', '.git']);
 const violations = [];
@@ -20,7 +22,8 @@ function walk(dir) {
 function inspectFile(file) {
   const rel = path.relative(root, file);
   const text = fs.readFileSync(file, 'utf8');
-  const importPattern = /(?:import|export)\s+(?:[^'"]*?from\s+)?['"]([^'"]+)['"]|require\(['"]([^'"]+)['"]\)/g;
+  const importPattern =
+    /(?:import|export)\s+(?:[^'"]*?from\s+)?['"]([^'"]+)['"]|require\(['"]([^'"]+)['"]\)/g;
   let match;
   while ((match = importPattern.exec(text))) {
     const specifier = match[1] || match[2];

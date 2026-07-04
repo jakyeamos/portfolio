@@ -54,13 +54,14 @@ publish decisions.
 
 ## Key Decisions
 
-| Decision | Rationale | Outcome |
-| --- | --- | --- |
-| Use the portfolio repo as the control plane | The portfolio is the reviewer-facing map and already has planning/tracker state | Cross-repo public-readiness plans live here first |
-| Start with GSD-style phase plans | The release train is too large for one execution run | Phase plans are the first deliverable |
-| Use Quality Runner as a bar, not the whole bar | It provides repeatable audit artifacts but cannot replace judgment on secrets, data, and claims | Public-readiness gates combine Quality Runner and manual checks |
-| Treat BBDSE as a release train | BBDSE contains independent nested repos with different maturity/data risk | Each subproject gets its own classification and blocker list |
-| Use tiered release | Visible progress matters, but only passed repos should be promoted | Repos classify as `publish now`, `publish after cleanup`, or `case-study only` |
+| Decision                                       | Rationale                                                                                       | Outcome                                                                        |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Use the portfolio repo as the control plane    | The portfolio is the reviewer-facing map and already has planning/tracker state                 | Cross-repo public-readiness plans live here first                              |
+| Start with GSD-style phase plans               | The release train is too large for one execution run                                            | Phase plans are the first deliverable                                          |
+| Use Quality Runner as a bar, not the whole bar | It provides repeatable audit artifacts but cannot replace judgment on secrets, data, and claims | Public-readiness gates combine Quality Runner and manual checks                |
+| Treat BBDSE as a release train                 | BBDSE contains independent nested repos with different maturity/data risk                       | Each subproject gets its own classification and blocker list                   |
+| Use tiered release                             | Visible progress matters, but only passed repos should be promoted                              | Repos classify as `publish now`, `publish after cleanup`, or `case-study only` |
 
 ---
-*Last updated: 2026-07-01 for the Interview Surface Public Readiness milestone*
+
+_Last updated: 2026-07-01 for the Interview Surface Public Readiness milestone_

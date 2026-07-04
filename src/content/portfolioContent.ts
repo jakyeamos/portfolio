@@ -84,7 +84,11 @@ export const SITE_META = {
 
 export const PAGE_LINKS = [
   { label: 'Front Page', shortLabel: 'Front', path: '/' },
-  { label: 'Scouting Report', shortLabel: 'Scouting', path: '/scouting-report' },
+  {
+    label: 'Scouting Report',
+    shortLabel: 'Scouting',
+    path: '/scouting-report',
+  },
   { label: 'Film Room', shortLabel: 'Film', path: '/film-room' },
   { label: 'Blog', path: '/blog' },
   { label: 'Projects', path: '/projects' },
@@ -148,6 +152,12 @@ export const HERO_ACTIONS: readonly HeroAction[] = [
 
 export const HERO_PROOF: readonly HeroProof[] = [
   {
+    value: 'PyPI/npm',
+    label: 'Release proof',
+    detail:
+      'Public packages now live across Quality Runner, Anti-Slop, Agent Eval Contract, Research Domain Writing, Pre-CR, and Terrace.',
+  },
+  {
     value: 'Amazon',
     label: 'Enterprise reps',
     detail: 'Internship work across Ads and FinTech from 2023 through 2025.',
@@ -157,14 +167,12 @@ export const HERO_PROOF: readonly HeroProof[] = [
     label: 'Output gain',
     detail: 'Architecture-firm productivity software lifted team output in under 5 weeks.',
   },
-  {
-    value: '2 weeks',
-    label: 'Fast ship',
-    detail: 'Cleveland Clinic coaching MVP moved from build to delivery on a compressed clock.',
-  },
 ] as const;
 
 export const BREAKING_TICKER = [
+  'QUALITY RUNNER, AGENT EVAL CONTRACT, AND RESEARCH DOMAIN WRITING ARE LIVE ON PYPI',
+  'ANTI-SLOP AND PRE-CR PACKAGE SURFACES ARE LIVE ON NPM',
+  'TMCP V0.3.2 MCP/PLUGIN DISTRIBUTION IS CUT',
   'AMAZON SDE INTERN ACROSS ADS AND FINTECH SYSTEMS FROM 2023 THROUGH 2025',
   'CLEVELAND CLINIC CLINICAL COACHING MVP SHIPPED IN 2 WEEKS',
   'ARCHITECTURE FIRM PRODUCTIVITY SOFTWARE DROVE 400% OUTPUT GROWTH IN UNDER 5 WEEKS',
@@ -175,27 +183,27 @@ export const BREAKING_TICKER = [
 
 export const TOP_HEADLINES: readonly Headline[] = [
   {
+    category: 'Release run',
+    title: 'Developer-tool packages are now public across PyPI, npm, and MCP',
+    meta: 'Quality Runner, Anti-Slop, Agent Eval Contract, Research Domain Writing, Pre-CR, TMCP',
+    href: '/projects',
+  },
+  {
     category: 'Draft stock',
-    title: 'Multi-stop Amazon rep built enterprise feel without slowing the tempo',
+    title: 'Multi-stop Amazon rep still anchors the enterprise systems tape',
     meta: '2023-2025 | Ads, FinTech, analytics, testing, process efficiency',
     href: '/scouting-report',
   },
   {
     category: 'Winning plays',
-    title: 'Workflow tooling and automation keep showing up all over the tape',
-    meta: 'Pre-CR Suite, Deepr, AIOS, review systems, delivery acceleration',
+    title: 'Workflow tooling now has registry-backed proof instead of just local demos',
+    meta: 'Quality gates, lint rules, changed-line coverage, eval contracts, research workflows',
     href: '/film-room',
   },
   {
-    category: 'Comp watch',
-    title: 'High-pace playmaker energy plus dirty-work possession value',
-    meta: 'Style comps, not star-equity comps',
-    href: '/player-comps',
-  },
-  {
     category: 'Tracker feed',
-    title: 'Current projects now map tracker health against the selected project axis',
-    meta: 'Taski tracker health, status comments, and selected-axis grades on a court matrix',
+    title: 'Projects board separates shipped package proof from active product bets',
+    meta: 'Released tools, active systems, and product work no longer blur together',
     href: '/projects',
   },
   {
@@ -208,12 +216,12 @@ export const TOP_HEADLINES: readonly Headline[] = [
 
 export const HOME_FRONT_OFFICE_NOTES = [
   {
-    label: 'Pace note',
-    copy: 'The file keeps pointing to quick reads, fast delivery, and steady decision-making instead of chaotic speed for its own sake.',
+    label: 'Release note',
+    copy: 'The strongest new signal is not another concept: it is a run of public packages across PyPI, npm, and MCP/plugin distribution surfaces.',
   },
   {
     label: 'Winning plays',
-    copy: 'A lot of the strongest evidence is low-glamour engineering work that helps the whole team function better: review tooling, workflow structure, dashboards, and automation.',
+    copy: 'A lot of the strongest evidence is low-glamour engineering work that helps the whole team function better: quality gates, review tooling, lint rules, contracts, and automation.',
   },
   {
     label: 'Best lineup',
@@ -267,7 +275,7 @@ export const SCOUTING_FACTS = [
 ] as const;
 
 export const SCOUTING_OVERVIEW = [
-  'Jakye Amos enters the 2026 recruiting cycle as a multi-positional engineering prospect with enterprise reps at Amazon, consulting production minutes across healthcare and operations, and founder-style product building on the side.',
+  'Jakye Amos enters the 2026 recruiting cycle as a multi-positional engineering prospect with enterprise reps at Amazon, consulting production minutes across healthcare and operations, and public developer-tool releases across PyPI, npm, and MCP/plugin surfaces.',
   'He is a player trusted in short-shot-clock situations. A Cleveland Clinic MVP shipped in 2 weeks, an architecture-firm productivity build landed in under 5 weeks, and a legacy refactor for a major live event was turned around in 11 days.',
   'The skill package looks less like a specialist and more like a connective guard-wing. Frontend product work, backend systems, analytics, workflow tooling, AI-assisted operations, and full-stack product structure all show up on the tape.',
 ] as const;
@@ -298,7 +306,7 @@ export const SCOUTING_FOCUS = [
   },
   {
     title: 'Developer infrastructure reps',
-    copy: 'Pre-CR Suite and adjacent work suggest a real appetite for improving coverage, review quality, and pre-merge confidence instead of treating that work like side quests.',
+    copy: 'Quality Runner, Anti-Slop, Pre-CR Suite, and Agent Eval Contract move the review/quality story from private workflow preference into public package surfaces.',
   },
   {
     title: 'Data-rich offense',
@@ -338,75 +346,92 @@ export const SKILL_PACKAGE = [
 
 export const FILM_ROOM_PROJECTS: readonly FilmRoomProject[] = [
   {
-    kicker: 'Featured Tape',
-    title: 'Soundscape',
-    deck: 'A full-rotation product build with web, mobile, shared logic, discovery systems, market surfaces, clubs, sets, and admin tooling all living in the same offense.',
-    badge: 'Lead creation reps',
+    kicker: 'Release Tape',
+    title: 'Quality Runner',
+    deck: 'A PyPI package and MCP server that turns repo-quality checks into machine-readable evidence instead of one-off local ritual.',
+    badge: 'Public package',
     tone: 'red',
-    media: PORTFOLIO_ASSETS.projects.soundscape,
-    stack: ['Next.js 14', 'tRPC', 'Prisma', 'Expo', 'Monorepo'],
-    situation: 'Build a music product broad enough to support discovery, ratings, feeds, market and portfolio features, clubs, artist briefs, and shared web/mobile logic without letting the system sprawl.',
-    challenge: 'Keep a large feature set coherent across a Next.js web app, services and API layer, shared platform logic, Prisma data model, shared UI, and an Expo mobile client.',
-    built: 'Structured the product as a real monorepo and shipped across feed, search, market, portfolio, ratings, profiles, compare, sets, charity, support, wrapped, onboarding, settings, admin tooling, feature flags, telemetry, and SEO.',
-    result: 'The end result is a deep roster build, not a one-screen demo. It shows comfort handling product ambition and system structure at the same time.',
-    whyItMatters: 'This is the tape for lead-ball-handler upside: seeing the whole floor, keeping the offense organized, and making multiple surfaces feel like one product.',
-    engineeringRead: 'Jakye looks comfortable running a lot of action without losing the shared contracts and product discipline that keep the possession alive.',
+    stack: ['Python', 'PyPI', 'MCP', 'Quality gates'],
+    situation:
+      'AI-assisted engineering keeps producing work that looks done before the repo has proof that it is actually ready.',
+    challenge:
+      'Make verification reusable across projects without burying the evidence in terminal scrollback or project-specific scripts.',
+    built:
+      'Packaged a CLI and MCP server that can run quality checks, preserve evidence, and expose the results in a format agents and humans can both consume.',
+    result:
+      'Quality Runner is now live on PyPI as quality-runner v0.3.1, giving the quality-gate work a public install surface.',
+    whyItMatters:
+      'This is the clearest public proof of the current thesis: agent work needs specs, checks, and artifacts that survive beyond the chat window.',
+    engineeringRead:
+      'Jakye is turning personal engineering discipline into reusable infrastructure instead of leaving it as private taste.',
   },
   {
     kicker: 'Workflow Tape',
     title: 'Pre-CR Suite',
-    deck: 'A cross-editor review-prep suite built around changed-line coverage checks, smart pre-review diagnostics, and documentation generation before the pull request opens.',
+    deck: 'A released npm package surface for changed-line coverage checks and reusable pre-review diagnostics before the pull request opens.',
     badge: 'Glue-guy project',
     tone: 'blue',
     media: PORTFOLIO_ASSETS.projects.preCRSuite,
-    stack: ['TypeScript', 'Language server workflow', 'LSP tooling', 'Developer experience'],
-    situation: 'Code review quality often depends on memory, manual ritual, and whichever editor somebody happens to be using that day.',
-    challenge: 'Make the workflow portable across VS Code, Neovim, and other LSP-compatible editors instead of tying the solution to one preferred setup.',
-    built: 'Designed a reusable suite that validates changed-line coverage, runs smart pre-review checks, and generates documentation before review ever starts.',
-    result: 'The local source points to a reusable quality system rather than a one-off productivity hack for one machine or one IDE.',
-    whyItMatters: 'This is winning-plays tape. It addresses the work that helps teams win cleaner possessions even when nobody is handing out points for it.',
-    engineeringRead: 'Jakye notices where process breaks down in the real world and builds the tool where the pain actually lives.',
+    stack: ['TypeScript', 'npm packages', 'LSP tooling', 'Developer experience'],
+    situation:
+      'Code review quality often depends on memory, manual ritual, and whichever editor somebody happens to be using that day.',
+    challenge:
+      'Make the workflow portable across VS Code, Neovim, and other LSP-compatible editors instead of tying the solution to one preferred setup.',
+    built:
+      'Designed a reusable suite that validates changed-line coverage, runs smart pre-review checks, and exposes the core/server package layer for automation.',
+    result:
+      '@pre-cr/core and @pre-cr/server are now live on npm at v0.1.0, turning the review-prep system into a real package surface.',
+    whyItMatters:
+      'This is winning-plays tape. It addresses the work that helps teams win cleaner possessions even when nobody is handing out points for it.',
+    engineeringRead:
+      'Jakye notices where process breaks down in the real world and builds the tool where the pain actually lives.',
   },
   {
-    kicker: 'AI Tape',
-    title: 'Deepr carousel system',
-    deck: 'AI-powered marketing tooling for Deepr, paired with an inline coverage-vector workflow that kept code-review awareness tied to real team execution.',
-    badge: 'Throughput swing',
+    kicker: 'Product Tape',
+    title: 'Soundscape',
+    deck: 'A full-rotation product build with web, mobile, shared logic, discovery systems, market surfaces, clubs, sets, and admin tooling all living in the same offense.',
+    badge: 'Lead creation reps',
     tone: 'gold',
-    media: PORTFOLIO_ASSETS.projects.deepr,
-    stack: ['AI tooling', 'Content generation', 'Developer workflow', 'Consulting'],
-    situation: 'Marketing output needed more scale and repeatability, while engineering review workflows also needed better visibility into testing coverage.',
-    challenge: 'Build AI systems that improve throughput and clarity without drifting into empty novelty or unsupported claims.',
-    built: 'Engineered an AI-powered photo carousel system for marketing coverage and built an inline coverage-vector tool for real-time testing coverage awareness during code reviews.',
-    result: 'The local CV attributes substantial viewership growth to the content tooling and keeps the testing tool grounded in practical review behavior.',
-    whyItMatters: 'This project is the best read on how Jakye uses AI: tied to throughput, clarity, and team function instead of generic futurist branding.',
-    engineeringRead: 'The profile gets stronger when AI is attached to a possession-level problem and a concrete operational outcome.',
+    media: PORTFOLIO_ASSETS.projects.soundscape,
+    stack: ['Next.js 14', 'tRPC', 'Prisma', 'Expo', 'Monorepo'],
+    situation:
+      'Build a music product broad enough to support discovery, ratings, feeds, market and portfolio features, clubs, artist briefs, and shared web/mobile logic without letting the system sprawl.',
+    challenge:
+      'Keep a large feature set coherent across a Next.js web app, services and API layer, shared platform logic, Prisma data model, shared UI, and an Expo mobile client.',
+    built:
+      'Structured the product as a real monorepo and shipped across feed, search, market, portfolio, ratings, profiles, compare, sets, charity, support, wrapped, onboarding, settings, admin tooling, feature flags, telemetry, and SEO.',
+    result:
+      'The end result is a deep roster build, not a one-screen demo. It shows comfort handling product ambition and system structure at the same time.',
+    whyItMatters:
+      'This is the tape for lead-ball-handler upside: seeing the whole floor, keeping the offense organized, and making multiple surfaces feel like one product.',
+    engineeringRead:
+      'Jakye looks comfortable running a lot of action without losing the shared contracts and product discipline that keep the possession alive.',
   },
 ] as const;
 
 export const BENCH_PROJECTS = [
   {
-    kicker: 'Simulation build',
-    title: 'Court Vision',
-    copy: 'Basketball IQ training platform with multiplayer draft simulation, Monte Carlo modeling, 30 player features, 13 archetypes, and real-time systems.',
+    kicker: 'Lint guardrail',
+    title: 'ESLint Anti-Slop',
+    copy: 'npm-released ESLint plugin that catches low-signal AI/code-review patterns before they land in TypeScript codebases.',
   },
   {
-    kicker: 'Workflow OS',
-    title: 'AIOS',
-    copy: 'Personal AI operating system built around session hooks, reusable workflow orchestration, pattern extraction, and layered knowledge retrieval.',
+    kicker: 'Eval contract',
+    title: 'Agent Eval Contract',
+    copy: 'PyPI-released package for consistent agent-eval cases, rubrics, evidence payloads, run metadata, and results.',
   },
   {
-    kicker: 'Spec discipline',
-    title: 'Terrace',
-    copy: 'Spec-driven, test-governed framework designed to make AI-assisted development more structured and less improv-heavy.',
+    kicker: 'MCP workflows',
+    title: 'TMCP',
+    copy: 'v0.3.2 MCP/plugin distribution for expert audits, release readiness, UI rubrics, routing policies, and agent handoffs.',
   },
 ] as const;
 
 export const CONCEPT_NOTES: readonly ConceptNote[] = [
   {
     label: 'Concept watch',
-    title: 'TMCP',
-    copy: 'Not a formal project-board entry yet, but worth calling out as a high-upside protocol/tooling concept in the same AI-workflow lane as AIOS and Terrace.',
+    title: 'Quality Evidence Contract',
+    copy: 'Still below the fold until the registry and repo proof match the idea, but it is the obvious adjacent lane after Quality Runner and Agent Eval Contract.',
   },
 ] as const;
 
@@ -444,10 +469,18 @@ export const PLAYER_COMPS: readonly PlayerComp[] = [
     team: 'Indiana Pacers',
     role: 'High-pace playmaker',
     badge: 'Tempo comp',
-    scoutingHook: 'Pushes the game forward, sees the next read early, and makes everybody else easier to play with.',
-    translation: 'This maps to the way Jakye moves through engineering work: quick reads across product and platform, clean handoffs, and a habit of turning scattered pieces into one organized possession.',
-    whyItFits: 'The local record shows range across Amazon systems, analytics, workflow tooling, consulting builds, and product work. The throughline is connective playmaking more than narrow specialization.',
-    overlap: ['Fast processor', 'Connective builder', 'Raises team rhythm', 'Makes the next action cleaner'],
+    scoutingHook:
+      'Pushes the game forward, sees the next read early, and makes everybody else easier to play with.',
+    translation:
+      'This maps to the way Jakye moves through engineering work: quick reads across product and platform, clean handoffs, and a habit of turning scattered pieces into one organized possession.',
+    whyItFits:
+      'The local record shows range across Amazon systems, analytics, workflow tooling, consulting builds, and product work. The throughline is connective playmaking more than narrow specialization.',
+    overlap: [
+      'Fast processor',
+      'Connective builder',
+      'Raises team rhythm',
+      'Makes the next action cleaner',
+    ],
     media: PORTFOLIO_ASSETS.playerComps.haliburton,
   },
   {
@@ -455,9 +488,12 @@ export const PLAYER_COMPS: readonly PlayerComp[] = [
     team: 'Detroit Pistons',
     role: 'Dirty-work winner',
     badge: 'Winning-plays comp',
-    scoutingHook: 'Covers ground, fills gaps, takes the hard assignment, and impacts winning even when the box score is not screaming for attention.',
-    translation: 'This shows up in the workflow-tooling side of the portfolio: review systems, automation, coverage visibility, dashboards, and the kind of engineering work that keeps whole teams cleaner.',
-    whyItFits: 'A lot of Jakye’s strongest source-backed value is not just shiny shipping. It is the possession work that helps everyone else execute faster and with more confidence.',
+    scoutingHook:
+      'Covers ground, fills gaps, takes the hard assignment, and impacts winning even when the box score is not screaming for attention.',
+    translation:
+      'This shows up in the workflow-tooling side of the portfolio: review systems, automation, coverage visibility, dashboards, and the kind of engineering work that keeps whole teams cleaner.',
+    whyItFits:
+      'A lot of Jakye’s strongest source-backed value is not just shiny shipping. It is the possession work that helps everyone else execute faster and with more confidence.',
     overlap: ['Low-ego impact', 'Workflow cleanup', 'Possession saver', 'Does the extra work'],
     media: PORTFOLIO_ASSETS.playerComps.ausar,
   },
@@ -473,7 +509,8 @@ export const IMPACT_METRICS = [
   {
     label: 'Biggest swing',
     value: '400%',
-    detail: 'Cleveland architecture firm productivity software increased operational output by 400 percent in under 5 weeks.',
+    detail:
+      'Cleveland architecture firm productivity software increased operational output by 400 percent in under 5 weeks.',
   },
   {
     label: 'Shot-clock win',
@@ -483,7 +520,8 @@ export const IMPACT_METRICS = [
   {
     label: 'Timeline cut',
     value: '90%',
-    detail: 'Proprietary AI marketing automation tools reduced production timelines by 90 percent for an A16z startup.',
+    detail:
+      'Proprietary AI marketing automation tools reduced production timelines by 90 percent for an A16z startup.',
   },
   {
     label: 'Run created',
@@ -496,7 +534,8 @@ export const IMPACT_CASES = [
   {
     kicker: 'Healthcare',
     title: 'Cleveland Clinic MVP',
-    summary: 'This is the short-shot-clock file: not just a prototype, but a usable clinical coaching MVP delivered fast enough to matter.',
+    summary:
+      'This is the short-shot-clock file: not just a prototype, but a usable clinical coaching MVP delivered fast enough to matter.',
     before: 'Need a clinical coaching MVP and no production-ready solution on the floor yet.',
     after: 'Full-stack architecture delivered on a 2-week clock in a regulated environment.',
     result: 'MVP shipped in 2 weeks',
@@ -504,25 +543,32 @@ export const IMPACT_CASES = [
   {
     kicker: 'Operations',
     title: 'Architecture firm productivity software',
-    summary: 'A workflow-software engagement built to change the team’s operating pace, not just freshen up the surface layer.',
+    summary:
+      'A workflow-software engagement built to change the team’s operating pace, not just freshen up the surface layer.',
     before: 'Operational work moving slower than the firm needed.',
-    after: 'Custom productivity software deployed in under 5 weeks to tighten execution and remove drag.',
+    after:
+      'Custom productivity software deployed in under 5 weeks to tighten execution and remove drag.',
     result: 'Operational output increased 400%',
   },
   {
     kicker: 'Marketing automation',
     title: 'A16z startup content tooling',
-    summary: 'AI systems built to compress production timelines while still creating enough volume to move the audience scoreboard.',
+    summary:
+      'AI systems built to compress production timelines while still creating enough volume to move the audience scoreboard.',
     before: 'Production timelines too slow for the content pace the startup wanted to play with.',
-    after: 'Proprietary AI marketing automation tools accelerated the pipeline and unlocked much higher content throughput.',
+    after:
+      'Proprietary AI marketing automation tools accelerated the pipeline and unlocked much higher content throughput.',
     result: 'Production timelines reduced 90% and 1.5M organic views generated',
   },
   {
     kicker: 'Deepr',
     title: 'Carousel system and code review tooling',
-    summary: 'A mixed file where the qualitative read is strong, but the public-facing metric language has to stay disciplined.',
-    before: 'Need stronger marketing viewership growth and better coverage awareness inside review workflows.',
-    after: 'AI-powered photo carousel tooling plus an inline coverage-vector tool improved both outward content flow and inward developer feedback.',
+    summary:
+      'A mixed file where the qualitative read is strong, but the public-facing metric language has to stay disciplined.',
+    before:
+      'Need stronger marketing viewership growth and better coverage awareness inside review workflows.',
+    after:
+      'AI-powered photo carousel tooling plus an inline coverage-vector tool improved both outward content flow and inward developer feedback.',
     result: 'Substantial growth in marketing viewership',
   },
 ] as const;
@@ -559,8 +605,7 @@ export const DEEPR_NOTE = {
     'Deepr deserves real airtime, but the site still keeps the scouting report honest. The 400 percent output number belongs to a different engagement in the source CV.',
   documented:
     'Jakye engineered an AI-powered photo carousel system that drove substantial growth in marketing viewership and built an inline coverage-vector tool for real-time testing coverage awareness during code reviews.',
-  todo:
-    'If there is a Deepr-specific metrics sheet, screenshot set, or case-study packet elsewhere, add it before pushing the section louder than this.',
+  todo: 'If there is a Deepr-specific metrics sheet, screenshot set, or case-study packet elsewhere, add it before pushing the section louder than this.',
 } as const;
 
 export const IMPACT_SUPPORTING_STATS = [

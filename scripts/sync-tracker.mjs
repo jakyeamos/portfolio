@@ -38,7 +38,8 @@ const DEFAULT_DISCOVERY_ROOTS = [resolve(ROOT, '..')];
 const DISCOVERY_ROOTS = parseDiscoveryRoots(process.env.PORTFOLIO_TRUTH_ROOTS);
 const DISCOVERY_MAX_DEPTH = parseDepth(process.env.PORTFOLIO_TRUTH_MAX_DEPTH, 3);
 
-const VALID_STATUSES = new Set(['on_track', 'needs_attention', 'stalled']);
+const VALID_STATUSES = new Set(['on_track', 'needs_attention', 'stalled', 'shipped']);
+const STRING_LITERAL_PATTERN = String.raw`(["'])((?:\\.|(?!\1)[\s\S])*)\1`;
 const IGNORED_DIRS = new Set([
   '.git',
   'node_modules',
@@ -109,33 +110,45 @@ function normalizeKey(value) {
   return value.toLowerCase().replace(/[^a-z0-9]/g, '');
 }
 
+function unescapeStringLiteral(rawValue) {
+  return rawValue.replace(/\\(["'\\])/g, '$1');
+}
+
+function toSingleQuotedStringLiteral(value) {
+  return `'${value.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
+}
+
 function parseQuotedField(block, fieldName) {
   const escaped = fieldName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const re = new RegExp(`\\b${escaped}:\\s*'((?:\\\\.|[^'\\\\])*)'`);
+  const re = new RegExp(`\\b${escaped}:\\s*${STRING_LITERAL_PATTERN}`);
   const match = block.match(re);
   if (!match) return null;
-  return match[1].replace(/\\\\/g, '\\').replace(/\\'/g, "'");
+  return unescapeStringLiteral(match[2]);
 }
 
 /** Apply field updates to a single project object block (string). */
 function patchBlock(block, { trackerScore, trackerStatus, trackerComment, lastUpdated }) {
   let b = block;
-  const quoted = String.raw`'(?:\\.|[^'\\])*'`;
 
   b = b.replace(/\btrackerScore:\s*\d+/, `trackerScore: ${trackerScore}`);
-  b = b.replace(new RegExp(`\\btrackerStatus:\\s*${quoted}`), `trackerStatus: '${trackerStatus}'`);
   b = b.replace(
-    new RegExp(`\\btrackerComment:\\s*\\n?\\s*${quoted}`),
-    `trackerComment:\n      '${trackerComment}'`,
+    new RegExp(`\\btrackerStatus:\\s*${STRING_LITERAL_PATTERN}`),
+    `trackerStatus: ${toSingleQuotedStringLiteral(trackerStatus)}`,
   );
-  b = b.replace(new RegExp(`\\blastUpdated:\\s*${quoted}`), `lastUpdated: '${lastUpdated}'`);
+  b = b.replace(
+    new RegExp(`\\btrackerComment:\\s*\\n?\\s*${STRING_LITERAL_PATTERN}`),
+    `trackerComment:\n      ${toSingleQuotedStringLiteral(trackerComment)}`,
+  );
+  b = b.replace(
+    new RegExp(`\\blastUpdated:\\s*${STRING_LITERAL_PATTERN}`),
+    `lastUpdated: ${toSingleQuotedStringLiteral(lastUpdated)}`,
+  );
 
   return b;
 }
 
-/** Slice out the JS object block that contains `needle`. */
-function findObjectBlock(source, needle) {
-  const idx = source.indexOf(needle);
+/** Slice out the JS object block that contains `idx`. */
+function findObjectBlockAt(source, idx) {
   if (idx === -1) return null;
 
   let start = idx;
@@ -152,6 +165,13 @@ function findObjectBlock(source, needle) {
   return { start, end, block: source.slice(start, end) };
 }
 
+function findProjectObjectBlock(source, slug) {
+  const escapedSlug = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const match = source.match(new RegExp(`\\bslug:\\s*(["'])${escapedSlug}\\1`));
+  if (!match || match.index === undefined) return null;
+  return findObjectBlockAt(source, match.index);
+}
+
 function readProjectCatalog(source) {
   const currentProjectsStart = source.indexOf('export const CURRENT_PROJECTS');
   const closedProjectsStart = source.indexOf('export const CLOSED_PROJECTS');
@@ -162,12 +182,14 @@ function readProjectCatalog(source) {
   const projects = [];
   const seen = new Set();
 
-  for (const match of catalogSource.matchAll(/slug:\s*'([^']+)'/g)) {
-    const slug = match[1];
+  for (const match of catalogSource.matchAll(
+    new RegExp(`\\bslug:\\s*${STRING_LITERAL_PATTERN}`, 'g'),
+  )) {
+    const slug = unescapeStringLiteral(match[2]);
     if (seen.has(slug)) continue;
     seen.add(slug);
 
-    const loc = findObjectBlock(source, `slug: '${slug}'`);
+    const loc = findProjectObjectBlock(source, slug);
     if (!loc) continue;
 
     const title = parseQuotedField(loc.block, 'title') ?? slug;
@@ -366,19 +388,17 @@ for (const project of projects) {
     continue;
   }
 
-  const loc = findObjectBlock(source, `slug: '${project.slug}'`);
+  const loc = findProjectObjectBlock(source, project.slug);
   if (!loc) {
     console.warn(`  skip  ${project.slug}  (project block not found in source)`);
     skipped++;
     continue;
   }
 
-  // Escape single quotes and backslashes inside single-quoted TS string literals.
-  const safeComment = trackerComment.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
   const newBlock = patchBlock(loc.block, {
     trackerScore,
     trackerStatus,
-    trackerComment: safeComment,
+    trackerComment,
     lastUpdated,
   });
 
@@ -387,7 +407,9 @@ for (const project of projects) {
   } else {
     source = source.slice(0, loc.start) + newBlock + source.slice(loc.end);
     changed++;
-    console.log(`  ok    ${project.slug}  score=${trackerScore} status=${trackerStatus} date=${lastUpdated}`);
+    console.log(
+      `  ok    ${project.slug}  score=${trackerScore} status=${trackerStatus} date=${lastUpdated}`,
+    );
   }
 }
 

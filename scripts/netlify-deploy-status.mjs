@@ -18,7 +18,9 @@ const pollIntervalSeconds = parsePositiveInteger(
 
 if (!token || !siteId) {
   console.error('Missing NETLIFY_AUTH_TOKEN or NETLIFY_SITE_ID.');
-  console.error('Set both env vars to check the latest Netlify deploy without using the Netlify CLI.');
+  console.error(
+    'Set both env vars to check the latest Netlify deploy without using the Netlify CLI.',
+  );
   process.exit(2);
 }
 

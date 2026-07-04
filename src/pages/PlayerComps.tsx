@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
-import { ArrowRight, Blend, ShieldCheck } from 'lucide-react';
+import { Blend } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { BREAKING_TICKER, PLAYER_COMP_NOTES, PLAYER_COMPS } from '@/content/portfolioContent';
+import { BREAKING_TICKER, PLAYER_COMPS } from '@/content/portfolioContent';
 
 export default function PlayerComps(): ReactElement {
   return (
@@ -29,8 +29,7 @@ export default function PlayerComps(): ReactElement {
               </h1>
             </div>
 
-            <div className="grid gap-4">
-            </div>
+            <div className="grid gap-4"></div>
           </div>
         </section>
 
@@ -44,15 +43,17 @@ export default function PlayerComps(): ReactElement {
                     src={comp.media.imageSrc}
                     alt={comp.media.alt}
                     className="absolute inset-0 h-full w-full object-contain px-4 pt-6"
-                    style={comp.media.objectPosition ? { objectPosition: comp.media.objectPosition } : undefined}
+                    style={
+                      comp.media.objectPosition
+                        ? { objectPosition: comp.media.objectPosition }
+                        : undefined
+                    }
                   />
                   <div className="absolute bottom-0 left-0 right-0 border-t border-[color:var(--color-line)] bg-[rgba(16,28,44,0.88)] px-4 py-3 text-white">
                     <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--color-gold)]">
                       {comp.team}
                     </div>
-                    <p className="mt-1 text-sm font-bold uppercase tracking-[0.1em]">
-                      {comp.role}
-                    </p>
+                    <p className="mt-1 text-sm font-bold uppercase tracking-[0.1em]">{comp.role}</p>
                   </div>
                 </div>
 

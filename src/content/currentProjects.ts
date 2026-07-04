@@ -14,31 +14,29 @@ export interface CurrentProject {
   scoutTake: string;
 }
 
-export const PROJECT_AXIS_META: Record<
-  ProjectAxis,
-  { label: string; deck: string; tone: string }
-> = {
-  impact: {
-    label: 'Impact',
-    deck: 'Vertical position uses a tougher curve: only elite real-world swing clears the three-point arc.',
-    tone: 'text-[color:var(--color-primary)]',
-  },
-  difficulty: {
-    label: 'Difficulty',
-    deck: 'Vertical position uses a tougher curve: only unusually complex builds clear the three-point arc.',
-    tone: 'text-[color:var(--color-secondary)]',
-  },
-  ambition: {
-    label: 'Ambition',
-    deck: 'Vertical position uses a tougher curve: only true ceiling bets clear the three-point arc.',
-    tone: 'text-[color:var(--color-gold)]',
-  },
-  creativity: {
-    label: 'Creativity',
-    deck: 'Vertical position uses a tougher curve: only the most original project wedges clear the three-point arc.',
-    tone: 'text-[color:var(--color-primary)]',
-  },
-} as const;
+export const PROJECT_AXIS_META: Record<ProjectAxis, { label: string; deck: string; tone: string }> =
+  {
+    impact: {
+      label: 'Impact',
+      deck: 'Vertical position uses a tougher curve: only elite real-world swing clears the three-point arc.',
+      tone: 'text-[color:var(--color-primary)]',
+    },
+    difficulty: {
+      label: 'Difficulty',
+      deck: 'Vertical position uses a tougher curve: only unusually complex builds clear the three-point arc.',
+      tone: 'text-[color:var(--color-secondary)]',
+    },
+    ambition: {
+      label: 'Ambition',
+      deck: 'Vertical position uses a tougher curve: only true ceiling bets clear the three-point arc.',
+      tone: 'text-[color:var(--color-gold)]',
+    },
+    creativity: {
+      label: 'Creativity',
+      deck: 'Vertical position uses a tougher curve: only the most original project wedges clear the three-point arc.',
+      tone: 'text-[color:var(--color-primary)]',
+    },
+  } as const;
 
 export const CURRENT_PROJECTS: readonly CurrentProject[] = [
   {
@@ -48,10 +46,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Full-stack music social platform in active development — covering discovery, ratings, feeds, market surfaces, clubs, and a shared web/mobile codebase in a TypeScript monorepo.',
     trackerComment:
-      'Provide Expo/EAS auth (`eas login` or `EXPO_TOKEN`), rerun the Phase 119 simulator smoke with unsandboxed CoreSimulatorService access, then create the iOS preview build.',
+      'Use the READY prebuilt Preview for hosted checks, and escalate the Vercel Git/repo-root `Resource provisioning failed` blocker with the captured failed and READY deployment IDs.',
     trackerStatus: 'needs_attention',
     trackerScore: 78,
-    lastUpdated: '2026-06-27',
+    lastUpdated: '2026-07-03',
     tags: ['music', 'social', 'monorepo', 'tRPC', 'Prisma'],
     grades: { impact: 9, difficulty: 9, ambition: 10, creativity: 8 },
     scoutTake:
@@ -64,10 +62,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Personal AI operating system built around session hooks, workflow orchestration, pattern extraction, and layered knowledge retrieval — actively used as the backbone of daily engineering operations.',
     trackerComment:
-      'Review Codex session meta-learning proposals from the next rollout ingest and decide whether the review CLI should expose accept/reject operations for the proposal JSONL queue.',
+      'Use the next real AIOS closeout trace to verify whether inline repo state removes repeated manual `git status` and `git diff --stat` checks before deciding whether to persist closeout snapshots.',
     trackerStatus: 'needs_attention',
     trackerScore: 73,
-    lastUpdated: '2026-06-29',
+    lastUpdated: '2026-07-04',
     tags: ['Python', 'shell', 'SQLite', 'automation', 'AI-tooling'],
     grades: { impact: 8, difficulty: 7, ambition: 9, creativity: 9 },
     scoutTake:
@@ -78,16 +76,16 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     title: 'Terrace',
     shortCode: 'TR',
     summary:
-      'Spec-driven AI development framework that governs structured, test-validated builds — designed to bring discipline and repeatability to AI-assisted engineering workflows.',
+      'Published spec-driven AI development CLI that governs structured, test-validated builds — live on npm as @jakyeamos33/terrace with the 0.2.0 line staged in-repo for the next distribution pass.',
     trackerComment:
-      'Review the remaining downstream corpus security findings in sampled repositories, then decide whether dead-code scanning belongs in the release gate.',
+      'Confirm npm trusted publishing is configured for the GitHub Release workflow, then create the reviewed `v0.2.0` GitHub Release.',
     trackerStatus: 'on_track',
     trackerScore: 100,
-    lastUpdated: '2026-06-23',
-    tags: ['framework', 'governance', 'AI-tooling', 'validation'],
+    lastUpdated: '2026-07-03',
+    tags: ['framework', 'npm', 'AI-tooling', 'validation'],
     grades: { impact: 8, difficulty: 8, ambition: 9, creativity: 8 },
     scoutTake:
-      'The concept has real ceiling. The current gap is execution tempo, not lack of upside.',
+      'The concept now has a public package surface. The next test is whether the distribution path stays boring as the framework grows.',
   },
   {
     slug: 'bidcamp',
@@ -96,10 +94,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Government-contracting platform with v1.0 shipped — full-stack Next.js app built on Supabase and Stripe with active work toward v1.1 feature expansion.',
     trackerComment:
-      'Review and push codex/port-vercel-runtime-work; after deploy, apply migration 193 and verify dashboard snapshots plus the five-run OpenGov GitHub Actions cycle.',
+      'Decide whether to fund a broad source structural refactor wave for the remaining QR findings or treat the 0.2.1 structural findings as advisory until rule granularity improves.',
     trackerStatus: 'needs_attention',
-    trackerScore: 62,
-    lastUpdated: '2026-06-29',
+    trackerScore: 78,
+    lastUpdated: '2026-07-03',
     tags: ['GovCon', 'Next.js', 'Supabase', 'Stripe', 'government'],
     grades: { impact: 8, difficulty: 7, ambition: 8, creativity: 7 },
     scoutTake:
@@ -114,8 +112,8 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     trackerComment:
       'Launch the desktop app in dev mode and verify the responsive project board and detail pane behave correctly at half-width and full-width window sizes.',
     trackerStatus: 'needs_attention',
-    trackerScore: 74,
-    lastUpdated: '2026-04-19',
+    trackerScore: 78,
+    lastUpdated: '2026-06-29',
     tags: ['Electron', 'React', 'SQLite', 'local-first', 'tracker'],
     grades: { impact: 7, difficulty: 8, ambition: 8, creativity: 8 },
     scoutTake:
@@ -132,7 +130,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
       'Load curated dense player metrics such as YPRR, route participation, snap share, and first-read share through the new player metadata CSV import path.',
     trackerStatus: 'on_track',
     trackerScore: 78,
-    lastUpdated: '2026-06-28',
+    lastUpdated: '2026-07-03',
     tags: ['fantasy-football', 'FastAPI', 'React', 'DuckDB', 'dynasty'],
     grades: { impact: 6, difficulty: 7, ambition: 7, creativity: 8 },
     scoutTake:
@@ -164,7 +162,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
       'Add sign-and-trade/base-year/minimum-salary special cases, generated/consumed trade exception accounting, swap conveyance validation, and rollback-safe execution.',
     trackerStatus: 'on_track',
     trackerScore: 84,
-    lastUpdated: '2026-06-12',
+    lastUpdated: '2026-07-02',
     tags: ['basketball', 'education', 'React', 'Express', 'Socket.io'],
     grades: { impact: 7, difficulty: 7, ambition: 8, creativity: 8 },
     scoutTake:
@@ -177,10 +175,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Full-stack blog platform with API routes, Postgres and Clerk integration, content-management flows, and cross-posting features — actively developed across a monorepo package structure.',
     trackerComment:
-      'Run `pnpm clerk:doctor` again after `clerk auth login` and `clerk link`, then sync `.planning/STATE.md` with the newer comment and crosspost work.',
+      'Plan a broad QR debt cleanup pass after addressing existing formatter parse/style debt and Knip dead-code findings.',
     trackerStatus: 'on_track',
-    trackerScore: 72,
-    lastUpdated: '2026-06-12',
+    trackerScore: 70,
+    lastUpdated: '2026-07-03',
     tags: ['blog', 'Vite', 'Postgres', 'Clerk', 'monorepo'],
     grades: { impact: 5, difficulty: 6, ambition: 6, creativity: 7 },
     scoutTake:
@@ -196,7 +194,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
       'Deploy the Render blueprint with production `ADMIN_EMAIL` and `ADMIN_PASSWORD`, point the live domain at the Node service, and run `BOOK_SMOKE_BASE_URL=... pnpm run platform:deployed-acceptance` against the deployed service.',
     trackerStatus: 'on_track',
     trackerScore: 88,
-    lastUpdated: '2026-06-25',
+    lastUpdated: '2026-07-03',
     tags: ['interactive-book', 'admin-CMS', 'audio', 'TypeScript', 'publishing'],
     grades: { impact: 6, difficulty: 7, ambition: 7, creativity: 9 },
     scoutTake:
@@ -209,10 +207,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Survival-analysis pipeline and Next.js triage dashboard for predicting issue resolution time across major open-source repos, with reproducible stages, fixture-backed UI tests, and CI covering both the pipeline and dashboard.',
     trackerComment:
-      'Run `make ingest` through `make export` with a real GITHUB_TOKEN, then start Phase 10 academic writeup work.',
+      'Address broad dashboard structural debt separately from QR gate triage; live ingestion still needs a real GITHUB_TOKEN.',
     trackerStatus: 'on_track',
-    trackerScore: 74,
-    lastUpdated: '2026-05-18',
+    trackerScore: 76,
+    lastUpdated: '2026-07-03',
     tags: ['Python', 'Next.js', 'survival-analysis', 'GitHub', 'dashboard'],
     grades: { impact: 8, difficulty: 8, ambition: 7, creativity: 7 },
     scoutTake:
@@ -228,7 +226,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
       'Downstream projects may consume the current Signal Lab report contracts for research MVP work; keep publishable claims framed as diagnostics because validation still has known caveats.',
     trackerStatus: 'on_track',
     trackerScore: 88,
-    lastUpdated: '2026-05-20',
+    lastUpdated: '2026-06-30',
     tags: ['basketball', 'analytics', 'Python', 'Streamlit'],
     grades: { impact: 7, difficulty: 6, ambition: 6, creativity: 7 },
     scoutTake:
@@ -239,7 +237,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     title: 'Cap-Fit Builder',
     shortCode: 'CF',
     summary:
-      'Contextual roster-fit analysis tool that identifies which players solve a specific team\'s real problems — accounting for cap constraints, role fit, playoff durability, and developmental upside.',
+      "Contextual roster-fit analysis tool that identifies which players solve a specific team's real problems — accounting for cap constraints, role fit, playoff durability, and developmental upside.",
     trackerComment:
       'Populate salary/acquisition data and replace neutral CLFE portability once CLFE has stint-level outputs.',
     trackerStatus: 'needs_attention',
@@ -257,10 +255,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Contextual Lineup Fit Engine — models why a player elevates some lineups and drags down others, moving beyond raw on/off to explain conditional impact by roster context.',
     trackerComment:
-      'Execute CLFE Phase 1 plan 01-02: reconcile the schema contract, lock the first player family, and map feature lanes before archetype work.',
+      'Decide whether to open CLFE V2 source-policy work: populated manual/video observations, authorized tracking/action-context data, or a governed event-linked public/free parser.',
     trackerStatus: 'needs_attention',
-    trackerScore: 60,
-    lastUpdated: '2026-06-23',
+    trackerScore: 62,
+    lastUpdated: '2026-06-30',
     tags: ['basketball', 'analytics', 'Python'],
     grades: { impact: 7, difficulty: 8, ambition: 8, creativity: 8 },
     scoutTake:
@@ -286,17 +284,93 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
 
 export const CLOSED_PROJECTS: readonly CurrentProject[] = [
   {
+    slug: 'quality-runner',
+    title: 'Quality Runner',
+    shortCode: 'QR',
+    summary:
+      'Released PyPI package and MCP server for running repository quality checks, collecting evidence, and turning local verification into a machine-readable proof artifact.',
+    trackerComment: 'Published to PyPI as quality-runner v0.3.1 on 2026-07-04.',
+    trackerStatus: 'shipped',
+    trackerScore: 100,
+    lastUpdated: '2026-07-04',
+    tags: ['Python', 'PyPI', 'MCP', 'quality-gates'],
+    grades: { impact: 8, difficulty: 7, ambition: 8, creativity: 8 },
+    scoutTake:
+      'Strong public proof because it packages the quality-gate obsession into something other repos can actually run.',
+  },
+  {
+    slug: 'eslint-plugin-anti-slop',
+    title: 'ESLint Anti-Slop',
+    shortCode: 'AS',
+    summary:
+      'Released ESLint plugin that catches low-signal AI/code-review patterns before they land, giving TypeScript repos a targeted guardrail against vague or sloppy generated code.',
+    trackerComment: 'Published to npm as eslint-plugin-anti-slop v0.2.0 on 2026-07-04.',
+    trackerStatus: 'shipped',
+    trackerScore: 100,
+    lastUpdated: '2026-07-04',
+    tags: ['TypeScript', 'npm', 'ESLint', 'static-analysis'],
+    grades: { impact: 7, difficulty: 6, ambition: 6, creativity: 8 },
+    scoutTake:
+      'A clean small-package release: narrow scope, obvious workflow fit, and easy adoption for teams already living in lint.',
+  },
+  {
+    slug: 'agent-eval-contract',
+    title: 'Agent Eval Contract',
+    shortCode: 'AE',
+    summary:
+      'Released PyPI package with typed contracts for agent evaluations: cases, rubrics, evidence, run metadata, and result payloads that stay consistent across evaluators.',
+    trackerComment: 'Published to PyPI as agent-eval-contract v0.2.0 on 2026-07-04.',
+    trackerStatus: 'shipped',
+    trackerScore: 100,
+    lastUpdated: '2026-07-04',
+    tags: ['Python', 'PyPI', 'Pydantic', 'agent-evals'],
+    grades: { impact: 8, difficulty: 7, ambition: 7, creativity: 7 },
+    scoutTake:
+      'Useful because it attacks the boring part of agent evals: getting every run to speak the same evidence language.',
+  },
+  {
+    slug: 'research-domain-writing',
+    title: 'Research Domain Writing',
+    shortCode: 'RD',
+    summary:
+      'Released PyPI package for research-grounded writing workflows that preserve source evidence, domain framing, and claim discipline from research through draft output.',
+    trackerComment: 'Published to PyPI as research-domain-writing v0.1.0 on 2026-07-04.',
+    trackerStatus: 'shipped',
+    trackerScore: 100,
+    lastUpdated: '2026-07-04',
+    tags: ['Python', 'PyPI', 'research', 'writing-systems'],
+    grades: { impact: 7, difficulty: 7, ambition: 7, creativity: 8 },
+    scoutTake:
+      'A good bridge between engineering systems and public communication: source-backed writing instead of hand-wavy positioning.',
+  },
+  {
+    slug: 'tmcp',
+    title: 'TMCP',
+    shortCode: 'TM',
+    summary:
+      'Released MCP/plugin distribution for composable skill-packet workflows including expert audits, release readiness, UI rubrics, routing policies, and agent handoffs.',
+    trackerComment:
+      'Tagged and distributed at v0.3.2, with Codex plugin metadata at 0.3.2+codex.20260704042711.',
+    trackerStatus: 'shipped',
+    trackerScore: 100,
+    lastUpdated: '2026-07-04',
+    tags: ['Python', 'MCP', 'plugin', 'agent-workflows'],
+    grades: { impact: 8, difficulty: 8, ambition: 9, creativity: 9 },
+    scoutTake:
+      'This is the deepest workflow-system release in the file: less flashy than an app, but very aligned with where agent tooling is going.',
+  },
+  {
     slug: 'pre-cr-suite',
     title: 'Pre-CR Suite',
     shortCode: 'PC',
     summary:
-      'Cross-editor review-prep suite that validates changed-line test coverage, runs smart pre-review diagnostics, and generates documentation before a pull request opens — portable across VS Code, Neovim, and any LSP-compatible editor.',
+      'Released npm package surface for coverage-first pre-PR readiness: @pre-cr/core and @pre-cr/server expose changed-line coverage checks and reusable review diagnostics before a pull request opens.',
     trackerComment:
-      'Shipped as a reusable quality system for any LSP-compatible editor workflow.',
+      'Published to npm as @pre-cr/core v0.1.0 and @pre-cr/server v0.1.0 on 2026-07-04.',
     trackerStatus: 'shipped',
     trackerScore: 100,
-    lastUpdated: '2025-10-15',
-    tags: ['TypeScript', 'LSP', 'developer-experience', 'VS Code', 'Neovim'],
+    lastUpdated: '2026-07-04',
+    tags: ['TypeScript', 'npm', 'coverage', 'developer-experience'],
     grades: { impact: 7, difficulty: 7, ambition: 6, creativity: 8 },
     scoutTake:
       'Winning-plays tape. Built where the process actually breaks down, not where the spotlight is.',

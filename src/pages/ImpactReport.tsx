@@ -1,9 +1,8 @@
 import { type ReactElement, useState } from 'react';
-import { ArrowRight, ClipboardPenLine, Gauge, ShieldCheck } from 'lucide-react';
+import { ArrowRight, ClipboardPenLine, Gauge } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import EditorialPoster from '@/components/EditorialPoster';
 import {
-  DEEPR_NOTE,
   IMPACT_CASES,
   IMPACT_COMPARISON_ROWS,
   IMPACT_METRICS,
@@ -24,8 +23,7 @@ function metricTone(kicker: string): 'red' | 'blue' | 'gold' {
 
 export default function ImpactReport(): ReactElement {
   const [activeCaseTitle, setActiveCaseTitle] = useState<string>(IMPACT_CASES[0].title);
-  const activeCase =
-    IMPACT_CASES.find((item) => item.title === activeCaseTitle) ?? IMPACT_CASES[0];
+  const activeCase = IMPACT_CASES.find((item) => item.title === activeCaseTitle) ?? IMPACT_CASES[0];
 
   return (
     <div className="lg:ml-72">

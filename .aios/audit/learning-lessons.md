@@ -3,6 +3,7 @@
 ## Active repeated failure patterns
 
 ### Pattern: changed lines lacked coverage
+
 - Seen: 4 times
 - Gates: Pre-CR
 - Category: test
@@ -11,6 +12,7 @@
 - Example fix: Add or update focused tests and coverage configuration for the changed lines.
 
 ### Pattern: Pre-CR changed-line readiness failed
+
 - Seen: 5 times
 - Gates: Pre-CR
 - Category: test
@@ -19,6 +21,7 @@
 - Example fix: Pre-CR changed-line coverage failed: 0% < threshold 80%.
 
 ### Pattern: AIOS allowlisted quality gate failed
+
 - Seen: 6 times
 - Gates: AIOS
 - Category: unknown
@@ -27,6 +30,7 @@
 - Example fix: test_quality failed: pnpm dependency:security failed: > front-office-amos@0.0.0 dependency:security /Users/jakyeamos/projects/portfolio. test_quality fixes must preserve or improve behavior coverage; delete tests only when they are proven obsolete, redundant with stronger coverage, or pure noise.
 
 ### Pattern: pre-cr did not produce a passing coverage result
+
 - Seen: 2 times
 - Gates: Pre-CR
 - Category: process
@@ -35,6 +39,7 @@
 - Example fix: Fix the Pre-CR setup or execution error, then rerun the gate.
 
 ### Pattern: changed lines lacked coverage
+
 - Seen: 6 times
 - Gates: Pre-CR
 - Category: test

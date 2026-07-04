@@ -22,7 +22,10 @@ type FrontmatterField = keyof BlogPostFrontmatter;
 
 const REQUIRED_STRING_FIELDS = ['title', 'deck', 'status', 'date', 'thesis'] as const;
 
-function parseRawFrontmatter(markdown: string): { frontmatter: Record<string, string>; body: string } {
+function parseRawFrontmatter(markdown: string): {
+  frontmatter: Record<string, string>;
+  body: string;
+} {
   const match = /^---\n([\s\S]*?)\n---\n?/.exec(markdown);
   if (!match) {
     throw new Error('missing frontmatter');
@@ -46,7 +49,14 @@ function parseRawFrontmatter(markdown: string): { frontmatter: Record<string, st
 }
 
 function stripQuotes(value: string): string {
-  return value.replace(/^"|"$/g, '').replace(/\\"/g, '"');
+  const trimmedValue = value.trim();
+  const quote = trimmedValue[0];
+
+  if ((quote === '"' || quote === "'") && trimmedValue.endsWith(quote)) {
+    return trimmedValue.slice(1, -1).replaceAll(`\\${quote}`, quote).replaceAll('\\\\', '\\');
+  }
+
+  return trimmedValue;
 }
 
 function parseRequiredString(
@@ -93,7 +103,9 @@ function parseRequiredTags(value: string | undefined): readonly string[] {
 function parseRequiredDate(frontmatter: Record<string, string>): string {
   const date = parseRequiredString(frontmatter, 'date');
   const timestamp = Date.parse(`${date}T00:00:00Z`);
-  const normalizedDate = Number.isNaN(timestamp) ? '' : new Date(timestamp).toISOString().slice(0, 10);
+  const normalizedDate = Number.isNaN(timestamp)
+    ? ''
+    : new Date(timestamp).toISOString().slice(0, 10);
 
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || normalizedDate !== date) {
     throw new Error('date frontmatter must be YYYY-MM-DD');

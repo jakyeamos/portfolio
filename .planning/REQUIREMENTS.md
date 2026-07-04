@@ -38,37 +38,39 @@ clean code, strong evidence, and honest project presentation.
 
 ## Out of Scope
 
-| Feature | Reason |
-| --- | --- |
-| Changing repo visibility during planning | Visibility changes require repo-specific gate evidence and explicit approval. |
-| Editing candidate repo source during planning | Candidate hardening starts only after phase plans are reviewed. |
-| Replacing manual review with Quality Runner alone | Quality Runner v1 cannot fully judge data licensing, claims, ownership, or product sensitivity. |
-| Publishing private business-sensitive repos by default | BidCamp, CrimClock, and similar products need separate source-public approval. |
+| Feature                                                | Reason                                                                                          |
+| ------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| Changing repo visibility during planning               | Visibility changes require repo-specific gate evidence and explicit approval.                   |
+| Editing candidate repo source during planning          | Candidate hardening starts only after phase plans are reviewed.                                 |
+| Replacing manual review with Quality Runner alone      | Quality Runner v1 cannot fully judge data licensing, claims, ownership, or product sensitivity. |
+| Publishing private business-sensitive repos by default | BidCamp, CrimClock, and similar products need separate source-public approval.                  |
 
 ## Traceability
 
-| Requirement | Phase | Status |
-| --- | --- | --- |
-| ISR-01 | Phase 0-6 | Pending |
-| ISR-02 | Phase 0-6 | Pending |
-| ISR-03 | Phase 6 | Pending |
-| ISR-04 | Phase 0 | Pending |
-| ISR-05 | Phase 1, Phase 4 | Pending |
-| ISR-06 | Phase 2 | Pending |
-| ISR-07 | Phase 1 | Pending |
-| ISR-08 | Phase 1, Phase 3 | Pending |
-| ISR-09 | Phase 5, Phase 6 | Pending |
-| ISR-10 | Phase 2 | Pending |
-| ISR-11 | Phase 3 | Pending |
-| ISR-12 | Phase 6 | Pending |
-| ISR-13 | Phase 5 | Pending |
-| ISR-14 | Phase 5 | Pending |
-| ISR-15 | Phase 6 | Pending |
+| Requirement | Phase            | Status  |
+| ----------- | ---------------- | ------- |
+| ISR-01      | Phase 0-6        | Pending |
+| ISR-02      | Phase 0-6        | Pending |
+| ISR-03      | Phase 6          | Pending |
+| ISR-04      | Phase 0          | Pending |
+| ISR-05      | Phase 1, Phase 4 | Pending |
+| ISR-06      | Phase 2          | Pending |
+| ISR-07      | Phase 1          | Pending |
+| ISR-08      | Phase 1, Phase 3 | Pending |
+| ISR-09      | Phase 5, Phase 6 | Pending |
+| ISR-10      | Phase 2          | Pending |
+| ISR-11      | Phase 3          | Pending |
+| ISR-12      | Phase 6          | Pending |
+| ISR-13      | Phase 5          | Pending |
+| ISR-14      | Phase 5          | Pending |
+| ISR-15      | Phase 6          | Pending |
 
 **Coverage:**
+
 - v1 requirements: 15 total
 - Mapped to phases: 15
 - Unmapped: 0
 
 ---
-*Requirements defined: 2026-07-01*
+
+_Requirements defined: 2026-07-01_

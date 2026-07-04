@@ -4,11 +4,11 @@ projectName: RemodelVision
 summary: AI-powered renovation planning capstone where users upload room photos, generate remodel visuals, and receive cost estimates through a Next.js, Prisma, Clerk, Supabase, fal.ai, and Claude Vision stack.
 healthScore: 73
 statusLabel: needs_attention
-nextStep: "Finish launch hardening: production room workflow UX, persisted session history, itemized estimate display, external-service retry states, and demo/UAT smoke coverage."
+nextStep: 'Finish launch hardening: production room workflow UX, persisted session history, itemized estimate display, external-service retry states, and demo/UAT smoke coverage.'
 blockers:
-  - "Full deterministic line-item estimates still depend on seeded base-cost and regional-multiplier data being wired into the UX."
-  - "The main remodel studio does not yet complete a fully polished production save flow with itemized estimates and retry/error handling."
-  - "Launch confidence still needs authenticated endpoint hardening, startup env validation, smoke coverage, and documented demo readiness."
+  - 'Full deterministic line-item estimates still depend on seeded base-cost and regional-multiplier data being wired into the UX.'
+  - 'The main remodel studio does not yet complete a fully polished production save flow with itemized estimates and retry/error handling.'
+  - 'Launch confidence still needs authenticated endpoint hardening, startup env validation, smoke coverage, and documented demo readiness.'
 lastUpdated: 2026-06-22
 tags:
   - remodel
@@ -31,7 +31,7 @@ repoType: app
 sourceOfTruth: portfolio-local
 primaryLanguage: TypeScript
 activeBranch: unknown
-lastCommitDate: "2026-04-20"
+lastCommitDate: '2026-04-20'
 quality:
   lint: unknown
   types: pass

@@ -1,6 +1,5 @@
 import { type ReactElement, useState } from 'react';
-import { ArrowRight, ArrowUpRight, ClipboardList, Eye, Sparkles, Wrench } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { ArrowUpRight, ClipboardList, Eye, Sparkles, Wrench } from 'lucide-react';
 import EditorialPoster from '@/components/EditorialPoster';
 import {
   BENCH_PROJECTS,

@@ -83,13 +83,7 @@ type HistoricShot = {
 };
 
 type HistoricShotZone =
-  | 'deepLeft'
-  | 'deepTop'
-  | 'rightCorner'
-  | 'leftBaselineWing'
-  | 'aboveBreak'
-  | 'rim'
-  | 'midrange';
+  'deepLeft' | 'deepTop' | 'rightCorner' | 'leftBaselineWing' | 'aboveBreak' | 'rim' | 'midrange';
 
 const HISTORIC_SHOT_POOLS: Record<HistoricShotZone, readonly HistoricShot[]> = {
   deepLeft: [
@@ -1090,7 +1084,11 @@ function getShotCoordinates(project: CurrentProject, axis: ProjectAxis): CourtPo
   const difficultyPressure = (project.grades.difficulty - 5.5) / 10;
   const creativeSpread = (project.grades.creativity - project.grades.impact) / 10;
   const statusDrag =
-    project.trackerStatus === 'on_track' ? 0.03 : project.trackerStatus === 'stalled' ? -0.06 : -0.02;
+    project.trackerStatus === 'on_track'
+      ? 0.03
+      : project.trackerStatus === 'stalled'
+        ? -0.06
+        : -0.02;
 
   const left = clamp(14 + health * 72 + creativeSpread * 7 + statusDrag * 100, 8, 92);
   const top = clamp(72 - verticalScore + difficultyPressure * 4, 8, 90);
@@ -1152,7 +1150,9 @@ function getHistoricShot(
 ): HistoricShot {
   const zone = getHistoricShotZone(point);
   const pool = HISTORIC_SHOT_POOLS[zone];
-  const embeddablePool = pool.filter((shot) => shot.embed && shot.quality?.level === 'verified-game-clip');
+  const embeddablePool = pool.filter(
+    (shot) => shot.embed && shot.quality?.level === 'verified-game-clip',
+  );
   const selectionPool = embeddablePool.length > 0 ? embeddablePool : pool;
   const zoneRank = layout
     .filter((candidate) => getHistoricShotZone(candidate.point) === zone)
@@ -1200,13 +1200,17 @@ function getShotEmbedUrl(embed: ShotEmbed, soundEnabled: boolean): string | null
 }
 
 function getShotSourceUrl(embed: ShotEmbed): string | null {
-  if (embed.provider === 'youtube') return embed.sourceUrl ?? `https://www.youtube.com/watch?v=${embed.id}`;
+  if (embed.provider === 'youtube')
+    return embed.sourceUrl ?? `https://www.youtube.com/watch?v=${embed.id}`;
   if (embed.provider === 'vimeo') return embed.sourceUrl ?? `https://vimeo.com/${embed.id}`;
 
   return embed.url;
 }
 
-function buildCourtLayout(projects: readonly CurrentProject[], axis: ProjectAxis): ProjectCourtLayout[] {
+function buildCourtLayout(
+  projects: readonly CurrentProject[],
+  axis: ProjectAxis,
+): ProjectCourtLayout[] {
   const rawPoints = projects.map((project) => getShotCoordinates(project, axis));
   const normalizedPoints = normalizeCourtPoints(rawPoints);
   const points = projects.map((project, index) => ({
@@ -1257,13 +1261,17 @@ const COURT_STROKE_MED = 'rgba(21,24,32,0.22)';
 
 function CourtSVG(): ReactElement {
   return (
-    <svg
-      viewBox="0 0 100 105"
-      className="absolute inset-0 h-full w-full"
-      aria-hidden="true"
-    >
+    <svg viewBox="0 0 100 105" className="absolute inset-0 h-full w-full" aria-hidden="true">
       {/* Outer boundary */}
-      <rect x="1" y="1" width="98" height="103" fill="none" stroke={COURT_STROKE} strokeWidth="0.5" />
+      <rect
+        x="1"
+        y="1"
+        width="98"
+        height="103"
+        fill="none"
+        stroke={COURT_STROKE}
+        strokeWidth="0.5"
+      />
 
       {/* Baseline */}
       <line x1="1" y1="103" x2="99" y2="103" stroke={COURT_STROKE} strokeWidth="0.8" />
@@ -1288,12 +1296,7 @@ function CourtSVG(): ReactElement {
       />
 
       {/* Free-throw circle top half (solid) */}
-      <path
-        d="M 38 62 A 12 12 0 0 1 62 62"
-        fill="none"
-        stroke={COURT_STROKE}
-        strokeWidth="0.6"
-      />
+      <path d="M 38 62 A 12 12 0 0 1 62 62" fill="none" stroke={COURT_STROKE} strokeWidth="0.6" />
 
       {/* Free-throw circle bottom half (dashed) */}
       <path
@@ -1326,7 +1329,6 @@ function CourtSVG(): ReactElement {
         stroke="rgba(181,13,13,0.9)"
         strokeWidth="0.9"
       />
-
     </svg>
   );
 }
@@ -1350,7 +1352,9 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
         <div className="flex gap-3">
           <MapPin size={15} className="mt-0.5 shrink-0 text-[color:var(--color-primary)]" />
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">Position</div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">
+              Position
+            </div>
             <p className="mt-1 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
               X-axis is tracker health. Y-axis is the selected project axis grade.
             </p>
@@ -1359,7 +1363,9 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
         <div className="flex gap-3">
           <Sun size={15} className="mt-0.5 shrink-0 text-[color:var(--color-gold)]" />
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">Brightness</div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">
+              Brightness
+            </div>
             <p className="mt-1 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
               Marker fill opacity also tracks tracker health (0-100). Brighter = healthier.
             </p>
@@ -1368,18 +1374,24 @@ function HelpPanel({ onClose }: { onClose: () => void }): ReactElement {
         <div className="flex gap-3">
           <Target size={15} className="mt-0.5 shrink-0 text-[color:var(--color-secondary)]" />
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">Click a marker</div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">
+              Click a marker
+            </div>
             <p className="mt-1 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-              Opens the full project breakdown: summary, selected-axis grades, tracker comment, and status.
+              Opens the full project breakdown: summary, selected-axis grades, tracker comment, and
+              status.
             </p>
           </div>
         </div>
         <div className="flex gap-3">
           <CircleDot size={15} className="mt-0.5 shrink-0 text-[color:var(--color-ink-soft)]" />
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">Court zones</div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink)]">
+              Court zones
+            </div>
             <p className="mt-1 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-              Top-right = high selected-axis grade and healthy tracker. Top-left = strong axis read with tracker risk.
+              Top-right = high selected-axis grade and healthy tracker. Top-left = strong axis read
+              with tracker risk.
             </p>
           </div>
         </div>
@@ -1431,16 +1443,39 @@ function HistoricShotPlayer({
             />
           ) : null}
           <svg viewBox="0 0 100 60" className="absolute inset-0 h-full w-full" aria-hidden="true">
-            <rect x="1" y="1" width="98" height="58" fill="none" stroke="rgba(21,24,32,0.18)" strokeWidth="0.8" />
+            <rect
+              x="1"
+              y="1"
+              width="98"
+              height="58"
+              fill="none"
+              stroke="rgba(21,24,32,0.18)"
+              strokeWidth="0.8"
+            />
             <path
               d="M 7 58 L 7 43 A 43 27 0 0 1 93 43 L 93 58"
               fill="none"
               stroke="rgba(21,24,32,0.22)"
               strokeWidth="0.8"
             />
-            <rect x="38" y="37" width="24" height="18" fill="none" stroke="rgba(21,24,32,0.18)" strokeWidth="0.8" />
+            <rect
+              x="38"
+              y="37"
+              width="24"
+              height="18"
+              fill="none"
+              stroke="rgba(21,24,32,0.18)"
+              strokeWidth="0.8"
+            />
             <line x1="42" y1="56" x2="58" y2="56" stroke="rgba(181,13,13,0.65)" strokeWidth="1.2" />
-            <circle cx="50" cy="54" r="2.3" fill="rgba(181,13,13,0.12)" stroke="rgba(181,13,13,0.75)" strokeWidth="0.9" />
+            <circle
+              cx="50"
+              cy="54"
+              r="2.3"
+              fill="rgba(181,13,13,0.12)"
+              stroke="rgba(181,13,13,0.75)"
+              strokeWidth="0.9"
+            />
             <motion.path
               d={arcPath}
               fill="none"
@@ -1450,14 +1485,35 @@ function HistoricShotPlayer({
               strokeDasharray="3 3"
               initial={{ pathLength: 0, opacity: 0.25 }}
               animate={{ pathLength: 1, opacity: 1 }}
-              transition={{ duration: 1.2, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+              transition={{
+                duration: 1.2,
+                repeat: Infinity,
+                repeatType: 'reverse',
+                ease: 'easeInOut',
+              }}
             />
             <g transform={`translate(${playerLeft} ${playerTop})`}>
               <circle cx="0" cy="-4.5" r="3" fill="rgba(21,24,32,0.86)" />
               <path d="M -4 1 Q 0 -1 4 1 L 3 9 L -3 9 Z" fill="rgba(21,24,32,0.86)" />
               <circle cx="5.5" cy="-8.5" r="2.3" fill="rgba(181,13,13,0.72)" />
-              <line x1="2.5" y1="-2" x2="5.2" y2="-6.5" stroke="rgba(21,24,32,0.86)" strokeWidth="1.5" strokeLinecap="round" />
-              <line x1="-2.5" y1="-2" x2="-6" y2="2.5" stroke="rgba(21,24,32,0.86)" strokeWidth="1.5" strokeLinecap="round" />
+              <line
+                x1="2.5"
+                y1="-2"
+                x2="5.2"
+                y2="-6.5"
+                stroke="rgba(21,24,32,0.86)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <line
+                x1="-2.5"
+                y1="-2"
+                x2="-6"
+                y2="2.5"
+                stroke="rgba(21,24,32,0.86)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
             </g>
           </svg>
           <div className="absolute bottom-2 left-2 flex items-center gap-2 bg-[rgba(252,248,241,0.92)] px-2 py-1">
@@ -1488,9 +1544,7 @@ function HistoricShotPlayer({
       <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-primary)]">
         {shot.moment}
       </div>
-      <p className="mt-2 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-        {shot.note}
-      </p>
+      <p className="mt-2 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">{shot.note}</p>
     </section>
   );
 }
@@ -1499,7 +1553,9 @@ function HistoricShotPlayer({
 export default function CurrentProjects(): ReactElement {
   const [activeAxis, setActiveAxis] = useState<ProjectAxis>('impact');
   const [selectedProject, setSelectedProject] = useState<CurrentProject | null>(null);
-  const [selectedCourtProject, setSelectedCourtProject] = useState<SelectedCourtProject | null>(null);
+  const [selectedCourtProject, setSelectedCourtProject] = useState<SelectedCourtProject | null>(
+    null,
+  );
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
   const [showHelp, setShowHelp] = useState(false);
   const [showAllRoster, setShowAllRoster] = useState(false);
@@ -1531,50 +1587,52 @@ export default function CurrentProjects(): ReactElement {
     () => buildCourtLayout(orderedProjects, activeAxis),
     [orderedProjects, activeAxis],
   );
-  const allProjectLayout = useMemo(
-    () => buildCourtLayout(ALL_PROJECTS, activeAxis),
-    [activeAxis],
-  );
-  const selectedCourtPoint = useMemo(
-    () => {
-      if (!selectedProject) return null;
+  const allProjectLayout = useMemo(() => buildCourtLayout(ALL_PROJECTS, activeAxis), [activeAxis]);
+  const selectedCourtPoint = useMemo(() => {
+    if (!selectedProject) return null;
 
-      if (
-        selectedCourtProject?.project.slug === selectedProject.slug
-        && selectedCourtProject.axis === activeAxis
-      ) {
-        return selectedCourtProject.point;
-      }
+    if (
+      selectedCourtProject?.project.slug === selectedProject.slug &&
+      selectedCourtProject.axis === activeAxis
+    ) {
+      return selectedCourtProject.point;
+    }
 
-      return courtLayout.find(({ project }) => project.slug === selectedProject.slug)?.point
-        ?? allProjectLayout.find(({ project }) => project.slug === selectedProject.slug)?.point
-        ?? null;
-    },
-    [activeAxis, allProjectLayout, courtLayout, selectedCourtProject, selectedProject],
-  );
-  const selectedHistoricShot = useMemo(
-    () => {
-      if (!selectedProject || !selectedCourtPoint) return null;
+    return (
+      courtLayout.find(({ project }) => project.slug === selectedProject.slug)?.point ??
+      allProjectLayout.find(({ project }) => project.slug === selectedProject.slug)?.point ??
+      null
+    );
+  }, [activeAxis, allProjectLayout, courtLayout, selectedCourtProject, selectedProject]);
+  const selectedHistoricShot = useMemo(() => {
+    if (!selectedProject || !selectedCourtPoint) return null;
 
-      if (
-        selectedCourtProject?.project.slug === selectedProject.slug
-        && selectedCourtProject.axis === activeAxis
-      ) {
-        return getHistoricShot(selectedProject, selectedCourtPoint, selectedCourtProject.layout);
-      }
+    if (
+      selectedCourtProject?.project.slug === selectedProject.slug &&
+      selectedCourtProject.axis === activeAxis
+    ) {
+      return getHistoricShot(selectedProject, selectedCourtPoint, selectedCourtProject.layout);
+    }
 
-      const isCurrentProject = courtLayout.some(({ project }) => project.slug === selectedProject.slug);
+    const isCurrentProject = courtLayout.some(
+      ({ project }) => project.slug === selectedProject.slug,
+    );
 
-      if (isCurrentProject) return getHistoricShot(selectedProject, selectedCourtPoint, courtLayout);
+    if (isCurrentProject) return getHistoricShot(selectedProject, selectedCourtPoint, courtLayout);
 
-      const currentShotIds = new Set(
-        courtLayout.map(({ project, point }) => getHistoricShot(project, point, courtLayout).id),
-      );
+    const currentShotIds = new Set(
+      courtLayout.map(({ project, point }) => getHistoricShot(project, point, courtLayout).id),
+    );
 
-      return getHistoricShot(selectedProject, selectedCourtPoint, allProjectLayout, currentShotIds);
-    },
-    [activeAxis, allProjectLayout, courtLayout, selectedCourtPoint, selectedCourtProject, selectedProject],
-  );
+    return getHistoricShot(selectedProject, selectedCourtPoint, allProjectLayout, currentShotIds);
+  }, [
+    activeAxis,
+    allProjectLayout,
+    courtLayout,
+    selectedCourtPoint,
+    selectedCourtProject,
+    selectedProject,
+  ]);
 
   useEffect(() => {
     setShowAllRoster(false);
@@ -1593,16 +1651,35 @@ export default function CurrentProjects(): ReactElement {
   ).length;
 
   const SUMMARY_STATS = [
-    { label: 'On the Board', value: String(totalProjects), icon: CircleDot, tone: 'text-[color:var(--color-ink)]' },
-    { label: 'Avg Health Score', value: String(avgHealth), icon: Activity, tone: 'text-[color:var(--color-secondary)]' },
-    { label: 'On Track', value: String(onTrackCount), icon: Target, tone: 'text-[color:var(--color-secondary)]' },
-    { label: 'Building', value: String(actionCount), icon: Zap, tone: 'text-[color:var(--color-gold)]' },
+    {
+      label: 'On the Board',
+      value: String(totalProjects),
+      icon: CircleDot,
+      tone: 'text-[color:var(--color-ink)]',
+    },
+    {
+      label: 'Avg Health Score',
+      value: String(avgHealth),
+      icon: Activity,
+      tone: 'text-[color:var(--color-secondary)]',
+    },
+    {
+      label: 'On Track',
+      value: String(onTrackCount),
+      icon: Target,
+      tone: 'text-[color:var(--color-secondary)]',
+    },
+    {
+      label: 'Building',
+      value: String(actionCount),
+      icon: Zap,
+      tone: 'text-[color:var(--color-gold)]',
+    },
   ];
 
   return (
     <div className="lg:ml-72">
       <main className="page-wrap py-6 md:py-8">
-
         {/* ── Hero ── */}
         <section className="editorial-card animate-rise p-6 md:p-8">
           <div className="max-w-5xl">
@@ -1638,7 +1715,6 @@ export default function CurrentProjects(): ReactElement {
 
         {/* ── Court Matrix ── */}
         <section className="mt-8 editorial-card p-6 md:p-8">
-
           {/* Header row */}
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
@@ -1657,7 +1733,9 @@ export default function CurrentProjects(): ReactElement {
                 <button
                   type="button"
                   aria-pressed={shotSoundEnabled}
-                  aria-label={shotSoundEnabled ? 'Shot clip sound enabled' : 'Enable shot clip sound'}
+                  aria-label={
+                    shotSoundEnabled ? 'Shot clip sound enabled' : 'Enable shot clip sound'
+                  }
                   title={shotSoundEnabled ? 'Shot clip sound enabled' : 'Enable shot clip sound'}
                   className={`inline-flex h-8 w-8 items-center justify-center rounded-full border transition ${
                     shotSoundEnabled
@@ -1706,7 +1784,6 @@ export default function CurrentProjects(): ReactElement {
 
           {/* Court + Sidebar */}
           <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1fr)_300px]">
-
             {/* Court */}
             <div className="border border-[color:var(--color-line-strong)] bg-[color:var(--color-surface-raised)] p-4 md:p-6">
               <div className="mx-auto w-full max-w-[700px]">
@@ -1746,9 +1823,11 @@ export default function CurrentProjects(): ReactElement {
                       <div
                         key={`${project.slug}-${activeAxis}`}
                         className="absolute"
-                        style={{ ...position, zIndex: isSelected ? 20 : isHovered ? 15 : undefined }}
+                        style={{
+                          ...position,
+                          zIndex: isSelected ? 20 : isHovered ? 15 : undefined,
+                        }}
                       >
-
                         {/* Pulse ring — selected only */}
                         {isSelected && (
                           <motion.div
@@ -1769,7 +1848,9 @@ export default function CurrentProjects(): ReactElement {
                               {project.title}
                             </div>
                             <div className="mt-1 flex items-center gap-2">
-                              <span className={`text-[9px] font-semibold uppercase tracking-[0.14em] ${getStatusTone(project.trackerStatus)} brightness-150`}>
+                              <span
+                                className={`text-[9px] font-semibold uppercase tracking-[0.14em] ${getStatusTone(project.trackerStatus)} brightness-150`}
+                              >
                                 {toStatusLabel(project.trackerStatus)}
                               </span>
                               <span className="text-[9px] text-white/50">·</span>
@@ -1824,7 +1905,6 @@ export default function CurrentProjects(): ReactElement {
 
             {/* Sidebar */}
             <aside className="grid gap-4 self-start">
-
               {/* Project roster */}
               <section className="border border-[color:var(--color-line)] bg-white p-5">
                 <div className="flex items-center gap-3">
@@ -1832,60 +1912,63 @@ export default function CurrentProjects(): ReactElement {
                   <div className="section-kicker">Roster</div>
                 </div>
                 <p className="mt-2 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-                  Sorted by the selected {axisMeta.label.toLowerCase()} axis plus tracker health. Click to open.
+                  Sorted by the selected {axisMeta.label.toLowerCase()} axis plus tracker health.
+                  Click to open.
                 </p>
                 <div className="mt-4 grid gap-2">
-                  {(showAllRoster ? orderedProjects : orderedProjects.slice(0, 5)).map((project) => {
-                    const alpha = 0.34 + (project.trackerScore / 100) * 0.56;
-                    const markerRgb = getStatusRgb(project.trackerStatus);
-                    const isSelected = selectedProject?.slug === project.slug;
-                    return (
-                      <button
-                        key={project.slug}
-                        type="button"
-                        className={`flex items-center justify-between gap-3 border px-4 py-3 text-left transition hover:border-[color:var(--color-primary)] ${
-                          isSelected
-                            ? 'border-[color:var(--color-primary)] bg-[color:var(--color-surface-muted)]'
-                            : 'border-[color:var(--color-line)] bg-[color:var(--color-surface-raised)]'
-                        }`}
-                        onClick={() => {
-                          setSelectedProject(isSelected ? null : project);
-                          setSelectedCourtProject(null);
-                        }}
-                      >
-                        <div className="flex items-center gap-3">
-                          <span
-                            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[9px] font-black uppercase text-white"
-                            style={{ backgroundColor: `rgba(${markerRgb},${alpha})` }}
-                          >
-                            {project.shortCode}
-                          </span>
-                          <div>
-                            <div className="text-sm font-black uppercase leading-none text-[color:var(--color-ink)]">
-                              {project.title}
-                            </div>
-                            <div className={`mt-1 text-[9px] font-semibold uppercase tracking-[0.18em] ${getStatusTone(project.trackerStatus)}`}>
-                              {toStatusLabel(project.trackerStatus)}
+                  {(showAllRoster ? orderedProjects : orderedProjects.slice(0, 5)).map(
+                    (project) => {
+                      const alpha = 0.34 + (project.trackerScore / 100) * 0.56;
+                      const markerRgb = getStatusRgb(project.trackerStatus);
+                      const isSelected = selectedProject?.slug === project.slug;
+                      return (
+                        <button
+                          key={project.slug}
+                          type="button"
+                          className={`flex items-center justify-between gap-3 border px-4 py-3 text-left transition hover:border-[color:var(--color-primary)] ${
+                            isSelected
+                              ? 'border-[color:var(--color-primary)] bg-[color:var(--color-surface-muted)]'
+                              : 'border-[color:var(--color-line)] bg-[color:var(--color-surface-raised)]'
+                          }`}
+                          onClick={() => {
+                            setSelectedProject(isSelected ? null : project);
+                            setSelectedCourtProject(null);
+                          }}
+                        >
+                          <div className="flex items-center gap-3">
+                            <span
+                              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[9px] font-black uppercase text-white"
+                              style={{ backgroundColor: `rgba(${markerRgb},${alpha})` }}
+                            >
+                              {project.shortCode}
+                            </span>
+                            <div>
+                              <div className="text-sm font-black uppercase leading-none text-[color:var(--color-ink)]">
+                                {project.title}
+                              </div>
+                              <div
+                                className={`mt-1 text-[9px] font-semibold uppercase tracking-[0.18em] ${getStatusTone(project.trackerStatus)}`}
+                              >
+                                {toStatusLabel(project.trackerStatus)}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="shrink-0 text-right">
-                          <div className="text-base font-black uppercase text-[color:var(--color-primary)]">
-                            {rosterScore(project)}
+                          <div className="shrink-0 text-right">
+                            <div className="text-base font-black uppercase text-[color:var(--color-primary)]">
+                              {rosterScore(project)}
+                            </div>
                           </div>
-                        </div>
-                      </button>
-                    );
-                  })}
+                        </button>
+                      );
+                    },
+                  )}
                   {orderedProjects.length > 5 && (
                     <button
                       type="button"
                       className="mt-1 w-full border border-dashed border-[color:var(--color-line-strong)] py-2.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-soft)] transition hover:border-[color:var(--color-primary)] hover:text-[color:var(--color-primary)]"
                       onClick={() => setShowAllRoster((v) => !v)}
                     >
-                      {showAllRoster
-                        ? 'Show less'
-                        : `+${orderedProjects.length - 5} more`}
+                      {showAllRoster ? 'Show less' : `+${orderedProjects.length - 5} more`}
                     </button>
                   )}
                 </div>
@@ -1939,7 +2022,9 @@ export default function CurrentProjects(): ReactElement {
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
-                    <span key={tag} className="stat-chip">{tag}</span>
+                    <span key={tag} className="stat-chip">
+                      {tag}
+                    </span>
                   ))}
                 </div>
               </button>
@@ -2010,7 +2095,9 @@ export default function CurrentProjects(): ReactElement {
                 <div className="mt-4">
                   <div className="mb-1.5 flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-soft)]">
                     <span>Tracker Health</span>
-                    <span className="text-[color:var(--color-primary)]">{selectedProject.trackerScore}/100</span>
+                    <span className="text-[color:var(--color-primary)]">
+                      {selectedProject.trackerScore}/100
+                    </span>
                   </div>
                   <div className="h-2.5 overflow-hidden rounded-full bg-[color:var(--color-surface-muted)]">
                     <div
@@ -2059,7 +2146,11 @@ export default function CurrentProjects(): ReactElement {
                       <div key={axis}>
                         <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-ink-soft)]">
                           <span>{PROJECT_AXIS_META[axis].label}</span>
-                          <span className={axis === activeAxis ? 'text-[color:var(--color-primary)]' : ''}>
+                          <span
+                            className={
+                              axis === activeAxis ? 'text-[color:var(--color-primary)]' : ''
+                            }
+                          >
                             {selectedProject.grades[axis]}/10
                           </span>
                         </div>
@@ -2081,7 +2172,6 @@ export default function CurrentProjects(): ReactElement {
 
               {/* Right column */}
               <aside className="grid gap-4 self-start">
-
                 {/* Status card */}
                 <section className="border border-[color:var(--color-line)] bg-[color:var(--color-navy)] p-5 text-white">
                   <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-gold)]">
@@ -2112,11 +2202,12 @@ export default function CurrentProjects(): ReactElement {
                   </div>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {selectedProject.tags.map((tag) => (
-                      <span key={tag} className="stat-chip">{tag}</span>
+                      <span key={tag} className="stat-chip">
+                        {tag}
+                      </span>
                     ))}
                   </div>
                 </section>
-
               </aside>
             </div>
           </div>

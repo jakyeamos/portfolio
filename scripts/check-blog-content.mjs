@@ -70,7 +70,9 @@ if (posts.map((post) => post.slug).join(',') !== originalOrder) {
 }
 
 if (sortedSlugs.join(',') !== expectedSlugs.join(',')) {
-  fail(`pinned blog ordering expected ${expectedSlugs.join(',')}, received ${sortedSlugs.join(',')}`);
+  fail(
+    `pinned blog ordering expected ${expectedSlugs.join(',')}, received ${sortedSlugs.join(',')}`,
+  );
 }
 
 for (const post of parsedPosts) {

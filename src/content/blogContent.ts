@@ -1,9 +1,5 @@
 import { sortBlogPosts } from './blogSorting';
-import {
-  parseBlogMarkdown,
-  type BlogPostFrontmatter,
-  type BlogPostSection,
-} from './blogMarkdown';
+import { parseBlogMarkdown, type BlogPostFrontmatter, type BlogPostSection } from './blogMarkdown';
 
 export interface BlogPost extends BlogPostFrontmatter {
   slug: string;
@@ -26,7 +22,8 @@ function postFromMarkdown(path: string, markdown: string): BlogPost {
   };
 }
 
-const parsedBlogPosts: readonly BlogPost[] = [...Object.entries(rawBlogPosts)]
-  .map(([path, markdown]) => postFromMarkdown(path, markdown));
+const parsedBlogPosts: readonly BlogPost[] = [...Object.entries(rawBlogPosts)].map(
+  ([path, markdown]) => postFromMarkdown(path, markdown),
+);
 
 export const BLOG_POSTS: readonly BlogPost[] = sortBlogPosts(parsedBlogPosts);

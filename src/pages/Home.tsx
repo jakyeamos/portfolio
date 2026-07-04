@@ -11,7 +11,6 @@ import {
   HERO_PROOF,
   HOME_FRONT_OFFICE_NOTES,
   IMPACT_METRICS,
-  QUICK_LINKS,
   SITE_META,
   TOP_HEADLINES,
   WEBSITE_LAUNCHES,
@@ -50,11 +49,7 @@ function HomeAction({
   downloadFileName?: string;
 }): ReactElement {
   const className =
-    variant === 'primary'
-      ? 'btn-primary'
-      : variant === 'secondary'
-        ? 'btn-secondary'
-        : 'btn-ghost';
+    variant === 'primary' ? 'btn-primary' : variant === 'secondary' ? 'btn-secondary' : 'btn-ghost';
 
   if (kind === 'route') {
     return (
@@ -65,7 +60,11 @@ function HomeAction({
   }
 
   return (
-    <a className={className} href={href} download={download ? (downloadFileName ?? true) : undefined}>
+    <a
+      className={className}
+      href={href}
+      download={download ? (downloadFileName ?? true) : undefined}
+    >
       {label}
     </a>
   );
@@ -101,8 +100,8 @@ export default function Home(): ReactElement {
               <p className="mt-5 max-w-3xl text-lg leading-relaxed text-[color:var(--color-ink-soft)] md:text-xl">
                 {SITE_META.name} builds across product, backend, data, and AI workflow systems, with
                 a track record that reads quickly: Amazon from 2023 through 2025, a Cleveland Clinic
-                MVP shipped in 2 weeks, and an architecture-firm productivity build that drove 400%
-                output growth.
+                MVP shipped in 2 weeks, public developer-tool packages across PyPI and npm, and an
+                architecture-firm productivity build that drove 400% output growth.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
@@ -110,6 +109,7 @@ export default function Home(): ReactElement {
                 <span className="stat-chip">{SITE_META.school}</span>
                 <span className="stat-chip">{SITE_META.graduation}</span>
                 <span className="stat-chip">Amazon 2023-2025</span>
+                <span className="stat-chip">PyPI + npm releases</span>
               </div>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -266,7 +266,9 @@ export default function Home(): ReactElement {
                   {project.shortCode}
                 </div>
                 <div className="text-right">
-                  <div className={`text-[10px] font-semibold uppercase tracking-[0.18em] ${getProjectStatusClass(project.trackerStatus)}`}>
+                  <div
+                    className={`text-[10px] font-semibold uppercase tracking-[0.18em] ${getProjectStatusClass(project.trackerStatus)}`}
+                  >
                     {getProjectStatusLabel(project.trackerStatus)}
                   </div>
                   <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-soft)]">

@@ -20,21 +20,22 @@ Progress: [█░░░░░░░░░] 10%
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 0
 - Average duration: -
 - Total execution time: 0.0 hours
 
 **By Phase:**
 
-| Phase | Plans | Execution | Notes |
-| --- | --- | --- | --- |
-| 0. Quality Runner Readiness Baseline | 0/3 | Not started | First plan: 00-01 |
-| 1. Candidate Repo Inventory and Scoring Matrix | 0/3 | Not started | Depends on Phase 0 |
-| 2. Public-Readiness Gate Template | 0/3 | Not started | Depends on Phase 1 |
-| 3. BBDSE Release-Train Plans | 0/3 | Not started | Depends on Phase 2 |
-| 4. Product Repo Hardening Plans | 0/3 | Not started | Depends on Phase 2 |
-| 5. Portfolio and GitHub Profile Plan | 0/3 | Not started | Depends on Phase 1 |
-| 6. Tiered Release Schedule | 0/3 | Not started | Depends on Phases 3-5 |
+| Phase                                          | Plans | Execution   | Notes                 |
+| ---------------------------------------------- | ----- | ----------- | --------------------- |
+| 0. Quality Runner Readiness Baseline           | 0/3   | Not started | First plan: 00-01     |
+| 1. Candidate Repo Inventory and Scoring Matrix | 0/3   | Not started | Depends on Phase 0    |
+| 2. Public-Readiness Gate Template              | 0/3   | Not started | Depends on Phase 1    |
+| 3. BBDSE Release-Train Plans                   | 0/3   | Not started | Depends on Phase 2    |
+| 4. Product Repo Hardening Plans                | 0/3   | Not started | Depends on Phase 2    |
+| 5. Portfolio and GitHub Profile Plan           | 0/3   | Not started | Depends on Phase 1    |
+| 6. Tiered Release Schedule                     | 0/3   | Not started | Depends on Phases 3-5 |
 
 ## Accumulated Context
 

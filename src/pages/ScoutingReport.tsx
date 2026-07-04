@@ -1,11 +1,9 @@
 import type { ReactElement } from 'react';
-import { ArrowRight, BadgeCheck, BriefcaseBusiness, GraduationCap, Radar } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { BadgeCheck, BriefcaseBusiness, GraduationCap, Radar } from 'lucide-react';
 import EditorialPoster from '@/components/EditorialPoster';
 import { PORTFOLIO_ASSETS } from '@/content/portfolioAssets';
 import {
   BREAKING_TICKER,
-  QUICK_LINKS,
   SCOUTING_FACTS,
   SCOUTING_FOCUS,
   SCOUTING_NOTES,
@@ -137,8 +135,8 @@ export default function ScoutingReport(): ReactElement {
                       Initiating full-stack wing
                     </p>
                     <p className="mt-3 text-sm leading-relaxed text-white/80">
-                      Best deployed where product execution, systems thinking, and hands-on
-                      shipping all matter in the same possession.
+                      Best deployed where product execution, systems thinking, and hands-on shipping
+                      all matter in the same possession.
                     </p>
                   </article>
 

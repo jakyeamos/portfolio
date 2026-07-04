@@ -1,8 +1,6 @@
 {
   "testCommand": "pnpm precr:check",
-  "coveragePaths": [
-    "coverage/pre-cr.lcov"
-  ],
+  "coveragePaths": ["coverage/pre-cr.lcov"],
   "coverageFormat": "auto",
   "coverageAdapters": [
     {

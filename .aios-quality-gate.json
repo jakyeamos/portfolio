@@ -1,14 +1,6 @@
 {
   "version": 1,
   "projectId": "portfolio",
-  "preCommitGates": [
-    "test_quality",
-    "architecture",
-    "pre_cr"
-  ],
-  "fullGates": [
-    "test_quality",
-    "architecture",
-    "pre_cr"
-  ]
+  "preCommitGates": ["test_quality", "architecture", "pre_cr"],
+  "fullGates": ["test_quality", "architecture", "pre_cr"]
 }

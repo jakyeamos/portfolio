@@ -21,53 +21,59 @@ A new page called **"Game Log"** added to the site nav between Scouting Report a
 ## Page Structure
 
 ### 1. Header
+
 - Section kicker: `Game Log`
 - H1: `Every engagement. Every level of impact.`
 - Brief subtext: one sentence framing that professional and community work are both counted.
 
 ### 2. Professional Entries
+
 Three employer cards, displayed as full-width editorial cards stacked vertically.
 
 #### Forward Automations — Lead Engineer (2023–Present)
+
 Four sub-engagements, each with its own impact callout inside the card:
 
-| Sub-engagement | Impact callout | Context |
-|---|---|---|
-| Cleveland Clinic | MVP shipped in **2 weeks** (90% faster than industry standard) | Full-stack clinical coaching MVP in a regulated healthcare environment |
-| Cleveland architecture firm | **400%** operational output increase | Custom productivity software deployed in under 5 weeks |
-| A16z startup | **90%** production timeline reduction · **1.5M** organic views | Proprietary AI marketing automation tools |
-| STEM Playbook | End-to-end legacy refactor in **11 days** | Launched stable application for a major live event |
+| Sub-engagement              | Impact callout                                                 | Context                                                                |
+| --------------------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Cleveland Clinic            | MVP shipped in **2 weeks** (90% faster than industry standard) | Full-stack clinical coaching MVP in a regulated healthcare environment |
+| Cleveland architecture firm | **400%** operational output increase                           | Custom productivity software deployed in under 5 weeks                 |
+| A16z startup                | **90%** production timeline reduction · **1.5M** organic views | Proprietary AI marketing automation tools                              |
+| STEM Playbook               | End-to-end legacy refactor in **11 days**                      | Launched stable application for a major live event                     |
 
 #### Deepr — Technical Consultant (2025)
+
 Two entries:
 
-| Sub-engagement | Impact callout | Context |
-|---|---|---|
-| AI carousel system | **1,000 → 500,000** views across Instagram and TikTok | AI-powered photo carousel driving content generation at scale |
-| Coverage vector tool | In progress | Inline real-time testing coverage awareness during code reviews — qualitative impact only until shipped |
+| Sub-engagement       | Impact callout                                        | Context                                                                                                 |
+| -------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| AI carousel system   | **1,000 → 500,000** views across Instagram and TikTok | AI-powered photo carousel driving content generation at scale                                           |
+| Coverage vector tool | In progress                                           | Inline real-time testing coverage awareness during code reviews — qualitative impact only until shipped |
 
 #### Amazon — SDE Intern, UCM-WFE & Fintech Teams (2023–2025, Multiple Terms)
+
 Two entries:
 
-| Sub-engagement | Impact callout | Context |
-|---|---|---|
-| Hiring analytics (Fintech) | High-use internal tool | Data analytics project providing actionable hiring insights to business leaders; described by management as a significant quarterly push |
-| Ads distributed systems | Pipeline coverage improved | Enhanced customer process efficiency and ticket resolution across distributed systems infrastructure |
+| Sub-engagement             | Impact callout             | Context                                                                                                                                  |
+| -------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Hiring analytics (Fintech) | High-use internal tool     | Data analytics project providing actionable hiring insights to business leaders; described by management as a significant quarterly push |
+| Ads distributed systems    | Pipeline coverage improved | Enhanced customer process efficiency and ticket resolution across distributed systems infrastructure                                     |
 
 > **Content note:** Amazon hard metrics are not available. The hiring analytics framing ("high-use internal tool, significant quarterly push") is the strongest honest claim until manager outreach yields a quotable number or stat. Design the card to accept a metric callout as an optional slot that can be filled in later.
 
 ---
 
 ### 3. Community & Leadership Section
+
 Separate section with its own header: `Community & Leadership`. Same card anatomy as professional entries.
 
-| Entry | Impact callout | Context |
-|---|---|---|
-| CWRU Flea Market — Founder (2023–Present) | **600+** attendees/event · **50+** student & local vendors · **~$7K** revenue/event | Created CWRU's largest monthly campus event; mission is bringing students, faculty, staff, and Greater Cleveland residents together with a focus on student vendor growth and skill development |
-| AIDC — VP (2023–Present) | **200+** student developers | Community-based learning environment for coders; leads technical development opportunities across the club |
-| Amazon BEN Intern Leadership Committee | **2×** board member | Elected to the Black Employee Network intern leadership committee across two separate Amazon internship terms |
-| Elevated Aperture — Founder (2020–Present) | TBD — no metrics available yet | Aerial photography company serving construction and arts industries |
-| Volunteering | TBD — to be added | Placeholder until specific orgs/activities are documented |
+| Entry                                      | Impact callout                                                                      | Context                                                                                                                                                                                         |
+| ------------------------------------------ | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CWRU Flea Market — Founder (2023–Present)  | **600+** attendees/event · **50+** student & local vendors · **~$7K** revenue/event | Created CWRU's largest monthly campus event; mission is bringing students, faculty, staff, and Greater Cleveland residents together with a focus on student vendor growth and skill development |
+| AIDC — VP (2023–Present)                   | **200+** student developers                                                         | Community-based learning environment for coders; leads technical development opportunities across the club                                                                                      |
+| Amazon BEN Intern Leadership Committee     | **2×** board member                                                                 | Elected to the Black Employee Network intern leadership committee across two separate Amazon internship terms                                                                                   |
+| Elevated Aperture — Founder (2020–Present) | TBD — no metrics available yet                                                      | Aerial photography company serving construction and arts industries                                                                                                                             |
+| Volunteering                               | TBD — to be added                                                                   | Placeholder until specific orgs/activities are documented                                                                                                                                       |
 
 ---
 
@@ -102,14 +108,14 @@ Each card (or sub-entry within a card) follows this hierarchy:
 
 ```typescript
 type GameLogSubEntry = {
-  label: string;        // sub-engagement name
-  impact: string;       // headline metric or qualitative callout
+  label: string; // sub-engagement name
+  impact: string; // headline metric or qualitative callout
   impactIsQualitative?: boolean; // if true, render in muted color
-  context: string;      // 1-2 sentence explanation
+  context: string; // 1-2 sentence explanation
 };
 
 type GameLogEntry = {
-  kicker: string;       // domain tag
+  kicker: string; // domain tag
   company: string;
   role: string;
   dates: string;

@@ -42,7 +42,9 @@ export default function Footer(): ReactElement {
 
         <div className="mt-10 flex flex-col gap-3 border-t border-[color:var(--color-line)] pt-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-soft)] md:flex-row md:items-center md:justify-between">
           <span>© 2026 Front Office // Amos</span>
-          <span>{SITE_META.role} | {SITE_META.location}</span>
+          <span>
+            {SITE_META.role} | {SITE_META.location}
+          </span>
         </div>
       </div>
     </footer>

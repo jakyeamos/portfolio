@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 
-const requiredFiles = [
-  ".env.example"
-];
+const requiredFiles = ['.env.example'];
 const missing = requiredFiles.filter((file) => !fs.existsSync(file));
 if (missing.length) {
   console.error('Missing environment example files:');
