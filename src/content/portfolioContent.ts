@@ -310,7 +310,7 @@ export const SCOUTING_FOCUS = [
   },
   {
     title: 'Data-rich offense',
-    copy: 'Court Vision, Amazon analytics work, and dashboard-heavy thinking all point toward a strong fit with products that need data to be useful, not just present.',
+    copy: 'BBDSE/CourtIQ, Amazon analytics work, and dashboard-heavy thinking all point toward a strong fit with products that need data to be useful, not just present.',
   },
 ] as const;
 
@@ -452,7 +452,7 @@ export const WEBSITE_LAUNCHES: readonly WebsiteLaunch[] = [
     label: 'Live website',
     title: 'BBDSE',
     href: 'https://bbdse.vercel.app/',
-    copy: 'Basketball decision-support and education site in the same portfolio orbit as Court Vision and the broader basketball IQ training work.',
+    copy: 'Basketball decision-support and education site that now owns the merged CourtIQ/Court Vision runtime alongside the broader BBDSE analytics suite.',
   },
 ] as const;
 

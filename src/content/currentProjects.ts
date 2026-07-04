@@ -154,19 +154,19 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
   },
   {
     slug: 'bballedu',
-    title: 'Bballedu',
+    title: 'BBDSE CourtIQ',
     shortCode: 'BB',
     summary:
-      'Court Vision — a web-first basketball IQ training platform featuring real-time multiplayer draft simulation, Monte Carlo modeling, and an Express/Socket.io backend.',
+      'Merged BBDSE CourtIQ lane: the Court Vision/Bballedu draft, lobby, waiting-room, and recap runtime now lives inside the BBDSE product suite, with the old standalone repo preserved as an archive/fallback boundary.',
     trackerComment:
       'Add sign-and-trade/base-year/minimum-salary special cases, generated/consumed trade exception accounting, swap conveyance validation, and rollback-safe execution.',
     trackerStatus: 'on_track',
     trackerScore: 84,
     lastUpdated: '2026-07-02',
-    tags: ['basketball', 'education', 'React', 'Express', 'Socket.io'],
+    tags: ['basketball', 'CourtIQ', 'BBDSE', 'Next.js', 'draft-sim'],
     grades: { impact: 7, difficulty: 7, ambition: 8, creativity: 8 },
     scoutTake:
-      'Basketball × education × software is a tight niche with a real ceiling. Platform has depth if the content pipeline fills in behind it.',
+      'The merge makes the basketball product story cleaner: CourtIQ becomes the user-facing simulator surface while BBDSE owns the analytics and product-suite runtime behind it.',
   },
   {
     slug: 'dispatches',
