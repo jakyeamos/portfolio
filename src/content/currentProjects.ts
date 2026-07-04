@@ -348,16 +348,16 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     title: 'TMCP',
     shortCode: 'TM',
     summary:
-      'Released MCP/plugin distribution for composable skill-packet workflows including expert audits, release readiness, UI rubrics, routing policies, and agent handoffs.',
+      'Released Claude + Codex marketplace-tested MCP/plugin distribution for composable skill-packet workflows including expert audits, release readiness, UI rubrics, routing policies, and agent handoffs.',
     trackerComment:
-      'Tagged and distributed at v0.3.2, with Codex plugin metadata at 0.3.2+codex.20260704042711.',
+      'Claude marketplace add/install, Codex marketplace add/upgrade, launcher smokes, MCP Registry draft validation, and public tarball SHA-256 smoke all passed for v0.3.2.',
     trackerStatus: 'shipped',
     trackerScore: 100,
     lastUpdated: '2026-07-04',
-    tags: ['Python', 'MCP', 'plugin', 'agent-workflows'],
+    tags: ['Python', 'MCP', 'Claude', 'Codex', 'agent-workflows'],
     grades: { impact: 8, difficulty: 8, ambition: 9, creativity: 9 },
     scoutTake:
-      'This is the deepest workflow-system release in the file: less flashy than an app, but very aligned with where agent tooling is going.',
+      'The proof got stronger because the install path has been smoked across Claude, Codex, registry validation, and public release integrity instead of stopping at a tag.',
   },
   {
     slug: 'pre-cr-suite',

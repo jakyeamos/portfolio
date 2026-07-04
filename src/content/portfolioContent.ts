@@ -172,7 +172,7 @@ export const HERO_PROOF: readonly HeroProof[] = [
 export const BREAKING_TICKER = [
   'QUALITY RUNNER, AGENT EVAL CONTRACT, AND RESEARCH DOMAIN WRITING ARE LIVE ON PYPI',
   'ANTI-SLOP AND PRE-CR PACKAGE SURFACES ARE LIVE ON NPM',
-  'TMCP V0.3.2 MCP/PLUGIN DISTRIBUTION IS CUT',
+  'TMCP V0.3.2 CLAUDE AND CODEX MARKETPLACE SMOKES PASSED; MCP REGISTRY DRAFT VALIDATES',
   'AMAZON SDE INTERN ACROSS ADS AND FINTECH SYSTEMS FROM 2023 THROUGH 2025',
   'CLEVELAND CLINIC CLINICAL COACHING MVP SHIPPED IN 2 WEEKS',
   'ARCHITECTURE FIRM PRODUCTIVITY SOFTWARE DROVE 400% OUTPUT GROWTH IN UNDER 5 WEEKS',
@@ -185,7 +185,7 @@ export const TOP_HEADLINES: readonly Headline[] = [
   {
     category: 'Release run',
     title: 'Developer-tool packages are now public across PyPI, npm, and MCP',
-    meta: 'Quality Runner, Anti-Slop, Agent Eval Contract, Research Domain Writing, Pre-CR, TMCP',
+    meta: 'Quality Runner, Anti-Slop, Agent Eval Contract, Research Domain Writing, Pre-CR, marketplace-smoked TMCP',
     href: '/projects',
   },
   {
@@ -423,7 +423,7 @@ export const BENCH_PROJECTS = [
   {
     kicker: 'MCP workflows',
     title: 'TMCP',
-    copy: 'v0.3.2 MCP/plugin distribution for expert audits, release readiness, UI rubrics, routing policies, and agent handoffs.',
+    copy: 'v0.3.2 Claude/Codex marketplace-smoked MCP/plugin distribution with launcher smokes, MCP Registry draft validation, and public tarball SHA-256 proof.',
   },
 ] as const;
 
