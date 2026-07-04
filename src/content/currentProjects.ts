@@ -81,7 +81,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
       'Confirm npm trusted publishing is configured for the GitHub Release workflow, then create the reviewed `v0.2.0` GitHub Release.',
     trackerStatus: 'on_track',
     trackerScore: 100,
-    lastUpdated: '2026-07-03',
+    lastUpdated: '2026-07-04',
     tags: ['framework', 'npm', 'AI-tooling', 'validation'],
     grades: { impact: 8, difficulty: 8, ambition: 9, creativity: 8 },
     scoutTake:
