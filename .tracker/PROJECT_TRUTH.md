@@ -1,10 +1,10 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site now surfaces the July 2026 public package release run, has formatter/parser gates hardened against quote-style drift, and passes the full local quality ladder.
-healthScore: 94
+summary: Personal portfolio site now has the July 2026 public package release run, a clearer hiring-manager read, route-link regression coverage, and durable player-comp image fallbacks.
+healthScore: 95
 statusLabel: on_track
-nextStep: Review the release-focused portfolio copy in-browser, then deploy the updated public site after the branch is ready.
+nextStep: Review the hiring-clarity remediation in-browser on the deploy preview, then deploy the updated public site after the branch is ready.
 blockers: []
 lastUpdated: 2026-07-04
 tags: [portfolio, personal-site, react, vite, tailwind]
@@ -55,6 +55,10 @@ The current-project court UI now uses a meaningful matrix rather than a decorati
 
 The homepage now promotes the latest active project work before the feature-report grid through a "Now Playing" strip sourced from `CURRENT_PROJECTS`, sorted by `lastUpdated`, and linked to the current-project court matrix. The homepage and project page both describe the matrix as tracker health on X and the selected project axis on Y. A Live Launches section now surfaces recent external site launches directly on the homepage and blog, including BBDSE. This gives recent AI/workflow/product builds and shipped sites first-page presence without duplicating tracker content by hand.
 
+The homepage now includes a compact "Hiring Manager Read" inside the cover-story area so the sports-desk concept still lands, but rushed hiring readers get direct guidance on best-fit teams, proof, and next steps. The old first-viewport headline rail has been reduced to a smaller "Latest Signals" rail with three items, preserving the editorial feel without competing as hard with the hero.
+
+Internal React Router links now have a content-gate regression check through `scripts/check-internal-routes.mjs`, wired into `pnpm test:content`. This protects against broken route links like the former Impact Report `/current-projects` CTA, which now points to the registered `/projects` route. Player Comps keeps the remote ESPN headshots, but each comp card now has an initials-based fallback that appears if the remote image fails without duplicating accessible image labels when the image succeeds.
+
 The Film Room now has a small "New Signals" surface for released tooling and recent website launches. TMCP is presented as a marketplace-smoked Claude/Codex plugin distribution rather than only a concept-watch item, and recent website launches for Chiron's Forge and FRMWRK Labs are linked from the page. Chiron's Forge is described from its live site; FRMWRK Labs is intentionally link-forward only until the site is reachable for source-backed copy.
 
 The Film Room poster now omits the old decorative play badge because it looked interactive but had no playback behavior. The `EditorialPoster` API no longer carries a `showPlay` prop.
@@ -69,6 +73,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 ## Recent Progress
 
+- July 4: Added the hiring-manager read to the homepage hero, reduced Top Headlines into a smaller Latest Signals rail, fixed the Impact Report current-projects CTA to `/projects`, added route-link regression coverage to `pnpm test:content`, improved static hiring metadata, and added accessible fallback visuals for Player Comps remote headshots.
 - July 4: Updated the public-facing portfolio copy around the confirmed PyPI/npm/MCP release run; added shipped project entries for Quality Runner, ESLint Anti-Slop, Agent Eval Contract, Research Domain Writing, TMCP, and Pre-CR Suite; added a Prettier config; formatted the repo; hardened tracker, blog, and shot-check parsers so formatter quote-style changes do not break gates; and restored a passing formatter/lint/test/dead-code/build/smoke/security baseline.
 - July 4: Tightened TMCP release proof language after Claude marketplace add/install, Codex marketplace add/upgrade, launcher smokes, MCP Registry draft validation, and public release tarball SHA-256 smoke all passed for v0.3.2.
 - July 4: Updated the public portfolio language to reflect the BBDSE/CourtIQ merge: Court Vision/Bballedu normal draft-room flows now live in the BBDSE product suite, and the old standalone repo is framed as archive/fallback lineage rather than a separate active product.
@@ -157,6 +162,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 ## Quality Ladder Notes
 
+- **Hiring-clarity remediation QA:** `node scripts/check-internal-routes.mjs`, `pnpm lint`, `pnpm test:content`, `pnpm test`, and `pnpm build` — PASS on 2026-07-04. `pnpm build` still reports the existing Vite large chunk warning, now about a 522 kB minified JS chunk. In-app Browser QA on `http://localhost:3001/` verified the desktop homepage title and Hiring Manager Read, mobile homepage `scrollWidth` stayed at 390px with no document-level horizontal overflow, the Impact Report "Open current projects" CTA navigated to `/projects`, normal Player Comps headshots loaded, and blocked ESPN headshots exposed the initials fallback with no console warnings/errors.
 - **July 4 full quality ladder:** `pnpm format`, `pnpm lint`, `pnpm audit:dead-code`, `pnpm test`, `pnpm build`, `pnpm smoke`, `pnpm env:check`, and `pnpm secret:scan` — PASS. `pnpm dependency:security` exits cleanly at the configured high-severity threshold while reporting 2 low and 1 moderate advisory. `pnpm build` still reports the existing Vite chunk-size warning for a ~520 kB JS chunk.
 - **Quality Runner triage:** `/Users/jakyeamos/projects/quality-runner/.venv/bin/quality-runner --version` — PASS on 2026-07-03 with 0.2.1. Final `quality-runner run --run-id triage-20260702-portfolio /Users/jakyeamos/projects/portfolio --json` — PASS on 2026-07-03; capability matrix now lists formatter, dead_code, and runtime_smoke as available with no missing capabilities, and quality audit reports 17 non-blocking structural findings. `pnpm smoke` — PASS on 2026-07-03. `pnpm format` and `pnpm audit:dead-code` are configured but fail on existing broad formatting drift and unused imports, so cleanup is intentionally deferred outside this triage.
 - **Interview Surface planning docs:** placeholder scan and phase-plan existence checks — PASS on 2026-07-01; confirmed all 21 numbered phase plan files exist, ROADMAP links to them, and no placeholder markers remain in the new planning files. This was a documentation/planning-only change, so UI/browser checks were not required.
