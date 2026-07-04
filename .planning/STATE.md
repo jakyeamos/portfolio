@@ -39,6 +39,9 @@ Progress: [█░░░░░░░░░] 10%
 
 ## Accumulated Context
 
+
+### Roadmap Evolution
+- 2026-07-04: Phase 7 planned: QR remediation: portfolio from QR run qr-fleet-continue-20260704-portfolio.
 ### Decisions
 
 - [Control plane] Public-readiness planning lives in the portfolio repo.

@@ -166,6 +166,22 @@ Phase 0 plans -> Phase 1 plans -> Phase 2 plans -> Phase 3/4/5 plans -> Phase 6 
 | 5. Portfolio and GitHub Profile Plan           | 0/3            | Blocked on Phase 1    | -         |
 | 6. Tiered Release Schedule                     | 0/3            | Blocked on Phases 3-5 | -         |
 
+### Phase 7: QR remediation: portfolio
+
+
+
+**Goal:** Resolve Quality Runner findings for portfolio using cluster-oriented, behavior-preserving remediation from run qr-fleet-continue-20260704-portfolio.
+**Requirements**: QR-PORTFOLIO
+**Depends on:** Phase 6
+**Plans:** 2 plans
+
+Plans:
+- [ ] 07-01-PLAN.md - Primary QR cluster remediation
+- [ ] 07-02-PLAN.md - Additional QR cluster remediation
+
+**Cross-cutting constraints:**
+- The post-remediation QR run records no unresolved regression for this plan scope.
+
 ---
 
 _Roadmap updated: 2026-07-01_

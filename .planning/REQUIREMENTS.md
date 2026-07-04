@@ -74,3 +74,6 @@ clean code, strong evidence, and honest project presentation.
 ---
 
 _Requirements defined: 2026-07-01_
+## QR Remediation Requirements
+
+- [ ] **QR-PORTFOLIO**: Resolve the Quality Runner advisory clusters from run qr-fleet-continue-20260704-portfolio for portfolio without changing intended behavior, then verify with focused repo checks and a post-remediation QR comparison.

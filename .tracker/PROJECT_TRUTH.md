@@ -207,3 +207,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - `package.json` name is `front-office-amos` — consistent with the sports-front-office portfolio metaphor
 - `.planning/` exists and can drive future content/release phase work
 - Global canonical command references should be translated to this repo's actual scripts: `pnpm lint` and `pnpm build`
+
+## QR Remediation Planning
+
+- 2026-07-04: Added GSD Phase 7 for QR remediation from qr-fleet-continue-20260704-portfolio; 2 plan(s) created from portfolio.md. Execution has not started.
