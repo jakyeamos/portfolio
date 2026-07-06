@@ -20,3 +20,10 @@ Redesign Basketball Project Dashboard/
 .quality-runner/
 
 .aios/reviews/
+
+# Generated / cache / audit output
+.aios/
+.turbo/
+.firecrawl/
+.pytest_cache/
+__pycache__/
