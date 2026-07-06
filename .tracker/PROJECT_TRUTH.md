@@ -1,12 +1,12 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site now has the July 2026 public package release run, a clearer hiring-manager read, route-link regression coverage, and durable player-comp image fallbacks.
+summary: Personal portfolio site has the July 2026 public package release run, hiring-manager read, route-link regression coverage, durable player-comp image fallbacks, and a verified July 6 weekly tracker sync on dev.
 healthScore: 95
 statusLabel: on_track
-nextStep: Review the hiring-clarity remediation in-browser on the deploy preview, then deploy the updated public site after the branch is ready.
+nextStep: Merge the verified dev branch tracker sync to the production deploy branch if the public portfolio should reflect the July 6 tracker data.
 blockers: []
-lastUpdated: 2026-07-05
+lastUpdated: 2026-07-06
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, blog, player-comps, impact-report]
 goals:
@@ -15,8 +15,8 @@ goals:
 repoType: app
 sourceOfTruth: mixed
 primaryLanguage: TypeScript
-activeBranch: qr/triage-parallel-20260702T200935Z
-lastCommitDate: '2026-07-04'
+activeBranch: dev
+lastCommitDate: '2026-07-06'
 quality:
   lint: pass
   types: pass
@@ -35,7 +35,7 @@ agentExpectationsVersion: 1
 
 ## Current State
 
-The portfolio is on branch `qr/triage-parallel-20260702T200935Z` with tracker-sync infrastructure in place. The React/Vite/Tailwind SPA is the live app shape: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
+The portfolio is on branch `dev` with tracker-sync infrastructure in place. The React/Vite/Tailwind SPA is the live app shape: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
 
 The `dependency:security` gate (`scripts/dependency-security.mjs`, commit `7ac45fc`) now wraps `pnpm audit --json`: it fails only on real high/critical advisories and skips (exit 0) on registry fetch/network errors, so the offline AIOS commit gate no longer mislabels a network failure as a security failure.
 
@@ -50,6 +50,8 @@ The repo uses pnpm as the single package-manager workflow: `package.json` declar
 The weekly portfolio tracker ingestion automation now has a production refresh entry point: `pnpm tracker:weekly` runs only from `main` by default, performs `pnpm sync`, `pnpm lint`, and `pnpm build`, requires the refreshed tracker state to already be committed, then verifies the latest Netlify production deploy for `main` is on the current `HEAD` commit. Deploy status checks avoid the unstable global Netlify CLI by using a pinned repo-local `netlify-cli`, a temp-config wrapper, and a direct Netlify API script that filters production deploys before comparing commits.
 
 The June 29 weekly tracker ingestion was run from `codex/pin-blog-posts`, not the production deploy branch `main`. The generated tracker data was verified and committed on that branch, but the public web UI should only rebuild from this push if Netlify is configured to deploy `codex/pin-blog-posts` or after the branch is merged to `main`.
+
+The July 6 weekly tracker ingestion was run from `dev`, not the production deploy branch `main`. `pnpm sync` found all generated tracker fields already up to date with local truth and committed the existing generated `src/content/currentProjects.ts` refresh as `dbd94ff`; the public web UI should only rebuild from this push if Netlify deploys `dev` or after the branch is merged to `main`.
 
 Pre-CR is now calibrated for this repo's content-heavy shape: it runs `pnpm precr:check`, which validates project catalog integrity, validates every blog Markdown file's required frontmatter and parsed sections, typechecks through `pnpm lint`, and runs the production build. Changed-line coverage is non-blocking because static catalog/config edits are better protected by schema/content validation than deep line coverage. The changed-file coverage helper now routes blog Markdown, blog parser, blog sorting, and blog checker edits through `node scripts/check-blog-content.mjs`.
 
@@ -76,6 +78,8 @@ This is the primary public-facing artifact for career opportunities. It needs to
 ## Recent Progress
 
 - July 4: Added the hiring-manager read to the homepage hero, reduced Top Headlines into a smaller Latest Signals rail, fixed the Impact Report current-projects CTA to `/projects`, added route-link regression coverage to `pnpm test:content`, improved static hiring metadata, and added accessible fallback visuals for Player Comps remote headshots.
+- July 6: Ran weekly portfolio tracker ingestion from `dev`; `pnpm sync` reported no new writes after confirming the generated tracker file matched local truth, `pnpm lint` and `pnpm build` passed, `signal-lab` and `cap-fit-builder` were skipped because their mapped truth files were missing, and `src/content/currentProjects.ts` was committed as `dbd94ff`.
+- July 6: Tracker data now reflects updated Soundscape, AIOS, Terrace, BidCamp, Fantasy, Bballedu, Dispatches, Book, GitHub issue-resolution modeling, RTE, and TMCP closed-project tracker copy/date/score fields already present before the sync run.
 - July 4: Updated the public-facing portfolio copy around the confirmed PyPI/npm/MCP release run; added shipped project entries for Quality Runner, ESLint Anti-Slop, Agent Eval Contract, Research Domain Writing, TMCP, and Pre-CR Suite; added a Prettier config; formatted the repo; hardened tracker, blog, and shot-check parsers so formatter quote-style changes do not break gates; and restored a passing formatter/lint/test/dead-code/build/smoke/security baseline.
 - July 4: Tightened TMCP release proof language after Claude marketplace add/install, Codex marketplace add/upgrade, launcher smokes, MCP Registry draft validation, and public release tarball SHA-256 smoke all passed for v0.3.2.
 - July 4: Updated the public portfolio language to reflect the BBDSE/CourtIQ merge: Court Vision/Bballedu normal draft-room flows now live in the BBDSE product suite, and the old standalone repo is framed as archive/fallback lineage rather than a separate active product.
@@ -157,6 +161,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 ## Risks / Blockers
 
 - No active blockers
+- Weekly tracker ingestion on July 6 skipped `signal-lab` and `cap-fit-builder` because `.tracker/truth-map.json` points to missing local truth files under `/Users/jakyeamos/projects/BBDSE/Signal Lab/.tracker/PROJECT_TRUTH.md` and `/Users/jakyeamos/projects/BBDSE/Cap-Fit Builder/.tracker/PROJECT_TRUTH.md`
 - Quality Runner is pre-release, so Phase 0 must define which findings are reliable before using it as a hard public-readiness bar
 - BBDSE public release planning has data provenance risk because several subprojects include CSV/parquet/report artifacts that need source/license review
 - Content/catalog regressions are covered by `pnpm test:content`; browser interaction regressions still need targeted smoke checks when UI behavior changes
@@ -165,6 +170,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 ## Quality Ladder Notes
 
 - **Hiring-clarity remediation QA:** `node scripts/check-internal-routes.mjs`, `pnpm lint`, `pnpm test:content`, `pnpm test`, and `pnpm build` — PASS on 2026-07-04. `pnpm build` still reports the existing Vite large chunk warning, now about a 522 kB minified JS chunk. In-app Browser QA on `http://localhost:3001/` verified the desktop homepage title and Hiring Manager Read, mobile homepage `scrollWidth` stayed at 390px with no document-level horizontal overflow, the Impact Report "Open current projects" CTA navigated to `/projects`, normal Player Comps headshots loaded, and blocked ESPN headshots exposed the initials fallback with no console warnings/errors.
+- **Weekly tracker ingestion:** `pnpm sync`, `pnpm lint`, and `pnpm build` — PASS on 2026-07-06 from `dev`. Sync loaded 15 project entries, found 15 explicit truth-map sources and 36 discovered truth files, wrote no new updates because `src/content/currentProjects.ts` already matched local truth, and skipped `signal-lab` plus `cap-fit-builder` due to missing mapped truth files. Build completed with the existing Vite large chunk warning for a 522.01 kB minified JS chunk. The generated tracker sync was committed as `dbd94ff`; production deploy impact depends on whether Netlify deploys `dev` or the commits are merged to `main`.
 - **July 4 full quality ladder:** `pnpm format`, `pnpm lint`, `pnpm audit:dead-code`, `pnpm test`, `pnpm build`, `pnpm smoke`, `pnpm env:check`, and `pnpm secret:scan` — PASS. `pnpm dependency:security` exits cleanly at the configured high-severity threshold while reporting 2 low and 1 moderate advisory. `pnpm build` still reports the existing Vite chunk-size warning for a ~520 kB JS chunk.
 - **Quality Runner triage:** `/Users/jakyeamos/projects/quality-runner/.venv/bin/quality-runner --version` — PASS on 2026-07-03 with 0.2.1. Final `quality-runner run --run-id triage-20260702-portfolio /Users/jakyeamos/projects/portfolio --json` — PASS on 2026-07-03; capability matrix now lists formatter, dead_code, and runtime_smoke as available with no missing capabilities, and quality audit reports 17 non-blocking structural findings. `pnpm smoke` — PASS on 2026-07-03. `pnpm format` and `pnpm audit:dead-code` are configured but fail on existing broad formatting drift and unused imports, so cleanup is intentionally deferred outside this triage.
 - **Interview Surface planning docs:** placeholder scan and phase-plan existence checks — PASS on 2026-07-01; confirmed all 21 numbered phase plan files exist, ROADMAP links to them, and no placeholder markers remain in the new planning files. This was a documentation/planning-only change, so UI/browser checks were not required.
