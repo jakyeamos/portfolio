@@ -46,10 +46,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Full-stack music social platform in active development — covering discovery, ratings, feeds, market surfaces, clubs, and a shared web/mobile codebase in a TypeScript monorepo.',
     trackerComment:
-      'Use the READY prebuilt Preview for hosted checks, and escalate the Vercel Git/repo-root `Resource provisioning failed` blocker with the captured failed and READY deployment IDs.',
+      'Close the polymorphic `ExternalId` persistence gap exposed by catalog hydration, then decide whether duplicate MusicBrainz title variants should remain a read-layer collapse only or be normalized deeper in the canonical catalog model, fix the remaining `@soundscape/platform-web` coverage test drift in `src/trpc/__tests__/webClient.test.ts`, and rerun the repo-level quality ladder.',
     trackerStatus: 'needs_attention',
-    trackerScore: 78,
-    lastUpdated: '2026-07-03',
+    trackerScore: 79,
+    lastUpdated: '2026-07-05',
     tags: ['music', 'social', 'monorepo', 'tRPC', 'Prisma'],
     grades: { impact: 9, difficulty: 9, ambition: 10, creativity: 8 },
     scoutTake:
@@ -62,10 +62,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Personal AI operating system built around session hooks, workflow orchestration, pattern extraction, and layered knowledge retrieval — actively used as the backbone of daily engineering operations.',
     trackerComment:
-      'Use the next real AIOS closeout trace to verify whether inline repo state removes repeated manual `git status` and `git diff --stat` checks before deciding whether to persist closeout snapshots.',
+      'Migrate eval-related services and tests to the agent-eval-contract 0.3.0 Pydantic API (50 pytest failures surfaced once the stale venv contract build was rebuilt), then wire verify-run into hook-stop closeout and the pipeline reaper cadence.',
     trackerStatus: 'needs_attention',
     trackerScore: 73,
-    lastUpdated: '2026-07-04',
+    lastUpdated: '2026-07-05',
     tags: ['Python', 'shell', 'SQLite', 'automation', 'AI-tooling'],
     grades: { impact: 8, difficulty: 7, ambition: 9, creativity: 9 },
     scoutTake:
@@ -78,10 +78,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Published spec-driven AI development CLI that governs structured, test-validated builds — live on npm as @jakyeamos33/terrace with the 0.2.0 line staged in-repo for the next distribution pass.',
     trackerComment:
-      'Confirm npm trusted publishing is configured for the GitHub Release workflow, then create the reviewed `v0.2.0` GitHub Release.',
+      'Keep the local workflow entrypoint and release-readiness guard in regular use before protected work ships.',
     trackerStatus: 'on_track',
     trackerScore: 100,
-    lastUpdated: '2026-07-04',
+    lastUpdated: '2026-07-05',
     tags: ['framework', 'npm', 'AI-tooling', 'validation'],
     grades: { impact: 8, difficulty: 8, ambition: 9, creativity: 8 },
     scoutTake:
@@ -94,10 +94,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Government-contracting platform with v1.0 shipped — full-stack Next.js app built on Supabase and Stripe with active work toward v1.1 feature expansion.',
     trackerComment:
-      'Decide whether to fund a broad source structural refactor wave for the remaining QR findings or treat the 0.2.1 structural findings as advisory until rule granularity improves.',
+      'Resolve the two incomplete Houston outreach contacts or intentionally exclude them, then complete the customer-scoped data import, campaign execution, and result logging.',
     trackerStatus: 'needs_attention',
     trackerScore: 78,
-    lastUpdated: '2026-07-03',
+    lastUpdated: '2026-07-04',
     tags: ['GovCon', 'Next.js', 'Supabase', 'Stripe', 'government'],
     grades: { impact: 8, difficulty: 7, ambition: 8, creativity: 7 },
     scoutTake:
@@ -127,7 +127,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Local-first dynasty fantasy football intelligence app featuring a working trade engine, FastAPI backend, React/Vite frontend, and DuckDB persistence — with multi-team scoring in active development.',
     trackerComment:
-      'Load curated dense player metrics such as YPRR, route participation, snap share, and first-read share through the new player metadata CSV import path.',
+      'Feed sourced route, usage, snap, and first-read metrics through the new metadata import path so player comparisons rest on denser evidence.',
     trackerStatus: 'on_track',
     trackerScore: 78,
     lastUpdated: '2026-07-03',
@@ -159,7 +159,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Merged BBDSE CourtIQ lane: the Court Vision/Bballedu draft, lobby, waiting-room, and recap runtime now lives inside the BBDSE product suite, with the old standalone repo preserved as an archive/fallback boundary.',
     trackerComment:
-      'Add sign-and-trade/base-year/minimum-salary special cases, generated/consumed trade exception accounting, swap conveyance validation, and rollback-safe execution.',
+      'Extend the trade engine with advanced CBA edge cases, trade-exception accounting, pick-swap validation, and rollback-safe execution.',
     trackerStatus: 'on_track',
     trackerScore: 84,
     lastUpdated: '2026-07-02',
@@ -175,7 +175,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Full-stack blog platform with API routes, Postgres and Clerk integration, content-management flows, and cross-posting features — actively developed across a monorepo package structure.',
     trackerComment:
-      'Plan a broad QR debt cleanup pass after addressing existing formatter parse/style debt and Knip dead-code findings.',
+      'Clear the formatter and dead-code cleanup first, then take a broader quality-debt pass across the blog platform.',
     trackerStatus: 'on_track',
     trackerScore: 70,
     lastUpdated: '2026-07-03',
@@ -191,7 +191,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Interactive digital book reader with chapter-specific visuals, music, ambient effects, particles, and a growing admin CMS layer for nontechnical chapter editing and soundtrack cue management.',
     trackerComment:
-      'Deploy the Render blueprint with production `ADMIN_EMAIL` and `ADMIN_PASSWORD`, point the live domain at the Node service, and run `BOOK_SMOKE_BASE_URL=... pnpm run platform:deployed-acceptance` against the deployed service.',
+      'Move the reader and admin service onto the hosted deployment path, connect the live domain, and complete deployed acceptance smoke coverage.',
     trackerStatus: 'on_track',
     trackerScore: 88,
     lastUpdated: '2026-07-03',
@@ -207,10 +207,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Survival-analysis pipeline and Next.js triage dashboard for predicting issue resolution time across major open-source repos, with reproducible stages, fixture-backed UI tests, and CI covering both the pipeline and dashboard.',
     trackerComment:
-      'Address broad dashboard structural debt separately from QR gate triage; live ingestion still needs a real GITHUB_TOKEN.',
+      'Complete final release review, then archive the first model-artifact release through the DOI-backed publication flow.',
     trackerStatus: 'on_track',
-    trackerScore: 76,
-    lastUpdated: '2026-07-03',
+    trackerScore: 84,
+    lastUpdated: '2026-07-04',
     tags: ['Python', 'Next.js', 'survival-analysis', 'GitHub', 'dashboard'],
     grades: { impact: 8, difficulty: 8, ambition: 7, creativity: 7 },
     scoutTake:
@@ -271,10 +271,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Role Translation Engine — projects which NBA roles prospects can realistically succeed in by modeling context dependence, competition inflation, and role downshifting rather than ranking raw talent.',
     trackerComment:
-      'Plan and implement RTE Phase 5: draft-slot-relative transferable-signal modeling and a 2026 translation-adjusted big board.',
+      'Complete final release review for the DOI-ready model artifact, then continue transferable-signal modeling for the next draft board.',
     trackerStatus: 'on_track',
-    trackerScore: 72,
-    lastUpdated: '2026-06-05',
+    trackerScore: 75,
+    lastUpdated: '2026-07-04',
     tags: ['basketball', 'analytics', 'Python'],
     grades: { impact: 7, difficulty: 8, ambition: 8, creativity: 7 },
     scoutTake:
@@ -350,14 +350,14 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Released Claude + Codex marketplace-tested MCP/plugin distribution for composable skill-packet workflows including expert audits, release readiness, UI rubrics, routing policies, and agent handoffs.',
     trackerComment:
-      'Claude marketplace add/install, Codex marketplace add/upgrade, launcher smokes, MCP Registry draft validation, and public tarball SHA-256 smoke all passed for v0.3.2.',
+      'The v0.3.2 release has been verified across marketplace install flows, launcher checks, registry preparation, and public package integrity checks.',
     trackerStatus: 'shipped',
     trackerScore: 100,
     lastUpdated: '2026-07-04',
     tags: ['Python', 'MCP', 'Claude', 'Codex', 'agent-workflows'],
     grades: { impact: 8, difficulty: 8, ambition: 9, creativity: 9 },
     scoutTake:
-      'The proof got stronger because the install path has been smoked across Claude, Codex, registry validation, and public release integrity instead of stopping at a tag.',
+      'The proof got stronger because the release was verified across real install paths and public distribution checks instead of stopping at a tag.',
   },
   {
     slug: 'pre-cr-suite',
