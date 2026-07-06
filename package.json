@@ -29,7 +29,7 @@
     "precr:check": "pnpm test:content && pnpm lint && pnpm build",
     "env:check": "node scripts/validate-env.mjs",
     "secret:scan": "node scripts/secret-scan.mjs",
-    "dependency:security": "pnpm audit --audit-level high",
+    "dependency:security": "node scripts/dependency-security.mjs",
     "e2e:smoke": "pnpm shot-embeds:target",
     "smoke": "pnpm e2e:smoke"
   },
