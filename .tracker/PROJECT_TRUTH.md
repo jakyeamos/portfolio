@@ -6,7 +6,7 @@ healthScore: 95
 statusLabel: on_track
 nextStep: Review the hiring-clarity remediation in-browser on the deploy preview, then deploy the updated public site after the branch is ready.
 blockers: []
-lastUpdated: 2026-07-04
+lastUpdated: 2026-07-05
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, blog, player-comps, impact-report]
 goals:
@@ -36,6 +36,8 @@ agentExpectationsVersion: 1
 ## Current State
 
 The portfolio is on branch `qr/triage-parallel-20260702T200935Z` with tracker-sync infrastructure in place. The React/Vite/Tailwind SPA is the live app shape: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
+
+The `dependency:security` gate (`scripts/dependency-security.mjs`, commit `7ac45fc`) now wraps `pnpm audit --json`: it fails only on real high/critical advisories and skips (exit 0) on registry fetch/network errors, so the offline AIOS commit gate no longer mislabels a network failure as a security failure.
 
 The July 2026 release-focused refresh now promotes the public package run across the homepage, Film Room, and Projects board. Shipped entries now include Quality Runner, ESLint Anti-Slop, Agent Eval Contract, Research Domain Writing, TMCP, and Pre-CR Suite, while active product/system work remains separate from shipped package proof. TMCP now carries stronger proof language after Claude marketplace install, Codex marketplace add/upgrade, launcher smokes, MCP Registry draft validation, and public tarball SHA-256 smoke all passed for v0.3.2.
 
