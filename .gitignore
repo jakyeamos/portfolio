@@ -27,3 +27,4 @@ Redesign Basketball Project Dashboard/
 .firecrawl/
 .pytest_cache/
 __pycache__/
+.agents/

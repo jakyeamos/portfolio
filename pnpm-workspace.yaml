@@ -1,5 +1,9 @@
 allowBuilds:
+  '@parcel/watcher': set this to true or false
+  esbuild: set this to true or false
   netlify-cli: true
+  sharp: set this to true or false
+  unix-dgram: set this to true or false
 ignoredBuiltDependencies:
   - '@parcel/watcher'
   - esbuild

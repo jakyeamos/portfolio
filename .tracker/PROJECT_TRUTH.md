@@ -37,11 +37,7 @@ agentExpectationsVersion: 1
 
 The portfolio is on branch `dev` with tracker-sync infrastructure in place. The React/Vite/Tailwind SPA is the live app shape: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
 
-The `dependency:security` gate (`scripts/dependency-security.mjs`, commit `7ac45fc`) now wraps `pnpm audit --json`: it fails only on real high/critical advisories and skips (exit 0) on registry fetch/network errors, so the offline AIOS commit gate no longer mislabels a network failure as a security failure.
-
-The July 2026 release-focused refresh now promotes the public package run across the homepage, Film Room, and Projects board. Shipped entries now include Quality Runner, ESLint Anti-Slop, Agent Eval Contract, Research Domain Writing, TMCP, and Pre-CR Suite, while active product/system work remains separate from shipped package proof. TMCP now carries stronger proof language after Claude marketplace install, Codex marketplace add/upgrade, launcher smokes, MCP Registry draft validation, and public tarball SHA-256 smoke all passed for v0.3.2.
-
-The `.planning/` control plane now centers the `Interview Surface Public Readiness` milestone. The milestone treats this repo as the cross-repo planning surface for making mature projects public-ready as a hiring/interview surface. It defines requirements, a seven-phase roadmap, and 21 numbered GSD-style plan files across Phase 0 through Phase 6. Candidate repo hardening and visibility changes have not started; the immediate next plan is `00-01-PLAN.md`, which inventories Quality Runner's current audit capability before it becomes a standard input to repo-readiness decisions.
+_(3 older entries trimmed)_
 
 The current-project tracker now resolves 15 local project truth sources through `.tracker/truth-map.json` plus discovery, including AIOS, Soundscape, Terrace, BidCamp, Taski, Fantasy, RemodelVision, BBDSE CourtIQ through the Bballedu lineage key, Dispatches, Book, the GitHub issue-resolution modeling repo, Signal Lab, Cap-Fit Builder, CLFE, and RTE. RemodelVision uses a portfolio-local truth source at `.tracker/remodelvision/PROJECT_TRUTH.md` because this automation sandbox cannot write into the sibling RemodelVision checkout. The sync script is scoped to `CURRENT_PROJECTS` so `CLOSED_PROJECTS` entries do not get overwritten by active repo truth snapshots.
 
@@ -76,7 +72,6 @@ Blog Markdown now supports `pinned: true` frontmatter. Pinned posts sort ahead o
 This is the primary public-facing artifact for career opportunities. It needs to stay live, accurate, and easy to maintain from `main`.
 
 ## Recent Progress
-
 - July 4: Added the hiring-manager read to the homepage hero, reduced Top Headlines into a smaller Latest Signals rail, fixed the Impact Report current-projects CTA to `/projects`, added route-link regression coverage to `pnpm test:content`, improved static hiring metadata, and added accessible fallback visuals for Player Comps remote headshots.
 - July 6: Ran weekly portfolio tracker ingestion from `dev`; `pnpm sync` reported no new writes after confirming the generated tracker file matched local truth, `pnpm lint` and `pnpm build` passed, `signal-lab` and `cap-fit-builder` were skipped because their mapped truth files were missing, and `src/content/currentProjects.ts` was committed as `dbd94ff`.
 - July 6: Tracker data now reflects updated Soundscape, AIOS, Terrace, BidCamp, Fantasy, Bballedu, Dispatches, Book, GitHub issue-resolution modeling, RTE, and TMCP closed-project tracker copy/date/score fields already present before the sync run.
@@ -92,57 +87,6 @@ This is the primary public-facing artifact for career opportunities. It needs to
 - April 10: Restored a passing TypeScript/build baseline and removed stale inactive entries from the active-project list
 - Deployment config (`netlify.toml`) and ignored artifact handling are in place
 - April 23: Replaced stale tracker sync logic with auto-discovery + override mapping and wired sync to run automatically before `dev`, `build`, and `lint`
-- May 1: Added Book to the current-project catalog and mapped `book` to the Book repo's project truth file
-- May 24: Replaced remaining npm workflow references with pnpm across package scripts, CI, Netlify, README, lockfile, and project truth metadata
-- May 24: Expanded the current-project truth map to 14 local sources, synced current health/status/next-step/date fields, and scoped sync to current projects only
-- May 24: Updated the AIOS architecture check script to run as ESM under the repo's module configuration
-- June 22: Updated the weekly portfolio tracker ingestion automation so successful runs commit generated tracker changes, update project truth, and push the current branch for Netlify rebuild eligibility
-- June 22: Committed the weekly tracker refresh, including Soundscape, AIOS, Fantasy, Bballedu, Dispatches, Book, CLFE, and RTE tracker fields; RemodelVision remains skipped with no truth source
-- June 22: Added repo-local Pre-CR configuration so source commits satisfy the global commit quality gate while continuing to use `pnpm lint` as the enforced local check
-- June 22: Added a portfolio-local RemodelVision project truth file, mapped it in `.tracker/truth-map.json`, and synced its tracker fields into the current-project UI data
-- June 22: Reworked the current-project court from arbitrary half-arc placement into a tracker-health × scout-axis matrix with quadrant labels, status colors, ambition-sized markers, and Browser-verified overlap prevention
-- June 22: Recalibrated the court Y-axis so the three-point arc is an elite threshold; Browser QA confirmed Ambition desktop minimum marker gap 25.46px and mobile minimum marker gap 3.31px with no overlaps
-- June 22: Simplified the project court styling by removing the radial wash, colored quadrant fills, dashed guide lines, and tinted paint while preserving the meaningful coordinates, labels, and marker behavior
-- June 22: Added a compact Historic Shot Echo module to the project detail modal so selected court dots show a nearby famous NBA shot reference from the same general floor zone
-- June 22: Upgraded the Historic Shot module to attempt official YouTube embeds, keep a 200px-tall side-rail player, and let closed-project cards open the same detail modal so current and shipped projects share the feature
-- June 22: Synced the AIOS tracker comment from local truth, updating the full-suite Python failure count from 10 to 15 in the portfolio UI data
-- June 22: Stabilized Netlify deploy checks by pinning `netlify-cli@26.1.0`, adding a temp-config `pnpm netlify:cli` wrapper, and adding `pnpm deploy:status` for Netlify API checks via `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`
-- June 22: Tightened Historic Shot Clip zone mapping so corner clips require real corner-depth coordinates; targeted math check confirmed the Ray Allen corner clip no longer appears for above-the-break project dots
-- June 22: Expanded Historic Shot Clip assignment from one shot per zone to a larger zone-specific pool with active-axis zone-rank assignment; targeted uniqueness check confirmed 16 unique shot references across current plus closed projects for Impact, Difficulty, Ambition, and Creativity
-- June 22: Normalized current-project court coordinates against the projects displayed on each active axis and switched shot-zone assignment to the displayed post-spacing point, preventing inside-the-arc dots from receiving three-point shot references
-- June 23: Made Historic Shot Clip selection embed-aware and added `pnpm shot-embeds` to report YouTube embed ID coverage by shot zone
-- June 23: Replaced the YouTube-only shot fields with a provider-based clip model that supports YouTube and Vimeo iframes plus NBA/external source links
-- June 23: Added explicit `verified-game-clip` quality metadata, a `pnpm shot-embeds:target` strict 45/45 gate, and `.tracker/shot-clip-curation.md` so weak non-YouTube sources do not count toward completion
-- June 23: Filled the Historic Shot Clip registry to 45/45 quality-gated YouTube clips and replaced dead legacy YouTube IDs after live oEmbed validation
-- June 23: Updated Historic Shot Clip embeds to autoplay muted on modal open and later removed default YouTube timing so each reviewed clip carries explicit `start` and `end` seconds
-- June 23: Tuned Historic Shot Clip timing by replacing several broad/full-game sources with shorter shot clips and adding explicit start/end windows where shorter sources were not available; direct YouTube Browser timing review remains blocked, but local `/projects` iframe params and live oEmbed checks passed
-- June 23: Corrected Terrace on the Impact axis by windowing the LeBron Pacers 2018 clip to absolute YouTube seconds `start=26` and `end=48`, using a compact shot-and-replay window instead of the earlier late replay/commentary window
-- June 23: Ran a full YouTube duration-metadata timing scan for all 45 Historic Shot Clips, replaced additional broad sources with shorter clips, and made intentional `start=0` windows explicit so long clips no longer look untuned
-- June 23: Applied the compact shot-and-replay timing methodology across all 45 Historic Shot Clips: every YouTube clip now has explicit `start` and `end` seconds, windows are capped at 38 seconds, and the shot-embed target gate fails missing or overlong YouTube windows
-- June 23: Added a pre-clip sound toggle for Historic Shot Clips so a user gesture can request unmuted YouTube autoplay on later shot opens while preserving muted autoplay as the browser-compatible fallback
-- June 23: Removed same-axis Historic Shot Clip reuse by making shipped-project assignments skip clips already used by the current board while staying inside the same court zone; `pnpm shot-embeds:target` now fails visible assignment duplicates
-- June 23: Added `pnpm shot-inventory` plus `.tracker/shot-clip-backups.md` so future projects can use existing same-zone backup clips before doing new clip research
-- June 23: Used the local `/shot-review.html` browser workflow to visually sample the start frame for all 45 Historic Shot Clips and corrected the same-source windows for Lillard Rockets 2014, Ray Allen 2013, Jayson Tatum 2023, Chris Paul 2015, Jimmy Butler 2023, and Anthony Edwards 2024
-- June 23: Replaced the remaining weak Historic Shot Clip watchlist sources with tighter verified embeds, including Kerr, Kobe, Booker 2021, Luka, Fox, Pierce, Garnett, Carmelo, Chris Paul 2021, Shai, and Wade; the replacement watchlist is now empty
-- June 23: Added a homepage "Now Playing" section that surfaces the four most recently updated current projects with tracker score, status, date, and scout take, then links into the live project board
-- June 23: Added Film Room mentions for TMCP as a concept-watch item and new website launches for Chiron's Forge and FRMWRK Labs without promoting TMCP into the scored project tracker
-- June 23: Added a `/blog` route, top/side-nav entries, and an initial TMCP concept note so protocol/tooling ideas can get long-form explanation without being forced into the project tracker
-- June 23: Updated the former Amos SaaS portfolio entry and tracker map to BidCamp, pointing sync at `/Users/jakyeamos/projects/BidCamp/.tracker/PROJECT_TRUTH.md`
-- June 23: Replaced the one-off TMCP crosspost-channel card with an owner writer route at `/blog/write`, including destination checkboxes and generated markdown/publish-plan output for future GitHub/BIP automation
-- June 25: Removed the public `/blog/write` owner workflow route and public blog CTAs because the deployed SPA has no authentication layer for owner-only publishing tools.
-- June 25: Migrated blog posts to repo-backed Markdown files and restored `/blog/write` as a local/private writer that generates canonical Markdown plus a BIP crosspost payload for portfolio and FRMWRK repo targets.
-- June 25: Added the FRMWRK writing profile path to the BIP handoff payload so crossposts can be adapted against `/Users/jakyeamos/projects/frmwrklabs/WRITING_PROFILE.md`.
-- June 25: Added `pnpm tracker:weekly` so the weekly main tracker refresh runs sync/typecheck/build gates and then confirms the latest Netlify production deploy is on the refreshed commit.
-- June 25: Added homepage/blog Live Launches cards for recent external site launches, including BBDSE, and simplified project court markers to small red dots without internal labels.
-- June 26: Added pinned Markdown blog posts, including pinned sorting, public pin badges, local writer pinned-frontmatter output, and a blog ordering content check.
-- June 26: Extended blog content integrity so the checker walks every Markdown post, validates required frontmatter through the shared build-time parser, requires parsed sections, and marks blog Markdown/parser/checker edits as covered by the pre-CR changed-file helper.
-- June 29: Ran the weekly portfolio tracker ingestion from `codex/pin-blog-posts`; all 15 mapped truth sources resolved with no skipped projects, `pnpm lint` and `pnpm build` passed, and `src/content/currentProjects.ts` was committed as `c4253da` after syncing Soundscape, AIOS, BidCamp, Fantasy, and Book tracker fields from local truth.
-- June 23: Added a dedicated Historic Shot Clip rim zone with a poster-heavy dunk pool led by Anthony Edwards over John Collins, preventing centered dunk-range dots such as Dispatches on Impact/Difficulty/Ambition from falling through to midrange clips
-- June 23: Hardened the shot assignment gate so Impact/Dispatches must resolve to `rim/edwards-collins-2024`; this catches the specific Pierce-style fallback regression even if broader zone coverage still passes
-- June 23: Aligned Current Projects labels, help text, modal copy, and homepage references around the court matrix model: X-axis is tracker health and Y-axis is the selected project axis; `pnpm lint` and `pnpm build` passed
-- June 23: Made court-marker modal selection carry the clicked axis, point, and layout so Dispatches on the Impact board cannot render a stale midrange shot panel under an Impact-axis modal
-- June 24: Added `pnpm test:content` and recalibrated Pre-CR so portfolio commits require content integrity, typecheck, and build checks instead of deep changed-line coverage for static catalog/config files
-- June 25: Removed the nonfunctional Film Room poster play badge and deleted the stale `showPlay` prop/data path; `pnpm typecheck` passed.
 
 ## Open Problems
 
