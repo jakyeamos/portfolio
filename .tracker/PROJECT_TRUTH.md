@@ -6,7 +6,7 @@ healthScore: 95
 statusLabel: on_track
 nextStep: Merge the verified dev branch tracker sync to the production deploy branch if the public portfolio should reflect the July 6 tracker data.
 blockers: []
-lastUpdated: 2026-07-06
+lastUpdated: 2026-07-10
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, blog, player-comps, impact-report]
 goals:
@@ -73,6 +73,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 ## Recent Progress
 - July 4: Added the hiring-manager read to the homepage hero, reduced Top Headlines into a smaller Latest Signals rail, fixed the Impact Report current-projects CTA to `/projects`, added route-link regression coverage to `pnpm test:content`, improved static hiring metadata, and added accessible fallback visuals for Player Comps remote headshots.
+- July 10: Added a TypeScript 7 upgrade audit documenting the Vite/TypeScript 5.8 baseline, `baseUrl` migration risk, and why implementation was deferred until dependency verification can run in a network-enabled environment.
 - July 6: Ran weekly portfolio tracker ingestion from `dev`; `pnpm sync` reported no new writes after confirming the generated tracker file matched local truth, `pnpm lint` and `pnpm build` passed, `signal-lab` and `cap-fit-builder` were skipped because their mapped truth files were missing, and `src/content/currentProjects.ts` was committed as `dbd94ff`.
 - July 6: Tracker data now reflects updated Soundscape, AIOS, Terrace, BidCamp, Fantasy, Bballedu, Dispatches, Book, GitHub issue-resolution modeling, RTE, and TMCP closed-project tracker copy/date/score fields already present before the sync run.
 - July 4: Updated the public-facing portfolio copy around the confirmed PyPI/npm/MCP release run; added shipped project entries for Quality Runner, ESLint Anti-Slop, Agent Eval Contract, Research Domain Writing, TMCP, and Pre-CR Suite; added a Prettier config; formatted the repo; hardened tracker, blog, and shot-check parsers so formatter quote-style changes do not break gates; and restored a passing formatter/lint/test/dead-code/build/smoke/security baseline.
@@ -113,6 +114,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 ## Quality Ladder Notes
 
+- **TypeScript 7 audit doc:** `git diff --check -- TYPESCRIPT_7_UPGRADE_AUDIT.md` — PASS on 2026-07-10; local commit quality gate passed. No package/config changes were made.
 - **Hiring-clarity remediation QA:** `node scripts/check-internal-routes.mjs`, `pnpm lint`, `pnpm test:content`, `pnpm test`, and `pnpm build` — PASS on 2026-07-04. `pnpm build` still reports the existing Vite large chunk warning, now about a 522 kB minified JS chunk. In-app Browser QA on `http://localhost:3001/` verified the desktop homepage title and Hiring Manager Read, mobile homepage `scrollWidth` stayed at 390px with no document-level horizontal overflow, the Impact Report "Open current projects" CTA navigated to `/projects`, normal Player Comps headshots loaded, and blocked ESPN headshots exposed the initials fallback with no console warnings/errors.
 - **Weekly tracker ingestion:** `pnpm sync`, `pnpm lint`, and `pnpm build` — PASS on 2026-07-06 from `dev`. Sync loaded 15 project entries, found 15 explicit truth-map sources and 36 discovered truth files, wrote no new updates because `src/content/currentProjects.ts` already matched local truth, and skipped `signal-lab` plus `cap-fit-builder` due to missing mapped truth files. Build completed with the existing Vite large chunk warning for a 522.01 kB minified JS chunk. The generated tracker sync was committed as `dbd94ff`; production deploy impact depends on whether Netlify deploys `dev` or the commits are merged to `main`.
 - **July 4 full quality ladder:** `pnpm format`, `pnpm lint`, `pnpm audit:dead-code`, `pnpm test`, `pnpm build`, `pnpm smoke`, `pnpm env:check`, and `pnpm secret:scan` — PASS. `pnpm dependency:security` exits cleanly at the configured high-severity threshold while reporting 2 low and 1 moderate advisory. `pnpm build` still reports the existing Vite chunk-size warning for a ~520 kB JS chunk.
