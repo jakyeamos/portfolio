@@ -46,10 +46,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Full-stack music social platform in active development — covering discovery, ratings, feeds, market surfaces, clubs, and a shared web/mobile codebase in a TypeScript monorepo.',
     trackerComment:
-      'Close the polymorphic `ExternalId` persistence gap exposed by catalog hydration, then decide whether duplicate MusicBrainz title variants should remain a read-layer collapse only or be normalized deeper in the canonical catalog model, fix the remaining `@soundscape/platform-web` coverage test drift in `src/trpc/__tests__/webClient.test.ts`, and rerun the repo-level quality ladder.',
+      'Continue hosted preview validation from the working prebuilt deployment while the normal repository-connected preview path is escalated with deployment evidence.',
     trackerStatus: 'needs_attention',
-    trackerScore: 79,
-    lastUpdated: '2026-07-05',
+    trackerScore: 78,
+    lastUpdated: '2026-07-07',
     tags: ['music', 'social', 'monorepo', 'tRPC', 'Prisma'],
     grades: { impact: 9, difficulty: 9, ambition: 10, creativity: 8 },
     scoutTake:
@@ -62,10 +62,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Personal AI operating system built around session hooks, workflow orchestration, pattern extraction, and layered knowledge retrieval — actively used as the backbone of daily engineering operations.',
     trackerComment:
-      'Migrate eval-related services and tests to the agent-eval-contract 0.3.0 Pydantic API (50 pytest failures surfaced once the stale venv contract build was rebuilt), then wire verify-run into hook-stop closeout and the pipeline reaper cadence.',
-    trackerStatus: 'needs_attention',
-    trackerScore: 73,
-    lastUpdated: '2026-07-05',
+      'Define canonical state and migration authority for AIOS v2, using the accepted local-first trust boundary and the completed baseline audit.',
+    trackerStatus: 'on_track',
+    trackerScore: 85,
+    lastUpdated: '2026-07-10',
     tags: ['Python', 'shell', 'SQLite', 'automation', 'AI-tooling'],
     grades: { impact: 8, difficulty: 7, ambition: 9, creativity: 9 },
     scoutTake:
@@ -194,7 +194,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
       'Move the reader and admin service onto the hosted deployment path, connect the live domain, and complete deployed acceptance smoke coverage.',
     trackerStatus: 'on_track',
     trackerScore: 88,
-    lastUpdated: '2026-07-03',
+    lastUpdated: '2026-07-10',
     tags: ['interactive-book', 'admin-CMS', 'audio', 'TypeScript', 'publishing'],
     grades: { impact: 6, difficulty: 7, ambition: 7, creativity: 9 },
     scoutTake:
@@ -210,7 +210,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
       'Complete final release review, then archive the first model-artifact release through the DOI-backed publication flow.',
     trackerStatus: 'on_track',
     trackerScore: 84,
-    lastUpdated: '2026-07-04',
+    lastUpdated: '2026-07-10',
     tags: ['Python', 'Next.js', 'survival-analysis', 'GitHub', 'dashboard'],
     grades: { impact: 8, difficulty: 8, ambition: 7, creativity: 7 },
     scoutTake:
