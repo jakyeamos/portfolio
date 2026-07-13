@@ -1,12 +1,12 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site now has a dedicated Quality Runner security-tuning branch with ten committed source-backed packs and improved UI/architecture/security precision, plus the July 2026 public package release run, hiring-manager read, route-link regression coverage, durable player-comp image fallbacks, and verified tracker sync infrastructure.
+summary: Personal portfolio site now has a dedicated Quality Runner security-tuning branch with ten committed source-backed packs, improved UI/architecture/security precision, and a configured dependency-audit gate; the gate is currently blocked by pnpm build-script approval.
 healthScore: 95
 statusLabel: on_track
-nextStep: Review the remaining low-confidence Quality Runner observations and credential fallback coverage, select the packs that earn a shared rollout, then separately merge verified tracker changes to the production deploy branch when needed.
+nextStep: Approve the existing pnpm build scripts in an interactive shell, rerun the dependency gate, then review the remaining low-confidence Quality Runner observations and credential fallback coverage.
 blockers: []
-lastUpdated: 2026-07-12
+lastUpdated: 2026-07-13
 tags: [portfolio, personal-site, react, vite, tailwind]
 areas: [home, scouting-report, film-room, blog, player-comps, impact-report]
 goals:
@@ -16,7 +16,7 @@ repoType: app
 sourceOfTruth: mixed
 primaryLanguage: TypeScript
 activeBranch: codex/quality-runner-security-tune-portfolio
-lastCommitDate: '2026-07-12'
+lastCommitDate: '2026-07-13'
 quality:
   lint: pass
   types: pass
@@ -34,6 +34,13 @@ agentExpectationsVersion: 1
 ---
 
 ## Current State
+
+- The 2026-07-13 Quality Runner `0.5.0` dogfood run recorded 7 security
+  candidates and 29 total findings with no source-file changes. Commit
+  `99d396a` adds the existing `pnpm dependency:security` command as the
+  repo-owned dependency gate; explicit verification discovered it but the
+  package setup stopped at the pre-existing interactive `pnpm approve-builds`
+  requirement, so no advisory result is claimed yet.
 
 The portfolio is on dedicated branch `codex/quality-runner-security-tune-portfolio` with tracker-sync infrastructure in place and ten committed Quality Runner skill packs under `.quality-runner/skills/`. UI, architecture, and security fallback heuristics have been dogfooded against this source tree; the React/Vite/Tailwind SPA remains the live app shape: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
 
