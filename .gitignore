@@ -18,6 +18,7 @@ Redesign Basketball Project Dashboard/
 .vite/
 
 .quality-runner/runs/
+.quality-runner/cache/
 
 .aios/reviews/
 
