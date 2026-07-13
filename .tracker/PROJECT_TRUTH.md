@@ -1,10 +1,10 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site now has a dedicated Quality Runner tuning branch with ten committed source-backed packs and improved UI/architecture precision, plus the July 2026 public package release run, hiring-manager read, route-link regression coverage, durable player-comp image fallbacks, and verified tracker sync infrastructure.
+summary: Personal portfolio site now has a dedicated Quality Runner security-tuning branch with ten committed source-backed packs and improved UI/architecture/security precision, plus the July 2026 public package release run, hiring-manager read, route-link regression coverage, durable player-comp image fallbacks, and verified tracker sync infrastructure.
 healthScore: 95
 statusLabel: on_track
-nextStep: Review the remaining low-confidence Quality Runner observations, select the packs that earn a shared rollout, then separately merge verified tracker changes to the production deploy branch when needed.
+nextStep: Review the remaining low-confidence Quality Runner observations and credential fallback coverage, select the packs that earn a shared rollout, then separately merge verified tracker changes to the production deploy branch when needed.
 blockers: []
 lastUpdated: 2026-07-12
 tags: [portfolio, personal-site, react, vite, tailwind]
@@ -15,7 +15,7 @@ goals:
 repoType: app
 sourceOfTruth: mixed
 primaryLanguage: TypeScript
-activeBranch: codex/quality-runner-ui-tune-portfolio
+activeBranch: codex/quality-runner-security-tune-portfolio
 lastCommitDate: '2026-07-12'
 quality:
   lint: pass
@@ -35,7 +35,7 @@ agentExpectationsVersion: 1
 
 ## Current State
 
-The portfolio is on dedicated branch `codex/quality-runner-ui-tune-portfolio` with tracker-sync infrastructure in place and ten committed Quality Runner skill packs under `.quality-runner/skills/`. The UI and architecture deterministic heuristics have been tuned against this source tree; the React/Vite/Tailwind SPA remains the live app shape: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
+The portfolio is on dedicated branch `codex/quality-runner-security-tune-portfolio` with tracker-sync infrastructure in place and ten committed Quality Runner skill packs under `.quality-runner/skills/`. UI, architecture, and security fallback heuristics have been dogfooded against this source tree; the React/Vite/Tailwind SPA remains the live app shape: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
 
 _(3 older entries trimmed)_
 
@@ -114,7 +114,7 @@ This is the primary public-facing artifact for career opportunities. It needs to
 
 ## Quality Ladder Notes
 
-- **Quality Runner heuristic dogfood:** `d9077ee` commits tuned UI and architecture pack copies on `codex/quality-runner-ui-tune-portfolio`. Code-scan findings fell from 169 to 158; UI empty-state matches fell from 11 to 2; architecture seam matches fell from 2 to 0; the audit report fell from 32 to 31 findings. No source files were changed.
+- **Quality Runner security dogfood:** The runner change at `72af5b5` reduced portfolio security candidates from 9 to 7, secret-fallback candidates from 2 to 0, and audit findings from 31 to 29 while preserving secret-log and secret-env-var findings. No source files were changed.
 - **TypeScript 7 audit doc:** `git diff --check -- TYPESCRIPT_7_UPGRADE_AUDIT.md` — PASS on 2026-07-10; local commit quality gate passed. No package/config changes were made.
 - **Hiring-clarity remediation QA:** `node scripts/check-internal-routes.mjs`, `pnpm lint`, `pnpm test:content`, `pnpm test`, and `pnpm build` — PASS on 2026-07-04. `pnpm build` still reports the existing Vite large chunk warning, now about a 522 kB minified JS chunk. In-app Browser QA on `http://localhost:3001/` verified the desktop homepage title and Hiring Manager Read, mobile homepage `scrollWidth` stayed at 390px with no document-level horizontal overflow, the Impact Report "Open current projects" CTA navigated to `/projects`, normal Player Comps headshots loaded, and blocked ESPN headshots exposed the initials fallback with no console warnings/errors.
 - **Weekly tracker ingestion:** `pnpm sync`, `pnpm lint`, and `pnpm build` — PASS on 2026-07-06 from `dev`. Sync loaded 15 project entries, found 15 explicit truth-map sources and 36 discovered truth files, wrote no new updates because `src/content/currentProjects.ts` already matched local truth, and skipped `signal-lab` plus `cap-fit-builder` due to missing mapped truth files. Build completed with the existing Vite large chunk warning for a 522.01 kB minified JS chunk. The generated tracker sync was committed as `dbd94ff`; production deploy impact depends on whether Netlify deploys `dev` or the commits are merged to `main`.
