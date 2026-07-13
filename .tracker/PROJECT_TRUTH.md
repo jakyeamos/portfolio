@@ -40,7 +40,9 @@ agentExpectationsVersion: 1
   `99d396a` adds the existing `pnpm dependency:security` command as the
   repo-owned dependency gate; explicit verification discovered it but the
   package setup stopped at the pre-existing interactive `pnpm approve-builds`
-  requirement, so no advisory result is claimed yet.
+requirement, so no advisory result is claimed yet.
+Commit `76f09d6` ignores the runner's generated `.quality-runner/cache/` so
+dogfood leaves no untracked cache tree.
 
 The portfolio is on dedicated branch `codex/quality-runner-security-tune-portfolio` with tracker-sync infrastructure in place and ten committed Quality Runner skill packs under `.quality-runner/skills/`. UI, architecture, and security fallback heuristics have been dogfooded against this source tree; the React/Vite/Tailwind SPA remains the live app shape: `index.html` is the Vite entrypoint, `src/` contains the page/application code, and `netlify.toml` is present for deployment configuration. The ESPN-style sports-journalism design direction remains intact.
 
