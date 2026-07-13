@@ -1,0 +1,43 @@
+[quality_runner.skills]
+enabled = true
+active = ["architecture-maintainability", "data-integrity", "developer-experience", "motion-quality", "performance-readiness", "pr-risk", "release-readiness", "security-privacy", "test-strategy", "ui-foundations"]
+
+[[quality_runner.skills.local]]
+id = "ui-foundations"
+path = ".quality-runner/skills/ui-foundations.toml"
+
+[[quality_runner.skills.local]]
+id = "test-strategy"
+path = ".quality-runner/skills/test-strategy.toml"
+
+[[quality_runner.skills.local]]
+id = "security-privacy"
+path = ".quality-runner/skills/security-privacy.toml"
+
+[[quality_runner.skills.local]]
+id = "release-readiness"
+path = ".quality-runner/skills/release-readiness.toml"
+
+[[quality_runner.skills.local]]
+id = "pr-risk"
+path = ".quality-runner/skills/pr-risk.toml"
+
+[[quality_runner.skills.local]]
+id = "data-integrity"
+path = ".quality-runner/skills/data-integrity.toml"
+
+[[quality_runner.skills.local]]
+id = "developer-experience"
+path = ".quality-runner/skills/developer-experience.toml"
+
+[[quality_runner.skills.local]]
+id = "architecture-maintainability"
+path = ".quality-runner/skills/architecture-maintainability.toml"
+
+[[quality_runner.skills.local]]
+id = "performance-readiness"
+path = ".quality-runner/skills/performance-readiness.toml"
+
+[[quality_runner.skills.local]]
+id = "motion-quality"
+path = ".quality-runner/skills/motion-quality.toml"
