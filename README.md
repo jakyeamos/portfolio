@@ -36,25 +36,25 @@ The package is marked private in `package.json`, so it is intended for local wor
 - `pnpm dev` - `vite --port=3000 --host=0.0.0.0`
 - `pnpm build` - `vite build`
 - `pnpm preview` - `vite preview`
+- `pnpm test:e2e` - browser coverage at desktop, laptop, tablet, and mobile viewports
 - `pnpm lint` - `tsc --noEmit`
 - `pnpm tracker:sync` - explicitly refresh public-safe tracker score, status, and date fields
 - `pnpm tracker:check` - report tracker drift without writing source files
 - `pnpm tracker:weekly` - run the main-branch tracker refresh gates, then confirm the Netlify production deploy is on the refreshed commit
-- `pnpm shot-inventory` - list assigned and same-zone backup Historic Shot Clip IDs by scouting axis
 - `pnpm deploy:status` - check the latest Netlify deploy through the Netlify API
 - `pnpm netlify:status` - run `netlify status` through the repo-local CLI wrapper
 - `pnpm netlify:cli -- <args>` - run the pinned local Netlify CLI with sandbox-safe config paths
 
 ## Development Notes
 
-Key runtime dependencies include `lucide-react`, `motion`, `react`, `react-dom`, `react-router-dom`.
+Key runtime dependencies include `lucide-react`, `react`, `react-dom`, and `react-router-dom`.
 Use `pnpm` from this directory or the containing workspace to install dependencies and run scripts.
 
 `pnpm tracker:sync` reads the explicitly mapped sibling project truth files to refresh only public-safe health scores, statuses, and dates in `src/content/currentProjects.ts`. Curated `portfolioUpdate` copy stays in this repository; internal next steps are never published. Normal development, linting, and builds do not run a tracker sync.
 
 Blog posts live as Markdown files in `src/content/blog/*.md`. The public `/blog` page loads those files at build time, so publishing a portfolio post is a normal repo change: add Markdown, commit, and deploy.
 
-The local owner writer is available at `/blog/write` during `pnpm dev`, or in an explicit private build with `VITE_ENABLE_BLOG_WRITER="true"`. It does not publish directly; it emits canonical Markdown plus a BIP handoff payload with portfolio and FRMWRK repo targets so BIP can own draft hosting, review, and cross-repo pushes. The FRMWRK target includes `/Users/jakyeamos/projects/frmwrklabs/WRITING_PROFILE.md` so BIP can adapt drafts into that site's house voice instead of using the personal portfolio voice.
+The local owner writer is available at `/blog/write` only during `pnpm dev`; it is not included in production builds. It does not publish directly and emits canonical Markdown for the author’s private handoff workflow.
 
 Use the repo-local Netlify CLI through `pnpm netlify:cli -- ...` or the shortcut `pnpm netlify:status`; avoid the older globally installed `netlify` binary for automation. The wrapper redirects Netlify config/cache writes into temporary directories so local status checks do not fail on macOS preference/config-store permissions. To verify production deploys without depending on CLI login/config state, set `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`, then run `pnpm deploy:status`. Set `NETLIFY_EXPECTED_COMMIT=<sha>` when you need the check to fail unless the latest ready production deploy matches a specific commit.
 

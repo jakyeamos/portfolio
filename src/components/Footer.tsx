@@ -1,17 +1,9 @@
 import type { ReactElement } from 'react';
-import { useLocation } from 'react-router-dom';
 import { QUICK_LINKS, SITE_META } from '@/content/portfolioContent';
 
 export default function Footer(): ReactElement {
-  const location = useLocation();
-  const showSideNavOffset = location.pathname !== '/';
-
   return (
-    <footer
-      className={`mt-16 border-t border-[color:var(--color-line-strong)] bg-[color:var(--color-surface-raised)] px-4 py-12 sm:px-6 ${
-        showSideNavOffset ? 'lg:ml-72' : ''
-      }`}
-    >
+    <footer className="mt-16 border-t border-[color:var(--color-line-strong)] bg-[color:var(--color-surface-raised)] px-4 py-12 sm:px-6">
       <div className="mx-auto max-w-[1440px]">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
           <div>

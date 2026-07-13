@@ -1,11 +1,7 @@
 import { type ReactElement, useState } from 'react';
 import { Blend } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import {
-  BREAKING_TICKER,
-  PLAYER_COMPS,
-  type PlayerComp,
-} from '@/content/portfolioContent';
+import { BREAKING_TICKER, PLAYER_COMPS, type PlayerComp } from '@/content/portfolioContent';
 
 function PlayerCompMedia({ comp }: { comp: PlayerComp }): ReactElement {
   const [imageFailed, setImageFailed] = useState(false);
@@ -56,22 +52,16 @@ function PlayerCompMedia({ comp }: { comp: PlayerComp }): ReactElement {
 
 export default function PlayerComps(): ReactElement {
   return (
-    <div className="lg:ml-72">
+    <div>
       <main className="page-wrap py-6 md:py-8">
-        <section className="ticker-shell animate-rise">
+        <section className="ticker-shell">
           <div className="ticker-label">Comp Watch</div>
           <div className="ticker-window">
-            <div className="ticker-track">
-              {[...BREAKING_TICKER, ...BREAKING_TICKER].map((item, index) => (
-                <span key={`${item}-${index}`} className="ticker-item">
-                  {item}
-                </span>
-              ))}
-            </div>
+            <p className="ticker-track">{BREAKING_TICKER[0]}</p>
           </div>
         </section>
 
-        <section className="mt-6 editorial-card animate-rise-delayed p-6 md:p-8">
+        <section className="mt-6 editorial-card p-6 md:p-8">
           <div className="grid gap-8 xl:grid-cols-[minmax(0,1.15fr)_320px]">
             <div>
               <div className="section-kicker">Player Comps</div>

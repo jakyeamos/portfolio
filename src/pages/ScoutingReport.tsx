@@ -15,18 +15,12 @@ import {
 
 export default function ScoutingReport(): ReactElement {
   return (
-    <div className="lg:ml-72">
+    <div>
       <main className="page-wrap py-6 md:py-8">
-        <section className="ticker-shell animate-rise">
+        <section className="ticker-shell">
           <div className="ticker-label">Live Desk</div>
           <div className="ticker-window">
-            <div className="ticker-track">
-              {[...BREAKING_TICKER, ...BREAKING_TICKER].map((item, index) => (
-                <span key={`${item}-${index}`} className="ticker-item">
-                  {item}
-                </span>
-              ))}
-            </div>
+            <p className="ticker-track">{BREAKING_TICKER[0]}</p>
           </div>
         </section>
 
@@ -40,7 +34,7 @@ export default function ScoutingReport(): ReactElement {
             stat="#JA"
           />
 
-          <div className="editorial-card animate-rise-delayed p-6 md:p-8">
+          <div className="editorial-card p-6 md:p-8">
             <div className="section-kicker">Scouting Report</div>
             <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-[color:var(--color-secondary)]">
               Draft file 2026-JA | Source-verified through local CV

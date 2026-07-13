@@ -8,7 +8,7 @@
   --color-primary: #b50d0d;
   --color-primary-deep: #850707;
   --color-secondary: #144db8;
-  --color-gold: #ba8b19;
+  --color-gold: #765300;
   --color-navy: #101c2c;
   --color-surface: #f7f2e8;
   --color-surface-raised: #fcf8f1;
@@ -33,20 +33,8 @@
     min-height: 100vh;
     background:
       linear-gradient(180deg, rgba(181, 13, 13, 0.04), transparent 180px),
-      radial-gradient(circle at top right, rgba(20, 77, 184, 0.08), transparent 30%),
-      linear-gradient(
-        90deg,
-        transparent 0,
-        transparent calc(100% - 1px),
-        rgba(21, 24, 32, 0.03) calc(100% - 1px),
-        rgba(21, 24, 32, 0.03) 100%
-      ),
+      radial-gradient(circle at top right, rgba(20, 77, 184, 0.05), transparent 28%),
       var(--color-surface);
-    background-size:
-      auto,
-      auto,
-      24px 24px,
-      auto;
     color: var(--color-ink);
   }
 
@@ -61,8 +49,7 @@
       color 180ms ease,
       background-color 180ms ease,
       border-color 180ms ease,
-      transform 180ms ease,
-      box-shadow 180ms ease;
+      transform 180ms ease;
   }
 
   h1,
@@ -72,6 +59,11 @@
   h5,
   h6 {
     @apply font-headline;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   :focus-visible {
@@ -92,11 +84,10 @@
   .editorial-card {
     border: 1px solid var(--color-line);
     background: var(--color-surface-raised);
-    box-shadow: 0 14px 40px rgba(16, 28, 44, 0.06);
   }
 
   .section-kicker {
-    @apply text-[10px] font-semibold uppercase tracking-[0.24em];
+    @apply text-[10px] font-semibold uppercase tracking-[0.18em];
     color: var(--color-primary);
   }
 
@@ -156,7 +147,6 @@
 
   .board-tab:hover {
     border-color: var(--color-primary);
-    transform: translateY(-2px);
   }
 
   .board-tab-active {
@@ -177,47 +167,27 @@
   }
 
   .ticker-window {
-    @apply relative overflow-hidden px-4 py-3;
+    @apply px-4 py-3;
     width: 100%;
   }
 
   .ticker-track {
-    @apply flex min-w-max items-center gap-12 whitespace-nowrap;
-    animation: marquee 28s linear infinite;
-  }
-
-  .ticker-item {
-    @apply text-[11px] font-semibold uppercase tracking-[0.18em];
+    @apply text-[11px] font-semibold uppercase tracking-[0.14em];
     color: var(--color-ink);
   }
+}
 
-  .animate-rise {
-    animation: riseIn 560ms ease-out both;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
   }
 
-  .animate-rise-delayed {
-    animation: riseIn 760ms ease-out both;
-  }
-
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
-  @keyframes riseIn {
-    from {
-      opacity: 0;
-      transform: translateY(24px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  a:hover,
+  button:hover {
+    transform: none !important;
   }
 }

@@ -26,9 +26,9 @@ export default function ImpactReport(): ReactElement {
   const activeCase = IMPACT_CASES.find((item) => item.title === activeCaseTitle) ?? IMPACT_CASES[0];
 
   return (
-    <div className="lg:ml-72">
+    <div>
       <main className="page-wrap py-6 md:py-8">
-        <section className="editorial-card animate-rise p-6 md:p-8">
+        <section className="editorial-card p-6 md:p-8">
           <div className="max-w-5xl">
             <div className="section-kicker">Impact Report</div>
             <h1 className="mt-4 max-w-[12ch] text-5xl font-black uppercase leading-[0.88] tracking-tight text-[color:var(--color-ink)] md:text-7xl">
@@ -109,7 +109,7 @@ export default function ImpactReport(): ReactElement {
             tone={metricTone(activeCase.kicker)}
           />
 
-          <article className="editorial-card p-6 md:p-8">
+          <article className="editorial-card min-w-0 p-6 md:p-8">
             <div className="section-kicker">Active Case</div>
             <h2 className="mt-4 text-4xl font-black uppercase leading-none tracking-tight text-[color:var(--color-ink)]">
               {activeCase.title}
@@ -149,7 +149,7 @@ export default function ImpactReport(): ReactElement {
         </section>
 
         <section className="mt-8 grid items-start gap-6 xl:grid-cols-[minmax(0,1.05fr)_360px]">
-          <article className="editorial-card p-6 md:p-8">
+          <article className="editorial-card min-w-0 p-6 md:p-8">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <div className="section-kicker">On-Off Table</div>
@@ -194,7 +194,7 @@ export default function ImpactReport(): ReactElement {
             </div>
           </article>
 
-          <aside className="grid gap-6">
+          <aside className="grid min-w-0 gap-6">
             <section className="editorial-card p-6">
               <div className="flex items-center gap-3">
                 <Gauge size={18} className="text-[color:var(--color-primary)]" />

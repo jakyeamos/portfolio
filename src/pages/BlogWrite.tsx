@@ -122,9 +122,9 @@ ${body}
   }
 
   return (
-    <div className="lg:ml-72">
+    <div>
       <main className="page-wrap py-6 md:py-8">
-        <section className="editorial-card animate-rise p-6 md:p-8">
+        <section className="editorial-card p-6 md:p-8">
           <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_360px]">
             <div>
               <div className="section-kicker">Local Writer</div>

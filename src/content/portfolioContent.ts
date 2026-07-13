@@ -1,4 +1,9 @@
-import { PORTFOLIO_ASSETS, type PosterMediaAsset } from '@/content/portfolioAssets';
+import {
+  PORTFOLIO_ASSETS,
+  PROJECT_EVIDENCE,
+  type PosterMediaAsset,
+  type ProjectEvidence,
+} from '@/content/portfolioAssets';
 
 export interface QuickLink {
   label: string;
@@ -22,7 +27,7 @@ export interface FilmRoomProject {
   badge: string;
   detail?: string;
   tone: 'red' | 'blue' | 'gold';
-  media?: PosterMediaAsset;
+  evidence: ProjectEvidence;
   stack: readonly string[];
   situation: string;
   challenge: string;
@@ -375,6 +380,7 @@ export const FILM_ROOM_PROJECTS: readonly FilmRoomProject[] = [
     deck: 'A PyPI package and MCP server that turns repo-quality checks into machine-readable evidence instead of one-off local ritual.',
     badge: 'Public package',
     tone: 'red',
+    evidence: PROJECT_EVIDENCE.qualityRunner,
     stack: ['Python', 'PyPI', 'MCP', 'Quality gates'],
     situation:
       'AI-assisted engineering keeps producing work that looks done before the repo has proof that it is actually ready.',
@@ -395,7 +401,7 @@ export const FILM_ROOM_PROJECTS: readonly FilmRoomProject[] = [
     deck: 'A released npm package surface for changed-line coverage checks and reusable pre-review diagnostics before the pull request opens.',
     badge: 'Glue-guy project',
     tone: 'blue',
-    media: PORTFOLIO_ASSETS.projects.preCRSuite,
+    evidence: PROJECT_EVIDENCE.preCrSuite,
     stack: ['TypeScript', 'npm packages', 'LSP tooling', 'Developer experience'],
     situation:
       'Code review quality often depends on memory, manual ritual, and whichever editor somebody happens to be using that day.',
@@ -416,7 +422,7 @@ export const FILM_ROOM_PROJECTS: readonly FilmRoomProject[] = [
     deck: 'A full-rotation product build with web, mobile, shared logic, discovery systems, market surfaces, clubs, sets, and admin tooling all living in the same offense.',
     badge: 'Lead creation reps',
     tone: 'gold',
-    media: PORTFOLIO_ASSETS.projects.soundscape,
+    evidence: PROJECT_EVIDENCE.soundscape,
     stack: ['Next.js 14', 'tRPC', 'Prisma', 'Expo', 'Monorepo'],
     situation:
       'Build a music product broad enough to support discovery, ratings, feeds, market and portfolio features, clubs, artist briefs, and shared web/mobile logic without letting the system sprawl.',
@@ -652,33 +658,5 @@ export const IMPACT_SUPPORTING_STATS = [
     label: 'Internship window',
     value: '2023-2025',
     copy: 'Amazon internship work spans multiple terms across that window.',
-  },
-] as const;
-
-export const BROADCAST_ASSETS = [
-  {
-    label: 'Headshot or cutout portrait',
-    status: 'Loaded',
-    note: 'The main headshot is live at /media/headshots/jakye-main.jpg. Replace that file or update the asset manifest to swap it.',
-  },
-  {
-    label: 'Intro video clip',
-    status: 'Needed',
-    note: 'Add /media/intro/scouting-intro.mp4 and the broadcast module can switch from still image to motion.',
-  },
-  {
-    label: 'Voice-over audio',
-    status: 'Needed',
-    note: 'Add /media/intro/scouting-voiceover.mp3 if you want a real audio layer for the scouting intro.',
-  },
-  {
-    label: 'Transcript and captions',
-    status: 'Placeholder',
-    note: 'Structure is live now. Needs finalized script copy to feel complete.',
-  },
-  {
-    label: 'Poster thumbnail art',
-    status: 'Placeholder',
-    note: 'Add /media/intro/scouting-poster.jpg to separate the intro poster from the headshot crop.',
   },
 ] as const;
