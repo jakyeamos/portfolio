@@ -1,3 +1,14 @@
+[quality_runner]
+
+[[quality_runner.gates]]
+id = "security_dependency_audit"
+command = "pnpm dependency:security"
+ecosystem = "javascript"
+source = "package.json:scripts.dependency:security"
+owner = "platform"
+required = true
+severity = "blocker"
+
 [quality_runner.skills]
 enabled = true
 active = ["architecture-maintainability", "data-integrity", "developer-experience", "motion-quality", "performance-readiness", "pr-risk", "release-readiness", "security-privacy", "test-strategy", "ui-foundations"]
