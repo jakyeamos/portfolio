@@ -1,10 +1,10 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Personal portfolio site now has a dedicated Quality Runner security-tuning branch with ten committed source-backed packs, improved UI/architecture/security precision, and a configured dependency-audit gate; the gate is currently blocked by pnpm build-script approval.
+summary: Personal portfolio site now has a dedicated Quality Runner security-tuning branch with ten committed source-backed packs, improved UI/architecture/security precision, and a passing dependency-audit gate; the remaining QR failure is formatter debt.
 healthScore: 95
 statusLabel: on_track
-nextStep: Approve the existing pnpm build scripts in an interactive shell, rerun the dependency gate, then review the remaining low-confidence Quality Runner observations and credential fallback coverage.
+nextStep: Review the remaining formatter debt and low-confidence Quality Runner observations, then decide which packs earn a shared rollout.
 blockers: []
 lastUpdated: 2026-07-13
 tags: [portfolio, personal-site, react, vite, tailwind]
@@ -35,12 +35,20 @@ agentExpectationsVersion: 1
 
 ## Current State
 
+- Commit `bd4b0a7` replaces the placeholder pnpm build approvals with an
+  explicit `allowBuilds` allowlist for `@parcel/watcher`, `esbuild`,
+  `netlify-cli`, `sharp`, and `unix-dgram`, and removes the conflicting
+  ignored-build list. `pnpm install --frozen-lockfile` now succeeds, and the
+  dependency gate passes with 0 high/critical advisories. Quality Runner
+  verification also passed lint, typecheck, runtime smoke, dead-code, tests,
+  and build; formatter remains the only failed gate.
+
 - The 2026-07-13 Quality Runner `0.5.0` dogfood run recorded 7 security
   candidates and 29 total findings with no source-file changes. Commit
   `99d396a` adds the existing `pnpm dependency:security` command as the
-  repo-owned dependency gate; explicit verification discovered it but the
-  package setup stopped at the pre-existing interactive `pnpm approve-builds`
-requirement, so no advisory result is claimed yet.
+  repo-owned dependency gate; explicit verification initially encountered the
+  interactive `pnpm approve-builds` requirement, which is now resolved by the
+  tracked build allowlist.
 Commit `76f09d6` ignores the runner's generated `.quality-runner/cache/` so
 dogfood leaves no untracked cache tree.
 
