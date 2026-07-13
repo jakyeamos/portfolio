@@ -21,7 +21,9 @@ if (!allowNonMain && currentBranch !== expectedBranch) {
   process.exit(1);
 }
 
-run('pnpm', ['sync']);
+run('pnpm', ['tracker:sync']);
+run('pnpm', ['tracker:check']);
+run('pnpm', ['test:content']);
 run('pnpm', ['lint']);
 run('pnpm', ['build']);
 ensureCleanRefresh();

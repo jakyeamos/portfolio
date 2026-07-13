@@ -2112,16 +2112,16 @@ export default function CurrentProjects(): ReactElement {
                   {selectedProject.summary}
                 </p>
 
-                {/* Tracker comment → Next Play */}
+                {/* Curated public update */}
                 <div className="mt-6 border border-[color:var(--color-line)] bg-white p-5">
                   <div className="flex items-center gap-2">
                     <Zap size={16} className="text-[color:var(--color-primary)]" />
                     <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-primary)]">
-                      Next Play
+                      Portfolio Update
                     </div>
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-[color:var(--color-ink)]">
-                    {selectedProject.trackerComment}
+                    {selectedProject.portfolioUpdate}
                   </p>
                 </div>
 

@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
 import ts from 'typescript';
 
 const root = resolve(import.meta.dirname, '..');
 const sourcePath = resolve(root, 'src/content/currentProjects.ts');
-const compiled = ts.transpileModule(readFileSync(sourcePath, 'utf8'), {
+const currentProjectSource = readFileSync(sourcePath, 'utf8');
+const compiled = ts.transpileModule(currentProjectSource, {
   compilerOptions: {
     module: ts.ModuleKind.ES2022,
     target: ts.ScriptTarget.ES2022,
@@ -32,7 +32,7 @@ function validateProject(project, collectionName, index) {
     'title',
     'shortCode',
     'summary',
-    'trackerComment',
+    'portfolioUpdate',
     'trackerStatus',
     'lastUpdated',
     'scoutTake',
@@ -104,6 +104,12 @@ function validateCollection(name, projects) {
 
 validateCollection('CURRENT_PROJECTS', CURRENT_PROJECTS);
 validateCollection('CLOSED_PROJECTS', CLOSED_PROJECTS);
+
+for (const forbiddenPattern of [/\btrackerComment\b/, /\bnextStep\b/, /\/Users\//, /\.tracker\//]) {
+  if (forbiddenPattern.test(currentProjectSource)) {
+    fail(`public project content contains forbidden source text: ${forbiddenPattern}`);
+  }
+}
 
 if (!process.exitCode) {
   console.log(

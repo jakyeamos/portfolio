@@ -15,7 +15,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10.26.0
+          version: 11.7.0
           run_install: false
 
       - name: Setup Node.js
@@ -34,5 +34,11 @@ jobs:
       - name: pnpm lint
         run: pnpm lint
 
+      - name: pnpm test:content
+        run: pnpm test:content
+
       - name: pnpm build
         run: pnpm build
+
+      - name: Confirm verification is read-only
+        run: git diff --exit-code

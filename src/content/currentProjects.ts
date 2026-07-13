@@ -5,7 +5,7 @@ export interface CurrentProject {
   title: string;
   shortCode: string;
   summary: string;
-  trackerComment: string;
+  portfolioUpdate: string;
   trackerStatus: 'on_track' | 'needs_attention' | 'stalled' | 'shipped';
   trackerScore: number;
   lastUpdated: string;
@@ -45,8 +45,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'SC',
     summary:
       'Full-stack music social platform in active development — covering discovery, ratings, feeds, market surfaces, clubs, and a shared web/mobile codebase in a TypeScript monorepo.',
-    trackerComment:
-      'Continue hosted preview validation from the working prebuilt deployment while the normal repository-connected preview path is escalated with deployment evidence.',
+    portfolioUpdate: 'Active beta hardening across the shared web and mobile product surfaces.',
     trackerStatus: 'needs_attention',
     trackerScore: 78,
     lastUpdated: '2026-07-07',
@@ -61,8 +60,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'AI',
     summary:
       'Personal AI operating system built around session hooks, workflow orchestration, pattern extraction, and layered knowledge retrieval — actively used as the backbone of daily engineering operations.',
-    trackerComment:
-      'Define canonical state and migration authority for AIOS v2, using the accepted local-first trust boundary and the completed baseline audit.',
+    portfolioUpdate: 'Local-first engineering operations system moving through its v2 modernization.',
     trackerStatus: 'on_track',
     trackerScore: 85,
     lastUpdated: '2026-07-10',
@@ -77,11 +75,10 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'TR',
     summary:
       'Published spec-driven AI development CLI that governs structured, test-validated builds — live on npm as @jakyeamos33/terrace with the 0.2.0 line staged in-repo for the next distribution pass.',
-    trackerComment:
-      'Keep the local workflow entrypoint and release-readiness guard in regular use before protected work ships.',
+    portfolioUpdate: 'Public npm package with release-readiness checks and a staged next version.',
     trackerStatus: 'on_track',
     trackerScore: 100,
-    lastUpdated: '2026-07-05',
+    lastUpdated: '2026-07-13',
     tags: ['framework', 'npm', 'AI-tooling', 'validation'],
     grades: { impact: 8, difficulty: 8, ambition: 9, creativity: 8 },
     scoutTake:
@@ -93,8 +90,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'BC',
     summary:
       'Government-contracting platform with v1.0 shipped — full-stack Next.js app built on Supabase and Stripe with active work toward v1.1 feature expansion.',
-    trackerComment:
-      'Resolve the two incomplete Houston outreach contacts or intentionally exclude them, then complete the customer-scoped data import, campaign execution, and result logging.',
+    portfolioUpdate: 'v1.0 is shipped; the next product expansion is in active development.',
     trackerStatus: 'needs_attention',
     trackerScore: 78,
     lastUpdated: '2026-07-04',
@@ -109,8 +105,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'TK',
     summary:
       'Electron + React + SQLite local-first task tracker with a full service layer and data architecture in place, currently being wired up for its first development run.',
-    trackerComment:
-      'Launch the desktop app in dev mode and verify the responsive project board and detail pane behave correctly at half-width and full-width window sizes.',
+    portfolioUpdate: 'Local-first desktop workbench with the core service and data layers in place.',
     trackerStatus: 'needs_attention',
     trackerScore: 78,
     lastUpdated: '2026-06-29',
@@ -126,8 +121,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'FT',
     summary:
       'Local-first dynasty fantasy football intelligence app featuring a working trade engine, FastAPI backend, React/Vite frontend, and DuckDB persistence — with multi-team scoring in active development.',
-    trackerComment:
-      'Feed sourced route, usage, snap, and first-read metrics through the new metadata import path so player comparisons rest on denser evidence.',
+    portfolioUpdate: 'Trade-engine and multi-team scoring systems remain in active development.',
     trackerStatus: 'on_track',
     trackerScore: 78,
     lastUpdated: '2026-07-03',
@@ -142,8 +136,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'RV',
     summary:
       'AI-powered remodeling cost platform where homeowners upload a room photo and receive a generated renovation visualization alongside a line-item cost estimate. Core implementation complete and in final launch hardening.',
-    trackerComment:
-      'Finish launch hardening: production room workflow UX, persisted session history, itemized estimate display, external-service retry states, and demo/UAT smoke coverage.',
+    portfolioUpdate: 'Core product is complete and moving through launch hardening.',
     trackerStatus: 'needs_attention',
     trackerScore: 73,
     lastUpdated: '2026-06-22',
@@ -158,8 +151,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'BB',
     summary:
       'Merged BBDSE CourtIQ lane: the Court Vision/Bballedu draft, lobby, waiting-room, and recap runtime now lives inside the BBDSE product suite, with the old standalone repo preserved as an archive/fallback boundary.',
-    trackerComment:
-      'Extend the trade engine with advanced CBA edge cases, trade-exception accounting, pick-swap validation, and rollback-safe execution.',
+    portfolioUpdate: 'CourtIQ and the BBDSE runtime now share one unified product lane.',
     trackerStatus: 'on_track',
     trackerScore: 84,
     lastUpdated: '2026-07-02',
@@ -174,8 +166,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'DS',
     summary:
       'Full-stack blog platform with API routes, Postgres and Clerk integration, content-management flows, and cross-posting features — actively developed across a monorepo package structure.',
-    trackerComment:
-      'Clear the formatter and dead-code cleanup first, then take a broader quality-debt pass across the blog platform.',
+    portfolioUpdate: 'Blogging and cross-posting platform with its core architecture shipped.',
     trackerStatus: 'on_track',
     trackerScore: 70,
     lastUpdated: '2026-07-03',
@@ -190,8 +181,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'BK',
     summary:
       'Interactive digital book reader with chapter-specific visuals, music, ambient effects, particles, and a growing admin CMS layer for nontechnical chapter editing and soundtrack cue management.',
-    trackerComment:
-      'Move the reader and admin service onto the hosted deployment path, connect the live domain, and complete deployed acceptance smoke coverage.',
+    portfolioUpdate: 'Interactive reader and editorial tooling are under active refinement.',
     trackerStatus: 'on_track',
     trackerScore: 88,
     lastUpdated: '2026-07-10',
@@ -206,8 +196,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'GI',
     summary:
       'Survival-analysis pipeline and Next.js triage dashboard for predicting issue resolution time across major open-source repos, with reproducible stages, fixture-backed UI tests, and CI covering both the pipeline and dashboard.',
-    trackerComment:
-      'Complete final release review, then archive the first model-artifact release through the DOI-backed publication flow.',
+    portfolioUpdate: 'Reproducible analysis pipeline and triage surface are ready for release.',
     trackerStatus: 'on_track',
     trackerScore: 84,
     lastUpdated: '2026-07-10',
@@ -222,8 +211,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'SL',
     summary:
       'Basketball analytics platform built to separate real signal from noise — identifying which stats stabilize quickly, which remain unreliable, and how sample requirements shift by role and competition level.',
-    trackerComment:
-      'Downstream projects may consume the current Signal Lab report contracts for research MVP work; keep publishable claims framed as diagnostics because validation still has known caveats.',
+    portfolioUpdate: 'Research diagnostics frame the evidence behind the basketball product suite.',
     trackerStatus: 'on_track',
     trackerScore: 88,
     lastUpdated: '2026-06-30',
@@ -238,8 +226,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'CF',
     summary:
       "Contextual roster-fit analysis tool that identifies which players solve a specific team's real problems — accounting for cap constraints, role fit, playoff durability, and developmental upside.",
-    trackerComment:
-      'Populate salary/acquisition data and replace neutral CLFE portability once CLFE has stint-level outputs.',
+    portfolioUpdate: 'Team-context modeling work remains in development.',
     trackerStatus: 'needs_attention',
     trackerScore: 52,
     lastUpdated: '2026-05-20',
@@ -254,8 +241,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'CL',
     summary:
       'Contextual Lineup Fit Engine — models why a player elevates some lineups and drags down others, moving beyond raw on/off to explain conditional impact by roster context.',
-    trackerComment:
-      'Decide whether to open CLFE V2 source-policy work: populated manual/video observations, authorized tracking/action-context data, or a governed event-linked public/free parser.',
+    portfolioUpdate: 'Lineup-context modeling work remains in development.',
     trackerStatus: 'needs_attention',
     trackerScore: 62,
     lastUpdated: '2026-06-30',
@@ -270,8 +256,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'RT',
     summary:
       'Role Translation Engine — projects which NBA roles prospects can realistically succeed in by modeling context dependence, competition inflation, and role downshifting rather than ranking raw talent.',
-    trackerComment:
-      'Complete final release review for the DOI-ready model artifact, then continue transferable-signal modeling for the next draft board.',
+    portfolioUpdate: 'Role-translation modeling is moving through its next release.',
     trackerStatus: 'on_track',
     trackerScore: 75,
     lastUpdated: '2026-07-04',
@@ -289,7 +274,7 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'QR',
     summary:
       'Released PyPI package and MCP server for running repository quality checks, collecting evidence, and turning local verification into a machine-readable proof artifact.',
-    trackerComment: 'Published to PyPI as quality-runner v0.3.1 on 2026-07-04.',
+    portfolioUpdate: 'Published to PyPI as quality-runner v0.3.1 on 2026-07-04.',
     trackerStatus: 'shipped',
     trackerScore: 100,
     lastUpdated: '2026-07-04',
@@ -304,7 +289,7 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'AS',
     summary:
       'Released ESLint plugin that catches low-signal AI/code-review patterns before they land, giving TypeScript repos a targeted guardrail against vague or sloppy generated code.',
-    trackerComment: 'Published to npm as eslint-plugin-anti-slop v0.2.0 on 2026-07-04.',
+    portfolioUpdate: 'Published to npm as eslint-plugin-anti-slop v0.2.0 on 2026-07-04.',
     trackerStatus: 'shipped',
     trackerScore: 100,
     lastUpdated: '2026-07-04',
@@ -319,7 +304,7 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'AE',
     summary:
       'Released PyPI package with typed contracts for agent evaluations: cases, rubrics, evidence, run metadata, and result payloads that stay consistent across evaluators.',
-    trackerComment: 'Published to PyPI as agent-eval-contract v0.2.0 on 2026-07-04.',
+    portfolioUpdate: 'Published to PyPI as agent-eval-contract v0.2.0 on 2026-07-04.',
     trackerStatus: 'shipped',
     trackerScore: 100,
     lastUpdated: '2026-07-04',
@@ -334,7 +319,7 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'RD',
     summary:
       'Released PyPI package for research-grounded writing workflows that preserve source evidence, domain framing, and claim discipline from research through draft output.',
-    trackerComment: 'Published to PyPI as research-domain-writing v0.1.0 on 2026-07-04.',
+    portfolioUpdate: 'Published to PyPI as research-domain-writing v0.1.0 on 2026-07-04.',
     trackerStatus: 'shipped',
     trackerScore: 100,
     lastUpdated: '2026-07-04',
@@ -349,8 +334,8 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'TM',
     summary:
       'Released Claude + Codex marketplace-tested MCP/plugin distribution for composable skill-packet workflows including expert audits, release readiness, UI rubrics, routing policies, and agent handoffs.',
-    trackerComment:
-      'The v0.3.2 release has been verified across marketplace install flows, launcher checks, registry preparation, and public package integrity checks.',
+    portfolioUpdate:
+      'The v0.3.2 release is verified across marketplace install flows and public package integrity checks.',
     trackerStatus: 'shipped',
     trackerScore: 100,
     lastUpdated: '2026-07-04',
@@ -365,7 +350,7 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'PC',
     summary:
       'Released npm package surface for coverage-first pre-PR readiness: @pre-cr/core and @pre-cr/server expose changed-line coverage checks and reusable review diagnostics before a pull request opens.',
-    trackerComment:
+    portfolioUpdate:
       'Published to npm as @pre-cr/core v0.1.0 and @pre-cr/server v0.1.0 on 2026-07-04.',
     trackerStatus: 'shipped',
     trackerScore: 100,

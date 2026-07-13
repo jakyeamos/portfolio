@@ -7,6 +7,7 @@ const root = resolve(import.meta.dirname, '..');
 const coveragePath = resolve(root, 'coverage/pre-cr.lcov');
 const sourceExtensions = /\.(?:[cm]?[jt]sx?)$/;
 const blogMarkdownPath = /^src\/content\/blog\/[^/]+\.md$/;
+const trackerMapPath = '.tracker/truth-map.json';
 
 const changedFiles = execFileSync('git', ['diff', '--cached', '--name-only', 'HEAD'], {
   cwd: root,
@@ -14,11 +15,15 @@ const changedFiles = execFileSync('git', ['diff', '--cached', '--name-only', 'HE
 })
   .split('\n')
   .map((line) => line.trim())
-  .filter((line) => sourceExtensions.test(line) || blogMarkdownPath.test(line));
+  .filter(
+    (line) => sourceExtensions.test(line) || blogMarkdownPath.test(line) || line === trackerMapPath,
+  );
 
 const commandCoverage = new Map([
   ['src/content/currentProjects.ts', ['node', ['scripts/check-project-content.mjs']]],
   ['scripts/check-project-content.mjs', ['node', ['scripts/check-project-content.mjs']]],
+  ['scripts/sync-tracker.mjs', ['node', ['scripts/sync-tracker.mjs', '--check']]],
+  [trackerMapPath, ['node', ['scripts/sync-tracker.mjs', '--check']]],
   ['src/content/blogContent.ts', ['node', ['scripts/check-blog-content.mjs']]],
   ['src/content/blogMarkdown.ts', ['node', ['scripts/check-blog-content.mjs']]],
   ['src/content/blogSorting.ts', ['node', ['scripts/check-blog-content.mjs']]],

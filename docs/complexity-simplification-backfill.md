@@ -19,7 +19,7 @@ Gate source: `/Users/jakyeamos/AIOS/docs/quality/complexity-simplification-gate.
 
 ## Commands Attempted
 
-- `pnpm lint`: passed. This runs `pnpm sync` and `tsc --noEmit`; sync reported all 15 tracked project entries up to date and wrote no files.
+- Historical baseline: `pnpm lint` passed when it still invoked the old tracker sync. The current workflow keeps tracker refresh explicit so linting never writes source files.
 - `pnpm test`: unavailable - no test script configured.
 - `pnpm build`: not run for this audit slice; this backfill is documentation-only and `pnpm lint` covered TypeScript correctness.
 
