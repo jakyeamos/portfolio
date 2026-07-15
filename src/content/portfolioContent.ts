@@ -37,6 +37,15 @@ export interface FilmRoomProject {
   engineeringRead: string;
 }
 
+export interface ClientWork {
+  kicker: string;
+  title: string;
+  status: string;
+  deck: string;
+  stack: readonly string[];
+  detail: string;
+}
+
 export interface HeroAction {
   label: string;
   href: string;
@@ -86,11 +95,11 @@ export interface ConceptNote {
 export const SITE_META = {
   name: 'Jakye Amos',
   brand: 'Front Office // Amos',
-  role: 'Full-Stack Software Engineer',
+  role: 'Backend, AI & Product Software Engineer',
   location: 'US / Remote',
   school: 'Case Western Reserve University',
-  graduation: 'Expected May 2026',
-  opportunityStatus: 'Open to opportunities',
+  graduation: 'Expected Spring 2027',
+  opportunityStatus: 'Available full-time',
 } as const;
 
 export const PAGE_LINKS = [
@@ -109,11 +118,25 @@ export const PAGE_LINKS = [
 
 export const QUICK_LINKS: readonly QuickLink[] = [
   {
-    label: 'Download Resume',
+    label: 'Download ATS Resume',
+    href: '/docs/Jakye_Amos_Canonical_Base_Resume.pdf',
+    detail: 'PDF',
+    download: true,
+    downloadFileName: 'Jakye_Amos_Canonical_Base_Resume.pdf',
+  },
+  {
+    label: 'Download Evidence Master',
     href: '/docs/Jakye_Amos_Comprehensive_CV.docx',
     detail: 'DOCX',
     download: true,
-    downloadFileName: 'Jakye_Amos_Resume.docx',
+    downloadFileName: 'Jakye_Amos_Evidence_Master.docx',
+  },
+  {
+    label: 'Download Evidence Master PDF',
+    href: '/docs/Jakye_Amos_Comprehensive_CV.pdf',
+    detail: 'PDF',
+    download: true,
+    downloadFileName: 'Jakye_Amos_Evidence_Master.pdf',
   },
   {
     label: 'GitHub',
@@ -134,12 +157,12 @@ export const QUICK_LINKS: readonly QuickLink[] = [
 
 export const HERO_ACTIONS: readonly HeroAction[] = [
   {
-    label: 'Download resume',
-    href: '/docs/Jakye_Amos_Comprehensive_CV.docx',
+    label: 'Download ATS resume',
+    href: '/docs/Jakye_Amos_Canonical_Base_Resume.pdf',
     kind: 'external',
     variant: 'primary',
     download: true,
-    downloadFileName: 'Jakye_Amos_Resume.docx',
+    downloadFileName: 'Jakye_Amos_Canonical_Base_Resume.pdf',
   },
   {
     label: 'Read scouting report',
@@ -180,6 +203,54 @@ export const HERO_PROOF: readonly HeroProof[] = [
   },
 ] as const;
 
+export const CLIENT_WORK: readonly ClientWork[] = [
+  {
+    kicker: 'Venture / AI platform',
+    title: 'Tenure',
+    status: 'LaunchNY cohort',
+    deck: 'Pilot-ready organizational intelligence platform that turns specialist-led knowledge capture into reviewed SOPs, permissioned institutional memory, cited Q&A, and process intelligence.',
+    stack: ['Next.js', 'TypeScript', 'Supabase/Postgres', 'RLS', 'LLM retrieval'],
+    detail:
+      'v1.1 shipped; pre-pilot hardening is underway. Public-facing copy intentionally omits private source links and planned-pilot details.',
+  },
+  {
+    kicker: 'Client product / GovCon SaaS',
+    title: 'BidCamp',
+    status: 'Live closed beta',
+    deck: 'Multi-tenant platform for MBE/MWBE firms with Claude-powered RFP analysis, procurement intelligence, CRM workflows, compliance tracking, and human-reviewed digests.',
+    stack: ['Next.js', 'Supabase/Postgres', 'RLS', 'Claude', 'Stripe'],
+    detail:
+      'Live at usebidcamp.com in closed beta; no private customer or tenant data is exposed here.',
+  },
+  {
+    kicker: 'Applied data / legal product',
+    title: 'CrimClock',
+    status: 'Product build / reviewer preview',
+    deck: 'Neutral legal time-intelligence platform for procedural timing, sentencing, parole eligibility, custody impact, risk indicators, and plain-language explanations.',
+    stack: ['Next.js', 'FastAPI', 'Python', 'PostgreSQL', 'Docker'],
+    detail:
+      'Built as decision-support infrastructure with explainable calculations and explicit disclaimer boundaries, not legal advice.',
+  },
+  {
+    kicker: 'Client product / recruiting intelligence',
+    title: 'Hoopscout',
+    status: 'Private beta',
+    deck: 'Coach-facing basketball recruiting workflow with verified search, athlete profile review, coach-specific fit weighting, ranked school-fit signals, messaging, transcript controls, and trust operations.',
+    stack: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Moderation ops'],
+    detail:
+      'Private-beta product surface; public copy does not expose user data or imply a public user base.',
+  },
+  {
+    kicker: 'Applied AI / product build',
+    title: 'RemodelVision',
+    status: 'Working product build',
+    deck: 'Photo-to-visualization and rough-cost-estimation workflow using Claude vision and fal.ai image transformation services.',
+    stack: ['Next.js', 'TypeScript', 'Supabase', 'Prisma', 'Claude vision'],
+    detail:
+      'Core analysis and visualization paths work; full persistence flow and additional specialist agents remain in progress.',
+  },
+] as const;
+
 export const HIRING_MANAGER_READ: readonly HiringManagerRead[] = [
   {
     label: 'Best fit',
@@ -189,7 +260,7 @@ export const HIRING_MANAGER_READ: readonly HiringManagerRead[] = [
   {
     label: 'Proof',
     title: 'Enterprise reps plus public releases',
-    copy: 'Amazon Ads/FinTech internships, Cleveland Clinic and operations builds, and public PyPI/npm package surfaces anchor the read.',
+    copy: 'Amazon Ads/FinTech internships, CTO-level client delivery, Tenure LaunchNY cohort work, and public PyPI/npm package surfaces anchor the read.',
   },
   {
     label: 'Next step',
@@ -298,13 +369,13 @@ export const FEATURE_REPORTS = [
 
 export const SCOUTING_FACTS = [
   { label: 'Archetype', value: 'Full-stack | Data + AI' },
-  { label: 'Education', value: 'CWRU, May 2026' },
+  { label: 'Education', value: 'CWRU, Spring 2027' },
   { label: 'Leadership', value: 'AIDC Vice President' },
-  { label: 'Availability', value: 'Open to opportunities' },
+  { label: 'Availability', value: 'Available full-time' },
 ] as const;
 
 export const SCOUTING_OVERVIEW = [
-  'Jakye Amos enters the 2026 recruiting cycle as a multi-positional engineering prospect with enterprise reps at Amazon, consulting production minutes across healthcare and operations, and public developer-tool releases across PyPI, npm, and MCP/plugin surfaces.',
+  'Jakye Amos enters the 2026 recruiting cycle as a multi-positional engineering prospect with enterprise reps at Amazon, CTO-level client delivery, a LaunchNY cohort venture, and public developer-tool releases across PyPI, npm, and MCP/plugin surfaces.',
   'He is a player trusted in short-shot-clock situations. A Cleveland Clinic MVP shipped in 2 weeks, an architecture-firm productivity build landed in under 5 weeks, and a legacy refactor for a major live event was turned around in 11 days.',
   'The skill package looks less like a specialist and more like a connective guard-wing. Frontend product work, backend systems, analytics, workflow tooling, AI-assisted operations, and full-stack product structure all show up on the tape.',
 ] as const;
@@ -331,7 +402,7 @@ export const SCOUTING_STRENGTHS = [
 export const SCOUTING_FOCUS = [
   {
     title: 'AI product reps',
-    copy: 'Recent work leans into AI-assisted systems, marketing automation, and operating-system-style tooling where the value has to show up in real workflow improvement.',
+    copy: 'Recent work leans into Tenure, BidCamp, RemodelVision, AI-assisted systems, marketing automation, and operating-system-style tooling where the value has to show up in real workflow improvement.',
   },
   {
     title: 'Developer infrastructure reps',

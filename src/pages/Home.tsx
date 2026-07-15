@@ -5,6 +5,7 @@ import EditorialPoster from '@/components/EditorialPoster';
 import { PORTFOLIO_ASSETS } from '@/content/portfolioAssets';
 import {
   BREAKING_TICKER,
+  CLIENT_WORK,
   FILM_ROOM_PROJECTS,
   HERO_PROOF,
   SITE_META,
@@ -24,10 +25,10 @@ export default function Home(): ReactElement {
         <div className="editorial-card p-6 md:p-8">
           <div className="section-kicker">Recruiting dossier</div>
           <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-secondary)]">
-            Full-stack engineering · product systems · data and AI workflows
+            Backend engineering · product systems · data and AI workflows
           </p>
           <h1 className="mt-4 max-w-4xl text-5xl font-black uppercase leading-[0.9] tracking-[-0.03em] text-[color:var(--color-ink)] md:text-7xl">
-            Full-stack engineer who turns complicated workflows into working products.
+            Software engineer who turns complicated workflows into working products.
           </h1>
           <p className="mt-5 max-w-3xl text-lg leading-relaxed text-[color:var(--color-ink-soft)] md:text-xl">
             {SITE_META.name} connects product, backend, data, and AI workflow systems. The short
@@ -38,8 +39,8 @@ export default function Home(): ReactElement {
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               className="btn-primary"
-              href="/docs/Jakye_Amos_Comprehensive_CV.docx"
-              download="Jakye_Amos_Resume.docx"
+              href="/docs/Jakye_Amos_Canonical_Base_Resume.pdf"
+              download="Jakye_Amos_Canonical_Base_Resume.pdf"
             >
               Download resume
               <ArrowUpRight className="ml-2" size={16} aria-hidden="true" />
@@ -72,10 +73,10 @@ export default function Home(): ReactElement {
 
         <EditorialPoster
           kicker="Prospect poster"
-          badge="Open to opportunities"
+          badge={SITE_META.opportunityStatus}
           title="Jakye Amos"
-          subtitle="Full-stack software engineer"
-          detail="US / Remote · Expected May 2026"
+          subtitle="Backend, AI & product software engineer"
+          detail="US / Remote · Available full-time"
           media={PORTFOLIO_ASSETS.home.broadcastLead}
           stat="#JA"
           tone="red"
@@ -122,6 +123,47 @@ export default function Home(): ReactElement {
             </Link>
           ))}
         </div>
+      </section>
+
+      <section className="mt-14 border-t border-[color:var(--color-line-strong)] pt-6 md:pt-8">
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <div className="section-kicker">Client & applied systems</div>
+            <h2 className="mt-3 text-4xl font-black uppercase leading-[0.95] tracking-[-0.03em] text-[color:var(--color-ink)] md:text-5xl">
+              Product work that has to survive contact with real users.
+            </h2>
+          </div>
+          <Link className="report-link shrink-0" to="/film-room">
+            Read the work
+            <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+        </div>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {CLIENT_WORK.map((project) => (
+            <article
+              key={project.title}
+              className="border border-[color:var(--color-line)] bg-[color:var(--color-surface-muted)] p-5"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-primary)]">
+                  {project.kicker}
+                </span>
+                <span className="stat-chip">{project.status}</span>
+              </div>
+              <h3 className="mt-4 text-3xl font-black uppercase leading-none tracking-[-0.02em] text-[color:var(--color-ink)]">
+                {project.title}
+              </h3>
+              <p className="mt-4 text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
+                {project.deck}
+              </p>
+            </article>
+          ))}
+        </div>
+        <p className="mt-4 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
+          Private-beta and client-facing systems are described at a public-safe level; private
+          source links and user data are intentionally withheld.
+        </p>
       </section>
 
       <nav

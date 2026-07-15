@@ -200,7 +200,7 @@ export default function ScoutingReport(): ReactElement {
                   </p>
                   <p className="mt-2 text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
                     B.A. in Computer Science with minors in Artificial Intelligence, Applied Data
-                    Science, and Statistics. Expected May 2026.
+                    Science, and Statistics. Expected completion: Spring 2027.
                   </p>
                 </div>
 

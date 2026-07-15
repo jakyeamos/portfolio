@@ -1,7 +1,7 @@
 import { type KeyboardEvent, type ReactElement, useId, useRef, useState } from 'react';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { FILM_ROOM_PROJECTS } from '@/content/portfolioContent';
+import { CLIENT_WORK, FILM_ROOM_PROJECTS } from '@/content/portfolioContent';
 
 const BREAKDOWN_LABELS = [
   { label: 'Situation', key: 'situation' },
@@ -194,6 +194,61 @@ export default function FilmRoom(): ReactElement {
           ) : null}
         </aside>
       </div>
+
+      <section
+        className="mt-14 border-t border-[color:var(--color-line-strong)] pt-6 md:pt-8"
+        aria-labelledby="client-work-heading"
+      >
+        <div className="max-w-4xl">
+          <div className="section-kicker">Client & applied systems</div>
+          <h2
+            id="client-work-heading"
+            className="mt-4 text-4xl font-black uppercase leading-[0.95] tracking-[-0.03em] text-[color:var(--color-ink)] md:text-5xl"
+          >
+            The work beyond the public repo shelf.
+          </h2>
+          <p className="mt-4 max-w-3xl text-lg leading-relaxed text-[color:var(--color-ink-soft)]">
+            These systems show the client, domain, and product side of the engineering profile.
+            Private-beta and client-facing work is described at a public-safe level without private
+            source links or user data.
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          {CLIENT_WORK.map((project) => (
+            <article
+              key={project.title}
+              className="border border-[color:var(--color-line)] bg-[color:var(--color-surface-muted)] p-5"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-primary)]">
+                  {project.kicker}
+                </span>
+                <span className="stat-chip">{project.status}</span>
+              </div>
+              <h3 className="mt-4 text-3xl font-black uppercase leading-none tracking-[-0.02em] text-[color:var(--color-ink)]">
+                {project.title}
+              </h3>
+              <p className="mt-4 text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
+                {project.deck}
+              </p>
+              <div
+                className="mt-4 flex flex-wrap gap-2"
+                aria-label={`${project.title} technology stack`}
+              >
+                {project.stack.map((item) => (
+                  <span key={item} className="stat-chip">
+                    {item}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-4 border-t border-[color:var(--color-line)] pt-4 text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
+                {project.detail}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
 
       <nav
         className="mt-12 flex flex-wrap gap-x-8 gap-y-4 border-t border-[color:var(--color-line)] pt-6"
