@@ -144,6 +144,21 @@ export const QUICK_LINKS: readonly QuickLink[] = [
     detail: 'Open',
   },
   {
+    label: 'FRMWRK Labs',
+    href: 'https://www.frmwrklabs.com/',
+    detail: 'Live',
+  },
+  {
+    label: "Chiron's Forge",
+    href: 'https://www.chironsforge.com/',
+    detail: 'Live',
+  },
+  {
+    label: 'BBDSE GitHub',
+    href: 'https://github.com/jakyeamos/BBDSE',
+    detail: 'Public repo',
+  },
+  {
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/in/jakyeamos',
     detail: 'Open',
@@ -538,7 +553,7 @@ export const CONCEPT_NOTES: readonly ConceptNote[] = [
 
 export const WEBSITE_LAUNCHES: readonly WebsiteLaunch[] = [
   {
-    label: 'Live website',
+    label: 'Live product',
     title: "Chiron's Forge",
     href: 'https://www.chironsforge.com/',
     copy: 'Multi-AI research pipeline that turns raw intent into expert AI skills, research reports, and Cursor rules, with an independent judge/refinement loop before delivery.',
@@ -547,13 +562,13 @@ export const WEBSITE_LAUNCHES: readonly WebsiteLaunch[] = [
     label: 'Live website',
     title: 'FRMWRK Labs',
     href: 'https://www.frmwrklabs.com/',
-    copy: 'New website launch in the portfolio orbit. The live site was unavailable during this edit, so the portfolio keeps the mention link-forward without adding unsupported product claims.',
+    copy: 'Software research lab building standalone reasoning engines: Concordia, Continuum, and Praxis, with production and development status stated on the live site.',
   },
   {
-    label: 'Live website',
+    label: 'Public repo / deployment paused',
     title: 'BBDSE',
-    href: 'https://bbdse.vercel.app/',
-    copy: 'Basketball decision-support and education site that now owns the merged CourtIQ/Court Vision runtime alongside the broader BBDSE analytics suite.',
+    href: 'https://github.com/jakyeamos/BBDSE',
+    copy: 'Basketball analytics and decision-support suite that owns the merged CourtIQ/Court Vision product lane; the public Vercel deployment is currently paused.',
   },
 ] as const;
 
