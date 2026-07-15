@@ -1,13 +1,13 @@
 ---
 schemaVersion: 1
 projectName: portfolio
-summary: Static Vite portfolio is a recruiter-first dossier that preserves its sports-editorial visual identity, static publishing model, and public route map.
-healthScore: 98
+summary: Static Vite portfolio is a recruiter-first dossier with source-backed public cases, public-safe client/applied systems, and canonical ATS/evidence resume downloads.
+healthScore: 97
 statusLabel: on_track
-nextStep: Keep Soundscape text-first until its hero-image rights are attested, then seek separate authorization for any production deployment.
+nextStep: Review the refreshed recruiter materials and resolve pre-existing tracker drift before the next portfolio release decision.
 blockers:
   - Soundscape case-study media requires owner rights attestation before it can ship.
-lastUpdated: 2026-07-13
+lastUpdated: 2026-07-15
 tags: [portfolio, personal-site, react, vite, tailwind, accessibility]
 areas: [home, navigation, film-room, projects, publishing, accessibility]
 goals:
@@ -16,15 +16,15 @@ goals:
 repoType: app
 sourceOfTruth: mixed
 primaryLanguage: TypeScript
-activeBranch: codex/portfolio-recruiter-dossier
-lastCommitDate: '2026-07-13'
+activeBranch: codex/career-materials-refresh
+lastCommitDate: '2026-07-15'
 quality:
   lint: pass
   types: pass
   tests: pass
   e2e: pass
   accessibility: pass
-  tracker: pass
+  tracker: fail (pre-existing drift in soundscape, aios, and book)
   build: pass
 canonicalCommands:
   install: pnpm install
@@ -38,11 +38,13 @@ agentExpectationsVersion: 1
 
 ## Current State
 
+- `6bdb95a` adds public-safe client/applied systems for Tenure, BidCamp, CrimClock, Hoopscout, and RemodelVision, plus ATS and evidence-master resume downloads.
 - `cb03925` turns the portfolio into a recruiter dossier: one navigation system, a concise headshot-led homepage, source-backed Film Room cases, and an accessible project roster with an optional court.
 - The site remains a React/Vite static SPA with Netlify fallback routes. The modernization branch adds typed evidence review, route splitting, browser coverage, WCAG 2.2 AA safeguards, and no production deploy.
 
 ## Recent Progress
 
+- July 15: Added the client/applied systems surface and refreshed role, availability, education, recruiter copy, and resume downloads; source checks, typecheck, dead-code check, and production build passed.
 - July 13: Committed the recruiter-dossier implementation (`cb03925`), deleting duplicate navigation, the autoplaying clip subsystem, obsolete motion dependency, and unused media paths.
 - July 13: Added Playwright/Axe coverage for direct public routes at 390px, 768px, 1024px, and desktop; keyboard tabs, dialog focus restore/Escape, compact navigation, reduced motion, overflow, and console errors passed.
 - July 13: Route splitting reduced the production initial JavaScript chunk from 520.55 kB / 155.58 kB gzip to 265.64 kB / 85.07 kB gzip. The headshot is now an optimized 210 KB local derivative.
@@ -52,7 +54,7 @@ agentExpectationsVersion: 1
 
 1. Obtain a rights attestation before adding the reviewed Soundscape visual; otherwise retain the approved text-first case study.
 2. Obtain separate authorization before changing Netlify production settings or deploying this branch.
-3. Keep public tracker updates explicit with `pnpm tracker:sync`, then validate with `pnpm tracker:check` and content checks.
+3. Resolve the pre-existing `soundscape`, `aios`, and `book` tracker drift with the project owner before the next release decision.
 
 ## Risks / Blockers
 
@@ -66,3 +68,4 @@ agentExpectationsVersion: 1
 - **Accessibility and interaction:** `pnpm test:e2e` — PASS on 2026-07-13 (11 assertions passed, 13 scoped duplicates skipped); Axe found no violations on Home, Film Room, or Projects.
 - **Static build:** `pnpm build` — PASS on 2026-07-13; route splitting ships a 265.64 kB / 85.07 kB gzip initial JavaScript chunk.
 - **Security and safety:** secret scan and dependency-security check passed; source content rejects private tracker text and only approved evidence media can render.
+- **Career-material refresh:** changed-file Prettier check, `pnpm typecheck`, `pnpm test`, `pnpm audit:dead-code`, and `pnpm build` passed on 2026-07-15. `pnpm tracker:check` still reports pre-existing drift in `soundscape`, `aios`, and `book`; no tracker sync was run because those project changes are outside this task.
