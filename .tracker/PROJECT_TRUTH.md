@@ -42,11 +42,13 @@ agentExpectationsVersion: 1
 - `6bdb95a` adds public-safe client/applied systems for Tenure, BidCamp, CrimClock, Hoopscout, and RemodelVision, plus ATS and evidence-master resume downloads.
 - `cb03925` turns the portfolio into a recruiter dossier: one navigation system, a concise headshot-led homepage, source-backed Film Room cases, and an accessible project roster with an optional court.
 - The site remains a React/Vite static SPA with Netlify fallback routes. The modernization branch adds typed evidence review, route splitting, browser coverage, WCAG 2.2 AA safeguards, and no production deploy.
+- The recruiter-facing quick links now include the personal X profile at `https://x.com/soundscapeweb`; the existing portfolio writer remains the canonical Markdown handoff for the portfolio and FRMWRK Labs.
 
 ## Recent Progress
 
 - July 15: Added FRMWRK Labs, Chiron's Forge, and BBDSE/CourtIQ to recruiter-facing links and evidence; corrected the retired BBDSE deployment URL and regenerated both evidence documents.
 - July 15: Added the client/applied systems surface and refreshed role, availability, education, recruiter copy, and resume downloads; source checks, typecheck, dead-code check, and production build passed.
+- July 15: Added the personal X profile to the portfolio distribution surface; typecheck, content checks, dead-code check, and production build passed.
 - July 13: Committed the recruiter-dossier implementation (`cb03925`), deleting duplicate navigation, the autoplaying clip subsystem, obsolete motion dependency, and unused media paths.
 - July 13: Added Playwright/Axe coverage for direct public routes at 390px, 768px, 1024px, and desktop; keyboard tabs, dialog focus restore/Escape, compact navigation, reduced motion, overflow, and console errors passed.
 - July 13: Route splitting reduced the production initial JavaScript chunk from 520.55 kB / 155.58 kB gzip to 265.64 kB / 85.07 kB gzip. The headshot is now an optimized 210 KB local derivative.
