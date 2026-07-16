@@ -164,6 +164,11 @@ export const QUICK_LINKS: readonly QuickLink[] = [
     detail: 'Open',
   },
   {
+    label: 'X',
+    href: 'https://x.com/soundscapeweb',
+    detail: 'Open',
+  },
+  {
     label: 'Email',
     href: 'mailto:Jakyejobs@gmail.com',
     detail: 'Contact',
