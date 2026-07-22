@@ -2,6 +2,7 @@ import { type ReactElement, useEffect, useId, useRef, useState } from 'react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { PAGE_LINKS, QUICK_LINKS, SITE_META } from '@/content/portfolioContent';
+import { trackMarketingLinkClick } from '@/lib/marketingAnalytics';
 
 function QuickActionLink({
   href,
@@ -22,6 +23,7 @@ function QuickActionLink({
       download={download ? (downloadFileName ?? true) : undefined}
       target={isExternal ? '_blank' : undefined}
       rel={isExternal ? 'noreferrer' : undefined}
+      onClick={() => trackMarketingLinkClick(href)}
       className="hidden items-center gap-2 border border-[color:var(--color-line-strong)] bg-white px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-ink)] hover:border-[color:var(--color-primary)] hover:text-[color:var(--color-primary)] xl:inline-flex"
     >
       {label}
@@ -141,6 +143,7 @@ export default function TopNavBar(): ReactElement {
                   download={link.download ? (link.downloadFileName ?? true) : undefined}
                   target={isExternal ? '_blank' : undefined}
                   rel={isExternal ? 'noreferrer' : undefined}
+                  onClick={() => trackMarketingLinkClick(link.href)}
                   className="flex items-center justify-between border border-[color:var(--color-line)] bg-white px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-[color:var(--color-ink)] hover:border-[color:var(--color-primary)] hover:text-[color:var(--color-primary)]"
                 >
                   {link.label}

@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
 import { QUICK_LINKS, SITE_META } from '@/content/portfolioContent';
+import { trackMarketingLinkClick } from '@/lib/marketingAnalytics';
 
 export default function Footer(): ReactElement {
   return (
@@ -23,6 +24,7 @@ export default function Footer(): ReactElement {
                 download={link.download ? (link.downloadFileName ?? true) : undefined}
                 target={link.href.startsWith('http') ? '_blank' : undefined}
                 rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+                onClick={() => trackMarketingLinkClick(link.href)}
                 className="flex items-center justify-between border border-[color:var(--color-line)] bg-white px-4 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-[color:var(--color-ink)] transition hover:border-[color:var(--color-primary)] hover:text-[color:var(--color-primary)]"
               >
                 <span>{link.label}</span>

@@ -10,6 +10,7 @@ import {
   HERO_PROOF,
   SITE_META,
 } from '@/content/portfolioContent';
+import { trackMarketingLinkClick } from '@/lib/marketingAnalytics';
 
 export default function Home(): ReactElement {
   return (
@@ -41,6 +42,7 @@ export default function Home(): ReactElement {
               className="btn-primary"
               href="/docs/Jakye_Amos_Canonical_Base_Resume.pdf"
               download="Jakye_Amos_Canonical_Base_Resume.pdf"
+              onClick={() => trackMarketingLinkClick('/docs/Jakye_Amos_Canonical_Base_Resume.pdf')}
             >
               Download resume
               <ArrowUpRight className="ml-2" size={16} aria-hidden="true" />

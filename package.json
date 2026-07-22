@@ -6,7 +6,8 @@
   "packageManager": "pnpm@11.7.0",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "vite build",
+    "build": "vite build && pnpm generate:project-pages",
+    "generate:project-pages": "node scripts/generate-project-pages.mjs",
     "format": "prettier --check .",
     "format:write": "prettier --write .",
     "preview": "vite preview",

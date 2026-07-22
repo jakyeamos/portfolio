@@ -1,6 +1,7 @@
 import { lazy, Suspense, type ReactElement, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import Footer from '@/components/Footer';
+import MarketingInstrumentation from '@/components/MarketingInstrumentation';
 import TopNavBar from '@/components/TopNavBar';
 import Home from '@/pages/Home';
 
@@ -10,6 +11,7 @@ const CurrentProjects = lazy(() => import('@/pages/CurrentProjects'));
 const FilmRoom = lazy(() => import('@/pages/FilmRoom'));
 const ImpactReport = lazy(() => import('@/pages/ImpactReport'));
 const PlayerComps = lazy(() => import('@/pages/PlayerComps'));
+const ProjectDetail = lazy(() => import('@/pages/ProjectDetail'));
 const ScoutingReport = lazy(() => import('@/pages/ScoutingReport'));
 
 function ScrollToTop(): null {
@@ -26,6 +28,7 @@ function AppContent(): ReactElement {
   return (
     <div className="site-shell min-h-screen flex flex-col">
       <ScrollToTop />
+      <MarketingInstrumentation />
       <TopNavBar />
       <div className="relative flex-1">
         <Suspense
@@ -44,6 +47,7 @@ function AppContent(): ReactElement {
             <Route path="/blog" element={<Blog />} />
             {BlogWrite ? <Route path="/blog/write" element={<BlogWrite />} /> : null}
             <Route path="/projects" element={<CurrentProjects />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/player-comps" element={<PlayerComps />} />
             <Route path="/impact-report" element={<ImpactReport />} />
             <Route path="*" element={<Home />} />
