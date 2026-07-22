@@ -24,7 +24,7 @@ quality:
   tests: pass
   e2e: pass
   accessibility: pass
-  tracker: warn (pre-existing drift in soundscape and terrace; no sync run)
+  tracker: pass (explicit manual entries preserved for split runtimes)
   build: pass
 canonicalCommands:
   install: pnpm install
@@ -59,6 +59,7 @@ agentExpectationsVersion: 1
 - July 21: Restored the reviewed 19-project shot-chart clip coverage, added the development-only `/__clip-review` queue, and added the selection-gated `/demos` broadcast surface with the captured BBDSE CourtIQ recording.
 - July 22: Added three statically generated marketing project pages, route-level metadata/structured data, sitemap/robots output, and focused browser coverage; typecheck, content checks, dead-code check, build, secret scan, and desktop smoke passed.
 - July 22: Added the six split runtime repositories to the public-safe project roster and allowlist in `469c3a3`; kept the 19 verified court clips scoped to court-eligible projects and passed content, type, dead-code, formatting, and build gates.
+- July 22: Reconciled public package claims and release-candidate wording for Quality Runner, Anti-Slop, Agent Eval Contract, Research Domain Writing, TMCP, Pre-CR, and Terrace; neutralized the graduation-date copy, added explicit split-runtime tracker entries, and passed the tracker/content/type/dead-code/build gates in `9a8bc12`.
 - July 22: Committed the reviewed shot-chart clip, local demo, and recruiter-safe after-hours surface in `12b3340`; no production deployment was run.
 - July 22: Refreshed `netlify-cli` to 26.2.0, pinned patched transitive security versions, and passed audit, typecheck, content, dead-code, and build gates.
 - July 13: Committed the recruiter-dossier implementation (`cb03925`), deleting duplicate navigation, the autoplaying clip subsystem, obsolete motion dependency, and unused media paths.
@@ -91,6 +92,7 @@ agentExpectationsVersion: 1
 - **Tracker projection:** `pnpm tracker:check` passed on 2026-07-21 with all 13 automated projects current and `signal-lab`/`cap-fit-builder` remaining manual.
 - **Marketing routes:** changed-file formatting, `pnpm typecheck`, `pnpm test:content`, `pnpm audit:dead-code`, `pnpm build`, `pnpm secret:scan`, and `pnpm e2e:smoke` passed on 2026-07-22; repository-wide formatting still reports pre-existing files outside this slice.
 - **Split runtime roster:** changed-file Prettier, `pnpm test:content`, `pnpm typecheck`, `pnpm audit:dead-code`, and `pnpm build` passed on 2026-07-22; 25 public projects are admitted while 19 remain court-eligible with verified clips.
+- **Release/public-surface reconciliation:** live npm/PyPI versions and repository tags were checked on 2026-07-22; Pre-CR `v0.1.0` was tagged after its package/release-contract gates passed. Portfolio content, manifest evidence, and the six split-runtime tracker entries passed formatting, content, type, dead-code, build, and tracker checks; the commit hook emitted a pre-existing user-quality-gate warning after its nested build check despite the direct build passing.
 - **Dependency security refresh:** `pnpm audit` and `pnpm dependency:security` report 0 high/critical advisories after the `netlify-cli` 26.2.0 refresh; 2 low and 1 moderate advisory remain in dev-only transitive packages.
 - **After-hours layer:** `pnpm test:content`, `pnpm typecheck`, `pnpm audit:dead-code`, `pnpm build`, and `pnpm test:e2e` passed on 2026-07-21; the full browser run reported 34 passed and 34 intentional viewport-scoped skips. Repository-wide `pnpm format` remains red on pre-existing planning, lockfile, tracker, and content files outside this slice. `pnpm tracker:check` still reports pre-existing drift in `soundscape` and `terrace`; no sync was run.
 - **Shot chart and demos:** `pnpm test`, `pnpm typecheck`, `pnpm audit:dead-code`, `pnpm build`, and full `pnpm test:e2e` passed on 2026-07-21; content gates report 19/19 verified project clips and 1 local screen recording. The local review queue visually checked all 19 embeds; the Reggie Miller window was corrected from an opening 0–38s documentary frame to a 42–62s live sequence. Axe, keyboard/Escape focus, muted selected autoplay, captions, chapter seeking, reduced motion, console, and overflow checks passed. No production deploy was run.
