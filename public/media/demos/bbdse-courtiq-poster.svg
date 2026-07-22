@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">BBDSE CourtIQ demo poster</title>
+  <desc id="description">A broadcast-style blue basketball analytics board with a red CourtIQ title card.</desc>
+  <rect width="1600" height="900" fill="#101c2c" />
+  <path d="M0 710h1600v190H0z" fill="#0b1420" />
+  <path d="M86 82h1428v736H86z" fill="none" stroke="#d7d0c4" stroke-width="4" opacity=".55" />
+  <path d="M86 610h1428M800 82v736M510 610a290 290 0 0 0 580 0" fill="none" stroke="#d7d0c4" stroke-width="4" opacity=".35" />
+  <rect x="126" y="126" width="430" height="74" fill="#b50d0d" />
+  <text x="158" y="174" fill="#fff" font-family="Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="5">FEATURE PRESENTATION</text>
+  <text x="126" y="392" fill="#fff" font-family="Arial, sans-serif" font-size="106" font-weight="900" letter-spacing="-4">BBDSE</text>
+  <text x="126" y="488" fill="#d7d0c4" font-family="Arial, sans-serif" font-size="82" font-weight="900" letter-spacing="-2">COURTIQ</text>
+  <text x="130" y="560" fill="#d7d0c4" font-family="Arial, sans-serif" font-size="27" font-weight="700" letter-spacing="6">DRAFT · FIT · RECAP</text>
+  <circle cx="1250" cy="350" r="146" fill="none" stroke="#b50d0d" stroke-width="12" />
+  <circle cx="1250" cy="350" r="82" fill="none" stroke="#d7d0c4" stroke-width="4" opacity=".75" />
+  <path d="M1118 336c78 35 183 35 264 0M1136 420c69-42 158-42 228 0" fill="none" stroke="#d7d0c4" stroke-width="4" opacity=".55" />
+  <text x="126" y="772" fill="#fff" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">JAKYE AMOS · PROJECT DEMOS</text>
+</svg>

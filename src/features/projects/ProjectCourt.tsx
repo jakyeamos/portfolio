@@ -2,6 +2,7 @@ import { type KeyboardEvent, type ReactElement, useId, useMemo, useRef } from 'r
 import type { CurrentProject, ProjectAxis } from '@/content/currentProjects';
 import { PROJECT_AXIS_META } from '@/content/currentProjects';
 import { buildCourtLayout, PROJECT_AXES } from '@/features/projects/courtLayout';
+import { useEasterEggs } from '@/features/easter-eggs/EasterEggProvider';
 
 interface ProjectCourtProps {
   activeAxis: ProjectAxis;
@@ -69,6 +70,7 @@ export default function ProjectCourt({
   onOpenProject,
   projects,
 }: ProjectCourtProps): ReactElement {
+  const { openEgg } = useEasterEggs();
   const tabListId = useId();
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const layout = useMemo(() => buildCourtLayout(projects, activeAxis), [activeAxis, projects]);
@@ -100,6 +102,15 @@ export default function ProjectCourt({
           The visual view maps public tracker health from left to right and the selected project
           lens from bottom to top. The roster remains the primary way to read and open each project.
         </p>
+        <button
+          type="button"
+          className="after-hours-inline-hotspot mt-5"
+          aria-label="Open Chalkboard Play"
+          data-easter-egg="chalkboard-play"
+          onClick={(event) => openEgg('chalkboard-play', event.currentTarget)}
+        >
+          Draw the chalkboard play
+        </button>
         <div className="mt-6" role="tablist" aria-label="Project court axis">
           <div className="flex flex-wrap gap-2">
             {PROJECT_AXES.map((axis, index) => {
@@ -149,7 +160,8 @@ export default function ProjectCourt({
                 type="button"
                 className="group absolute flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-[color:var(--color-primary)] text-[10px] font-black text-white shadow-[0_2px_0_rgba(16,28,44,0.24)] hover:bg-[color:var(--color-primary-deep)] focus:z-10"
                 style={{ left: `${point.left}%`, top: `${point.top}%` }}
-                aria-label={`Open ${project.title}: ${project.trackerScore} tracker health and ${project.grades[activeAxis]} out of 10 ${axisMeta.label.toLowerCase()}`}
+                aria-label={`Open ${project.title} verified shot clip: ${project.trackerScore} tracker health and ${project.grades[activeAxis]} out of 10 ${axisMeta.label.toLowerCase()}`}
+                data-shot-clip-project={project.slug}
                 onClick={(event) => onOpenProject(project, event.currentTarget)}
               >
                 {project.shortCode}

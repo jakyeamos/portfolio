@@ -2,6 +2,7 @@ import { type ReactElement, useState } from 'react';
 import { Blend } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { BREAKING_TICKER, PLAYER_COMPS, type PlayerComp } from '@/content/portfolioContent';
+import { useEasterEggs } from '@/features/easter-eggs/EasterEggProvider';
 
 function PlayerCompMedia({ comp }: { comp: PlayerComp }): ReactElement {
   const [imageFailed, setImageFailed] = useState(false);
@@ -51,6 +52,8 @@ function PlayerCompMedia({ comp }: { comp: PlayerComp }): ReactElement {
 }
 
 export default function PlayerComps(): ReactElement {
+  const { openEgg } = useEasterEggs();
+
   return (
     <div>
       <main className="page-wrap py-6 md:py-8">
@@ -138,6 +141,15 @@ export default function PlayerComps(): ReactElement {
               grimy winning plays that most teams quietly need.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
+              <button
+                type="button"
+                className="after-hours-inline-hotspot"
+                aria-label="Open Player Comp Mixer"
+                data-easter-egg="player-comp-mixer"
+                onClick={(event) => openEgg('player-comp-mixer', event.currentTarget)}
+              >
+                Mix the read
+              </button>
               <Link className="btn-primary" to="/scouting-report">
                 Back to scouting report
               </Link>

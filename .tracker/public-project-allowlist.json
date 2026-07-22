@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "projectsRoot": "..",
+  "projects": [
+    { "slug": "soundscape", "sourcePath": "soundscape-app" },
+    { "slug": "aios", "sourcePath": "AIOS" },
+    { "slug": "terrace", "sourcePath": "Terrace" },
+    { "slug": "bidcamp", "sourcePath": "BidCamp" },
+    { "slug": "fantasy", "sourcePath": "Fantasy" },
+    { "slug": "remodelvision", "sourcePath": "remodelvision" },
+    { "slug": "bballedu", "sourcePath": "Bballedu" },
+    { "slug": "dispatches", "sourcePath": "dispatches-from-cyberspace" },
+    { "slug": "book", "sourcePath": "Book" },
+    { "slug": "signal-lab", "sourcePath": "BBDSE/signal-lab" },
+    { "slug": "cap-fit-builder", "sourcePath": "BBDSE/cap-fit-builder" },
+    { "slug": "clfe", "sourcePath": "BBDSE/CLFE" },
+    { "slug": "rte", "sourcePath": "BBDSE/RTE" },
+    { "slug": "quality-runner", "sourcePath": "quality-runner" },
+    { "slug": "eslint-plugin-anti-slop", "sourcePath": "eslint-plugin-anti-slop" },
+    { "slug": "agent-eval-contract", "sourcePath": "agent-eval-contract" },
+    { "slug": "research-domain-writing", "sourcePath": "research-domain-writing" },
+    { "slug": "tmcp", "sourcePath": "tmcp" },
+    { "slug": "pre-cr-suite", "sourcePath": "pre-cr-suite-lsp" }
+  ]
+}

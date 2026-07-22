@@ -112,6 +112,7 @@ export const PAGE_LINKS = [
   { label: 'Film Room', shortLabel: 'Film', path: '/film-room' },
   { label: 'Blog', path: '/blog' },
   { label: 'Projects', path: '/projects' },
+  { label: 'Demos', shortLabel: 'Demos', path: '/demos' },
   { label: 'Player Comps', shortLabel: 'Comps', path: '/player-comps' },
   { label: 'Impact Report', shortLabel: 'Impact', path: '/impact-report' },
 ] as const;

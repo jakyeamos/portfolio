@@ -3,12 +3,16 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import Footer from '@/components/Footer';
 import MarketingInstrumentation from '@/components/MarketingInstrumentation';
 import TopNavBar from '@/components/TopNavBar';
+import { EasterEggProvider, useEasterEggs } from '@/features/easter-eggs/EasterEggProvider';
 import Home from '@/pages/Home';
+import NotFound from '@/pages/NotFound';
 
 const Blog = lazy(() => import('@/pages/Blog'));
 const BlogWrite = import.meta.env.DEV ? lazy(() => import('@/pages/BlogWrite')) : null;
 const CurrentProjects = lazy(() => import('@/pages/CurrentProjects'));
+const Demos = lazy(() => import('@/pages/Demos'));
 const FilmRoom = lazy(() => import('@/pages/FilmRoom'));
+const ClipReview = import.meta.env.DEV ? lazy(() => import('@/pages/ClipReview')) : null;
 const ImpactReport = lazy(() => import('@/pages/ImpactReport'));
 const PlayerComps = lazy(() => import('@/pages/PlayerComps'));
 const ProjectDetail = lazy(() => import('@/pages/ProjectDetail'));
@@ -25,8 +29,10 @@ function ScrollToTop(): null {
 }
 
 function AppContent(): ReactElement {
+  const { isNightShift } = useEasterEggs();
+
   return (
-    <div className="site-shell min-h-screen flex flex-col">
+    <div className={`site-shell min-h-screen flex flex-col ${isNightShift ? 'night-shift' : ''}`}>
       <ScrollToTop />
       <MarketingInstrumentation />
       <TopNavBar />
@@ -48,9 +54,11 @@ function AppContent(): ReactElement {
             {BlogWrite ? <Route path="/blog/write" element={<BlogWrite />} /> : null}
             <Route path="/projects" element={<CurrentProjects />} />
             <Route path="/projects/:slug" element={<ProjectDetail />} />
+            <Route path="/demos" element={<Demos />} />
+            {ClipReview ? <Route path="/__clip-review" element={<ClipReview />} /> : null}
             <Route path="/player-comps" element={<PlayerComps />} />
             <Route path="/impact-report" element={<ImpactReport />} />
-            <Route path="*" element={<Home />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </div>
@@ -62,7 +70,9 @@ function AppContent(): ReactElement {
 export default function App(): ReactElement {
   return (
     <BrowserRouter>
-      <AppContent />
+      <EasterEggProvider>
+        <AppContent />
+      </EasterEggProvider>
     </BrowserRouter>
   );
 }

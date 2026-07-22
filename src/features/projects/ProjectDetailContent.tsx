@@ -6,21 +6,26 @@ import {
   MARKETING_PROJECT_REPOSITORIES,
   isMarketingProjectSlug,
 } from '@/content/marketingProjects';
+import { getProjectShotClip } from '@/content/shotClips';
 import { PROJECT_AXES } from '@/features/projects/courtLayout';
+import ProjectShotClipPlayer from '@/features/projects/ProjectShotClipPlayer';
 import { trackMarketingEvent } from '@/lib/marketingAnalytics';
 
 interface ProjectDetailContentProps {
   project: CurrentProject;
   descriptionId?: string;
+  showShotClip?: boolean;
 }
 
 export default function ProjectDetailContent({
   project,
   descriptionId,
+  showShotClip = false,
 }: ProjectDetailContentProps): ReactElement {
   const repositoryUrl = isMarketingProjectSlug(project.slug)
     ? MARKETING_PROJECT_REPOSITORIES[project.slug]
     : null;
+  const shotClip = showShotClip ? getProjectShotClip(project.slug) : undefined;
 
   return (
     <div className="p-5 md:p-6">
@@ -41,6 +46,8 @@ export default function ProjectDetailContent({
           {project.scoutTake}
         </p>
       </section>
+
+      {showShotClip && shotClip ? <ProjectShotClipPlayer clip={shotClip} /> : null}
 
       <dl className="mt-6 grid gap-x-6 gap-y-4 border-t border-[color:var(--color-line)] pt-5 sm:grid-cols-2">
         <div>

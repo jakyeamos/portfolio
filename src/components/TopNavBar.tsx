@@ -2,6 +2,7 @@ import { type ReactElement, useEffect, useId, useRef, useState } from 'react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { PAGE_LINKS, QUICK_LINKS, SITE_META } from '@/content/portfolioContent';
+import { useEasterEggs } from '@/features/easter-eggs/EasterEggProvider';
 import { trackMarketingLinkClick } from '@/lib/marketingAnalytics';
 
 function QuickActionLink({
@@ -35,6 +36,7 @@ function QuickActionLink({
 export default function TopNavBar(): ReactElement {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { openEgg } = useEasterEggs();
   const menuId = useId();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -57,14 +59,24 @@ export default function TopNavBar(): ReactElement {
   return (
     <header className="sticky top-0 z-50 border-b border-[color:var(--color-line)] bg-[color:var(--color-surface-raised)]">
       <div className="mx-auto flex min-h-[72px] max-w-[1440px] items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <NavLink to="/" className="min-w-0 shrink-0" aria-label="Front Office Amos home">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--color-primary)]">
+        <div className="min-w-0 shrink-0">
+          <button
+            type="button"
+            className="after-hours-hotspot block text-left text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--color-primary)]"
+            aria-label="Open Build Ship from the 2026 Draft Desk"
+            data-easter-egg="build-ship"
+            onClick={(event) => openEgg('build-ship', event.currentTarget)}
+          >
             2026 Draft Desk
-          </div>
-          <div className="text-2xl font-black uppercase tracking-[-0.02em] text-[color:var(--color-ink)]">
+          </button>
+          <NavLink
+            to="/"
+            className="block text-2xl font-black uppercase tracking-[-0.02em] text-[color:var(--color-ink)]"
+            aria-label="Front Office Amos home"
+          >
             {SITE_META.brand}
-          </div>
-        </NavLink>
+          </NavLink>
+        </div>
 
         <nav className="hidden min-w-0 items-center gap-4 xl:flex xl:gap-5" aria-label="Primary">
           {PAGE_LINKS.map((link) => (

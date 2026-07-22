@@ -1,16 +1,26 @@
 import type { ReactElement } from 'react';
 import { QUICK_LINKS, SITE_META } from '@/content/portfolioContent';
+import { useEasterEggs } from '@/features/easter-eggs/EasterEggProvider';
 import { trackMarketingLinkClick } from '@/lib/marketingAnalytics';
 
 export default function Footer(): ReactElement {
+  const { isNightShift, toggleNightShift } = useEasterEggs();
+
   return (
     <footer className="mt-16 border-t border-[color:var(--color-line-strong)] bg-[color:var(--color-surface-raised)] px-4 py-12 sm:px-6">
       <div className="mx-auto max-w-[1440px]">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[color:var(--color-primary)]">
+            <button
+              type="button"
+              className="after-hours-hotspot text-left text-[10px] font-semibold uppercase tracking-[0.24em] text-[color:var(--color-primary)]"
+              aria-label="Toggle Night Shift after-hours palette"
+              aria-pressed={isNightShift}
+              data-easter-egg="night-shift"
+              onClick={toggleNightShift}
+            >
               Final Buzzer
-            </div>
+            </button>
             <h2 className="mt-3 text-4xl font-black uppercase leading-none text-[color:var(--color-ink)]">
               {SITE_META.brand}
             </h2>

@@ -10,9 +10,12 @@ import {
   HERO_PROOF,
   SITE_META,
 } from '@/content/portfolioContent';
+import { useEasterEggs } from '@/features/easter-eggs/EasterEggProvider';
 import { trackMarketingLinkClick } from '@/lib/marketingAnalytics';
 
 export default function Home(): ReactElement {
+  const { openEgg } = useEasterEggs();
+
   return (
     <main className="page-wrap py-6 md:py-8">
       <section className="ticker-shell" aria-label="Latest signal">
@@ -59,15 +62,23 @@ export default function Home(): ReactElement {
           >
             {HERO_PROOF.map((proof) => (
               <li key={proof.label}>
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-secondary)]">
-                  {proof.label}
-                </span>
-                <span className="mt-2 block text-3xl font-black uppercase leading-none text-[color:var(--color-primary)]">
-                  {proof.value}
-                </span>
-                <p className="mt-3 text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
-                  {proof.detail}
-                </p>
+                <button
+                  type="button"
+                  className="after-hours-proof-hotspot w-full text-left"
+                  aria-label={`Open box score footnotes for ${proof.value}`}
+                  data-easter-egg="box-score-footnotes"
+                  onClick={(event) => openEgg('box-score-footnotes', event.currentTarget)}
+                >
+                  <span className="block text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-secondary)]">
+                    {proof.label}
+                  </span>
+                  <span className="mt-2 block text-3xl font-black uppercase leading-none text-[color:var(--color-primary)]">
+                    {proof.value}
+                  </span>
+                  <p className="mt-3 text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
+                    {proof.detail}
+                  </p>
+                </button>
               </li>
             ))}
           </ul>
@@ -81,6 +92,10 @@ export default function Home(): ReactElement {
           detail="US / Remote · Available full-time"
           media={PORTFOLIO_ASSETS.home.broadcastLead}
           stat="#JA"
+          statAction={{
+            label: 'Open Draft Lottery from the #JA prospect poster',
+            onClick: () => openEgg('draft-lottery'),
+          }}
           tone="red"
         />
       </section>

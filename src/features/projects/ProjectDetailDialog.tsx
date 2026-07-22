@@ -120,7 +120,7 @@ export default function ProjectDetailDialog({
           </button>
         </header>
 
-        <ProjectDetailContent project={project} descriptionId={descriptionId} />
+        <ProjectDetailContent project={project} descriptionId={descriptionId} showShotClip />
       </section>
     </div>,
     document.body,

@@ -7,6 +7,7 @@ const PUBLIC_ROUTES = [
   '/film-room',
   '/blog',
   '/projects',
+  '/demos',
   '/player-comps',
   '/impact-report',
 ] as const;
@@ -82,11 +83,29 @@ test('project reports retain keyboard focus and the optional court is operable',
   const trigger = page.getByRole('button', { name: /Open report/i }).first();
   await trigger.click();
   await expect(page.getByRole('dialog')).toBeVisible();
+  const clipFrame = page.getByRole('dialog').locator('iframe[data-clip-id]');
+  await expect(clipFrame).toHaveCount(1);
+  const clipConfiguration = await clipFrame.evaluate((frame) => ({
+    clipId: frame.getAttribute('data-clip-id'),
+    start: Number(frame.getAttribute('data-clip-start')),
+    end: Number(frame.getAttribute('data-clip-end')),
+    src: frame.getAttribute('src') ?? '',
+  }));
+  expect(clipConfiguration.clipId).toMatch(/^[a-z0-9-]+$/);
+  expect(Number.isInteger(clipConfiguration.start)).toBe(true);
+  expect(Number.isInteger(clipConfiguration.end)).toBe(true);
+  expect(clipConfiguration.end).toBeGreaterThan(clipConfiguration.start);
+  expect(clipConfiguration.src).toContain('autoplay=1');
+  expect(clipConfiguration.src).toContain('mute=1');
+  expect(clipConfiguration.src).toContain(`start=${clipConfiguration.start}`);
+  expect(clipConfiguration.src).toContain(`end=${clipConfiguration.end}`);
+  await expect(page.getByRole('button', { name: 'Unmute clip' })).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toBeHidden();
   await expect(trigger).toBeFocused();
 
   await page.getByText('Open the optional court view', { exact: true }).click();
+  await expect(page.locator('[data-shot-clip-project]')).toHaveCount(19);
   const firstAxis = page.getByRole('tab', { name: 'Impact' });
   await firstAxis.focus();
   await page.keyboard.press('ArrowRight');
@@ -97,10 +116,40 @@ test('project reports retain keyboard focus and the optional court is operable',
   await expect(page.getByRole('tabpanel')).toBeVisible();
 });
 
+test('demos use selected local recordings with accessible timeline controls', async ({ page }) => {
+  await page.goto('/demos');
+  await expect(page.locator('[data-demo-empty="true"]')).toBeVisible();
+  await expect(page.locator('video[data-demo-video]')).toHaveCount(0);
+
+  const projectMarker = page.locator('[data-demo-project="bballedu"]');
+  await expect(projectMarker).toBeVisible();
+  await projectMarker.click();
+
+  const video = page.locator('video[data-demo-video="bbdse-courtiq"]');
+  await expect(video).toBeVisible();
+  await expect(video).toHaveAttribute('data-demo-autoplay', 'selected');
+  await expect(video).toHaveAttribute('src', /\/media\/demos\/bbdse-courtiq\.webm$/);
+  await expect(video.locator('track[kind="captions"]')).toHaveCount(1);
+  expect(await video.evaluate((element) => (element as HTMLVideoElement).muted)).toBe(true);
+  await page.getByRole('button', { name: 'Pause BBDSE CourtIQ' }).click();
+
+  const scrubber = page.getByRole('slider', { name: 'Seek BBDSE CourtIQ' });
+  await scrubber.focus();
+  await page.keyboard.press('ArrowRight');
+  expect(Number(await scrubber.inputValue())).toBeGreaterThan(0);
+  await page.getByRole('button', { name: /Draft room/ }).click();
+  await expect(scrubber).toHaveValue('7');
+  await scrubber.focus();
+  await page.keyboard.press('Home');
+  await expect(scrubber).toHaveValue('0');
+  await page.getByRole('button', { name: 'Unmute' }).click();
+  await expect(page.getByRole('button', { name: 'Sound on' })).toBeVisible();
+});
+
 test('key recruiter pages meet automated accessibility checks', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop', 'Run the full axe pass once per browser.');
 
-  for (const route of ['/', '/film-room', '/projects'] as const) {
+  for (const route of ['/', '/film-room', '/projects', '/demos'] as const) {
     await page.goto(route);
     await expect(page.getByRole('main')).toBeVisible();
     await expect(page.locator('h1')).toBeVisible();
@@ -125,4 +174,12 @@ test('reduced motion disables nonessential movement and autoplay', async ({ page
   expect(motionStyles.transform).toBe('none');
   await expect(page.locator('video[autoplay]')).toHaveCount(0);
   await expect(page.locator('marquee')).toHaveCount(0);
+
+  await page.goto('/demos');
+  await page.locator('[data-demo-project="bballedu"]').click();
+  const selectedMarker = page.locator('[data-demo-project="bballedu"]');
+  await expect(selectedMarker).toHaveClass(/demos-marker-selected/);
+  expect(
+    await selectedMarker.evaluate((element) => getComputedStyle(element).animationDuration),
+  ).toBe('0s');
 });

@@ -1,12 +1,12 @@
 import { type ReactElement, useCallback, useRef, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import type { CurrentProject, ProjectAxis } from '@/content/currentProjects';
 import {
-  CLOSED_PROJECTS,
-  CURRENT_PROJECTS,
-  type CurrentProject,
-  type ProjectAxis,
-} from '@/content/currentProjects';
+  PUBLIC_CLOSED_PROJECTS,
+  PUBLIC_CURRENT_PROJECTS,
+  PUBLIC_PROJECTS,
+} from '@/content/publicProjects';
 import ProjectCourt from '@/features/projects/ProjectCourt';
 import ProjectDetailDialog from '@/features/projects/ProjectDetailDialog';
 import ProjectRoster from '@/features/projects/ProjectRoster';
@@ -55,7 +55,7 @@ export default function CurrentProjects(): ReactElement {
           </p>
         </div>
         <div className="mt-6">
-          <ProjectRoster projects={CURRENT_PROJECTS} onOpenProject={openProject} />
+          <ProjectRoster projects={PUBLIC_CURRENT_PROJECTS} onOpenProject={openProject} />
         </div>
       </section>
 
@@ -63,15 +63,15 @@ export default function CurrentProjects(): ReactElement {
         activeAxis={activeAxis}
         onAxisChange={setActiveAxis}
         onOpenProject={openProject}
-        projects={CURRENT_PROJECTS}
+        projects={PUBLIC_PROJECTS}
       />
 
       <details className="mt-10 border-y border-[color:var(--color-line)] py-5">
         <summary className="cursor-pointer text-lg font-black uppercase tracking-[-0.02em] text-[color:var(--color-ink)] marker:text-[color:var(--color-primary)]">
-          Shipped package releases ({CLOSED_PROJECTS.length})
+          Shipped package releases ({PUBLIC_CLOSED_PROJECTS.length})
         </summary>
         <div className="mt-6">
-          <ProjectRoster projects={CLOSED_PROJECTS} onOpenProject={openProject} />
+          <ProjectRoster projects={PUBLIC_CLOSED_PROJECTS} onOpenProject={openProject} />
         </div>
       </details>
 

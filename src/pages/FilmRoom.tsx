@@ -2,6 +2,7 @@ import { type KeyboardEvent, type ReactElement, useId, useRef, useState } from '
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { CLIENT_WORK, FILM_ROOM_PROJECTS } from '@/content/portfolioContent';
+import { useEasterEggs } from '@/features/easter-eggs/EasterEggProvider';
 
 const BREAKDOWN_LABELS = [
   { label: 'Situation', key: 'situation' },
@@ -11,6 +12,7 @@ const BREAKDOWN_LABELS = [
 ] as const;
 
 export default function FilmRoom(): ReactElement {
+  const { openEgg } = useEasterEggs();
   const [activeProjectTitle, setActiveProjectTitle] = useState(FILM_ROOM_PROJECTS[0].title);
   const tabListId = useId();
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -110,6 +112,17 @@ export default function FilmRoom(): ReactElement {
           <p className="mt-5 max-w-3xl text-xl leading-relaxed text-[color:var(--color-ink-soft)]">
             {activeProject.deck}
           </p>
+          <button
+            type="button"
+            className="after-hours-inline-hotspot mt-5"
+            aria-label={`Open Director's Cut for ${activeProject.title}`}
+            data-easter-egg="directors-cut"
+            onClick={(event) =>
+              openEgg('directors-cut', event.currentTarget, { caseStudy: activeProject })
+            }
+          >
+            Open Director&apos;s Cut
+          </button>
 
           <div
             className="mt-6 flex flex-wrap gap-2"

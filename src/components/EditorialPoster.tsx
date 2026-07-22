@@ -12,6 +12,10 @@ interface EditorialPosterProps {
   tone: PosterTone;
   media?: PosterMediaAsset;
   stat?: string;
+  statAction?: {
+    label: string;
+    onClick: () => void;
+  };
 }
 
 const TONE_CLASSES: Record<PosterTone, string> = {
@@ -35,6 +39,7 @@ export default function EditorialPoster({
   tone,
   media,
   stat,
+  statAction,
 }: EditorialPosterProps): ReactElement {
   const hasImage = Boolean(media?.imageSrc);
   const mediaStyle: CSSProperties | undefined = media?.objectPosition
@@ -83,7 +88,19 @@ export default function EditorialPoster({
               <div className="text-[10px] font-semibold uppercase tracking-[0.14em] opacity-75">
                 File
               </div>
-              <div className="mt-2 text-3xl font-black uppercase leading-none">{stat}</div>
+              {statAction ? (
+                <button
+                  type="button"
+                  className="after-hours-poster-stat mt-2 text-3xl font-black uppercase leading-none"
+                  aria-label={statAction.label}
+                  data-easter-egg="draft-lottery"
+                  onClick={statAction.onClick}
+                >
+                  {stat}
+                </button>
+              ) : (
+                <div className="mt-2 text-3xl font-black uppercase leading-none">{stat}</div>
+              )}
             </div>
           ) : null}
         </div>
