@@ -18,5 +18,14 @@
     "taski": "../tm/.tracker/PROJECT_TRUTH.md",
     "terrace": "../Terrace/.tracker/PROJECT_TRUTH.md"
   },
-  "manual": ["signal-lab", "cap-fit-builder"]
+  "manual": [
+    "signal-lab",
+    "cap-fit-builder",
+    "agent-eval-runtime",
+    "ai-context-runtime",
+    "ai-workflow-leverage",
+    "mac-control",
+    "marketing-autoresearch",
+    "relay"
+  ]
 }

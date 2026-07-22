@@ -98,7 +98,7 @@ export const SITE_META = {
   role: 'Backend, AI & Product Software Engineer',
   location: 'US / Remote',
   school: 'Case Western Reserve University',
-  graduation: 'Expected Spring 2027',
+  graduation: 'Computer Science',
   opportunityStatus: 'Available full-time',
 } as const;
 
@@ -210,7 +210,7 @@ export const HERO_PROOF: readonly HeroProof[] = [
     value: 'PyPI/npm',
     label: 'Release proof',
     detail:
-      'Public packages now live across Quality Runner, Anti-Slop, Agent Eval Contract, Research Domain Writing, Pre-CR, and Terrace.',
+      'Public package evidence is verified across PyPI, npm, and MCP/plugin surfaces; candidate versions stay labeled staged until registry and release parity closes.',
   },
   {
     value: 'Amazon',
@@ -291,9 +291,10 @@ export const HIRING_MANAGER_READ: readonly HiringManagerRead[] = [
 ] as const;
 
 export const BREAKING_TICKER = [
-  'QUALITY RUNNER, AGENT EVAL CONTRACT, AND RESEARCH DOMAIN WRITING ARE LIVE ON PYPI',
-  'ANTI-SLOP AND PRE-CR PACKAGE SURFACES ARE LIVE ON NPM',
-  'TMCP V0.3.2 CLAUDE AND CODEX MARKETPLACE SMOKES PASSED; MCP REGISTRY DRAFT VALIDATES',
+  'QUALITY RUNNER V0.6.0 IS LIVE ON PYPI; AGENT EVAL CONTRACT V0.3.0 AND RESEARCH DOMAIN WRITING V0.2.0 ARE STAGED CANDIDATES',
+  'ANTI-SLOP V0.5.0 AND PRE-CR PACKAGE SURFACES V0.1.0 ARE LIVE ON NPM',
+  'TMCP V0.5.7 CLAUDE AND CODEX MARKETPLACE SMOKES PASSED; MCP REGISTRY DRAFT VALIDATES',
+  'TERRACE V0.1.1 REMAINS LIVE ON NPM; V0.2.0 IS STAGED FOR THE NEXT DISTRIBUTION PASS',
   'AMAZON SDE INTERN ACROSS ADS AND FINTECH SYSTEMS FROM 2023 THROUGH 2025',
   'CLEVELAND CLINIC CLINICAL COACHING MVP SHIPPED IN 2 WEEKS',
   'ARCHITECTURE FIRM PRODUCTIVITY SOFTWARE DROVE 400% OUTPUT GROWTH IN UNDER 5 WEEKS',
@@ -306,7 +307,7 @@ export const TOP_HEADLINES: readonly Headline[] = [
   {
     category: 'Release run',
     title: 'Developer-tool packages are now public across PyPI, npm, and MCP',
-    meta: 'Quality Runner, Anti-Slop, Agent Eval Contract, Research Domain Writing, Pre-CR, marketplace-smoked TMCP',
+    meta: 'Quality Runner 0.6.0, Anti-Slop 0.5.0, Pre-CR 0.1.0, TMCP 0.5.7; AEC and RDW candidates remain staged',
     href: '/projects',
   },
   {
@@ -390,7 +391,7 @@ export const FEATURE_REPORTS = [
 
 export const SCOUTING_FACTS = [
   { label: 'Archetype', value: 'Full-stack | Data + AI' },
-  { label: 'Education', value: 'CWRU, Spring 2027' },
+  { label: 'Education', value: 'CWRU, Computer Science' },
   { label: 'Leadership', value: 'AIDC Vice President' },
   { label: 'Availability', value: 'Available full-time' },
 ] as const;
@@ -481,7 +482,7 @@ export const FILM_ROOM_PROJECTS: readonly FilmRoomProject[] = [
     built:
       'Packaged a CLI and MCP server that can run quality checks, preserve evidence, and expose the results in a format agents and humans can both consume.',
     result:
-      'Quality Runner is now live on PyPI as quality-runner v0.3.1, giving the quality-gate work a public install surface.',
+      'Quality Runner is now live on PyPI as quality-runner v0.6.0, with the v0.6.0 repository tag verified against the promoted dev truth.',
     whyItMatters:
       'This is the clearest public proof of the current thesis: agent work needs specs, checks, and artifacts that survive beyond the chat window.',
     engineeringRead:
@@ -545,7 +546,7 @@ export const BENCH_PROJECTS = [
   {
     kicker: 'MCP workflows',
     title: 'TMCP',
-    copy: 'v0.3.2 Claude/Codex marketplace-smoked MCP/plugin distribution with launcher smokes, MCP Registry draft validation, and public tarball SHA-256 proof.',
+    copy: 'v0.5.7 Claude/Codex marketplace-smoked MCP/plugin distribution with launcher smokes, MCP Registry draft validation, and public tarball SHA-256 proof.',
   },
 ] as const;
 

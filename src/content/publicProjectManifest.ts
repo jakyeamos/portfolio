@@ -62,8 +62,9 @@ export const PUBLIC_PROJECT_MANIFEST: readonly PublicProjectManifestEntry[] = [
   },
   {
     slug: 'terrace',
-    reviewedAt: '2026-07-21',
-    reviewNote: 'Published developer-tool project with a public package surface.',
+    reviewedAt: '2026-07-22',
+    reviewNote:
+      'Published developer-tool project with npm v0.1.1 verified; v0.2.0 remains a staged candidate.',
     courtEligible: true,
   },
   {
@@ -128,38 +129,38 @@ export const PUBLIC_PROJECT_MANIFEST: readonly PublicProjectManifestEntry[] = [
   },
   {
     slug: 'quality-runner',
-    reviewedAt: '2026-07-21',
-    reviewNote: 'Shipped package with public distribution proof.',
+    reviewedAt: '2026-07-22',
+    reviewNote: 'PyPI v0.6.0 and the matching repository tag are verified.',
     courtEligible: true,
   },
   {
     slug: 'eslint-plugin-anti-slop',
-    reviewedAt: '2026-07-21',
-    reviewNote: 'Shipped package with public distribution proof.',
+    reviewedAt: '2026-07-22',
+    reviewNote: 'npm v0.5.0 and the matching GitHub release are verified.',
     courtEligible: true,
   },
   {
     slug: 'agent-eval-contract',
-    reviewedAt: '2026-07-21',
-    reviewNote: 'Shipped package with public distribution proof.',
+    reviewedAt: '2026-07-22',
+    reviewNote: 'PyPI v0.2.0 is public; validated v0.3.0 remains a staged dev candidate.',
     courtEligible: true,
   },
   {
     slug: 'research-domain-writing',
-    reviewedAt: '2026-07-21',
-    reviewNote: 'Shipped package with public distribution proof.',
+    reviewedAt: '2026-07-22',
+    reviewNote: 'PyPI v0.1.0 is public; validated v0.2.0 remains a staged dev candidate.',
     courtEligible: true,
   },
   {
     slug: 'tmcp',
-    reviewedAt: '2026-07-21',
-    reviewNote: 'Shipped package with public distribution proof.',
+    reviewedAt: '2026-07-22',
+    reviewNote: 'v0.5.7 GitHub release and marketplace/package integrity evidence are verified.',
     courtEligible: true,
   },
   {
     slug: 'pre-cr-suite',
-    reviewedAt: '2026-07-21',
-    reviewNote: 'Shipped package with public distribution proof.',
+    reviewedAt: '2026-07-22',
+    reviewNote: 'npm v0.1.0 packages and the release tag are verified after the dev fold.',
     courtEligible: true,
   },
 ] as const;

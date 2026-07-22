@@ -48,7 +48,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     portfolioUpdate: 'Active beta hardening across the shared web and mobile product surfaces.',
     trackerStatus: 'needs_attention',
     trackerScore: 78,
-    lastUpdated: '2026-07-19',
+    lastUpdated: '2026-07-22',
     tags: ['music', 'social', 'monorepo', 'tRPC', 'Prisma'],
     grades: { impact: 9, difficulty: 9, ambition: 10, creativity: 8 },
     scoutTake:
@@ -171,11 +171,12 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     title: 'Terrace',
     shortCode: 'TR',
     summary:
-      'Published spec-driven AI development CLI that governs structured, test-validated builds — live on npm as @jakyeamos33/terrace with the 0.2.0 line staged in-repo for the next distribution pass.',
-    portfolioUpdate: 'Public npm package with release-readiness checks and a staged next version.',
+      'Published spec-driven AI development CLI that governs structured, test-validated builds — the public @jakyeamos33/terrace package remains at v0.1.1 while the v0.2.0 line is staged in-repo.',
+    portfolioUpdate:
+      'Public npm v0.1.1 is verified; v0.2.0 remains a staged candidate pending distribution.',
     trackerStatus: 'on_track',
     trackerScore: 100,
-    lastUpdated: '2026-07-19',
+    lastUpdated: '2026-07-22',
     tags: ['framework', 'npm', 'AI-tooling', 'validation'],
     grades: { impact: 8, difficulty: 8, ambition: 9, creativity: 8 },
     scoutTake:
@@ -372,10 +373,11 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'QR',
     summary:
       'Released PyPI package and MCP server for running repository quality checks, collecting evidence, and turning local verification into a machine-readable proof artifact.',
-    portfolioUpdate: 'Published to PyPI as quality-runner v0.3.1 on 2026-07-04.',
+    portfolioUpdate:
+      'Published to PyPI as quality-runner v0.6.0; the v0.6.0 repository tag is verified.',
     trackerStatus: 'shipped',
     trackerScore: 100,
-    lastUpdated: '2026-07-04',
+    lastUpdated: '2026-07-22',
     tags: ['Python', 'PyPI', 'MCP', 'quality-gates'],
     grades: { impact: 8, difficulty: 7, ambition: 8, creativity: 8 },
     scoutTake:
@@ -387,10 +389,11 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'AS',
     summary:
       'Released ESLint plugin that catches low-signal AI/code-review patterns before they land, giving TypeScript repos a targeted guardrail against vague or sloppy generated code.',
-    portfolioUpdate: 'Published to npm as eslint-plugin-anti-slop v0.2.0 on 2026-07-04.',
+    portfolioUpdate:
+      'Published to npm as eslint-plugin-anti-slop v0.5.0; the v0.5.0 GitHub release is verified.',
     trackerStatus: 'shipped',
     trackerScore: 100,
-    lastUpdated: '2026-07-04',
+    lastUpdated: '2026-07-22',
     tags: ['TypeScript', 'npm', 'ESLint', 'static-analysis'],
     grades: { impact: 7, difficulty: 6, ambition: 6, creativity: 8 },
     scoutTake:
@@ -402,10 +405,11 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'AE',
     summary:
       'Released PyPI package with typed contracts for agent evaluations: cases, rubrics, evidence, run metadata, and result payloads that stay consistent across evaluators.',
-    portfolioUpdate: 'Published to PyPI as agent-eval-contract v0.2.0 on 2026-07-04.',
+    portfolioUpdate:
+      'PyPI v0.2.0 remains the public release; validated v0.3.0 is staged on canonical dev as the next candidate.',
     trackerStatus: 'shipped',
     trackerScore: 100,
-    lastUpdated: '2026-07-04',
+    lastUpdated: '2026-07-22',
     tags: ['Python', 'PyPI', 'Pydantic', 'agent-evals'],
     grades: { impact: 8, difficulty: 7, ambition: 7, creativity: 7 },
     scoutTake:
@@ -417,10 +421,11 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'RD',
     summary:
       'Released PyPI package for research-grounded writing workflows that preserve source evidence, domain framing, and claim discipline from research through draft output.',
-    portfolioUpdate: 'Published to PyPI as research-domain-writing v0.1.0 on 2026-07-04.',
+    portfolioUpdate:
+      'PyPI v0.1.0 remains the public release; validated v0.2.0 is staged on canonical dev as the next candidate.',
     trackerStatus: 'shipped',
     trackerScore: 100,
-    lastUpdated: '2026-07-04',
+    lastUpdated: '2026-07-22',
     tags: ['Python', 'PyPI', 'research', 'writing-systems'],
     grades: { impact: 7, difficulty: 7, ambition: 7, creativity: 8 },
     scoutTake:
@@ -433,10 +438,10 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Released Claude + Codex marketplace-tested MCP/plugin distribution for composable skill-packet workflows including expert audits, release readiness, UI rubrics, routing policies, and agent handoffs.',
     portfolioUpdate:
-      'The v0.3.2 release is verified across marketplace install flows and public package integrity checks.',
+      'The v0.5.7 release is verified across marketplace install flows and public package integrity checks.',
     trackerStatus: 'shipped',
     trackerScore: 100,
-    lastUpdated: '2026-07-04',
+    lastUpdated: '2026-07-22',
     tags: ['Python', 'MCP', 'Claude', 'Codex', 'agent-workflows'],
     grades: { impact: 8, difficulty: 8, ambition: 9, creativity: 9 },
     scoutTake:
@@ -452,7 +457,7 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
       'Published to npm as @pre-cr/core v0.1.0 and @pre-cr/server v0.1.0 on 2026-07-04.',
     trackerStatus: 'shipped',
     trackerScore: 100,
-    lastUpdated: '2026-07-04',
+    lastUpdated: '2026-07-22',
     tags: ['TypeScript', 'npm', 'coverage', 'developer-experience'],
     grades: { impact: 7, difficulty: 7, ambition: 6, creativity: 8 },
     scoutTake:
