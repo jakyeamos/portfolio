@@ -48,7 +48,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     portfolioUpdate: 'Active beta hardening across the shared web and mobile product surfaces.',
     trackerStatus: 'needs_attention',
     trackerScore: 78,
-    lastUpdated: '2026-07-07',
+    lastUpdated: '2026-07-19',
     tags: ['music', 'social', 'monorepo', 'tRPC', 'Prisma'],
     grades: { impact: 9, difficulty: 9, ambition: 10, creativity: 8 },
     scoutTake:
@@ -59,15 +59,15 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     title: 'AIOS',
     shortCode: 'AI',
     summary:
-      'Personal AI operating system built around session hooks, workflow orchestration, pattern extraction, and layered knowledge retrieval — actively used as the backbone of daily engineering operations.',
-    portfolioUpdate: 'Local-first engineering operations system moving through its v2 modernization.',
-    trackerStatus: 'on_track',
-    trackerScore: 85,
-    lastUpdated: '2026-07-10',
+      'Read-only migration shell for the former personal AI operating system; its portfolio evidence and active workflows now live in independent runtimes.',
+    portfolioUpdate: 'AIOS is archived as a migration boundary while leverage, context, evaluation, and quality runtimes own active operations.',
+    trackerStatus: 'stalled',
+    trackerScore: 0,
+    lastUpdated: '2026-07-21',
     tags: ['Python', 'shell', 'SQLite', 'automation', 'AI-tooling'],
     grades: { impact: 8, difficulty: 7, ambition: 9, creativity: 9 },
     scoutTake:
-      'The most personal project on the board — meta-engineering that compounds with every other project. Hard to explain but impossible to ignore once you understand it.',
+      'A useful architectural artifact, now intentionally retired as a monolith so its strongest capabilities can compound independently across the portfolio.',
   },
   {
     slug: 'terrace',
@@ -78,7 +78,7 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     portfolioUpdate: 'Public npm package with release-readiness checks and a staged next version.',
     trackerStatus: 'on_track',
     trackerScore: 100,
-    lastUpdated: '2026-07-13',
+    lastUpdated: '2026-07-19',
     tags: ['framework', 'npm', 'AI-tooling', 'validation'],
     grades: { impact: 8, difficulty: 8, ambition: 9, creativity: 8 },
     scoutTake:
@@ -153,8 +153,8 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
       'Merged BBDSE CourtIQ lane: the Court Vision/Bballedu draft, lobby, waiting-room, and recap runtime now lives inside the BBDSE product suite, with the old standalone repo preserved as an archive/fallback boundary.',
     portfolioUpdate: 'CourtIQ and the BBDSE runtime now share one unified product lane.',
     trackerStatus: 'on_track',
-    trackerScore: 84,
-    lastUpdated: '2026-07-02',
+    trackerScore: 86,
+    lastUpdated: '2026-07-21',
     tags: ['basketball', 'CourtIQ', 'BBDSE', 'Next.js', 'draft-sim'],
     grades: { impact: 7, difficulty: 7, ambition: 8, creativity: 8 },
     scoutTake:
@@ -183,8 +183,8 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
       'Interactive digital book reader with chapter-specific visuals, music, ambient effects, particles, and a growing admin CMS layer for nontechnical chapter editing and soundtrack cue management.',
     portfolioUpdate: 'Interactive reader and editorial tooling are under active refinement.',
     trackerStatus: 'on_track',
-    trackerScore: 88,
-    lastUpdated: '2026-07-10',
+    trackerScore: 76,
+    lastUpdated: '2026-07-14',
     tags: ['interactive-book', 'admin-CMS', 'audio', 'TypeScript', 'publishing'],
     grades: { impact: 6, difficulty: 7, ambition: 7, creativity: 9 },
     scoutTake:

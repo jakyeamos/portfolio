@@ -1,6 +1,10 @@
 {
   "sources": {
-    "aios": "../../AIOS/.tracker/PROJECT_TRUTH.md",
+    "aios": {
+      "type": "leverage-public-projection",
+      "path": "../ai-workflow-leverage/exports/public/portfolio",
+      "project": "AIOS"
+    },
     "bidcamp": "../BidCamp/.tracker/PROJECT_TRUTH.md",
     "bballedu": "../Bballedu/.tracker/PROJECT_TRUTH.md",
     "book": "../Book/.tracker/PROJECT_TRUTH.md",

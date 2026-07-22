@@ -9,7 +9,7 @@
  * Safe by default: without --write the script only reports drift.
  */
 
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, isAbsolute, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -110,11 +110,31 @@ function loadTrackerMap() {
   const manualEntries = Array.isArray(parsed.manual) ? parsed.manual : [];
   const sources = new Map();
 
-  for (const [rawSlug, rawPath] of sourceEntries) {
-    if (typeof rawPath !== 'string') {
-      throw new Error(`Tracker source for ${rawSlug} must be a path string.`);
+  for (const [rawSlug, rawSource] of sourceEntries) {
+    if (typeof rawSource === 'string') {
+      sources.set(normalizeKey(rawSlug), {
+        type: 'frontmatter',
+        path: expandAndResolvePath(rawSource),
+      });
+      continue;
     }
-    sources.set(normalizeKey(rawSlug), expandAndResolvePath(rawPath));
+    if (!rawSource || typeof rawSource !== 'object' || Array.isArray(rawSource)) {
+      throw new Error(`Tracker source for ${rawSlug} must be a path or typed source.`);
+    }
+    const type = rawSource.type;
+    const pathValue = rawSource.path;
+    if (type !== 'leverage-public-projection' || typeof pathValue !== 'string') {
+      throw new Error(`Unsupported tracker source for ${rawSlug}.`);
+    }
+    const project = rawSource.project;
+    if (project !== undefined && typeof project !== 'string') {
+      throw new Error(`Tracker projection name for ${rawSlug} must be a string.`);
+    }
+    sources.set(normalizeKey(rawSlug), {
+      type,
+      path: expandAndResolvePath(pathValue),
+      project: project ?? rawSlug,
+    });
   }
 
   const manual = new Set();
@@ -159,6 +179,121 @@ function patchTrackerFields(block, { trackerScore, trackerStatus, lastUpdated })
     );
 }
 
+function readLeverageProjection(source, fallbackProject) {
+  if (!existsSync(source.path)) {
+    throw new Error(`Missing leverage projection directory: ${source.path}`);
+  }
+
+  const candidates = readdirSync(source.path)
+    .filter((name) => name.startsWith('portfolio-humanized-') && name.endsWith('.json'))
+    .map((name) => ({
+      name,
+      path: resolve(source.path, name),
+      modified: statSync(resolve(source.path, name)).mtimeMs,
+    }))
+    .sort((left, right) => right.modified - left.modified || right.name.localeCompare(left.name));
+
+  for (const candidate of candidates) {
+    const payload = JSON.parse(readFileSync(candidate.path, 'utf8'));
+    validateLeverageProjection(payload, candidate.path);
+    const projectName = source.project ?? fallbackProject;
+    const project = payload.projects.find(
+      (entry) => normalizeKey(entry.project_name) === normalizeKey(projectName),
+    );
+    if (!project) continue;
+    if (
+      !VALID_STATUSES.has(project.tracker_status) ||
+      !Number.isInteger(project.tracker_score) ||
+      project.tracker_score < 0 ||
+      project.tracker_score > 100 ||
+      typeof project.last_updated !== 'string' ||
+      !/^\d{4}-\d{2}-\d{2}(?:$|T)/.test(project.last_updated)
+    ) {
+      throw new Error(`Projection has no complete tracker fields for ${projectName}.`);
+    }
+    return {
+      trackerScore: project.tracker_score,
+      trackerStatus: project.tracker_status,
+      lastUpdated: project.last_updated,
+    };
+  }
+
+  throw new Error(`Projection does not contain ${source.project ?? fallbackProject}.`);
+}
+
+function validateLeverageProjection(payload, sourcePath) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    throw new Error(`Leverage projection must be an object: ${sourcePath}`);
+  }
+  if (payload.schema_version !== 'leverage-portfolio-public/v1') {
+    throw new Error(`Unsupported leverage projection schema: ${sourcePath}`);
+  }
+  if (payload.publication_status !== 'pending_manual_publish' || payload.manual_review_required !== true) {
+    throw new Error(`Leverage projection is not review-gated: ${sourcePath}`);
+  }
+  if (!Array.isArray(payload.projects)) {
+    throw new Error(`Leverage projection has no project list: ${sourcePath}`);
+  }
+  assertProjectionSafe(payload, 'root');
+  for (const project of payload.projects) {
+    if (!project || typeof project !== 'object' || Array.isArray(project)) {
+      throw new Error(`Leverage projection contains an invalid project: ${sourcePath}`);
+    }
+    if (
+      typeof project.project_name !== 'string' ||
+      (project.tracker_status !== null && !VALID_STATUSES.has(project.tracker_status)) ||
+      (project.tracker_score !== null &&
+        (!Number.isInteger(project.tracker_score) ||
+          project.tracker_score < 0 ||
+          project.tracker_score > 100)) ||
+      (project.last_updated !== null &&
+        (typeof project.last_updated !== 'string' ||
+          !/^\d{4}-\d{2}-\d{2}(?:$|T)/.test(project.last_updated)))
+    ) {
+      throw new Error(`Leverage projection has invalid tracker fields: ${sourcePath}`);
+    }
+  }
+}
+
+function assertProjectionSafe(value, location) {
+  const forbiddenKeys = [
+    'prompt',
+    'code',
+    'diff',
+    'transcript',
+    'path',
+    'credential',
+    'secret',
+    'token',
+    'sha',
+    'branch',
+    'command',
+    'executable',
+    'model',
+    'worktree',
+    'rollback',
+  ];
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => assertProjectionSafe(item, `${location}[${index}]`));
+    return;
+  }
+  if (value && typeof value === 'object') {
+    for (const [key, child] of Object.entries(value)) {
+      if (forbiddenKeys.some((term) => key.toLowerCase().includes(term))) {
+        throw new Error(`Forbidden leverage projection key at ${location}.${key}`);
+      }
+      assertProjectionSafe(child, `${location}.${key}`);
+    }
+    return;
+  }
+  if (typeof value === 'string') {
+    const lowered = value.toLowerCase();
+    if (['/users/', '\\users\\', 'api_key', 'bearer ', '-----begin'].some((term) => lowered.includes(term))) {
+      throw new Error(`Sensitive-looking leverage projection value at ${location}`);
+    }
+  }
+}
+
 let source = readFileSync(DATA_FILE, 'utf8');
 const projectSlugs = readCurrentProjectSlugs(source);
 
@@ -189,19 +324,32 @@ for (const slug of projectSlugs) {
     continue;
   }
 
-  const trackerPath = trackerMap.sources.get(key);
-  if (!trackerPath || !existsSync(trackerPath)) {
+  const trackerSource = trackerMap.sources.get(key);
+  if (!trackerSource || !existsSync(trackerSource.path)) {
     console.error(`  missing ${slug} source`);
     process.exitCode = 1;
     continue;
   }
 
-  const frontmatter = parseFrontmatter(readFileSync(trackerPath, 'utf8'));
-  const trackerScore = Number.parseInt(frontmatter?.healthScore ?? '', 10);
-  const trackerStatus = VALID_STATUSES.has(frontmatter?.statusLabel)
-    ? frontmatter.statusLabel
-    : deriveStatus(trackerScore);
-  const lastUpdated = frontmatter?.lastUpdated;
+  let trackerScore;
+  let trackerStatus;
+  let lastUpdated;
+  if (trackerSource.type === 'leverage-public-projection') {
+    try {
+      ({ trackerScore, trackerStatus, lastUpdated } = readLeverageProjection(trackerSource, slug));
+    } catch (error) {
+      console.error(`  invalid ${slug} leverage projection: ${error instanceof Error ? error.message : String(error)}`);
+      process.exitCode = 1;
+      continue;
+    }
+  } else {
+    const frontmatter = parseFrontmatter(readFileSync(trackerSource.path, 'utf8'));
+    trackerScore = Number.parseInt(frontmatter?.healthScore ?? '', 10);
+    trackerStatus = VALID_STATUSES.has(frontmatter?.statusLabel)
+      ? frontmatter.statusLabel
+      : deriveStatus(trackerScore);
+    lastUpdated = frontmatter?.lastUpdated;
+  }
 
   if (Number.isNaN(trackerScore) || !lastUpdated) {
     console.error(`  invalid ${slug} public tracker fields`);
