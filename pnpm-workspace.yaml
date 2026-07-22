@@ -4,3 +4,11 @@ allowBuilds:
   netlify-cli: true
   sharp: true
   unix-dgram: true
+overrides:
+  'brace-expansion@^2.0.1': 2.1.2
+  'brace-expansion@^2.0.2': 2.1.2
+  'brace-expansion@^5.0.5': 5.0.7
+  fast-uri: 3.1.4
+  sharp: 0.35.0
+  svgo: 4.0.2
+  tar: 7.5.19
