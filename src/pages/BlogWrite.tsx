@@ -84,7 +84,7 @@ ${body}
 `,
     [body, deck, pinned, thesis, title, today],
   );
-  const bipPayload = useMemo(
+  const reviewPayload = useMemo(
     () =>
       JSON.stringify(
         {
@@ -129,11 +129,12 @@ ${body}
             <div>
               <div className="section-kicker">Local Writer</div>
               <h1 className="mt-4 text-5xl font-black uppercase leading-[0.88] tracking-tight text-[color:var(--color-ink)] md:text-7xl">
-                Draft once, hand BIP the repo targets.
+                Draft once, hand the review workflow the repo targets.
               </h1>
               <p className="mt-5 max-w-4xl text-lg leading-relaxed text-[color:var(--color-ink-soft)] md:text-xl">
-                This local-only surface emits one Markdown post and a BIP crosspost payload. BIP can
-                own draft hosting, review, and pushing the same content into both repos.
+                This local-only surface emits one Markdown post and a review payload. Career-Ops can
+                carry the claims, destination variants, and approval boundary before a human pushes
+                the same content into both repos.
               </p>
             </div>
 
@@ -145,11 +146,11 @@ ${body}
                 </div>
               </div>
               <p className="mt-3 text-2xl font-black uppercase leading-tight">
-                Portfolio and FRMWRK consume Markdown. BIP coordinates the write.
+                Portfolio and FRMWRK consume Markdown. Career-Ops coordinates the review.
               </p>
               <p className="mt-3 text-sm leading-relaxed text-white/78">
-                The deployed portfolio should stay read-only until BIP or another trusted backend
-                handles authenticated repository writes.
+                The deployed portfolio should stay read-only until a trusted backend handles
+                authenticated repository writes.
               </p>
             </aside>
           </div>
@@ -262,10 +263,10 @@ ${body}
             <section className="min-w-0 border border-[color:var(--color-line-strong)] bg-[color:var(--color-navy)] p-6 text-white">
               <div className="flex items-center gap-3">
                 <FileCode2 size={18} className="text-[color:var(--color-gold)]" />
-                <div className="section-kicker text-[color:var(--color-gold)]">BIP Payload</div>
+                <div className="section-kicker text-[color:var(--color-gold)]">Review Payload</div>
               </div>
               <pre className="mt-4 max-h-80 min-w-0 overflow-auto whitespace-pre-wrap border border-white/15 bg-white/5 p-4 text-xs leading-relaxed text-white/85">
-                {bipPayload}
+                {reviewPayload}
               </pre>
             </section>
 
