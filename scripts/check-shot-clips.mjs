@@ -76,8 +76,16 @@ function validateAllowlist() {
   }
 
   const manifestSlugs = PUBLIC_PROJECT_MANIFEST.map((entry) => entry.slug);
+  const courtEligibleSlugs = new Set();
   if (new Set(manifestSlugs).size !== manifestSlugs.length) {
     fail('PUBLIC_PROJECT_MANIFEST contains duplicate slugs');
+  }
+  for (const [index, entry] of PUBLIC_PROJECT_MANIFEST.entries()) {
+    if (typeof entry.courtEligible !== 'boolean') {
+      fail(`PUBLIC_PROJECT_MANIFEST[${index}].courtEligible must be boolean`);
+    } else if (entry.courtEligible) {
+      courtEligibleSlugs.add(entry.slug);
+    }
   }
   if (manifestSlugs.length !== allowlistSlugs.size) {
     fail(
@@ -97,7 +105,7 @@ function validateAllowlist() {
     fail('PUBLIC_PROJECT_SLUGS must be the ordered slugs from PUBLIC_PROJECT_MANIFEST');
   }
 
-  return allowlistSlugs;
+  return { allowlistSlugs, courtEligibleSlugs };
 }
 
 function validateProjects(allowlistSlugs) {
@@ -114,7 +122,7 @@ function validateProjects(allowlistSlugs) {
   return projectBySlug;
 }
 
-function validateClips(allowlistSlugs, projectBySlug) {
+function validateClips(allowlistSlugs, courtEligibleSlugs, projectBySlug) {
   if (!Array.isArray(PROJECT_SHOT_CLIPS) || PROJECT_SHOT_CLIPS.length === 0) {
     fail('PROJECT_SHOT_CLIPS must contain at least one clip');
     return;
@@ -132,6 +140,9 @@ function validateClips(allowlistSlugs, projectBySlug) {
     }
     if (!allowlistSlugs.has(clip.projectSlug)) {
       fail(`${label} references unallowlisted project ${clip.projectSlug}`);
+    }
+    if (!courtEligibleSlugs.has(clip.projectSlug)) {
+      fail(`${label} references non-court-eligible project ${clip.projectSlug}`);
     }
     if (!projectBySlug.has(clip.projectSlug)) {
       fail(`${label} references missing project ${clip.projectSlug}`);
@@ -202,26 +213,27 @@ function validateClips(allowlistSlugs, projectBySlug) {
     }
   }
 
-  for (const slug of allowlistSlugs) {
+  for (const slug of courtEligibleSlugs) {
     const clip = clipsByProject.get(slug);
     if (!clip) fail(`published project ${slug} has no verified shot clip`);
   }
   for (const slug of clipsByProject.keys()) {
-    if (!allowlistSlugs.has(slug)) fail(`clip registry has unpublished project ${slug}`);
+    if (!courtEligibleSlugs.has(slug)) fail(`clip registry has non-court-eligible project ${slug}`);
   }
-  if (clipsByProject.size !== allowlistSlugs.size) {
+  if (clipsByProject.size !== courtEligibleSlugs.size) {
     fail(
-      `clip coverage ${clipsByProject.size}/${allowlistSlugs.size} is not exactly one clip per published project`,
+      `clip coverage ${clipsByProject.size}/${courtEligibleSlugs.size} is not exactly one clip per court-eligible project`,
     );
   }
 
   return { clipsByProject, windows };
 }
 
-const allowlistSlugs = validateAllowlist();
-if (allowlistSlugs) {
+const validationScope = validateAllowlist();
+if (validationScope) {
+  const { allowlistSlugs, courtEligibleSlugs } = validationScope;
   const projectBySlug = validateProjects(allowlistSlugs);
-  validateClips(allowlistSlugs, projectBySlug);
+  validateClips(allowlistSlugs, courtEligibleSlugs, projectBySlug);
 }
 
 if (errors.length > 0) {
@@ -233,6 +245,7 @@ if (errors.length > 0) {
 }
 
 const projectsRoot = resolve(root, allowlist.projectsRoot);
+const courtEligibleProjectCount = validationScope?.courtEligibleSlugs.size ?? 0;
 console.log(
-  `[PASS] shot clip validation (${PUBLIC_PROJECT_MANIFEST.length} public projects, ${PROJECT_SHOT_CLIPS.length} verified windows; candidates checked under ${relative(dirname(root), projectsRoot) || '.'})`,
+  `[PASS] shot clip validation (${PUBLIC_PROJECT_MANIFEST.length} public projects, ${courtEligibleProjectCount} court-eligible projects, ${PROJECT_SHOT_CLIPS.length} verified windows; candidates checked under ${relative(dirname(root), projectsRoot) || '.'})`,
 );

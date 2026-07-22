@@ -4,6 +4,12 @@
   "projects": [
     { "slug": "soundscape", "sourcePath": "soundscape-app" },
     { "slug": "aios", "sourcePath": "AIOS" },
+    { "slug": "agent-eval-runtime", "sourcePath": "agent-eval-runtime" },
+    { "slug": "ai-context-runtime", "sourcePath": "ai-context-runtime" },
+    { "slug": "ai-workflow-leverage", "sourcePath": "ai-workflow-leverage" },
+    { "slug": "mac-control", "sourcePath": "mac-control" },
+    { "slug": "marketing-autoresearch", "sourcePath": "marketing-autoresearch" },
+    { "slug": "relay", "sourcePath": "relay" },
     { "slug": "terrace", "sourcePath": "Terrace" },
     { "slug": "bidcamp", "sourcePath": "BidCamp" },
     { "slug": "fantasy", "sourcePath": "Fantasy" },

@@ -60,7 +60,8 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'AI',
     summary:
       'Read-only migration shell for the former personal AI operating system; its portfolio evidence and active workflows now live in independent runtimes.',
-    portfolioUpdate: 'AIOS is archived as a migration boundary while leverage, context, evaluation, and quality runtimes own active operations.',
+    portfolioUpdate:
+      'AIOS is archived as a migration boundary while leverage, context, evaluation, and quality runtimes own active operations.',
     trackerStatus: 'stalled',
     trackerScore: 0,
     lastUpdated: '2026-07-21',
@@ -68,6 +69,102 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     grades: { impact: 8, difficulty: 7, ambition: 9, creativity: 9 },
     scoutTake:
       'A useful architectural artifact, now intentionally retired as a monolith so its strongest capabilities can compound independently across the portfolio.',
+  },
+  {
+    slug: 'agent-eval-runtime',
+    title: 'Agent Eval Runtime',
+    shortCode: 'AR',
+    summary:
+      'Standalone local runtime for eval runs, paired comparisons, model selection, and benchmark evidence, separated from the former AIOS operational database.',
+    portfolioUpdate:
+      'The independent eval-evidence owner is established; measured corpus growth and future execution adapters remain next-stage work.',
+    trackerStatus: 'needs_attention',
+    trackerScore: 72,
+    lastUpdated: '2026-07-22',
+    tags: ['Python', 'SQLite', 'agent-evals', 'benchmarks'],
+    grades: { impact: 7, difficulty: 8, ambition: 7, creativity: 7 },
+    scoutTake:
+      'A clean split around the evidence contract that agent systems need before model comparisons can mean anything.',
+  },
+  {
+    slug: 'ai-context-runtime',
+    title: 'AI Context Runtime',
+    shortCode: 'CX',
+    summary:
+      'Standalone local runtime for context compilation, knowledge packets, handoffs, and report-only session intelligence with versioned signal exports.',
+    portfolioUpdate:
+      'Private local evidence and context ownership now have an independent boundary; provider calls and public publishing remain outside the first slice.',
+    trackerStatus: 'needs_attention',
+    trackerScore: 74,
+    lastUpdated: '2026-07-22',
+    tags: ['Python', 'SQLite', 'context', 'session-intelligence'],
+    grades: { impact: 8, difficulty: 8, ambition: 8, creativity: 7 },
+    scoutTake:
+      'The important move is architectural discipline: context becomes a versioned, inspectable product surface instead of an invisible database dependency.',
+  },
+  {
+    slug: 'ai-workflow-leverage',
+    title: 'AI Workflow Leverage',
+    shortCode: 'WL',
+    summary:
+      'Local-first evidence ledger for measuring cross-repository shipping leverage through bounded reproductions, review-gated execution, acceptance evidence, and public-safe projections.',
+    portfolioUpdate:
+      'The workflow owner now records provenance-backed friction-to-fix evidence while merge, deployment, and publication remain human-controlled.',
+    trackerStatus: 'needs_attention',
+    trackerScore: 84,
+    lastUpdated: '2026-07-22',
+    tags: ['Python', 'SQLite', 'workflow', 'provenance'],
+    grades: { impact: 9, difficulty: 9, ambition: 9, creativity: 8 },
+    scoutTake:
+      'This is the systems project behind the systems projects: valuable only if its evidence stays more trustworthy than its automation is impressive.',
+  },
+  {
+    slug: 'mac-control',
+    title: 'macctl',
+    shortCode: 'MC',
+    summary:
+      'Command-first macOS control plane with an owner-only daemon, guarded GUI workflows, local receipts, and explicit accessibility, capture, and approval boundaries.',
+    portfolioUpdate:
+      'Tier-one release controls and fail-closed workflow evidence are implemented; live macOS permissions and environment-dependent smokes remain release blockers.',
+    trackerStatus: 'needs_attention',
+    trackerScore: 76,
+    lastUpdated: '2026-07-22',
+    tags: ['Swift', 'macOS', 'AppKit', 'automation'],
+    grades: { impact: 8, difficulty: 9, ambition: 8, creativity: 8 },
+    scoutTake:
+      'A serious control-plane problem where the hard part is refusing to pretend a GUI action happened when the machine cannot prove it.',
+  },
+  {
+    slug: 'marketing-autoresearch',
+    title: 'Marketing Autoresearch',
+    shortCode: 'MA',
+    summary:
+      'Evidence-bounded weekly SEO/AEO research loop for the portfolio and product surfaces, with fixed prompts, source freshness, shadow runs, and fail-closed publication guardrails.',
+    portfolioUpdate:
+      'The report-first research loop is operational; candidate application remains human-reviewed and blocked until deployment-specific evidence is verified.',
+    trackerStatus: 'needs_attention',
+    trackerScore: 82,
+    lastUpdated: '2026-07-22',
+    tags: ['TypeScript', 'SEO', 'AEO', 'research'],
+    grades: { impact: 8, difficulty: 7, ambition: 8, creativity: 8 },
+    scoutTake:
+      'The useful constraint is that marketing automation produces better questions and evidence before it is allowed to produce public changes.',
+  },
+  {
+    slug: 'relay',
+    title: 'Relay',
+    shortCode: 'RL',
+    summary:
+      'Private, keyboard-first native macOS workbench for local AI coding workflows, combining session discovery, Playbook intelligence, Usage metrics, and guarded file transactions.',
+    portfolioUpdate:
+      'The AppKit workbench and local ingestion path are implemented and verified; desktop screenshot and accessibility dogfood remains capture-limited.',
+    trackerStatus: 'needs_attention',
+    trackerScore: 95,
+    lastUpdated: '2026-07-22',
+    tags: ['Swift', 'AppKit', 'SQLite', 'local-first'],
+    grades: { impact: 8, difficulty: 9, ambition: 9, creativity: 9 },
+    scoutTake:
+      'A local-first attempt to make coding-workflow state legible without turning private transcripts or file changes into a hosted service.',
   },
   {
     slug: 'terrace',
@@ -105,7 +202,8 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
     shortCode: 'TK',
     summary:
       'Electron + React + SQLite local-first task tracker with a full service layer and data architecture in place, currently being wired up for its first development run.',
-    portfolioUpdate: 'Local-first desktop workbench with the core service and data layers in place.',
+    portfolioUpdate:
+      'Local-first desktop workbench with the core service and data layers in place.',
     trackerStatus: 'needs_attention',
     trackerScore: 78,
     lastUpdated: '2026-06-29',

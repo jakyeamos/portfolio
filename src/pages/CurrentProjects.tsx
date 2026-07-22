@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import type { CurrentProject, ProjectAxis } from '@/content/currentProjects';
 import {
   PUBLIC_CLOSED_PROJECTS,
+  PUBLIC_COURT_PROJECTS,
   PUBLIC_CURRENT_PROJECTS,
-  PUBLIC_PROJECTS,
 } from '@/content/publicProjects';
 import ProjectCourt from '@/features/projects/ProjectCourt';
 import ProjectDetailDialog from '@/features/projects/ProjectDetailDialog';
@@ -63,7 +63,7 @@ export default function CurrentProjects(): ReactElement {
         activeAxis={activeAxis}
         onAxisChange={setActiveAxis}
         onOpenProject={openProject}
-        projects={PUBLIC_PROJECTS}
+        projects={PUBLIC_COURT_PROJECTS}
       />
 
       <details className="mt-10 border-y border-[color:var(--color-line)] py-5">
