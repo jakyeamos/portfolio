@@ -148,7 +148,7 @@ export const PUBLIC_PROJECT_MANIFEST: readonly PublicProjectManifestEntry[] = [
   {
     slug: 'research-domain-writing',
     reviewedAt: '2026-07-22',
-    reviewNote: 'PyPI v0.1.0 is public; validated v0.2.0 remains a staged dev candidate.',
+    reviewNote: 'PyPI v0.1.0 is public; validated v0.3.0 remains a staged dev candidate.',
     courtEligible: true,
   },
   {

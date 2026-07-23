@@ -422,7 +422,7 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Released PyPI package for research-grounded writing workflows that preserve source evidence, domain framing, and claim discipline from research through draft output.',
     portfolioUpdate:
-      'PyPI v0.1.0 remains the public release; validated v0.2.0 is staged on canonical dev as the next candidate.',
+      'PyPI v0.1.0 remains the public release; validated v0.3.0 is staged on canonical dev as the next candidate.',
     trackerStatus: 'shipped',
     trackerScore: 100,
     lastUpdated: '2026-07-22',
