@@ -3,10 +3,7 @@
     "tmcp": {
       "command": "node",
       "args": ["/Users/jakyeamos/plugins/tmcp/scripts/tmcp_launcher.mjs"],
-      "cwd": "/Users/jakyeamos/plugins/tmcp",
-      "env": {
-        "AIOS_ROOT": "/Users/jakyeamos/AIOS"
-      }
+      "cwd": "/Users/jakyeamos/plugins/tmcp"
     }
   }
 }
