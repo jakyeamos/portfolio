@@ -1,0 +1,19 @@
+{
+  "sources": {
+    "aios": {
+      "type": "leverage-public-projection",
+      "path": "../ai-workflow-leverage/exports/public/portfolio",
+      "project": "AIOS"
+    }
+  },
+  "manual": [
+    "signal-lab",
+    "cap-fit-builder",
+    "agent-eval-runtime",
+    "ai-context-runtime",
+    "ai-workflow-leverage",
+    "mac-control",
+    "marketing-autoresearch",
+    "relay"
+  ]
+}

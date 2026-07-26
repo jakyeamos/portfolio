@@ -16,7 +16,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const DATA_FILE = resolve(ROOT, 'src/content/currentProjects.ts');
-const MAP_FILE = resolve(ROOT, '.tracker/truth-map.json');
+const MAP_FILE = resolve(ROOT, '.tracker/evidence-map.json');
 const VALID_STATUSES = new Set(['on_track', 'needs_attention', 'stalled', 'shipped']);
 const STRING_LITERAL_PATTERN = String.raw`(["'])((?:\\.|(?!\1)[\s\S])*)\1`;
 const args = new Set(process.argv.slice(2));

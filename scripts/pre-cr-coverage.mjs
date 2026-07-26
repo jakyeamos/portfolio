@@ -7,7 +7,7 @@ const root = resolve(import.meta.dirname, '..');
 const coveragePath = resolve(root, 'coverage/pre-cr.lcov');
 const sourceExtensions = /\.(?:[cm]?[jt]sx?)$/;
 const blogMarkdownPath = /^src\/content\/blog\/[^/]+\.md$/;
-const trackerMapPath = '.tracker/truth-map.json';
+const trackerMapPath = '.tracker/evidence-map.json';
 
 const changedFiles = execFileSync('git', ['diff', '--cached', '--name-only', 'HEAD'], {
   cwd: root,
