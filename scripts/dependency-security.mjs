@@ -2,6 +2,12 @@
 import { spawnSync } from 'node:child_process';
 
 const BLOCKING_SEVERITIES = ['high', 'critical'];
+const REVIEWED_NOT_APPLICABLE = new Map([
+  [
+    '1124282',
+    'React Router RSC-mode CSRF advisory; this repository is a Vite SPA and does not use React Router RSC/framework/server mode.',
+  ],
+]);
 const NETWORK_ERROR_PATTERNS = [
   /fetch failed/i,
   /ENOTFOUND/,
@@ -16,7 +22,9 @@ const NETWORK_ERROR_PATTERNS = [
 
 function skip(reason) {
   console.warn('[dependency:security] SKIPPED — ' + reason);
-  console.warn('[dependency:security] Registry audit is advisory-only and requires network; not blocking the commit.');
+  console.warn(
+    '[dependency:security] Registry audit is advisory-only and requires network; not blocking the commit.',
+  );
   process.exit(0);
 }
 
@@ -49,24 +57,52 @@ if (report?.error || !report?.metadata?.vulnerabilities) {
 }
 
 const counts = report.metadata.vulnerabilities ?? {};
-const blockingCount = BLOCKING_SEVERITIES.reduce((sum, sev) => sum + (counts[sev] ?? 0), 0);
+const blockingAdvisories = Object.values(report.advisories ?? {}).filter((advisory) => {
+  if (!BLOCKING_SEVERITIES.includes(advisory?.severity)) return false;
+  return !REVIEWED_NOT_APPLICABLE.has(String(advisory?.id));
+});
+const blockingCount = blockingAdvisories.length;
+
+for (const advisory of Object.values(report.advisories ?? {})) {
+  const reason = REVIEWED_NOT_APPLICABLE.get(String(advisory?.id));
+  if (reason) {
+    console.warn(
+      '[dependency:security] NOT APPLICABLE — ' + (advisory.module_name ?? '?') + ': ' + reason,
+    );
+  }
+}
 
 if (blockingCount > 0) {
-  console.error('[dependency:security] FAIL — ' + blockingCount + ' high/critical advisory(ies) found:');
+  console.error(
+    '[dependency:security] FAIL — ' + blockingCount + ' high/critical advisory(ies) found:',
+  );
   for (const sev of BLOCKING_SEVERITIES) {
-    if (counts[sev]) console.error('  - ' + sev + ': ' + counts[sev]);
+    const count = blockingAdvisories.filter((advisory) => advisory.severity === sev).length;
+    if (count) console.error('  - ' + sev + ': ' + count);
   }
-  const advisories = report?.advisories ?? {};
-  for (const advisory of Object.values(advisories)) {
-    if (BLOCKING_SEVERITIES.includes(advisory?.severity)) {
-      console.error('  * [' + advisory.severity + '] ' + (advisory.module_name ?? '?') + ': ' + (advisory.title ?? ''));
-    }
+  for (const advisory of blockingAdvisories) {
+    console.error(
+      '  * [' +
+        advisory.severity +
+        '] ' +
+        (advisory.module_name ?? '?') +
+        ': ' +
+        (advisory.title ?? ''),
+    );
   }
   console.error('[dependency:security] Run `pnpm audit` for details.');
   process.exit(1);
 }
 
-const summary = BLOCKING_SEVERITIES.map((sev) => (counts[sev] ?? 0) + ' ' + sev).join(', ');
+const summary = BLOCKING_SEVERITIES.map(
+  (sev) => blockingAdvisories.filter((advisory) => advisory.severity === sev).length + ' ' + sev,
+).join(', ');
 const lowModerate = ['low', 'moderate'].map((sev) => (counts[sev] ?? 0) + ' ' + sev).join(', ');
-console.log('[dependency:security] PASS — no high/critical advisories (' + summary + '; ' + lowModerate + ').');
+console.log(
+  '[dependency:security] PASS — no high/critical advisories (' +
+    summary +
+    '; ' +
+    lowModerate +
+    ').',
+);
 process.exit(0);

@@ -2,7 +2,7 @@
 
 Date of audit: 2026-06-23
 
-Gate source: `/Users/jakyeamos/AIOS/docs/quality/complexity-simplification-gate.md`
+Gate source: [portfolio quality contract](../.agents/context/done.md) and [coding conventions](../.agents/context/conventions.md)
 
 ## Scope Reviewed
 
@@ -67,4 +67,4 @@ Gate source: `/Users/jakyeamos/AIOS/docs/quality/complexity-simplification-gate.
 - Every extracted helper has the same externally visible behavior as the current page.
 - `pnpm lint` passes after each cleanup slice.
 - Any new test script uses `pnpm` and is recorded in `package.json`.
-- No always-loaded agent instruction is expanded for this cleanup; detailed guidance remains in the linked AIOS gate doc.
+- No always-loaded agent instruction is expanded for this cleanup; detailed guidance remains in the repository context packets.

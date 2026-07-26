@@ -34,16 +34,13 @@ function inspectFile(file) {
     if (specifier.startsWith('../../../') || specifier.startsWith('../../../../')) {
       violations.push({ rel, specifier, rule: 'no deep parent traversal imports' });
     }
-    if (rel.startsWith('packages/web/') && /@[^/]+\/(api|db)\/src/.test(specifier)) {
-      violations.push({ rel, specifier, rule: 'web must not import api/db src internals' });
-    }
   }
 }
 
 for (const sourceRoot of roots) walk(sourceRoot);
 
 if (violations.length > 0) {
-  console.error('AIOS architecture check failed:');
+  console.error('Architecture boundary check failed:');
   for (const violation of violations.slice(0, 50)) {
     console.error(`- ${violation.rel}: ${violation.rule} (${violation.specifier})`);
   }
@@ -51,4 +48,4 @@ if (violations.length > 0) {
   process.exit(1);
 }
 
-console.log('AIOS architecture check passed.');
+console.log('Architecture boundary check passed.');

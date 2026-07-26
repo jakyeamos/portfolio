@@ -152,7 +152,9 @@ function validateTrackerMap(slugs, trackerMap) {
   const known = new Set([...trackerMap.sources.keys(), ...trackerMap.manual]);
   const duplicates = [...trackerMap.sources.keys()].filter((slug) => trackerMap.manual.has(slug));
   const missing = slugs.filter((slug) => !known.has(normalizeKey(slug)));
-  const unused = [...known].filter((slug) => !slugs.some((projectSlug) => normalizeKey(projectSlug) === slug));
+  const unused = [...known].filter(
+    (slug) => !slugs.some((projectSlug) => normalizeKey(projectSlug) === slug),
+  );
 
   if (duplicates.length > 0 || missing.length > 0 || unused.length > 0) {
     const details = [
@@ -228,7 +230,10 @@ function validateLeverageProjection(payload, sourcePath) {
   if (payload.schema_version !== 'leverage-portfolio-public/v1') {
     throw new Error(`Unsupported leverage projection schema: ${sourcePath}`);
   }
-  if (payload.publication_status !== 'pending_manual_publish' || payload.manual_review_required !== true) {
+  if (
+    payload.publication_status !== 'pending_manual_publish' ||
+    payload.manual_review_required !== true
+  ) {
     throw new Error(`Leverage projection is not review-gated: ${sourcePath}`);
   }
   if (!Array.isArray(payload.projects)) {
@@ -288,7 +293,11 @@ function assertProjectionSafe(value, location) {
   }
   if (typeof value === 'string') {
     const lowered = value.toLowerCase();
-    if (['/users/', '\\users\\', 'api_key', 'bearer ', '-----begin'].some((term) => lowered.includes(term))) {
+    if (
+      ['/users/', '\\users\\', 'api_key', 'bearer ', '-----begin'].some((term) =>
+        lowered.includes(term),
+      )
+    ) {
       throw new Error(`Sensitive-looking leverage projection value at ${location}`);
     }
   }
@@ -338,7 +347,9 @@ for (const slug of projectSlugs) {
     try {
       ({ trackerScore, trackerStatus, lastUpdated } = readLeverageProjection(trackerSource, slug));
     } catch (error) {
-      console.error(`  invalid ${slug} leverage projection: ${error instanceof Error ? error.message : String(error)}`);
+      console.error(
+        `  invalid ${slug} leverage projection: ${error instanceof Error ? error.message : String(error)}`,
+      );
       process.exitCode = 1;
       continue;
     }
@@ -390,7 +401,9 @@ if (changed === 0) {
 }
 
 if (!writeMode) {
-  console.error(`Tracker drift detected in ${changed} project(s). Run pnpm tracker:sync to apply it.`);
+  console.error(
+    `Tracker drift detected in ${changed} project(s). Run pnpm tracker:sync to apply it.`,
+  );
   process.exit(1);
 }
 

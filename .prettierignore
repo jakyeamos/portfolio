@@ -5,3 +5,8 @@ dist/
 Draft_Refresh/
 node_modules/
 Redesign Basketball Project Dashboard/
+
+# Machine-generated or separately maintained operational documents.
+.planning/
+pnpm-lock.yaml
+TYPESCRIPT_7_UPGRADE_AUDIT.md

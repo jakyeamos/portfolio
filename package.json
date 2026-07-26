@@ -4,11 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "packageManager": "pnpm@11.7.0",
+  "engines": {
+    "node": ">=22.13.0"
+  },
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "pnpm shot-clips:check && pnpm demo-content:check && vite build && pnpm generate:project-pages",
     "generate:project-pages": "node scripts/generate-project-pages.mjs",
     "format": "prettier --check .",
+    "format:check": "pnpm format",
+    "architecture:check": "node scripts/check-architecture-boundaries.mjs",
+    "environment:check": "node scripts/check-environment-contract.mjs",
     "format:write": "prettier --write .",
     "preview": "vite preview",
     "lint": "tsc --noEmit",
@@ -24,7 +30,7 @@
     "demo-content:check": "node scripts/check-demo-content.mjs",
     "shot-clips:check": "node scripts/check-shot-clips.mjs",
     "audit:dead-code": "tsc --noEmit --noUnusedLocals --noUnusedParameters",
-    "precr:check": "pnpm test:content && pnpm lint && pnpm build",
+    "precr:check": "pnpm format:check && pnpm architecture:check && pnpm environment:check && pnpm test:content && pnpm lint && pnpm secret:scan && pnpm dependency:security && pnpm build",
     "env:check": "node scripts/validate-env.mjs",
     "secret:scan": "node scripts/secret-scan.mjs",
     "dependency:security": "node scripts/dependency-security.mjs",
@@ -36,20 +42,20 @@
     "lucide-react": "^0.546.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.14.0"
+    "react-router-dom": "^7.18.1"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",
     "@playwright/test": "^1.61.1",
-    "@tailwindcss/vite": "^4.1.14",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^22.14.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.0.4",
-    "netlify-cli": "^26.2.0",
+    "netlify-cli": "^27.0.0",
     "prettier": "^3.9.4",
     "tailwindcss": "^4.1.14",
     "typescript": "~5.8.2",
-    "vite": "^6.4.3"
+    "vite": "^7.3.6"
   }
 }
