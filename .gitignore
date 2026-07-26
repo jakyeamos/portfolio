@@ -33,3 +33,4 @@ __pycache__/
 .agents/*
 !.agents/context/
 !.agents/context/**
+.agents/context/market.md
