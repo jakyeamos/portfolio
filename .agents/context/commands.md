@@ -22,3 +22,8 @@ typecheck, test, secret scan, and build. `pnpm dependency:security` may report a
 non-blocking skip when the registry is unavailable; that uncertainty must stay
 visible in the report. `pnpm tracker:sync` is the only routine command here that
 intentionally edits public source data.
+
+The leverage runtime runs these commands in an isolated environment with
+`CI=1` and `LEVERAGE_AUDIT_DISPOSABLE=1`. The shot-clip check then validates
+allowlist path safety, public provenance, and clip integrity without requiring
+the unrelated sibling repositories to be mounted in that disposable tree.

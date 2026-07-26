@@ -10,6 +10,13 @@
       "coverageFormat": "lcov"
     }
   ],
+  "qualityAdapters": [
+    {
+      "name": "environment-contract",
+      "command": "pnpm environment:check",
+      "required": true
+    }
+  ],
   "threshold": 0,
   "checks": {
     "coverage": true,

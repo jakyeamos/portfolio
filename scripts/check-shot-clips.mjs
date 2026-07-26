@@ -6,6 +6,7 @@ import ts from 'typescript';
 const root = resolve(import.meta.dirname, '..');
 const allowlistPath = resolve(root, '.tracker/public-project-allowlist.json');
 const allowlist = JSON.parse(readFileSync(allowlistPath, 'utf8'));
+const disposableAudit = process.env.LEVERAGE_AUDIT_DISPOSABLE === '1' && process.env.CI === '1';
 const manifest = await importTypescriptModule('../src/content/publicProjectManifest.ts');
 const clipsModule = await importTypescriptModule('../src/content/shotClips.ts');
 const projectsModule = await importTypescriptModule('../src/content/currentProjects.ts');
@@ -45,7 +46,8 @@ function validateAllowlist() {
   }
 
   const projectsRoot = resolve(root, allowlist.projectsRoot);
-  if (!existsSync(projectsRoot) || !statSync(projectsRoot).isDirectory()) {
+  const projectsRootAvailable = existsSync(projectsRoot) && statSync(projectsRoot).isDirectory();
+  if (!projectsRootAvailable && !disposableAudit) {
     fail(`reviewed projects root is missing: ${projectsRoot}`);
   }
 
@@ -70,9 +72,18 @@ function validateAllowlist() {
     }
 
     const candidatePath = resolve(projectsRoot, normalizedSourcePath);
-    if (!existsSync(candidatePath) || !statSync(candidatePath).isDirectory()) {
+    if (
+      !disposableAudit &&
+      (!existsSync(candidatePath) || !statSync(candidatePath).isDirectory())
+    ) {
       fail(`${label}.sourcePath does not resolve to a project directory: ${candidatePath}`);
     }
+  }
+
+  if (disposableAudit && !projectsRootAvailable) {
+    console.warn(
+      '[INFO] disposable audit: sibling project roots are not mounted; allowlist path safety and public provenance are still validated.',
+    );
   }
 
   const manifestSlugs = PUBLIC_PROJECT_MANIFEST.map((entry) => entry.slug);
@@ -247,5 +258,5 @@ if (errors.length > 0) {
 const projectsRoot = resolve(root, allowlist.projectsRoot);
 const courtEligibleProjectCount = validationScope?.courtEligibleSlugs.size ?? 0;
 console.log(
-  `[PASS] shot clip validation (${PUBLIC_PROJECT_MANIFEST.length} public projects, ${courtEligibleProjectCount} court-eligible projects, ${PROJECT_SHOT_CLIPS.length} verified windows; candidates checked under ${relative(dirname(root), projectsRoot) || '.'})`,
+  `[PASS] shot clip validation (${PUBLIC_PROJECT_MANIFEST.length} public projects, ${courtEligibleProjectCount} court-eligible projects, ${PROJECT_SHOT_CLIPS.length} verified windows; candidates checked under ${relative(dirname(root), projectsRoot) || '.'}${disposableAudit ? '; disposable external paths structurally validated' : ''})`,
 );

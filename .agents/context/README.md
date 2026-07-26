@@ -24,3 +24,6 @@ packet, then inspect only the source files named by that packet and the task.
 The environment contract validates this index, packet links, command surface,
 secret placeholders, and workflow ownership. Run `pnpm environment:check` after
 changing routing, commands, security boundaries, or release controls.
+
+The local-only `market.md` packet is intentionally ignored and is not part of
+the routed repository contract.
