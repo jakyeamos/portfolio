@@ -71,6 +71,22 @@ export const CURRENT_PROJECTS: readonly CurrentProject[] = [
       'A useful architectural artifact, now intentionally retired as a monolith so its strongest capabilities can compound independently across the portfolio.',
   },
   {
+    slug: 'pronto',
+    title: 'Pronto',
+    shortCode: 'PR',
+    summary:
+      'Public v1 local-first desktop portfolio command center for Git repositories, with repository and worktree discovery, structured quality and CI-readiness evidence, provider-neutral GitHub snapshots, and read-only remediation and release-preparation previews.',
+    portfolioUpdate:
+      'Public v1 is implemented and verified; GitHub provider refresh and future per-repository remediation remain explicitly review-gated.',
+    trackerStatus: 'on_track',
+    trackerScore: 96,
+    lastUpdated: '2026-07-27',
+    tags: ['Tauri', 'React', 'Rust', 'SQLite', 'local-first'],
+    grades: { impact: 9, difficulty: 9, ambition: 9, creativity: 8 },
+    scoutTake:
+      'A strong systems bet: it turns a growing portfolio of repositories into inspectable evidence without pretending preparation is execution.',
+  },
+  {
     slug: 'agent-eval-runtime',
     title: 'Agent Eval Runtime',
     shortCode: 'AR',

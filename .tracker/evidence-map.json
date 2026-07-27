@@ -7,13 +7,26 @@
     }
   },
   "manual": [
+    "soundscape",
+    "terrace",
+    "bidcamp",
+    "taski",
+    "fantasy",
+    "remodelvision",
+    "bballedu",
+    "dispatches",
+    "book",
+    "github-issue-resolution-modeling",
     "signal-lab",
     "cap-fit-builder",
+    "clfe",
+    "rte",
     "agent-eval-runtime",
     "ai-context-runtime",
     "ai-workflow-leverage",
     "mac-control",
     "marketing-autoresearch",
-    "relay"
+    "relay",
+    "pronto"
   ]
 }

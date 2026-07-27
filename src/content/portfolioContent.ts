@@ -291,6 +291,7 @@ export const HIRING_MANAGER_READ: readonly HiringManagerRead[] = [
 ] as const;
 
 export const BREAKING_TICKER = [
+  'PRONTO PUBLIC V1 IS LIVE AS A READ-ONLY LOCAL-FIRST PORTFOLIO COMMAND CENTER FOR GIT REPOSITORIES',
   'QUALITY RUNNER V0.6.0 IS LIVE ON PYPI; AGENT EVAL CONTRACT V0.3.0 AND RESEARCH DOMAIN WRITING V0.3.0 ARE STAGED CANDIDATES',
   'ANTI-SLOP V0.5.0 AND PRE-CR PACKAGE SURFACES V0.1.0 ARE LIVE ON NPM',
   'TMCP V0.5.7 CLAUDE AND CODEX MARKETPLACE SMOKES PASSED; MCP REGISTRY DRAFT VALIDATES',
@@ -304,6 +305,12 @@ export const BREAKING_TICKER = [
 ] as const;
 
 export const TOP_HEADLINES: readonly Headline[] = [
+  {
+    category: 'Systems tape',
+    title: 'Pronto turns portfolio state into inspectable evidence',
+    meta: 'Public v1 | Tauri + React + Rust + SQLite | read-only refresh and preparation previews',
+    href: '/projects/pronto',
+  },
   {
     category: 'Release run',
     title: 'Developer-tool packages are now public across PyPI, npm, and MCP',
@@ -339,7 +346,7 @@ export const TOP_HEADLINES: readonly Headline[] = [
 export const HOME_FRONT_OFFICE_NOTES = [
   {
     label: 'Release note',
-    copy: 'The strongest new signal is not another concept: it is a run of public packages across PyPI, npm, and MCP/plugin distribution surfaces.',
+    copy: 'The strongest new signal is a public systems layer alongside the package run: Pronto makes repository quality and release-readiness evidence inspectable without crossing into execution.',
   },
   {
     label: 'Winning plays',
@@ -534,6 +541,11 @@ export const FILM_ROOM_PROJECTS: readonly FilmRoomProject[] = [
 
 export const BENCH_PROJECTS = [
   {
+    kicker: 'Portfolio command center',
+    title: 'Pronto',
+    copy: 'Public v1 local-first desktop surface for repository discovery, quality evidence, CI-readiness signals, GitHub snapshots, and read-only preparation previews.',
+  },
+  {
     kicker: 'Lint guardrail',
     title: 'ESLint Anti-Slop',
     copy: 'npm-released ESLint plugin that catches low-signal AI/code-review patterns before they land in TypeScript codebases.',
@@ -547,6 +559,16 @@ export const BENCH_PROJECTS = [
     kicker: 'MCP workflows',
     title: 'TMCP',
     copy: 'v0.5.7 Claude/Codex marketplace-smoked MCP/plugin distribution with launcher smokes, MCP Registry draft validation, and public tarball SHA-256 proof.',
+  },
+  {
+    kicker: 'Portable agent workflows',
+    title: 'Portable Agentic Workbench',
+    copy: 'Public vendor-neutral workbench for context management, workflow routing, safety, evaluation, and durable handoffs with explicit dry-run/apply boundaries.',
+  },
+  {
+    kicker: 'Contract surface',
+    title: 'Context Compiler Contract',
+    copy: 'Public repository of portable ESM validators for context-compiler results and routing manifests; runtime selection and compilation remain owned by AIOS.',
   },
 ] as const;
 

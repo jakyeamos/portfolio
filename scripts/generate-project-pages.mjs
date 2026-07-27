@@ -134,7 +134,7 @@ const [{ CURRENT_PROJECTS }, { MARKETING_PROJECT_REPOSITORIES }, { buildProjectM
     loadTypeScriptModule(resolve(root, 'src/lib/marketingMetadata.ts')),
   ]);
 const baseHtml = await readFile(join(dist, 'index.html'), 'utf8');
-const projectSlugs = ['soundscape', 'bballedu', 'book'];
+const projectSlugs = ['soundscape', 'bballedu', 'book', 'pronto'];
 
 for (const slug of projectSlugs) {
   const project = CURRENT_PROJECTS.find((item) => item.slug === slug);

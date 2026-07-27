@@ -1,4 +1,4 @@
-export const MARKETING_PROJECT_SLUGS = ['soundscape', 'bballedu', 'book'] as const;
+export const MARKETING_PROJECT_SLUGS = ['soundscape', 'bballedu', 'book', 'pronto'] as const;
 
 export type MarketingProjectSlug = (typeof MARKETING_PROJECT_SLUGS)[number];
 
@@ -6,6 +6,7 @@ export const MARKETING_PROJECT_REPOSITORIES: Readonly<Record<MarketingProjectSlu
   soundscape: 'https://github.com/jakyeamos/soundscape-app',
   bballedu: 'https://github.com/jakyeamos/BBDSE',
   book: 'https://github.com/jakyeamos/Book',
+  pronto: 'https://github.com/jakyeamos/pronto',
 };
 
 export function isMarketingProjectSlug(value: string): value is MarketingProjectSlug {
