@@ -1,0 +1,210 @@
+{
+  "schema": "mac-control-task-manifest/v1",
+  "repository_id": "repo-d804ccb41e6b757c",
+  "repository_name": "portfolio",
+  "applicability": "applicable",
+  "applicability_reason": "portfolio exposes runnable React/Vite portfolio UI; this manifest records its supported user-facing workflow catalog while live and measured evidence remain outstanding.",
+  "app": {
+    "name": "Portfolio web application"
+  },
+  "criteria": {
+    "stable_identity": true,
+    "correct_semantics": true,
+    "observable_state": true,
+    "useful_hierarchy": true,
+    "efficient_navigation": true,
+    "verifiable_outcomes": true,
+    "route_flexibility": true,
+    "stable_change_behavior": true
+  },
+  "tasks": [
+    {
+      "task_id": "open-film-room",
+      "stable_target_id": "portfolio.home.film-room",
+      "hierarchy": "portfolio > home > film-room",
+      "semantic_action": "press Open Film Room",
+      "observable_postcondition": "Film Room and selected project or empty state are visible",
+      "observable_states": [
+        "enabled",
+        "focused",
+        "selected",
+        "expanded",
+        "visible",
+        "loading",
+        "completed"
+      ],
+      "navigation_strategy": "semantic target lookup by stable identifier, accessible role, and label; use semantic scrolling when the target is offscreen",
+      "eligible_routes": [
+        "accessibility",
+        "keyboard",
+        "scrolling"
+      ],
+      "selected_route": "accessibility",
+      "change_states": [
+        "loading",
+        "modal",
+        "disabled",
+        "permission_unavailable"
+      ],
+      "accessibility": {
+        "identifier": "portfolio.home.film-room",
+        "label": "Open Film Room",
+        "role": "AXButton",
+        "required_actions": [
+          "AXPress"
+        ]
+      }
+    },
+    {
+      "task_id": "browse-project-roster",
+      "stable_target_id": "portfolio.projects.roster",
+      "hierarchy": "portfolio > projects > roster",
+      "semantic_action": "open the project roster",
+      "observable_postcondition": "Project cards and open-detail targets are readable",
+      "observable_states": [
+        "enabled",
+        "focused",
+        "selected",
+        "expanded",
+        "visible",
+        "loading",
+        "completed"
+      ],
+      "navigation_strategy": "semantic target lookup by stable identifier, accessible role, and label; use semantic scrolling when the target is offscreen",
+      "eligible_routes": [
+        "accessibility",
+        "keyboard",
+        "scrolling"
+      ],
+      "selected_route": "accessibility",
+      "change_states": [
+        "loading",
+        "modal",
+        "disabled",
+        "permission_unavailable"
+      ],
+      "accessibility": {
+        "identifier": "portfolio.projects.roster",
+        "label": "Browse the project roster",
+        "role": "AXLink",
+        "required_actions": [
+          "AXFocus",
+          "AXPress"
+        ]
+      }
+    },
+    {
+      "task_id": "open-scouting-report",
+      "stable_target_id": "portfolio.scouting-report",
+      "hierarchy": "portfolio > scouting-report",
+      "semantic_action": "open the scouting report",
+      "observable_postcondition": "Source-backed scouting report headings and evidence are readable",
+      "observable_states": [
+        "enabled",
+        "focused",
+        "selected",
+        "expanded",
+        "visible",
+        "loading",
+        "completed"
+      ],
+      "navigation_strategy": "semantic target lookup by stable identifier, accessible role, and label; use semantic scrolling when the target is offscreen",
+      "eligible_routes": [
+        "accessibility",
+        "keyboard",
+        "scrolling"
+      ],
+      "selected_route": "accessibility",
+      "change_states": [
+        "loading",
+        "modal",
+        "disabled",
+        "permission_unavailable"
+      ],
+      "accessibility": {
+        "identifier": "portfolio.scouting-report",
+        "label": "Read the scouting report",
+        "role": "AXLink",
+        "required_actions": [
+          "AXFocus",
+          "AXPress"
+        ]
+      }
+    },
+    {
+      "task_id": "review-impact-report",
+      "stable_target_id": "portfolio.impact-report",
+      "hierarchy": "portfolio > impact-report",
+      "semantic_action": "open the impact report",
+      "observable_postcondition": "Impact evidence and loading or empty state are readable",
+      "observable_states": [
+        "enabled",
+        "focused",
+        "selected",
+        "expanded",
+        "visible",
+        "loading",
+        "completed"
+      ],
+      "navigation_strategy": "semantic target lookup by stable identifier, accessible role, and label; use semantic scrolling when the target is offscreen",
+      "eligible_routes": [
+        "accessibility",
+        "keyboard",
+        "scrolling"
+      ],
+      "selected_route": "accessibility",
+      "change_states": [
+        "loading",
+        "modal",
+        "disabled",
+        "permission_unavailable"
+      ],
+      "accessibility": {
+        "identifier": "portfolio.impact-report",
+        "label": "Review source-backed impact",
+        "role": "AXLink",
+        "required_actions": [
+          "AXFocus",
+          "AXPress"
+        ]
+      }
+    },
+    {
+      "task_id": "download-resume",
+      "stable_target_id": "portfolio.home.resume",
+      "hierarchy": "portfolio > home > resume",
+      "semantic_action": "press Download resume",
+      "observable_postcondition": "Download starts or explicit unavailable state is visible",
+      "observable_states": [
+        "enabled",
+        "focused",
+        "selected",
+        "expanded",
+        "visible",
+        "loading",
+        "completed"
+      ],
+      "navigation_strategy": "semantic target lookup by stable identifier, accessible role, and label; use semantic scrolling when the target is offscreen",
+      "eligible_routes": [
+        "accessibility",
+        "keyboard",
+        "scrolling"
+      ],
+      "selected_route": "accessibility",
+      "change_states": [
+        "loading",
+        "modal",
+        "disabled",
+        "permission_unavailable"
+      ],
+      "accessibility": {
+        "identifier": "portfolio.home.resume",
+        "label": "Download resume",
+        "role": "AXButton",
+        "required_actions": [
+          "AXPress"
+        ]
+      }
+    }
+  ]
+}
