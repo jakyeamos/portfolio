@@ -7,17 +7,135 @@
     "audience": "Hiring managers, recruiters, collaborators, and public readers evaluating the owner's active work.",
     "core_loop": "Select approved project evidence, render a clear public status and work narrative, let a visitor inspect the relevant project surface, and keep the projection aligned with source truth.",
     "north_star": "A public visitor can understand what the owner has built and its current status without the portfolio overstating unverified work or exposing private context.",
-    "not_this": ["A private project database", "A projection of every local repository or dirty state", "A marketing surface that promotes unsupported claims"]
+    "not_this": [
+      "A private project database",
+      "A projection of every local repository or dirty state",
+      "A marketing surface that promotes unsupported claims"
+    ]
   },
   "targets": {
-    "mvp": {"definition": "The public app renders an allowlisted set of projects and status claims with clear navigation and source-bounded content."},
-    "complete_product": {"definition": "The portfolio maintains a trustworthy public projection of selected work with current evidence, accessible presentation, stable deployment, and explicit privacy boundaries."}
+    "mvp": {
+      "definition": "The public app renders an allowlisted set of projects and status claims with clear navigation and source-bounded content."
+    },
+    "complete_product": {
+      "definition": "The portfolio maintains a trustworthy public projection of selected work with current evidence, accessible presentation, stable deployment, and explicit privacy boundaries."
+    }
   },
   "pillars": [
-    {"id": "evidence-backed-projection", "name": "Evidence-backed projection", "outcomes": [{"id": "trustworthy-public-status", "name": "Public project status and descriptions come from approved evidence and preserve uncertainty instead of inventing completion.", "targets": ["mvp", "complete_product"], "maturity": 50, "confidence": "medium", "layers": {"intended": "Visitors receive an accurate, useful picture of selected work.", "planned": "The project defines an explicit content and tracker allowlist.", "implemented": "The Vite/React app provides the public projection surface.", "verified": "Local repository content supports the surface; hosted freshness and deployment behavior were not checked here."}, "evidence": [{"ref": "README.md", "note": "Defines the portfolio app and evidence-backed status projection.", "observed_at": "2026-08-02T13:25:04Z"}, {"ref": ".agents/context/README.md", "note": "Provides content and privacy context.", "observed_at": "2026-08-02T13:25:04Z"}], "blockers": [{"kind": "verification", "summary": "Current deployment, content freshness, and public/private projection parity need live verification."}]}]},
-    {"id": "clear-public-narrative", "name": "Clear public narrative", "outcomes": [{"id": "visitor-understanding", "name": "A visitor can understand the owner's product work, current state, and next evidence without navigating private implementation detail.", "targets": ["complete_product"], "maturity": 50, "confidence": "medium", "layers": {"intended": "The portfolio helps a visitor evaluate the work quickly and accurately.", "planned": "The application is organized around curated project surfaces.", "implemented": "The repository contains the public React presentation.", "verified": "No browser, accessibility, or hosted visitor flow was run in this bootstrap."}, "evidence": [{"ref": "README.md", "note": "Describes the public portfolio surface and audience.", "observed_at": "2026-08-02T13:25:04Z"}], "blockers": [{"kind": "verification", "summary": "Browser-level accessibility, deployment, and content review remain unverified."}]}]}
+    {
+      "id": "evidence-backed-projection",
+      "name": "Evidence-backed projection",
+      "outcomes": [
+        {
+          "id": "trustworthy-public-status",
+          "name": "Public project status and descriptions come from approved evidence and preserve uncertainty instead of inventing completion.",
+          "targets": ["mvp", "complete_product"],
+          "maturity": 50,
+          "confidence": "medium",
+          "layers": {
+            "intended": "Visitors receive an accurate, useful picture of selected work.",
+            "planned": "The project defines an explicit content and tracker allowlist.",
+            "implemented": "The Vite/React app provides the public projection surface.",
+            "verified": "Local repository content supports the surface; hosted freshness and deployment behavior were not checked here."
+          },
+          "evidence": [
+            {
+              "ref": "README.md",
+              "note": "Defines the portfolio app and evidence-backed status projection.",
+              "observed_at": "2026-08-02T13:25:04Z"
+            },
+            {
+              "ref": ".agents/context/README.md",
+              "note": "Provides content and privacy context.",
+              "observed_at": "2026-08-02T13:25:04Z"
+            }
+          ],
+          "blockers": [
+            {
+              "kind": "verification",
+              "summary": "Current deployment, content freshness, and public/private projection parity need live verification."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clear-public-narrative",
+      "name": "Clear public narrative",
+      "outcomes": [
+        {
+          "id": "visitor-understanding",
+          "name": "A visitor can understand the owner's product work, current state, and next evidence without navigating private implementation detail.",
+          "targets": ["complete_product"],
+          "maturity": 50,
+          "confidence": "medium",
+          "layers": {
+            "intended": "The portfolio helps a visitor evaluate the work quickly and accurately.",
+            "planned": "The application is organized around curated project surfaces.",
+            "implemented": "The repository contains the public React presentation.",
+            "verified": "No browser, accessibility, or hosted visitor flow was run in this bootstrap."
+          },
+          "evidence": [
+            {
+              "ref": "README.md",
+              "note": "Describes the public portfolio surface and audience.",
+              "observed_at": "2026-08-02T13:25:04Z"
+            }
+          ],
+          "blockers": [
+            {
+              "kind": "verification",
+              "summary": "Browser-level accessibility, deployment, and content review remain unverified."
+            }
+          ]
+        }
+      ]
+    }
   ],
-  "source_layers": {"intended": [{"ref": "README.md", "note": "Portfolio purpose and audience.", "observed_at": "2026-08-02T13:25:04Z"}], "planned": [{"ref": ".agents/context/README.md", "note": "Projection and content boundaries.", "observed_at": "2026-08-02T13:25:04Z"}], "implemented": [{"ref": "README.md", "note": "Current Vite/React surface.", "observed_at": "2026-08-02T13:25:04Z"}], "verified": [{"ref": "README.md", "note": "Documented local claims; no hosted browser verification here.", "observed_at": "2026-08-02T13:25:04Z"}]},
-  "drift": [{"kind": "verification-gap", "summary": "The trustworthy public projection outcome is locally described but not freshly verified for deployment, freshness, accessibility, or privacy parity.", "status": "open", "observed_at": "2026-08-02T13:25:04Z", "evidence": [{"ref": "README.md", "note": "Defines the projection without live deployment evidence.", "observed_at": "2026-08-02T13:25:04Z"}]}],
+  "source_layers": {
+    "intended": [
+      {
+        "ref": "README.md",
+        "note": "Portfolio purpose and audience.",
+        "observed_at": "2026-08-02T13:25:04Z"
+      }
+    ],
+    "planned": [
+      {
+        "ref": ".agents/context/README.md",
+        "note": "Projection and content boundaries.",
+        "observed_at": "2026-08-02T13:25:04Z"
+      }
+    ],
+    "implemented": [
+      {
+        "ref": "README.md",
+        "note": "Current Vite/React surface.",
+        "observed_at": "2026-08-02T13:25:04Z"
+      }
+    ],
+    "verified": [
+      {
+        "ref": "README.md",
+        "note": "Documented local claims; no hosted browser verification here.",
+        "observed_at": "2026-08-02T13:25:04Z"
+      }
+    ]
+  },
+  "drift": [
+    {
+      "kind": "verification-gap",
+      "summary": "The trustworthy public projection outcome is locally described but not freshly verified for deployment, freshness, accessibility, or privacy parity.",
+      "status": "open",
+      "observed_at": "2026-08-02T13:25:04Z",
+      "evidence": [
+        {
+          "ref": "README.md",
+          "note": "Defines the projection without live deployment evidence.",
+          "observed_at": "2026-08-02T13:25:04Z"
+        }
+      ]
+    }
+  ],
   "updated_at": "2026-08-02T13:25:04Z"
 }

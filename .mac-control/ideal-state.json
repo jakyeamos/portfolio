@@ -34,25 +34,14 @@
         "completed"
       ],
       "navigation_strategy": "semantic target lookup by stable identifier, accessible role, and label; use semantic scrolling when the target is offscreen",
-      "eligible_routes": [
-        "accessibility",
-        "keyboard",
-        "scrolling"
-      ],
+      "eligible_routes": ["accessibility", "keyboard", "scrolling"],
       "selected_route": "accessibility",
-      "change_states": [
-        "loading",
-        "modal",
-        "disabled",
-        "permission_unavailable"
-      ],
+      "change_states": ["loading", "modal", "disabled", "permission_unavailable"],
       "accessibility": {
         "identifier": "portfolio.home.film-room",
         "label": "Open Film Room",
         "role": "AXButton",
-        "required_actions": [
-          "AXPress"
-        ]
+        "required_actions": ["AXPress"]
       }
     },
     {
@@ -71,26 +60,14 @@
         "completed"
       ],
       "navigation_strategy": "semantic target lookup by stable identifier, accessible role, and label; use semantic scrolling when the target is offscreen",
-      "eligible_routes": [
-        "accessibility",
-        "keyboard",
-        "scrolling"
-      ],
+      "eligible_routes": ["accessibility", "keyboard", "scrolling"],
       "selected_route": "accessibility",
-      "change_states": [
-        "loading",
-        "modal",
-        "disabled",
-        "permission_unavailable"
-      ],
+      "change_states": ["loading", "modal", "disabled", "permission_unavailable"],
       "accessibility": {
         "identifier": "portfolio.projects.roster",
         "label": "Browse the project roster",
         "role": "AXLink",
-        "required_actions": [
-          "AXFocus",
-          "AXPress"
-        ]
+        "required_actions": ["AXFocus", "AXPress"]
       }
     },
     {
@@ -109,26 +86,14 @@
         "completed"
       ],
       "navigation_strategy": "semantic target lookup by stable identifier, accessible role, and label; use semantic scrolling when the target is offscreen",
-      "eligible_routes": [
-        "accessibility",
-        "keyboard",
-        "scrolling"
-      ],
+      "eligible_routes": ["accessibility", "keyboard", "scrolling"],
       "selected_route": "accessibility",
-      "change_states": [
-        "loading",
-        "modal",
-        "disabled",
-        "permission_unavailable"
-      ],
+      "change_states": ["loading", "modal", "disabled", "permission_unavailable"],
       "accessibility": {
         "identifier": "portfolio.scouting-report",
         "label": "Read the scouting report",
         "role": "AXLink",
-        "required_actions": [
-          "AXFocus",
-          "AXPress"
-        ]
+        "required_actions": ["AXFocus", "AXPress"]
       }
     },
     {
@@ -147,26 +112,14 @@
         "completed"
       ],
       "navigation_strategy": "semantic target lookup by stable identifier, accessible role, and label; use semantic scrolling when the target is offscreen",
-      "eligible_routes": [
-        "accessibility",
-        "keyboard",
-        "scrolling"
-      ],
+      "eligible_routes": ["accessibility", "keyboard", "scrolling"],
       "selected_route": "accessibility",
-      "change_states": [
-        "loading",
-        "modal",
-        "disabled",
-        "permission_unavailable"
-      ],
+      "change_states": ["loading", "modal", "disabled", "permission_unavailable"],
       "accessibility": {
         "identifier": "portfolio.impact-report",
         "label": "Review source-backed impact",
         "role": "AXLink",
-        "required_actions": [
-          "AXFocus",
-          "AXPress"
-        ]
+        "required_actions": ["AXFocus", "AXPress"]
       }
     },
     {
@@ -185,25 +138,14 @@
         "completed"
       ],
       "navigation_strategy": "semantic target lookup by stable identifier, accessible role, and label; use semantic scrolling when the target is offscreen",
-      "eligible_routes": [
-        "accessibility",
-        "keyboard",
-        "scrolling"
-      ],
+      "eligible_routes": ["accessibility", "keyboard", "scrolling"],
       "selected_route": "accessibility",
-      "change_states": [
-        "loading",
-        "modal",
-        "disabled",
-        "permission_unavailable"
-      ],
+      "change_states": ["loading", "modal", "disabled", "permission_unavailable"],
       "accessibility": {
         "identifier": "portfolio.home.resume",
         "label": "Download resume",
         "role": "AXButton",
-        "required_actions": [
-          "AXPress"
-        ]
+        "required_actions": ["AXPress"]
       }
     }
   ]
