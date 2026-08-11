@@ -20,7 +20,7 @@
     { "slug": "signal-lab", "sourcePath": "BBDSE/signal-lab" },
     { "slug": "cap-fit-builder", "sourcePath": "BBDSE/cap-fit-builder" },
     { "slug": "clfe", "sourcePath": "BBDSE/CLFE" },
-    { "slug": "rte", "sourcePath": "BBDSE/RTE" },
+    { "slug": "rte", "sourcePath": "BBDSE/RTE Transferable Signals" },
     { "slug": "quality-runner", "sourcePath": "quality-runner" },
     { "slug": "eslint-plugin-anti-slop", "sourcePath": "eslint-plugin-anti-slop" },
     { "slug": "agent-eval-contract", "sourcePath": "agent-eval-contract" },
