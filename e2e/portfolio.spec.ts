@@ -40,6 +40,51 @@ test('every public route loads directly without overflow or browser errors', asy
   expect(errors).toEqual([]);
 });
 
+test('Mac Control targets expose stable identities and route-specific postconditions', async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop', 'One semantic contract pass is sufficient.');
+
+  await page.goto('/');
+  const app = page.locator('[data-mac-control-id="portfolio.app"]');
+  await expect(app).toHaveAttribute('data-task-state', 'home_ready');
+
+  await page.locator('[data-mac-control-id="portfolio.home.film-room"]').click();
+  await expect(app).toHaveAttribute('data-task-state', 'film_room_ready');
+  await expect(page.locator('[data-mac-control-id="portfolio.film-room.surface"]')).toHaveAttribute(
+    'data-task-state',
+    'film_room_ready',
+  );
+
+  await page.goto('/');
+  await page.locator('[data-mac-control-id="portfolio.projects.roster"]').click();
+  await expect(app).toHaveAttribute('data-task-state', 'project_roster_ready');
+  await expect(
+    page.locator('[data-mac-control-id="portfolio.projects.active-roster"]'),
+  ).toBeVisible();
+
+  await page.goto('/');
+  await page.locator('[data-mac-control-id="portfolio.scouting-report"]').click();
+  await expect(app).toHaveAttribute('data-task-state', 'scouting_report_ready');
+
+  await page.goto('/');
+  await page.locator('[data-mac-control-id="portfolio.impact-report"]').click();
+  await expect(app).toHaveAttribute('data-task-state', 'impact_report_ready');
+
+  await page.goto('/');
+  const resume = page.locator('[data-mac-control-id="portfolio.home.resume"]');
+  await expect(resume).toHaveAttribute('download', 'Jakye_Amos_Canonical_Base_Resume.pdf');
+  const downloadPromise = page.waitForEvent('download');
+  await resume.click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe('Jakye_Amos_Canonical_Base_Resume.pdf');
+  await expect(page.locator('[data-mac-control-id="portfolio.home"]')).toHaveAttribute(
+    'data-task-state',
+    'resume_download_requested',
+  );
+  await expect(page.getByRole('status')).toContainText('Resume download requested');
+});
+
 test('the menu is usable at tablet and mobile widths', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name === 'desktop', 'Desktop navigation is already visible.');
 

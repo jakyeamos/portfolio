@@ -30,16 +30,34 @@ function ScrollToTop(): null {
 
 function AppContent(): ReactElement {
   const { isNightShift } = useEasterEggs();
+  const location = useLocation();
+  const taskState =
+    {
+      '/': 'home_ready',
+      '/film-room': 'film_room_ready',
+      '/projects': 'project_roster_ready',
+      '/scouting-report': 'scouting_report_ready',
+      '/impact-report': 'impact_report_ready',
+    }[location.pathname] ?? 'route_ready';
 
   return (
-    <div className={`site-shell min-h-screen flex flex-col ${isNightShift ? 'night-shift' : ''}`}>
+    <div
+      className={`site-shell min-h-screen flex flex-col ${isNightShift ? 'night-shift' : ''}`}
+      data-mac-control-id="portfolio.app"
+      data-task-state={taskState}
+    >
       <ScrollToTop />
       <MarketingInstrumentation />
       <TopNavBar />
       <div className="relative flex-1">
         <Suspense
           fallback={
-            <main className="page-wrap py-8" aria-live="polite">
+            <main
+              className="page-wrap py-8"
+              aria-live="polite"
+              data-mac-control-id="portfolio.route.loading"
+              data-task-state="loading"
+            >
               <div className="editorial-card p-6 text-sm font-semibold uppercase tracking-[0.16em] text-[color:var(--color-ink-soft)]">
                 Loading dossier…
               </div>

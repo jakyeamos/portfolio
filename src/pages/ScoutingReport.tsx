@@ -16,7 +16,11 @@ import {
 export default function ScoutingReport(): ReactElement {
   return (
     <div>
-      <main className="page-wrap py-6 md:py-8">
+      <main
+        className="page-wrap py-6 md:py-8"
+        data-mac-control-id="portfolio.scouting-report.surface"
+        data-task-state="scouting_report_ready"
+      >
         <section className="ticker-shell">
           <div className="ticker-label">Live Desk</div>
           <div className="ticker-window">

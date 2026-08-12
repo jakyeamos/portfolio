@@ -26,7 +26,11 @@ export default function CurrentProjects(): ReactElement {
   }, []);
 
   return (
-    <main className="page-wrap py-6 md:py-8">
+    <main
+      className="page-wrap py-6 md:py-8"
+      data-mac-control-id="portfolio.projects.surface"
+      data-task-state="project_roster_ready"
+    >
       <section className="max-w-4xl">
         <div className="section-kicker">Projects</div>
         <h1 className="mt-4 text-5xl font-black uppercase leading-[0.9] tracking-[-0.03em] text-[color:var(--color-ink)] md:text-7xl">
@@ -38,7 +42,11 @@ export default function CurrentProjects(): ReactElement {
         </p>
       </section>
 
-      <section className="mt-10" aria-labelledby="active-project-roster">
+      <section
+        className="mt-10"
+        aria-labelledby="active-project-roster"
+        data-mac-control-id="portfolio.projects.active-roster"
+      >
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <div className="section-kicker">Active roster</div>

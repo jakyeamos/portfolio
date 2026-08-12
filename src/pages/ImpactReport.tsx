@@ -27,7 +27,11 @@ export default function ImpactReport(): ReactElement {
 
   return (
     <div>
-      <main className="page-wrap py-6 md:py-8">
+      <main
+        className="page-wrap py-6 md:py-8"
+        data-mac-control-id="portfolio.impact-report.surface"
+        data-task-state="impact_report_ready"
+      >
         <section className="editorial-card p-6 md:p-8">
           <div className="max-w-5xl">
             <div className="section-kicker">Impact Report</div>

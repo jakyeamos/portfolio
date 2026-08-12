@@ -45,7 +45,11 @@ export default function FilmRoom(): ReactElement {
   const evidenceIsApproved = activeProject.evidence.reviewStatus === 'approved';
 
   return (
-    <main className="page-wrap py-6 md:py-8">
+    <main
+      className="page-wrap py-6 md:py-8"
+      data-mac-control-id="portfolio.film-room.surface"
+      data-task-state="film_room_ready"
+    >
       <section className="max-w-4xl">
         <div className="section-kicker">Film Room</div>
         <h1 className="mt-4 text-5xl font-black uppercase leading-[0.9] tracking-[-0.03em] text-[color:var(--color-ink)] md:text-7xl">

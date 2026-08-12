@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import { type ReactElement, useState } from 'react';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import EditorialPoster from '@/components/EditorialPoster';
@@ -15,9 +15,17 @@ import { trackMarketingLinkClick } from '@/lib/marketingAnalytics';
 
 export default function Home(): ReactElement {
   const { openEgg } = useEasterEggs();
+  const [taskState, setTaskState] = useState('home_ready');
 
   return (
-    <main className="page-wrap py-6 md:py-8">
+    <main
+      className="page-wrap py-6 md:py-8"
+      data-mac-control-id="portfolio.home"
+      data-task-state={taskState}
+    >
+      <p className="sr-only" role="status" aria-live="polite">
+        {taskState === 'resume_download_requested' ? 'Resume download requested' : ''}
+      </p>
       <section className="ticker-shell" aria-label="Latest signal">
         <div className="ticker-label">Latest signal</div>
         <div className="ticker-window">
@@ -45,7 +53,11 @@ export default function Home(): ReactElement {
               className="btn-primary"
               href="/docs/Jakye_Amos_Canonical_Base_Resume.pdf"
               download="Jakye_Amos_Canonical_Base_Resume.pdf"
-              onClick={() => trackMarketingLinkClick('/docs/Jakye_Amos_Canonical_Base_Resume.pdf')}
+              data-mac-control-id="portfolio.home.resume"
+              onClick={() => {
+                setTaskState('resume_download_requested');
+                trackMarketingLinkClick('/docs/Jakye_Amos_Canonical_Base_Resume.pdf');
+              }}
             >
               Download resume
               <ArrowUpRight className="ml-2" size={16} aria-hidden="true" />
@@ -108,7 +120,11 @@ export default function Home(): ReactElement {
               Three case studies, with the engineering read up front.
             </h2>
           </div>
-          <Link className="report-link shrink-0" to="/film-room">
+          <Link
+            className="report-link shrink-0"
+            to="/film-room"
+            data-mac-control-id="portfolio.home.film-room"
+          >
             Open Film Room
             <ArrowRight size={16} aria-hidden="true" />
           </Link>
@@ -187,15 +203,27 @@ export default function Home(): ReactElement {
         className="mt-10 flex flex-wrap gap-x-8 gap-y-4 border-t border-[color:var(--color-line)] pt-6"
         aria-label="Complete dossier"
       >
-        <Link className="report-link" to="/scouting-report">
+        <Link
+          className="report-link"
+          to="/scouting-report"
+          data-mac-control-id="portfolio.scouting-report"
+        >
           Read the scouting report
           <ArrowRight size={16} aria-hidden="true" />
         </Link>
-        <Link className="report-link" to="/projects">
+        <Link
+          className="report-link"
+          to="/projects"
+          data-mac-control-id="portfolio.projects.roster"
+        >
           Browse the project roster
           <ArrowRight size={16} aria-hidden="true" />
         </Link>
-        <Link className="report-link" to="/impact-report">
+        <Link
+          className="report-link"
+          to="/impact-report"
+          data-mac-control-id="portfolio.impact-report"
+        >
           Review source-backed impact
           <ArrowRight size={16} aria-hidden="true" />
         </Link>
