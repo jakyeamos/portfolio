@@ -1,151 +1,922 @@
 {
-  "schema": "mac-control-task-manifest/v1",
+  "schema": "mac-control-task-manifest/v4",
   "repository_id": "repo-d804ccb41e6b757c",
   "repository_name": "portfolio",
   "applicability": "applicable",
-  "applicability_reason": "portfolio exposes runnable React/Vite portfolio UI; this manifest records its supported user-facing workflow catalog while live and measured evidence remain outstanding.",
+  "applicability_reason": "The portfolio exposes five bounded web workflows with stable DOM identities, semantic links, route-specific task states, visible loading fallbacks, and browser-readable postconditions.",
   "app": {
     "name": "Portfolio web application"
   },
-  "criteria": {
-    "stable_identity": true,
-    "correct_semantics": true,
-    "observable_state": true,
-    "useful_hierarchy": true,
-    "efficient_navigation": true,
-    "verifiable_outcomes": true,
-    "route_flexibility": true,
-    "stable_change_behavior": true
-  },
+  "criteria": {},
   "tasks": [
     {
+      "surface_kind": "web_content",
+      "focus_policy": "foreground",
+      "foreground_postcondition": "target_foreground",
+      "fallback_policy": "fresh_state_handoff",
+      "change_states": ["loading"],
+      "change_state_exemptions": {
+        "modal": "These navigation and download actions do not own modal overlays.",
+        "disabled": "The published links are either present and enabled or absent; no disabled action is exposed.",
+        "permission_unavailable": "Public static routes require no app-level permission; browser download policy is reported by the live provider."
+      },
+      "navigation_strategy": "direct_semantic",
+      "route_candidates": [
+        {
+          "id": "browser-dom",
+          "provider": "browser_connector",
+          "method": "adapter",
+          "interaction_mode": "semantic"
+        },
+        {
+          "id": "computer-pointer",
+          "provider": "computer_use",
+          "method": "pointer",
+          "interaction_mode": "pointer"
+        }
+      ],
+      "shortcut_acceleration": {
+        "disposition": "not_applicable",
+        "reason": "The public web surface does not expose a stable app-managed shortcut or reversible shortcut assignment surface for this task."
+      },
       "task_id": "open-film-room",
       "stable_target_id": "portfolio.home.film-room",
-      "hierarchy": "portfolio > home > film-room",
-      "semantic_action": "press Open Film Room",
-      "observable_postcondition": "Film Room and selected project or empty state are visible",
-      "observable_states": [
-        "enabled",
-        "focused",
-        "selected",
-        "expanded",
-        "visible",
-        "loading",
-        "completed"
-      ],
-      "navigation_strategy": "semantic target lookup by stable identifier, accessible role, and label; use semantic scrolling when the target is offscreen",
-      "eligible_routes": ["accessibility", "keyboard", "scrolling"],
-      "selected_route": "accessibility",
-      "change_states": ["loading", "modal", "disabled", "permission_unavailable"],
+      "hierarchy": "portfolio.home > selected work > Open Film Room link",
+      "semantic_action": "click the named link",
+      "observable_postcondition": "portfolio.app data-task-state equals film_room_ready",
+      "observable_states": ["enabled", "focused", "visible", "loading", "completed"],
+      "state_exemptions": {
+        "selected": "The target is a navigation or download link rather than a selectable item.",
+        "expanded": "The target does not own an expandable disclosure."
+      },
       "accessibility": {
         "identifier": "portfolio.home.film-room",
         "label": "Open Film Room",
-        "role": "AXButton",
-        "required_actions": ["AXPress"]
+        "role": "link"
+      },
+      "verification_oracle": {
+        "oracle_id": "open-film-room.task-state",
+        "kind": "task_state",
+        "expected_state": "film_room_ready",
+        "independent_readback": true
+      },
+      "semantic_evidence": {
+        "stable_identity": {
+          "level": "source_grounded",
+          "claims": {
+            "selector_kind": "data_attribute",
+            "selector_value": "portfolio.home.film-room",
+            "scope": "portfolio.home",
+            "uniqueness": "exactly_one"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.home.film-room\"",
+              "evidence_tokens": ["Open Film Room", "to=\"/film-room\""]
+            }
+          ]
+        },
+        "correct_semantics": {
+          "level": "source_grounded",
+          "claims": {
+            "role": "link",
+            "accessible_name": "Open Film Room",
+            "action": "click"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.home.film-room\"",
+              "evidence_tokens": ["Open Film Room", "to=\"/film-room\"", "Link"]
+            }
+          ]
+        },
+        "observable_state": {
+          "level": "source_grounded",
+          "claims": {
+            "property": "data-task-state",
+            "unavailable_behavior": "block_and_explain"
+          },
+          "source_refs": [
+            {
+              "path": "src/App.tsx",
+              "anchor": "const taskState =",
+              "evidence_tokens": [
+                "film_room_ready",
+                "data-mac-control-id=\"portfolio.app\"",
+                "data-task-state={taskState}"
+              ]
+            }
+          ]
+        },
+        "useful_hierarchy": {
+          "level": "source_grounded",
+          "claims": {
+            "container": "portfolio.home",
+            "relationship": "portfolio.home > selected work > Open Film Room link",
+            "uniqueness": "exactly_one"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.home.film-room\"",
+              "evidence_tokens": ["Selected work", "Open Film Room"]
+            }
+          ]
+        },
+        "efficient_navigation": {
+          "level": "source_grounded",
+          "claims": {
+            "strategy": "direct_semantic",
+            "entry_point": "portfolio.home.film-room"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.home.film-room\"",
+              "evidence_tokens": ["Open Film Room", "to=\"/film-room\""]
+            }
+          ]
+        },
+        "verifiable_outcomes": {
+          "level": "source_grounded",
+          "claims": {
+            "readback_provider": "browser_connector",
+            "property": "data-task-state",
+            "operator": "equals",
+            "expected": "film_room_ready"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/FilmRoom.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.film-room.surface\"",
+              "evidence_tokens": ["data-task-state=\"film_room_ready\"", "Film Room"]
+            }
+          ]
+        },
+        "route_flexibility": {
+          "level": "source_grounded",
+          "claims": {
+            "primary_provider": "browser_connector",
+            "secondary_provider": "computer_use",
+            "fallback_policy": "fresh_state_handoff"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.home.film-room\"",
+              "evidence_tokens": ["Open Film Room", "to=\"/film-room\"", "className"]
+            }
+          ]
+        },
+        "stable_change_behavior": {
+          "level": "source_grounded",
+          "claims": {
+            "scenarios": "loading,modal,disabled,permission_unavailable",
+            "failure_behavior": "block_and_explain"
+          },
+          "source_refs": [
+            {
+              "path": "src/App.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.route.loading\"",
+              "evidence_tokens": ["data-task-state=\"loading\"", "aria-live=\"polite\""]
+            }
+          ]
+        }
       }
     },
     {
+      "surface_kind": "web_content",
+      "focus_policy": "foreground",
+      "foreground_postcondition": "target_foreground",
+      "fallback_policy": "fresh_state_handoff",
+      "change_states": ["loading"],
+      "change_state_exemptions": {
+        "modal": "These navigation and download actions do not own modal overlays.",
+        "disabled": "The published links are either present and enabled or absent; no disabled action is exposed.",
+        "permission_unavailable": "Public static routes require no app-level permission; browser download policy is reported by the live provider."
+      },
+      "navigation_strategy": "direct_semantic",
+      "route_candidates": [
+        {
+          "id": "browser-dom",
+          "provider": "browser_connector",
+          "method": "adapter",
+          "interaction_mode": "semantic"
+        },
+        {
+          "id": "computer-pointer",
+          "provider": "computer_use",
+          "method": "pointer",
+          "interaction_mode": "pointer"
+        }
+      ],
+      "shortcut_acceleration": {
+        "disposition": "not_applicable",
+        "reason": "The public web surface does not expose a stable app-managed shortcut or reversible shortcut assignment surface for this task."
+      },
       "task_id": "browse-project-roster",
       "stable_target_id": "portfolio.projects.roster",
-      "hierarchy": "portfolio > projects > roster",
-      "semantic_action": "open the project roster",
-      "observable_postcondition": "Project cards and open-detail targets are readable",
-      "observable_states": [
-        "enabled",
-        "focused",
-        "selected",
-        "expanded",
-        "visible",
-        "loading",
-        "completed"
-      ],
-      "navigation_strategy": "semantic target lookup by stable identifier, accessible role, and label; use semantic scrolling when the target is offscreen",
-      "eligible_routes": ["accessibility", "keyboard", "scrolling"],
-      "selected_route": "accessibility",
-      "change_states": ["loading", "modal", "disabled", "permission_unavailable"],
+      "hierarchy": "portfolio.home > complete dossier > project roster link",
+      "semantic_action": "click the named link",
+      "observable_postcondition": "portfolio.app data-task-state equals project_roster_ready",
+      "observable_states": ["enabled", "focused", "visible", "loading", "completed"],
+      "state_exemptions": {
+        "selected": "The target is a navigation or download link rather than a selectable item.",
+        "expanded": "The target does not own an expandable disclosure."
+      },
       "accessibility": {
         "identifier": "portfolio.projects.roster",
         "label": "Browse the project roster",
-        "role": "AXLink",
-        "required_actions": ["AXFocus", "AXPress"]
+        "role": "link"
+      },
+      "verification_oracle": {
+        "oracle_id": "browse-project-roster.task-state",
+        "kind": "task_state",
+        "expected_state": "project_roster_ready",
+        "independent_readback": true
+      },
+      "semantic_evidence": {
+        "stable_identity": {
+          "level": "source_grounded",
+          "claims": {
+            "selector_kind": "data_attribute",
+            "selector_value": "portfolio.projects.roster",
+            "scope": "portfolio.home",
+            "uniqueness": "exactly_one"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.projects.roster\"",
+              "evidence_tokens": ["Browse the project roster", "to=\"/projects\""]
+            }
+          ]
+        },
+        "correct_semantics": {
+          "level": "source_grounded",
+          "claims": {
+            "role": "link",
+            "accessible_name": "Browse the project roster",
+            "action": "click"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.projects.roster\"",
+              "evidence_tokens": ["Browse the project roster", "to=\"/projects\"", "Link"]
+            }
+          ]
+        },
+        "observable_state": {
+          "level": "source_grounded",
+          "claims": {
+            "property": "data-task-state",
+            "unavailable_behavior": "block_and_explain"
+          },
+          "source_refs": [
+            {
+              "path": "src/App.tsx",
+              "anchor": "const taskState =",
+              "evidence_tokens": [
+                "project_roster_ready",
+                "data-mac-control-id=\"portfolio.app\"",
+                "data-task-state={taskState}"
+              ]
+            }
+          ]
+        },
+        "useful_hierarchy": {
+          "level": "source_grounded",
+          "claims": {
+            "container": "portfolio.home",
+            "relationship": "portfolio.home > complete dossier > project roster link",
+            "uniqueness": "exactly_one"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.projects.roster\"",
+              "evidence_tokens": ["Complete dossier", "Browse the project roster"]
+            }
+          ]
+        },
+        "efficient_navigation": {
+          "level": "source_grounded",
+          "claims": {
+            "strategy": "direct_semantic",
+            "entry_point": "portfolio.projects.roster"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.projects.roster\"",
+              "evidence_tokens": ["Browse the project roster", "to=\"/projects\""]
+            }
+          ]
+        },
+        "verifiable_outcomes": {
+          "level": "source_grounded",
+          "claims": {
+            "readback_provider": "browser_connector",
+            "property": "data-task-state",
+            "operator": "equals",
+            "expected": "project_roster_ready"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/CurrentProjects.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.projects.surface\"",
+              "evidence_tokens": [
+                "data-task-state=\"project_roster_ready\"",
+                "portfolio.projects.active-roster"
+              ]
+            }
+          ]
+        },
+        "route_flexibility": {
+          "level": "source_grounded",
+          "claims": {
+            "primary_provider": "browser_connector",
+            "secondary_provider": "computer_use",
+            "fallback_policy": "fresh_state_handoff"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.projects.roster\"",
+              "evidence_tokens": ["Browse the project roster", "to=\"/projects\"", "className"]
+            }
+          ]
+        },
+        "stable_change_behavior": {
+          "level": "source_grounded",
+          "claims": {
+            "scenarios": "loading,modal,disabled,permission_unavailable",
+            "failure_behavior": "block_and_explain"
+          },
+          "source_refs": [
+            {
+              "path": "src/App.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.route.loading\"",
+              "evidence_tokens": ["data-task-state=\"loading\"", "aria-live=\"polite\""]
+            }
+          ]
+        }
       }
     },
     {
+      "surface_kind": "web_content",
+      "focus_policy": "foreground",
+      "foreground_postcondition": "target_foreground",
+      "fallback_policy": "fresh_state_handoff",
+      "change_states": ["loading"],
+      "change_state_exemptions": {
+        "modal": "These navigation and download actions do not own modal overlays.",
+        "disabled": "The published links are either present and enabled or absent; no disabled action is exposed.",
+        "permission_unavailable": "Public static routes require no app-level permission; browser download policy is reported by the live provider."
+      },
+      "navigation_strategy": "direct_semantic",
+      "route_candidates": [
+        {
+          "id": "browser-dom",
+          "provider": "browser_connector",
+          "method": "adapter",
+          "interaction_mode": "semantic"
+        },
+        {
+          "id": "computer-pointer",
+          "provider": "computer_use",
+          "method": "pointer",
+          "interaction_mode": "pointer"
+        }
+      ],
+      "shortcut_acceleration": {
+        "disposition": "not_applicable",
+        "reason": "The public web surface does not expose a stable app-managed shortcut or reversible shortcut assignment surface for this task."
+      },
       "task_id": "open-scouting-report",
       "stable_target_id": "portfolio.scouting-report",
-      "hierarchy": "portfolio > scouting-report",
-      "semantic_action": "open the scouting report",
-      "observable_postcondition": "Source-backed scouting report headings and evidence are readable",
-      "observable_states": [
-        "enabled",
-        "focused",
-        "selected",
-        "expanded",
-        "visible",
-        "loading",
-        "completed"
-      ],
-      "navigation_strategy": "semantic target lookup by stable identifier, accessible role, and label; use semantic scrolling when the target is offscreen",
-      "eligible_routes": ["accessibility", "keyboard", "scrolling"],
-      "selected_route": "accessibility",
-      "change_states": ["loading", "modal", "disabled", "permission_unavailable"],
+      "hierarchy": "portfolio.home > complete dossier > scouting report link",
+      "semantic_action": "click the named link",
+      "observable_postcondition": "portfolio.app data-task-state equals scouting_report_ready",
+      "observable_states": ["enabled", "focused", "visible", "loading", "completed"],
+      "state_exemptions": {
+        "selected": "The target is a navigation or download link rather than a selectable item.",
+        "expanded": "The target does not own an expandable disclosure."
+      },
       "accessibility": {
         "identifier": "portfolio.scouting-report",
         "label": "Read the scouting report",
-        "role": "AXLink",
-        "required_actions": ["AXFocus", "AXPress"]
+        "role": "link"
+      },
+      "verification_oracle": {
+        "oracle_id": "open-scouting-report.task-state",
+        "kind": "task_state",
+        "expected_state": "scouting_report_ready",
+        "independent_readback": true
+      },
+      "semantic_evidence": {
+        "stable_identity": {
+          "level": "source_grounded",
+          "claims": {
+            "selector_kind": "data_attribute",
+            "selector_value": "portfolio.scouting-report",
+            "scope": "portfolio.home",
+            "uniqueness": "exactly_one"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.scouting-report\"",
+              "evidence_tokens": ["Read the scouting report", "to=\"/scouting-report\""]
+            }
+          ]
+        },
+        "correct_semantics": {
+          "level": "source_grounded",
+          "claims": {
+            "role": "link",
+            "accessible_name": "Read the scouting report",
+            "action": "click"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.scouting-report\"",
+              "evidence_tokens": ["Read the scouting report", "to=\"/scouting-report\"", "Link"]
+            }
+          ]
+        },
+        "observable_state": {
+          "level": "source_grounded",
+          "claims": {
+            "property": "data-task-state",
+            "unavailable_behavior": "block_and_explain"
+          },
+          "source_refs": [
+            {
+              "path": "src/App.tsx",
+              "anchor": "const taskState =",
+              "evidence_tokens": [
+                "scouting_report_ready",
+                "data-mac-control-id=\"portfolio.app\"",
+                "data-task-state={taskState}"
+              ]
+            }
+          ]
+        },
+        "useful_hierarchy": {
+          "level": "source_grounded",
+          "claims": {
+            "container": "portfolio.home",
+            "relationship": "portfolio.home > complete dossier > scouting report link",
+            "uniqueness": "exactly_one"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.scouting-report\"",
+              "evidence_tokens": ["Complete dossier", "Read the scouting report"]
+            }
+          ]
+        },
+        "efficient_navigation": {
+          "level": "source_grounded",
+          "claims": {
+            "strategy": "direct_semantic",
+            "entry_point": "portfolio.scouting-report"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.scouting-report\"",
+              "evidence_tokens": ["Read the scouting report", "to=\"/scouting-report\""]
+            }
+          ]
+        },
+        "verifiable_outcomes": {
+          "level": "source_grounded",
+          "claims": {
+            "readback_provider": "browser_connector",
+            "property": "data-task-state",
+            "operator": "equals",
+            "expected": "scouting_report_ready"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/ScoutingReport.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.scouting-report.surface\"",
+              "evidence_tokens": ["data-task-state=\"scouting_report_ready\"", "Scouting Report"]
+            }
+          ]
+        },
+        "route_flexibility": {
+          "level": "source_grounded",
+          "claims": {
+            "primary_provider": "browser_connector",
+            "secondary_provider": "computer_use",
+            "fallback_policy": "fresh_state_handoff"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.scouting-report\"",
+              "evidence_tokens": [
+                "Read the scouting report",
+                "to=\"/scouting-report\"",
+                "className"
+              ]
+            }
+          ]
+        },
+        "stable_change_behavior": {
+          "level": "source_grounded",
+          "claims": {
+            "scenarios": "loading,modal,disabled,permission_unavailable",
+            "failure_behavior": "block_and_explain"
+          },
+          "source_refs": [
+            {
+              "path": "src/App.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.route.loading\"",
+              "evidence_tokens": ["data-task-state=\"loading\"", "aria-live=\"polite\""]
+            }
+          ]
+        }
       }
     },
     {
+      "surface_kind": "web_content",
+      "focus_policy": "foreground",
+      "foreground_postcondition": "target_foreground",
+      "fallback_policy": "fresh_state_handoff",
+      "change_states": ["loading"],
+      "change_state_exemptions": {
+        "modal": "These navigation and download actions do not own modal overlays.",
+        "disabled": "The published links are either present and enabled or absent; no disabled action is exposed.",
+        "permission_unavailable": "Public static routes require no app-level permission; browser download policy is reported by the live provider."
+      },
+      "navigation_strategy": "direct_semantic",
+      "route_candidates": [
+        {
+          "id": "browser-dom",
+          "provider": "browser_connector",
+          "method": "adapter",
+          "interaction_mode": "semantic"
+        },
+        {
+          "id": "computer-pointer",
+          "provider": "computer_use",
+          "method": "pointer",
+          "interaction_mode": "pointer"
+        }
+      ],
+      "shortcut_acceleration": {
+        "disposition": "not_applicable",
+        "reason": "The public web surface does not expose a stable app-managed shortcut or reversible shortcut assignment surface for this task."
+      },
       "task_id": "review-impact-report",
       "stable_target_id": "portfolio.impact-report",
-      "hierarchy": "portfolio > impact-report",
-      "semantic_action": "open the impact report",
-      "observable_postcondition": "Impact evidence and loading or empty state are readable",
-      "observable_states": [
-        "enabled",
-        "focused",
-        "selected",
-        "expanded",
-        "visible",
-        "loading",
-        "completed"
-      ],
-      "navigation_strategy": "semantic target lookup by stable identifier, accessible role, and label; use semantic scrolling when the target is offscreen",
-      "eligible_routes": ["accessibility", "keyboard", "scrolling"],
-      "selected_route": "accessibility",
-      "change_states": ["loading", "modal", "disabled", "permission_unavailable"],
+      "hierarchy": "portfolio.home > complete dossier > impact report link",
+      "semantic_action": "click the named link",
+      "observable_postcondition": "portfolio.app data-task-state equals impact_report_ready",
+      "observable_states": ["enabled", "focused", "visible", "loading", "completed"],
+      "state_exemptions": {
+        "selected": "The target is a navigation or download link rather than a selectable item.",
+        "expanded": "The target does not own an expandable disclosure."
+      },
       "accessibility": {
         "identifier": "portfolio.impact-report",
         "label": "Review source-backed impact",
-        "role": "AXLink",
-        "required_actions": ["AXFocus", "AXPress"]
+        "role": "link"
+      },
+      "verification_oracle": {
+        "oracle_id": "review-impact-report.task-state",
+        "kind": "task_state",
+        "expected_state": "impact_report_ready",
+        "independent_readback": true
+      },
+      "semantic_evidence": {
+        "stable_identity": {
+          "level": "source_grounded",
+          "claims": {
+            "selector_kind": "data_attribute",
+            "selector_value": "portfolio.impact-report",
+            "scope": "portfolio.home",
+            "uniqueness": "exactly_one"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.impact-report\"",
+              "evidence_tokens": ["Review source-backed impact", "to=\"/impact-report\""]
+            }
+          ]
+        },
+        "correct_semantics": {
+          "level": "source_grounded",
+          "claims": {
+            "role": "link",
+            "accessible_name": "Review source-backed impact",
+            "action": "click"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.impact-report\"",
+              "evidence_tokens": ["Review source-backed impact", "to=\"/impact-report\"", "Link"]
+            }
+          ]
+        },
+        "observable_state": {
+          "level": "source_grounded",
+          "claims": {
+            "property": "data-task-state",
+            "unavailable_behavior": "block_and_explain"
+          },
+          "source_refs": [
+            {
+              "path": "src/App.tsx",
+              "anchor": "const taskState =",
+              "evidence_tokens": [
+                "impact_report_ready",
+                "data-mac-control-id=\"portfolio.app\"",
+                "data-task-state={taskState}"
+              ]
+            }
+          ]
+        },
+        "useful_hierarchy": {
+          "level": "source_grounded",
+          "claims": {
+            "container": "portfolio.home",
+            "relationship": "portfolio.home > complete dossier > impact report link",
+            "uniqueness": "exactly_one"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.impact-report\"",
+              "evidence_tokens": ["Complete dossier", "Review source-backed impact"]
+            }
+          ]
+        },
+        "efficient_navigation": {
+          "level": "source_grounded",
+          "claims": {
+            "strategy": "direct_semantic",
+            "entry_point": "portfolio.impact-report"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.impact-report\"",
+              "evidence_tokens": ["Review source-backed impact", "to=\"/impact-report\""]
+            }
+          ]
+        },
+        "verifiable_outcomes": {
+          "level": "source_grounded",
+          "claims": {
+            "readback_provider": "browser_connector",
+            "property": "data-task-state",
+            "operator": "equals",
+            "expected": "impact_report_ready"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/ImpactReport.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.impact-report.surface\"",
+              "evidence_tokens": ["data-task-state=\"impact_report_ready\"", "Impact Report"]
+            }
+          ]
+        },
+        "route_flexibility": {
+          "level": "source_grounded",
+          "claims": {
+            "primary_provider": "browser_connector",
+            "secondary_provider": "computer_use",
+            "fallback_policy": "fresh_state_handoff"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.impact-report\"",
+              "evidence_tokens": [
+                "Review source-backed impact",
+                "to=\"/impact-report\"",
+                "className"
+              ]
+            }
+          ]
+        },
+        "stable_change_behavior": {
+          "level": "source_grounded",
+          "claims": {
+            "scenarios": "loading,modal,disabled,permission_unavailable",
+            "failure_behavior": "block_and_explain"
+          },
+          "source_refs": [
+            {
+              "path": "src/App.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.route.loading\"",
+              "evidence_tokens": ["data-task-state=\"loading\"", "aria-live=\"polite\""]
+            }
+          ]
+        }
       }
     },
     {
+      "surface_kind": "web_content",
+      "focus_policy": "foreground",
+      "foreground_postcondition": "target_foreground",
+      "fallback_policy": "fresh_state_handoff",
+      "change_states": ["loading"],
+      "change_state_exemptions": {
+        "modal": "These navigation and download actions do not own modal overlays.",
+        "disabled": "The published links are either present and enabled or absent; no disabled action is exposed.",
+        "permission_unavailable": "Public static routes require no app-level permission; browser download policy is reported by the live provider."
+      },
+      "navigation_strategy": "direct_semantic",
+      "route_candidates": [
+        {
+          "id": "browser-dom",
+          "provider": "browser_connector",
+          "method": "adapter",
+          "interaction_mode": "semantic"
+        },
+        {
+          "id": "computer-pointer",
+          "provider": "computer_use",
+          "method": "pointer",
+          "interaction_mode": "pointer"
+        }
+      ],
+      "shortcut_acceleration": {
+        "disposition": "not_applicable",
+        "reason": "The public web surface does not expose a stable app-managed shortcut or reversible shortcut assignment surface for this task."
+      },
       "task_id": "download-resume",
       "stable_target_id": "portfolio.home.resume",
-      "hierarchy": "portfolio > home > resume",
-      "semantic_action": "press Download resume",
-      "observable_postcondition": "Download starts or explicit unavailable state is visible",
-      "observable_states": [
-        "enabled",
-        "focused",
-        "selected",
-        "expanded",
-        "visible",
-        "loading",
-        "completed"
-      ],
-      "navigation_strategy": "semantic target lookup by stable identifier, accessible role, and label; use semantic scrolling when the target is offscreen",
-      "eligible_routes": ["accessibility", "keyboard", "scrolling"],
-      "selected_route": "accessibility",
-      "change_states": ["loading", "modal", "disabled", "permission_unavailable"],
+      "hierarchy": "portfolio.home > recruiting dossier > resume download link",
+      "semantic_action": "click the named link",
+      "observable_postcondition": "portfolio.home data-task-state equals resume_download_requested and the browser reports a resume download",
+      "observable_states": ["enabled", "focused", "visible", "loading", "completed"],
+      "state_exemptions": {
+        "selected": "The target is a navigation or download link rather than a selectable item.",
+        "expanded": "The target does not own an expandable disclosure."
+      },
       "accessibility": {
         "identifier": "portfolio.home.resume",
         "label": "Download resume",
-        "role": "AXButton",
-        "required_actions": ["AXPress"]
+        "role": "link"
+      },
+      "verification_oracle": {
+        "oracle_id": "download-resume.task-state",
+        "kind": "task_state",
+        "expected_state": "resume_download_requested",
+        "independent_readback": true
+      },
+      "semantic_evidence": {
+        "stable_identity": {
+          "level": "source_grounded",
+          "claims": {
+            "selector_kind": "data_attribute",
+            "selector_value": "portfolio.home.resume",
+            "scope": "portfolio.home",
+            "uniqueness": "exactly_one"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.home.resume\"",
+              "evidence_tokens": [
+                "Download resume",
+                "download=\"Jakye_Amos_Canonical_Base_Resume.pdf\""
+              ]
+            }
+          ]
+        },
+        "correct_semantics": {
+          "level": "source_grounded",
+          "claims": {
+            "role": "link",
+            "accessible_name": "Download resume",
+            "action": "click"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.home.resume\"",
+              "evidence_tokens": [
+                "Download resume",
+                "download=\"Jakye_Amos_Canonical_Base_Resume.pdf\"",
+                "Link"
+              ]
+            }
+          ]
+        },
+        "observable_state": {
+          "level": "source_grounded",
+          "claims": {
+            "property": "data-task-state",
+            "unavailable_behavior": "block_and_explain"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.home\"",
+              "evidence_tokens": [
+                "resume_download_requested",
+                "data-mac-control-id=\"portfolio.home\"",
+                "data-task-state={taskState}"
+              ]
+            }
+          ]
+        },
+        "useful_hierarchy": {
+          "level": "source_grounded",
+          "claims": {
+            "container": "portfolio.home",
+            "relationship": "portfolio.home > recruiting dossier > resume download link",
+            "uniqueness": "exactly_one"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.home.resume\"",
+              "evidence_tokens": ["Recruiting dossier", "Download resume"]
+            }
+          ]
+        },
+        "efficient_navigation": {
+          "level": "source_grounded",
+          "claims": {
+            "strategy": "direct_semantic",
+            "entry_point": "portfolio.home.resume"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.home.resume\"",
+              "evidence_tokens": [
+                "Download resume",
+                "download=\"Jakye_Amos_Canonical_Base_Resume.pdf\""
+              ]
+            }
+          ]
+        },
+        "verifiable_outcomes": {
+          "level": "source_grounded",
+          "claims": {
+            "readback_provider": "browser_connector",
+            "property": "data-task-state",
+            "operator": "equals",
+            "expected": "resume_download_requested"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "setTaskState('resume_download_requested')",
+              "evidence_tokens": ["Resume download requested", "role=\"status\""]
+            }
+          ]
+        },
+        "route_flexibility": {
+          "level": "source_grounded",
+          "claims": {
+            "primary_provider": "browser_connector",
+            "secondary_provider": "computer_use",
+            "fallback_policy": "fresh_state_handoff"
+          },
+          "source_refs": [
+            {
+              "path": "src/pages/Home.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.home.resume\"",
+              "evidence_tokens": [
+                "Download resume",
+                "download=\"Jakye_Amos_Canonical_Base_Resume.pdf\"",
+                "className"
+              ]
+            }
+          ]
+        },
+        "stable_change_behavior": {
+          "level": "source_grounded",
+          "claims": {
+            "scenarios": "loading,modal,disabled,permission_unavailable",
+            "failure_behavior": "block_and_explain"
+          },
+          "source_refs": [
+            {
+              "path": "src/App.tsx",
+              "anchor": "data-mac-control-id=\"portfolio.route.loading\"",
+              "evidence_tokens": ["data-task-state=\"loading\"", "aria-live=\"polite\""]
+            }
+          ]
+        }
       }
     }
   ]
