@@ -422,7 +422,7 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Released PyPI package with typed contracts for agent evaluations: cases, rubrics, evidence, run metadata, and result payloads that stay consistent across evaluators.',
     portfolioUpdate:
-      'PyPI v0.2.0 remains the public release; validated v0.3.0 is staged on canonical dev as the next candidate.',
+      'PyPI v0.2.0 remains the public package release; the public v0.3.0 repository tag is staged ahead of package publication.',
     trackerStatus: 'shipped',
     trackerScore: 100,
     lastUpdated: '2026-07-22',
@@ -438,7 +438,7 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Released PyPI package for research-grounded writing workflows that preserve source evidence, domain framing, and claim discipline from research through draft output.',
     portfolioUpdate:
-      'PyPI v0.1.0 remains the public release; validated v0.3.0 is staged on canonical dev as the next candidate.',
+      'PyPI v0.1.0 remains public; the public v0.2.2 repository tag is available, with v0.3.0 staged on canonical dev.',
     trackerStatus: 'shipped',
     trackerScore: 100,
     lastUpdated: '2026-07-22',
@@ -454,10 +454,10 @@ export const CLOSED_PROJECTS: readonly CurrentProject[] = [
     summary:
       'Released Claude + Codex marketplace-tested MCP/plugin distribution for composable skill-packet workflows including expert audits, release readiness, UI rubrics, routing policies, and agent handoffs.',
     portfolioUpdate:
-      'The v0.5.7 release is verified across marketplace install flows and public package integrity checks.',
+      'The v0.5.8 GitHub release is current; marketplace and package-integrity evidence remain the distribution proof surface.',
     trackerStatus: 'shipped',
     trackerScore: 100,
-    lastUpdated: '2026-07-22',
+    lastUpdated: '2026-08-12',
     tags: ['Python', 'MCP', 'Claude', 'Codex', 'agent-workflows'],
     grades: { impact: 8, difficulty: 8, ambition: 9, creativity: 9 },
     scoutTake:

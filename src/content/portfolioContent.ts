@@ -292,9 +292,9 @@ export const HIRING_MANAGER_READ: readonly HiringManagerRead[] = [
 
 export const BREAKING_TICKER = [
   'PRONTO PUBLIC V1 IS LIVE AS A READ-ONLY LOCAL-FIRST PORTFOLIO COMMAND CENTER FOR GIT REPOSITORIES',
-  'QUALITY RUNNER V0.6.0 IS LIVE ON PYPI; AGENT EVAL CONTRACT V0.3.0 AND RESEARCH DOMAIN WRITING V0.3.0 ARE STAGED CANDIDATES',
+  'QUALITY RUNNER V0.6.0 IS LIVE ON PYPI; AGENT EVAL CONTRACT V0.3.0 IS STAGED AHEAD OF PYPI; RESEARCH DOMAIN WRITING V0.3.0 REMAINS STAGED ON DEV',
   'ANTI-SLOP V0.5.0 AND PRE-CR PACKAGE SURFACES V0.1.0 ARE LIVE ON NPM',
-  'TMCP V0.5.7 CLAUDE AND CODEX MARKETPLACE SMOKES PASSED; MCP REGISTRY DRAFT VALIDATES',
+  'TMCP V0.5.8 GITHUB RELEASE IS CURRENT; MARKETPLACE AND MCP REGISTRY EVIDENCE REMAIN THE DISTRIBUTION PROOF SURFACE',
   'TERRACE V0.1.1 REMAINS LIVE ON NPM; V0.2.0 IS STAGED FOR THE NEXT DISTRIBUTION PASS',
   'AMAZON SDE INTERN ACROSS ADS AND FINTECH SYSTEMS FROM 2023 THROUGH 2025',
   'CLEVELAND CLINIC CLINICAL COACHING MVP SHIPPED IN 2 WEEKS',
@@ -314,7 +314,7 @@ export const TOP_HEADLINES: readonly Headline[] = [
   {
     category: 'Release run',
     title: 'Developer-tool packages are now public across PyPI, npm, and MCP',
-    meta: 'Quality Runner 0.6.0, Anti-Slop 0.5.0, Pre-CR 0.1.0, TMCP 0.5.7; AEC and RDW candidates remain staged',
+    meta: 'Quality Runner 0.6.0, Anti-Slop 0.5.0, Pre-CR 0.1.0, TMCP 0.5.8; AEC and RDW candidates remain staged',
     href: '/projects',
   },
   {
@@ -558,7 +558,7 @@ export const BENCH_PROJECTS = [
   {
     kicker: 'MCP workflows',
     title: 'TMCP',
-    copy: 'v0.5.7 Claude/Codex marketplace-smoked MCP/plugin distribution with launcher smokes, MCP Registry draft validation, and public tarball SHA-256 proof.',
+    copy: 'Current v0.5.8 GitHub release for Claude/Codex MCP/plugin distribution; marketplace smokes, MCP Registry validation, and public tarball proof remain the distribution evidence surface.',
   },
   {
     kicker: 'Portable agent workflows',

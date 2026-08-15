@@ -142,19 +142,22 @@ export const PUBLIC_PROJECT_MANIFEST: readonly PublicProjectManifestEntry[] = [
   {
     slug: 'agent-eval-contract',
     reviewedAt: '2026-07-22',
-    reviewNote: 'PyPI v0.2.0 is public; validated v0.3.0 remains a staged dev candidate.',
+    reviewNote:
+      'PyPI v0.2.0 is public; the public v0.3.0 repository tag is staged ahead of package publication.',
     courtEligible: true,
   },
   {
     slug: 'research-domain-writing',
     reviewedAt: '2026-07-22',
-    reviewNote: 'PyPI v0.1.0 is public; validated v0.3.0 remains a staged dev candidate.',
+    reviewNote:
+      'PyPI v0.1.0 is public; the public v0.2.2 repository tag is available, with v0.3.0 staged on dev.',
     courtEligible: true,
   },
   {
     slug: 'tmcp',
-    reviewedAt: '2026-07-22',
-    reviewNote: 'v0.5.7 GitHub release and marketplace/package integrity evidence are verified.',
+    reviewedAt: '2026-08-12',
+    reviewNote:
+      'v0.5.8 GitHub release is current; marketplace/package integrity evidence remain the distribution proof surface.',
     courtEligible: true,
   },
   {
