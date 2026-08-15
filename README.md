@@ -48,8 +48,7 @@ The package is marked private in `package.json`, so it is intended for local wor
 - `pnpm tracker:check` - report evidence-projection drift without writing source files
 - `pnpm tracker:weekly` - run the main-branch tracker refresh gates, then confirm the Netlify production deploy is on the refreshed commit
 - `pnpm deploy:status` - check the latest Netlify deploy through the Netlify API
-- `pnpm netlify:status` - run `netlify status` through the repo-local CLI wrapper
-- `pnpm netlify:cli -- <args>` - run the pinned local Netlify CLI with sandbox-safe config paths
+- `pnpm netlify:status` - compatibility alias for the API-backed deploy status check
 
 ## Development Notes
 
@@ -62,7 +61,7 @@ Blog posts live as Markdown files in `src/content/blog/*.md`. The public `/blog`
 
 The local owner writer is available at `/blog/write` only during `pnpm dev`; it is not included in production builds. It does not publish directly and emits canonical Markdown for the author’s private handoff workflow.
 
-Use the repo-local Netlify CLI through `pnpm netlify:cli -- ...` or the shortcut `pnpm netlify:status`; avoid the older globally installed `netlify` binary for automation. The wrapper redirects Netlify config/cache writes into temporary directories so local status checks do not fail on macOS preference/config-store permissions. To verify production deploys without depending on CLI login/config state, set `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`, then run `pnpm deploy:status`. Set `NETLIFY_EXPECTED_COMMIT=<sha>` when you need the check to fail unless the latest ready production deploy matches a specific commit.
+Use the API-backed `pnpm deploy:status` command or its `pnpm netlify:status` compatibility alias for deployment verification. Both require `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`, avoid local CLI login/config state, and keep the repository free of the Netlify CLI's unpatched development-only dependency chain. Set `NETLIFY_EXPECTED_COMMIT=<sha>` when you need the check to fail unless the latest ready production deploy matches a specific commit.
 
 `pnpm tracker:weekly` is the production refresh entry point for the weekly status workflow. It runs only from `main` by default, performs the explicit evidence sync, content checks, linting, and a build, requires the refreshed state to be committed, then checks the latest Netlify production deploy for `main` against the current `HEAD` commit. It waits up to `NETLIFY_DEPLOY_WAIT_SECONDS` seconds, defaulting to 300 for this workflow, so the deploy can finish after the refreshed commit is pushed.
 
